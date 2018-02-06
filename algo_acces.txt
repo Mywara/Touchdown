@@ -1,0 +1,82 @@
+Algorithme :
+
+read : liste des blocs accessibles (pile - Stack<Block>)
+blocks : liste des blocs qu'il reste à voir
+
+read.add(blocks.get(0));
+blocks.remove(blocks.get(0));
+
+Tant que (read.size() != 0){
+	Block b = read.Pop();
+
+	//si il y a un bloc au-dessus
+	if(Map.getBlockAt(b.getX(), b.getY()-1) != null){
+		Block bTop = Map.getBlockAt(b.getX(), b.getY()-1);
+
+		//sortir du if si le bloc supérieur a déjà été traité
+		//ou s'il est déjà présent dans la pile des blocs à lire
+		if(bTop.isVisited() || read.contains(bTop)) break;
+
+		//check si on peut accéder à la case supérieure
+		if(b.isAccessible(top) && bTop.isAccessible(bottom)){
+			//dans ce cas ajouter à la pile des vus bTop
+			//et le supprimer de la liste des blocs non vus
+			read.push(bTop);
+			blocks.remove(bTop);
+		}
+	}
+
+	//si il y a un bloc à droite
+	if(Map.getBlockAt(b.getX()+1, b.getY()) != null){
+		Block bRight = Map.getBlockAt(b.getX()+1, b.getY());
+
+		//sortir du if si le bloc de droite a déjà été traité
+		//ou s'il est déjà présent dans la pile des blocs à lire
+		if(bRight.isVisited() || read.contains(bRight)) break;
+
+		//check si on peut accéder à la case de droite
+		if(b.isAccessible(right) && bTop.isAccessible(left)){
+			//dans ce cas ajouter à la pile des vus bRight
+			//et le supprimer de la liste des blocs non vus
+			read.push(bRight);
+			blocks.remove(bRight);
+		}
+	}
+
+	//si il y a un bloc en-dessous
+	if(Map.getBlockAt(b.getX(), b.getY()+1) != null){
+		Block bBottom = Map.getBlockAt(b.getX(), b.getY()+1);
+
+		//sortir du if si le bloc inférieur a déjà été traité
+		//ou s'il est déjà présent dans la pile des blocs à lire
+		if(bBottom.isVisited() || read.contains(bBottom)) break;
+
+		//check si on peut accéder à la case inférieure
+		if(b.isAccessible(bottom) && bTop.isAccessible(top)){
+			//dans ce cas ajouter à la pile des vus bBottom
+			//et le supprimer de la liste des blocs non vus
+			read.push(bBottom);
+			blocks.remove(bBottom);
+		}
+	}
+
+	//si il y a un bloc à gauche
+	if(Map.getBlockAt(b.getX()-1, b.getY()) != null){
+		Block bLeft = Map.getBlockAt(b.getX()-1, b.getY());
+
+		//sortir du if si le bloc de gauche a déjà été traité
+		//ou s'il est déjà présent dans la pile des blocs à lire
+		if(bLeft.isVisited() || read.contains(bLeft)) break;
+
+		//check si on peut accéder à la case de gauche
+		if(b.isAccessible(left) && bTop.isAccessible(right)){
+			//dans ce cas ajouter à la pile des vus bLeft
+			//et le supprimer de la liste des blocs non vus
+			read.push(bLeft);
+			blocks.remove(bLeft);
+		}
+	}
+
+	//Enfin on ajoute le bloc actuel à la liste des blocs visités
+	visited.add(b);
+}
