@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoAttaqueRanged : MonoBehaviour {
+public class AutoAttaqueRanged : Photon.PunBehaviour {
 
     public float impactDamage = 10;
     public float splashDamage = 0;
@@ -19,12 +19,19 @@ public class AutoAttaqueRanged : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
+	void Update ()
+    {
+        if (!photonView.isMine && PhotonNetwork.connected == true)
+        {
+            return;
+        }
         if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
-            GameObject projo = Instantiate(projectilePrefab, projectileSpawn.position, projectileSpawn.rotation).gameObject as GameObject;
+            //Pour le local
+            //GameObject projo = Instantiate(projectilePrefab, projectileSpawn.position, projectileSpawn.rotation).gameObject as GameObject;
+            //Pour le reseau
+            GameObject projo = PhotonNetwork.Instantiate(this.projectilePrefab.name, projectileSpawn.position, projectileSpawn.rotation, 0);
             Projectile projectileScript = projo.GetComponent<Projectile>();
             if(projectileScript != null)
             {

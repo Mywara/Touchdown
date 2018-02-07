@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Photon.PunBehaviour
 {
 
     public float movementSpeed = 10;
@@ -28,6 +28,10 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!photonView.isMine && PhotonNetwork.connected == true)
+        {
+            return;
+        }
         // saut perso
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
@@ -38,6 +42,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (!photonView.isMine && PhotonNetwork.connected == true)
+        {
+            return;
+        }
         // translation perso
         float horizontal = Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime;
         transform.Translate(horizontal, 0, 0);
@@ -58,6 +66,10 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
+        if (!photonView.isMine && PhotonNetwork.connected == true)
+        {
+            return;
+        }
         if (other.gameObject.tag == "Floor" && isGrounded == false)
         {
             isGrounded = true;
@@ -66,6 +78,10 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionExit(Collision other)
     {
+        if (!photonView.isMine && PhotonNetwork.connected == true)
+        {
+            return;
+        }
         if (other.gameObject.tag == "Floor" && isGrounded == true)
         {
             isGrounded = false;

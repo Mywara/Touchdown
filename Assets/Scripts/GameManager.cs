@@ -48,7 +48,8 @@ namespace PUNTutorial
         void OnLevelWasLoaded(int levelNumber)
         {
             if (!PhotonNetwork.inRoom) return;
-            localPlayer = PhotonNetwork.Instantiate("TempPlayer", new Vector3(0, 0.5f, 0), Quaternion.identity, 0);
+            //localPlayer = PhotonNetwork.Instantiate("TempPlayer", new Vector3(0, 0.5f, 0), Quaternion.identity, 0);
+            localPlayer = PhotonNetwork.Instantiate("Pirate", new Vector3(0, 2f, 0), Quaternion.identity, 0);
         }
     }
 }

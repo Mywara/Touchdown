@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour {
+public class Projectile : MonoBehaviour, IPunObservable {
 
     public float impactDamage = 10;
     public float splashDamage = 0;
@@ -10,9 +10,12 @@ public class Projectile : MonoBehaviour {
     public float speed = 10;
     public string team;
 
-	// Use this for initialization
-	void Start () {
-        Rigidbody myRb = this.gameObject.GetComponent<Rigidbody>();
+    private Rigidbody myRb;
+    private bool netWorkingDone = false;
+
+    // Use this for initialization
+    void Start () {
+        myRb = this.gameObject.GetComponent<Rigidbody>();
         if(myRb != null)
         {
             myRb.velocity = transform.forward * speed;
@@ -81,6 +84,36 @@ public class Projectile : MonoBehaviour {
         {
             healthScript.Damage(damage);
             Debug.Log("Damage : " + damage +" deals to : " + target.name);
+        }
+    }
+
+    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if(!netWorkingDone)
+        {
+            if (stream.isWriting)
+            {
+                stream.SendNext(this.impactDamage);
+                stream.SendNext(this.splashDamage);
+                stream.SendNext(this.AOERadius);
+                stream.SendNext(this.speed);
+                stream.SendNext(this.team);
+            }
+            else
+            {
+                this.impactDamage = (float)stream.ReceiveNext();
+                this.splashDamage = (float)stream.ReceiveNext();
+                this.AOERadius = (float)stream.ReceiveNext();
+                this.speed = (float)stream.ReceiveNext();
+                this.team = (string)stream.ReceiveNext();
+
+                //Reset the velocity of the projectile
+                if (myRb != null)
+                {
+                    myRb.velocity = transform.forward * speed;
+                }
+            }
+            netWorkingDone = true;
         }
     }
 }
