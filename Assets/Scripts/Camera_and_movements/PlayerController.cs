@@ -10,6 +10,7 @@ public class PlayerController : Photon.PunBehaviour
     public float mouseX;
     public float finalInputX;
     public float inputSensitivity = 150.0f;
+    public GameObject cameraFollow;
 
     private Rigidbody rb;
     private float VerticalVelocity;
@@ -31,7 +32,7 @@ public class PlayerController : Photon.PunBehaviour
                 CameraFollow cameraFollowScript = cameraPrefab.GetComponent<CameraFollow>();
                 if(cameraFollowScript != null)
                 {
-                    cameraFollowScript.SetObjectToFollow(this.transform.root.gameObject);
+                    cameraFollowScript.SetObjectToFollow(cameraFollow);
                 }
                 else
                 {
