@@ -23,6 +23,26 @@ public class PlayerController : Photon.PunBehaviour
         Vector3 rot = transform.localRotation.eulerAngles;
         rotY = rot.y;
         rb = GetComponent<Rigidbody>();
+        if(photonView.isMine)
+        {
+            GameObject cameraPrefab = Camera.main.transform.root.gameObject;
+            if(cameraPrefab != null)
+            {
+                CameraFollow cameraFollowScript = cameraPrefab.GetComponent<CameraFollow>();
+                if(cameraFollowScript != null)
+                {
+                    cameraFollowScript.SetObjectToFollow(this.transform.root.gameObject);
+                }
+                else
+                {
+                    Debug.Log("Main camera found, but don't have CameraFollow script");
+                }
+            }
+            else
+            {
+                Debug.Log("No main Camera / no CameraPrefab");
+            }
+        }
     }
 
 
