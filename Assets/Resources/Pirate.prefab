@@ -1128,7 +1128,7 @@ MonoBehaviour:
     TeleportIfDistanceGreaterThan: 3
     InterpolateOption: 4
     InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 10
+    InterpolateLerpSpeed: 5
     InterpolateMoveTowardsAcceleration: 2
     InterpolateMoveTowardsDeceleration: 2
     InterpolateSpeedCurve:
@@ -1168,7 +1168,7 @@ MonoBehaviour:
     DrawErrorGizmo: 1
   m_RotationModel:
     SynchronizeEnabled: 1
-    InterpolateOption: 1
+    InterpolateOption: 2
     InterpolateRotateTowardsSpeed: 180
     InterpolateLerpSpeed: 5
   m_ScaleModel:

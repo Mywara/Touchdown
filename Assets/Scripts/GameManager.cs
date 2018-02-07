@@ -11,6 +11,8 @@ namespace PUNTutorial
         public static GameManager instance;
         public static GameObject localPlayer;
 
+        private string characterToLoad = "Pirate";
+
         void Awake()
         {
             
@@ -49,7 +51,22 @@ namespace PUNTutorial
         {
             if (!PhotonNetwork.inRoom) return;
             //localPlayer = PhotonNetwork.Instantiate("TempPlayer", new Vector3(0, 0.5f, 0), Quaternion.identity, 0);
-            localPlayer = PhotonNetwork.Instantiate("Pirate", new Vector3(0, 2f, 0), Quaternion.identity, 0);
+            localPlayer = PhotonNetwork.Instantiate(characterToLoad, new Vector3(0, 2f, 0), Quaternion.identity, 0);
+        }
+
+        public void SelectCharacterPirate()
+        {
+            characterToLoad = "Pirate";
+        }
+
+        public void SelectCharacterUndeath()
+        {
+            characterToLoad = "Undeath";
+        }
+
+        public void SelectCharacterWarBear()
+        {
+            characterToLoad = "War_Bear";
         }
     }
 }
