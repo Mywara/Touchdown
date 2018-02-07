@@ -13,17 +13,22 @@ public class PlayerController : Photon.PunBehaviour
     public GameObject cameraFollow;
 
     private Rigidbody rb;
+    private Animator anim;
     private float VerticalVelocity;
     public float jumpForce = 10.0f;
     private bool isGrounded = true;
 
-
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
+    }
 
     void Start ()
     {
         Vector3 rot = transform.localRotation.eulerAngles;
         rotY = rot.y;
-        rb = GetComponent<Rigidbody>();
+
         if(photonView.isMine)
         {
             GameObject cameraPrefab = Camera.main.transform.root.gameObject;
@@ -57,6 +62,7 @@ public class PlayerController : Photon.PunBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+            anim.SetTrigger("Jump");
         }
     }
 
@@ -82,7 +88,14 @@ public class PlayerController : Photon.PunBehaviour
         rotY += finalInputX * inputSensitivity * Time.deltaTime;
         Quaternion localRotation = Quaternion.Euler(0.0f, rotY, 0.0f);
         transform.rotation = localRotation;
-        
+
+        Animate(horizontal, vertical);
+    }
+
+    void Animate(float h, float v)
+    {
+        bool running = h != 0f || v != 0f;
+        anim.SetBool("IsRunning", running);
     }
 
     void OnCollisionEnter(Collision other)
