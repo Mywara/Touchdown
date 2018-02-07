@@ -8,7 +8,7 @@ namespace PUNTutorial
     public class HealthScript : Photon.PunBehaviour
     {
         public Slider HealthSlider;
-        private int HealthMax;
+        private float HealthMax;
 
         public void Start()
         {
@@ -19,7 +19,7 @@ namespace PUNTutorial
             HealthSlider.value = HealthMax;
         }
 
-        public void Damage(int damage)
+        public void Damage(float damage)
         {
             HealthSlider.value = HealthSlider.value - damage;
         }
