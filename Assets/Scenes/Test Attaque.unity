@@ -488,6 +488,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1440909490 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1406215290990354, guid: 10f1835a64cca6d4dab4c33f1680d98b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1900227676}
 --- !u!1001 &1481173538
 Prefab:
   m_ObjectHideFlags: 0
@@ -540,11 +545,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 64b1df154e2c50d48835e544aaaa0347, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1556774756 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1239537352600724, guid: ca5b31528ffaea848844e43575f6deca,
-    type: 2}
-  m_PrefabInternal: {fileID: 6351278}
 --- !u!1001 &1772313249
 Prefab:
   m_ObjectHideFlags: 0
@@ -588,7 +588,7 @@ Prefab:
         type: 2}
       propertyPath: CameraFollowObj
       value: 
-      objectReference: {fileID: 1556774756}
+      objectReference: {fileID: 1440909490}
     - target: {fileID: 114698807880116074, guid: 3655527cc4c6dc849a8effbeaf25a262,
         type: 2}
       propertyPath: camDistanceYToPlayer
@@ -725,12 +725,12 @@ Prefab:
     - target: {fileID: 224117121482600926, guid: 10f1835a64cca6d4dab4c33f1680d98b,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224117121482600926, guid: 10f1835a64cca6d4dab4c33f1680d98b,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114200104336960782, guid: 10f1835a64cca6d4dab4c33f1680d98b,
         type: 2}
