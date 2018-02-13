@@ -82,6 +82,7 @@ public class PlayerController : Photon.PunBehaviour, IPunObservable {
         float vertical = Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime;
         transform.Translate(0, 0, vertical);
 
+        /*
         // rotation perso
         float inputX = Input.GetAxis("RightStickHorizontal");
         mouseX = Input.GetAxis("Mouse X");
@@ -90,7 +91,7 @@ public class PlayerController : Photon.PunBehaviour, IPunObservable {
         rotY += finalInputX * inputSensitivity * Time.deltaTime;
         Quaternion localRotation = Quaternion.Euler(0.0f, rotY, 0.0f);
         transform.rotation = localRotation;
-
+        */
         Animate(horizontal, vertical);
     }
 
