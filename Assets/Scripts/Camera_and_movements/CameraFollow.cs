@@ -53,6 +53,15 @@ public class CameraFollow : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        // Si on a quitté le jeu (Alt+Tab par exemple) et qu'on revient dessus on rebloque le curseur.
+        if (Cursor.lockState != CursorLockMode.Locked)
+        {
+            // Fige le curseur 
+            Cursor.lockState = CursorLockMode.Locked;
+            // Rend le curseur invisible
+            Cursor.visible = false;
+        }
+
         // On met en place la rotation du stick
         float inputX = Input.GetAxis("RightStickHorizontal");
         float inputZ = Input.GetAxis("RightStickVertical");
