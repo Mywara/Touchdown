@@ -56,5 +56,11 @@ namespace PUNTutorial
         {
             HealthSlider.value = HealthMax;
         }
+
+        [PunRPC]
+        public void KillPlayer()
+        {
+            HealthSlider.value = 0;
+        }
     }  
 }

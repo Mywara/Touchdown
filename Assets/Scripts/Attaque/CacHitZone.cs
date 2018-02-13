@@ -41,7 +41,7 @@ public class CacHitZone : Photon.PunBehaviour, IPunObservable {
             return;
         }
         GameObject otherGO = other.transform.root.gameObject;
-        if (otherGO.tag.Equals("Respawn"))
+        if (otherGO.tag.Equals("Respawn") || otherGO.tag.Equals("Boundary"))
         {
             //Debug.Log("hit Respawn");
             return;

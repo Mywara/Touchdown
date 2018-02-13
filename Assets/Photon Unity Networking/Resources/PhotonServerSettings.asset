@@ -48,4 +48,5 @@ MonoBehaviour:
   - JoinTeam2
   - RespawnPlayer
   - ResetHealth
+  - KillPlayer
   DisableAutoOpenWizard: 1

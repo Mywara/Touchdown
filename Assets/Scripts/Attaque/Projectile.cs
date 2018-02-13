@@ -66,7 +66,7 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
             return;
         }
         GameObject directHitObj = other.transform.root.gameObject;
-        if(directHitObj.tag.Equals("Respawn"))
+        if(directHitObj.tag.Equals("Respawn") || directHitObj.tag.Equals("Boundary"))
         {
             //Debug.Log("hit Respawn");
             return;
