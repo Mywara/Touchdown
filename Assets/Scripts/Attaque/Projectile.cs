@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour, IPunObservable {
+public class Projectile : Photon.PunBehaviour, IPunObservable {
 
-    public float impactDamage = 10;
-    public float splashDamage = 0;
+    public int impactDamage = 10;
+    public int splashDamage = 0;
     public float AOERadius = 0;
     public float speed = 10;
-    public string team;
+    public int team;
 
     private Rigidbody myRb;
     private bool netWorkingDone = false;
@@ -26,17 +26,17 @@ public class Projectile : MonoBehaviour, IPunObservable {
         }
 	}
 
-    public void SetImpactDamage(float newdamage)
+    public void SetImpactDamage(int newdamage)
     {
         this.impactDamage = newdamage;
     }
 
-    public void SetSplashDamage(float newdamage)
+    public void SetSplashDamage(int newdamage)
     {
-        this.speed = newdamage;
+        this.splashDamage = newdamage;
     }
 
-    public void SetDamage(float newImpactdamage, float newSplashdamage)
+    public void SetDamage(int newImpactdamage, int newSplashdamage)
     {
         this.impactDamage = newImpactdamage;
         this.splashDamage = newSplashdamage;
@@ -52,7 +52,7 @@ public class Projectile : MonoBehaviour, IPunObservable {
         this.AOERadius = newRadius;
     }
 
-    public void SetTeam(string newTeam)
+    public void SetTeam(int newTeam)
     {
         this.team = newTeam;
     }
@@ -61,7 +61,16 @@ public class Projectile : MonoBehaviour, IPunObservable {
     //Modif a faire, limiter dmg au cible valide -> layer + test
     private void OnTriggerEnter(Collider other)
     {
+        if(!photonView.isMine)
+        {
+            return;
+        }
         GameObject directHitObj = other.transform.root.gameObject;
+        if(directHitObj.tag.Equals("Respawn"))
+        {
+            //Debug.Log("hit Respawn");
+            return;
+        }
         Debug.Log("Direct hit on object : " + directHitObj.name);
         ApplyDamage(directHitObj, impactDamage);
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, AOERadius);
@@ -77,12 +86,14 @@ public class Projectile : MonoBehaviour, IPunObservable {
         Destroy(this.gameObject);
     }
 
-    private void ApplyDamage(GameObject target, float damage)
+    private void ApplyDamage(GameObject target, int damage)
     {
         PUNTutorial.HealthScript healthScript = target.GetComponent<PUNTutorial.HealthScript>();
         if(healthScript!=null)
         {
-            healthScript.Damage(damage);
+            
+            healthScript.photonView.RPC("Damage", PhotonTargets.All, damage);
+            //healthScript.Damage(damage)
             Debug.Log("Damage : " + damage +" deals to : " + target.name);
         }
     }
@@ -101,11 +112,12 @@ public class Projectile : MonoBehaviour, IPunObservable {
             }
             else
             {
-                this.impactDamage = (float)stream.ReceiveNext();
-                this.splashDamage = (float)stream.ReceiveNext();
+                this.impactDamage = (int)stream.ReceiveNext();
+                this.splashDamage = (int)stream.ReceiveNext();
                 this.AOERadius = (float)stream.ReceiveNext();
                 this.speed = (float)stream.ReceiveNext();
-                this.team = (string)stream.ReceiveNext();
+                this.team = (int)stream.ReceiveNext();
+                netWorkingDone = true;
 
                 //Reset the velocity of the projectile
                 if (myRb != null)
@@ -113,7 +125,11 @@ public class Projectile : MonoBehaviour, IPunObservable {
                     myRb.velocity = transform.forward * speed;
                 }
             }
-            netWorkingDone = true;
         }
+    }
+
+    private void OnPlayerConnected(NetworkPlayer player)
+    {
+        netWorkingDone = false;
     }
 }

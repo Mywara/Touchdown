@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AutoAttaqueRanged : Photon.PunBehaviour {
 
-    public float impactDamage = 10;
-    public float splashDamage = 0;
+    public int impactDamage = 10;
+    public int splashDamage = 0;
     public float AOERadius = 0;
     public float fireRate = 1;
     public float projectileSpeed = 10;

@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 114513372739151394}
   m_Layer: 0
   m_Name: War_Bear
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -892,7 +892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   fireRate: 1
-  team: 
+  team: 0
 --- !u!114 &114056949721153982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1192,6 +1192,7 @@ MonoBehaviour:
   inputSensitivity: 120
   cameraFollow: {fileID: 1406215290990354}
   jumpForce: 40
+  team: 0
 --- !u!114 &114977305829112610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1214,6 +1215,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114513372739151394}
   - {fileID: 114227236250211042}
+  - {fileID: 114970982845910662}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

@@ -8,7 +8,7 @@ namespace PUNTutorial
     public class HealthScript : Photon.PunBehaviour
     {
         public Slider HealthSlider;
-        private float HealthMax;
+        private int HealthMax;
 
         public void Start()
         {
@@ -18,8 +18,8 @@ namespace PUNTutorial
             HealthSlider.maxValue = HealthMax;
             HealthSlider.value = HealthMax;
         }
-
-        public void Damage(float damage)
+        [PunRPC]
+        public void Damage(int damage)
         {
             HealthSlider.value = HealthSlider.value - damage;
         }
@@ -29,14 +29,32 @@ namespace PUNTutorial
 
             if (Input.GetKeyDown(KeyCode.I))
             {
-                Damage(90);
+                if (photonView.isMine)
+                {
+                    photonView.RPC("Damage", PhotonTargets.All, 90);
+                }
+                //Damage(90);
             }
 
             if(HealthSlider.value <= 0)
             {
                 //mort
+                if (photonView.isMine)
+                {
+                    Debug.Log("Player died");
+                    //ResetHealth();
+                    //RoomManager.instance.RespawnPlayer(this.gameObject);
+                    photonView.RPC("ResetHealth", PhotonTargets.All);
+                    RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.All, this.gameObject.GetPhotonView().viewID);
+                }
+                
             }
         }
 
+        [PunRPC]
+        public void ResetHealth()
+        {
+            HealthSlider.value = HealthMax;
+        }
     }  
 }

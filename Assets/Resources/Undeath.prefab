@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 114294686198911968}
   m_Layer: 0
   m_Name: Undeath
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1094,6 +1094,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114294686198911968}
   - {fileID: 114291829952212940}
+  - {fileID: 114823301983635766}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -1278,7 +1279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   fireRate: 1
-  team: 
+  team: 0
 --- !u!114 &114389395141144694
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1412,6 +1413,7 @@ MonoBehaviour:
   inputSensitivity: 120
   cameraFollow: {fileID: 1801170955047948}
   jumpForce: 40
+  team: 0
 --- !u!136 &136335632211287262
 CapsuleCollider:
   m_ObjectHideFlags: 1

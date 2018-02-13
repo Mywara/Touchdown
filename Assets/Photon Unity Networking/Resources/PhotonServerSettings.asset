@@ -42,4 +42,10 @@ MonoBehaviour:
   - RequestForPickupItems
   - RequestForPickupTimes
   - TaggedPlayer
+  - Damage
+  - AutoJoinTeam
+  - JoinTeam1
+  - JoinTeam2
+  - RespawnPlayer
+  - ResetHealth
   DisableAutoOpenWizard: 1

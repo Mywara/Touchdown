@@ -37,9 +37,6 @@ public class CameraFollow : MonoBehaviour {
     public float rotY = 0.0f;
 
 
-
-
-
     // Use this for initialization
     void Start () {
 
@@ -80,12 +77,15 @@ public class CameraFollow : MonoBehaviour {
 
     void CameraUpdater()
     {
-        // Met en place la cible à suivre
-        Transform target = CameraFollowObj.transform;
+        if(CameraFollowObj != null)
+        {
+            // Met en place la cible à suivre
+            Transform target = CameraFollowObj.transform;
 
-        // Se déplace vers la cible
-        float step = CameraMoveSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+            // Se déplace vers la cible
+            float step = CameraMoveSpeed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+        } 
     }
 
     public void SetObjectToFollow(GameObject objToFollow)

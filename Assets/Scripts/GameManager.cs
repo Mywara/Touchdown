@@ -28,7 +28,7 @@ namespace PUNTutorial
 
         void Start()
         {
-            PhotonNetwork.ConnectUsingSettings("Version_1.0");
+            PhotonNetwork.ConnectUsingSettings("Version_1.1");
         }
 
         public void JoinGame()
@@ -46,13 +46,20 @@ namespace PUNTutorial
                 PhotonNetwork.LoadLevel("Scene1");
             }
         }
-
+        
         void OnLevelWasLoaded(int levelNumber)
         {
             if (!PhotonNetwork.inRoom) return;
+            //RoomManager.instance.UpdateInfo();
             //localPlayer = PhotonNetwork.Instantiate("TempPlayer", new Vector3(0, 0.5f, 0), Quaternion.identity, 0);
             localPlayer = PhotonNetwork.Instantiate(characterToLoad, new Vector3(0, 2f, 0), Quaternion.identity, 0);
+
+            //RoomManager.instance.AutoJoinTeam(localPlayer);
+            //RoomManager.instance.RespawnPlayer(localPlayer, 5.0f);
+            RoomManager.instance.photonView.RPC("AutoJoinTeam", PhotonTargets.AllBufferedViaServer, localPlayer.GetPhotonView().viewID);
+            RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.AllViaServer, localPlayer.GetPhotonView().viewID, 5.0f);       
         }
+        
 
         public void SelectCharacterPirate()
         {

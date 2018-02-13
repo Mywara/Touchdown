@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CacHitZone : MonoBehaviour, IPunObservable {
+public class CacHitZone : Photon.PunBehaviour, IPunObservable {
 
-    public float damage = 10;
+    public int damage = 10;
     public float fireRate = 1;
-    public string team;
+    public int team;
 
     private bool netWorkingDone = false;
     private float nextFire = 0f;
@@ -17,7 +17,7 @@ public class CacHitZone : MonoBehaviour, IPunObservable {
 
     }
 
-    public void SetDamage(float newdamage)
+    public void SetDamage(int newdamage)
     {
         this.damage = newdamage;
     }
@@ -27,7 +27,7 @@ public class CacHitZone : MonoBehaviour, IPunObservable {
         this.fireRate = newFireRate;
     }
 
-    public void SetTeam(string newTeam)
+    public void SetTeam(int newTeam)
     {
         this.team = newTeam;
     }
@@ -36,22 +36,20 @@ public class CacHitZone : MonoBehaviour, IPunObservable {
     //Modif a faire, limiter dmg au cible valide -> layer + test
     private void OnTriggerStay(Collider other)
     {
+        if (!photonView.isMine)
+        {
+            return;
+        }
         GameObject otherGO = other.transform.root.gameObject;
+        if (otherGO.tag.Equals("Respawn"))
+        {
+            //Debug.Log("hit Respawn");
+            return;
+        }
         if (!directHitObjs.Contains(otherGO) && otherGO.GetComponent<PUNTutorial.HealthScript>() != null)
         {
             directHitObjs.Add(otherGO);
         }
-        /*
-        if (Time.time > nextFire)
-        {
-            nextFire = Time.time + fireRate;
-            
-            GameObject directHitObj = other.transform.root.gameObject;
-            Debug.Log("Obj in CacHitZone : " + directHitObj.name);
-            ApplyDamage(directHitObj, damage);
-             
-        }
-        */
     }
 
     private void Update()
@@ -79,12 +77,13 @@ public class CacHitZone : MonoBehaviour, IPunObservable {
         directHitObjs.Clear();
     }
 
-    private void ApplyDamage(GameObject target, float damage)
+    private void ApplyDamage(GameObject target, int damage)
     {
         PUNTutorial.HealthScript healthScript = target.GetComponent<PUNTutorial.HealthScript>();
         if (healthScript != null)
         {
-            healthScript.Damage(damage);
+            //healthScript.Damage(damage);
+            healthScript.photonView.RPC("Damage", PhotonTargets.All, damage);
             Debug.Log("Damage : " + damage + " deals to : " + target.name);
         }
     }
@@ -101,11 +100,16 @@ public class CacHitZone : MonoBehaviour, IPunObservable {
             }
             else
             {
-                this.damage = (float)stream.ReceiveNext();
+                this.damage = (int)stream.ReceiveNext();
                 this.fireRate = (float)stream.ReceiveNext();
-                this.team = (string)stream.ReceiveNext();
+                this.team = (int)stream.ReceiveNext();
+                netWorkingDone = true;
             }
-            netWorkingDone = true;
         }
+    }
+
+    private void OnPlayerConnected(NetworkPlayer player)
+    {
+        netWorkingDone = false;
     }
 }

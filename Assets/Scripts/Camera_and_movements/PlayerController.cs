@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : Photon.PunBehaviour
-{
+public class PlayerController : Photon.PunBehaviour, IPunObservable {
 
     public float movementSpeed = 10;
     public float turningSpeed = 60;
@@ -17,6 +16,8 @@ public class PlayerController : Photon.PunBehaviour
     private float VerticalVelocity;
     public float jumpForce = 10.0f;
     private bool isGrounded = true;
+    public int team = 0;
+    private bool netWorkingDone = false;
 
     void Awake()
     {
@@ -24,18 +25,19 @@ public class PlayerController : Photon.PunBehaviour
         anim = GetComponent<Animator>();
     }
 
+
     void Start ()
     {
         Vector3 rot = transform.localRotation.eulerAngles;
         rotY = rot.y;
 
-        if(photonView.isMine)
+        if (photonView.isMine)
         {
             GameObject cameraPrefab = Camera.main.transform.root.gameObject;
-            if(cameraPrefab != null)
+            if (cameraPrefab != null)
             {
                 CameraFollow cameraFollowScript = cameraPrefab.GetComponent<CameraFollow>();
-                if(cameraFollowScript != null)
+                if (cameraFollowScript != null)
                 {
                     cameraFollowScript.SetObjectToFollow(cameraFollow);
                 }
@@ -122,4 +124,37 @@ public class PlayerController : Photon.PunBehaviour
         }
     }
 
+    public int Team
+    {
+        get
+        {
+            return this.team;
+        }
+        set
+        {
+            this.team = value;
+        }
+    }
+
+    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (!netWorkingDone)
+        {
+            if (stream.isWriting)
+            {
+                //stream.SendNext(this.team);
+            }
+            else
+            {
+                //this.team = (int)stream.ReceiveNext();
+                netWorkingDone = true;
+            }
+            
+        }
+    }
+
+    private void OnPlayerConnected(NetworkPlayer player)
+    {
+        netWorkingDone = false;
+    }
 }
