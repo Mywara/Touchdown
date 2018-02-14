@@ -37,9 +37,6 @@ public class CameraFollow : MonoBehaviour {
     public float rotY = 0.0f;
 
 
-
-
-
     // Use this for initialization
     void Start () {
 
@@ -56,6 +53,15 @@ public class CameraFollow : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        // Si on a quitté le jeu (Alt+Tab par exemple) et qu'on revient dessus on rebloque le curseur.
+        if (Cursor.lockState != CursorLockMode.Locked)
+        {
+            // Fige le curseur 
+            Cursor.lockState = CursorLockMode.Locked;
+            // Rend le curseur invisible
+            Cursor.visible = false;
+        }
+
         // On met en place la rotation du stick
         float inputX = Input.GetAxis("RightStickHorizontal");
         float inputZ = Input.GetAxis("RightStickVertical");
@@ -69,6 +75,7 @@ public class CameraFollow : MonoBehaviour {
         rotX = Mathf.Clamp(rotX, -minClampAngle, maxClampAngle);
 
         Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
+        CameraFollowObj.transform.root.rotation = Quaternion.Euler(0.0f, rotY, 0.0f);
         transform.rotation = localRotation;
 
     }
@@ -80,12 +87,15 @@ public class CameraFollow : MonoBehaviour {
 
     void CameraUpdater()
     {
-        // Met en place la cible à suivre
-        Transform target = CameraFollowObj.transform;
+        if(CameraFollowObj != null)
+        {
+            // Met en place la cible à suivre
+            Transform target = CameraFollowObj.transform;
 
-        // Se déplace vers la cible
-        float step = CameraMoveSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+            // Se déplace vers la cible
+            float step = CameraMoveSpeed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+        } 
     }
 
     public void SetObjectToFollow(GameObject objToFollow)

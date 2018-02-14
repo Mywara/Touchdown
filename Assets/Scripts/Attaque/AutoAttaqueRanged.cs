@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AutoAttaqueRanged : Photon.PunBehaviour {
 
-    public float impactDamage = 10;
-    public float splashDamage = 0;
+    public int impactDamage = 10;
+    public int splashDamage = 0;
     public float AOERadius = 0;
     public float fireRate = 1;
     public float projectileSpeed = 10;
@@ -40,19 +40,30 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
                 //Pour le reseau
                 projo = PhotonNetwork.Instantiate(this.projectilePrefab.name, projectileSpawn.position, projectileSpawn.rotation, 0);
             }
+            
             Projectile projectileScript = projo.GetComponent<Projectile>();
             if(projectileScript != null)
             {
                 projectileScript.SetDamage(impactDamage, splashDamage);
                 projectileScript.SetSpeed(projectileSpeed);
                 //dire de quelle equipe vient le projectile pour ne pas TK
-                //projectileScript.SetTeam();
+                PlayerController playerControllerScript = this.gameObject.GetComponent<PlayerController>();
+                if (playerControllerScript != null)
+                {
+                    projectileScript.SetTeam(playerControllerScript.Team);
+                }
+                else
+                {
+                    Debug.Log("player have no PlayerController script");
+                }
+                
                 projectileScript.SetAOERadius(AOERadius);
             }
             else
             {
                 Debug.Log("Projectile missing 'Projectile' script");
             }
+            
         }
     }
 }

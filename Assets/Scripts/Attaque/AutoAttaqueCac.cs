@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AutoAttaqueCac : Photon.MonoBehaviour, IPunObservable {
 
-    public float damage = 10;
+    public int damage = 10;
     public float fireRate = 1;
     public GameObject cacHitZone;
 
@@ -31,7 +31,16 @@ public class AutoAttaqueCac : Photon.MonoBehaviour, IPunObservable {
             cacHitZoneScript.SetDamage(this.damage);
             cacHitZoneScript.SetFireRate(this.fireRate);
             //dire de quelle equipe vient le projectile pour ne pas TK
-            //cacHitZoneScript.SetTeam();
+            PlayerController playerControllerScript = this.gameObject.GetComponent<PlayerController>();
+            if (playerControllerScript != null)
+            {
+                cacHitZoneScript.SetTeam(playerControllerScript.Team);
+                //Debug.Log("cachitzone team set to : " + playerControllerScript.Team);
+            }
+            else
+            {
+                Debug.Log("player have no PlayerController script");
+            }
         }
         else
         {
@@ -47,14 +56,7 @@ public class AutoAttaqueCac : Photon.MonoBehaviour, IPunObservable {
         {
             return;
         }
-        /*
-        if (Input.GetButton("Fire1") && Time.time > nextFire)
-        {
-            nextFire = Time.time + fireRate;
-            cacHitZone.SetActive(true);
-            cacHitZone.SetActive(false);
-        }
-        */
+
         if(Input.GetButtonDown("Fire1"))
         {
             cacHitZone.SetActive(true);

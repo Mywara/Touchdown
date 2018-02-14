@@ -13,6 +13,7 @@ using UnityEngine;
 using System.Reflection;
 using System.Collections.Generic;
 using ExitGames.Client.Photon;
+using UnityEngine.UI;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -689,4 +690,9 @@ public class PhotonView : Photon.MonoBehaviour
     {
         return string.Format("View ({3}){0} on {1} {2}", this.viewID, (this.gameObject != null) ? this.gameObject.name : "GO==null", (this.isSceneView) ? "(scene)" : string.Empty, this.prefix);
     }
+
+  /*  internal void RPC(string v, RPCMode allBuffered, Slider healthSliderUI, float value)
+    {
+        throw new NotImplementedException();
+    }*/
 }

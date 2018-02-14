@@ -2,22 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CacHitZone : MonoBehaviour, IPunObservable {
+public class CacHitZone : Photon.PunBehaviour {
 
-    public float damage = 10;
+    public int damage = 10;
     public float fireRate = 1;
-    public string team;
+    public int team;
 
     private bool netWorkingDone = false;
     private float nextFire = 0f;
     private List<GameObject> directHitObjs = new List<GameObject>();
+    private bool syncTeam = true;
+
     // Use this for initialization
     void Start()
     {
 
     }
 
-    public void SetDamage(float newdamage)
+    public void SetDamage(int newdamage)
     {
         this.damage = newdamage;
     }
@@ -27,7 +29,7 @@ public class CacHitZone : MonoBehaviour, IPunObservable {
         this.fireRate = newFireRate;
     }
 
-    public void SetTeam(string newTeam)
+    public void SetTeam(int newTeam)
     {
         this.team = newTeam;
     }
@@ -36,22 +38,34 @@ public class CacHitZone : MonoBehaviour, IPunObservable {
     //Modif a faire, limiter dmg au cible valide -> layer + test
     private void OnTriggerStay(Collider other)
     {
+        if (!photonView.isMine)
+        {
+            return;
+        }
         GameObject otherGO = other.transform.root.gameObject;
-        if (!directHitObjs.Contains(otherGO) && otherGO.GetComponent<PUNTutorial.HealthScript>() != null)
+        if (otherGO.tag.Equals("Respawn") || otherGO.tag.Equals("Boundary"))
+        {
+            return;
+        }
+        if (!RoomManager.instance.FriendlyFire)
+        {
+            if (otherGO.tag.Equals("Player"))
+            {
+                PlayerController playerControllerScript = otherGO.GetComponent<PlayerController>();
+                if (playerControllerScript != null)
+                {
+                    if (playerControllerScript.Team == this.team)
+                    {
+                        Debug.Log("Friend hit, not FF, do nothing");
+                        return;
+                    }
+                }
+            }
+        }
+        if (!directHitObjs.Contains(otherGO) && otherGO.tag.Equals("Player"))
         {
             directHitObjs.Add(otherGO);
         }
-        /*
-        if (Time.time > nextFire)
-        {
-            nextFire = Time.time + fireRate;
-            
-            GameObject directHitObj = other.transform.root.gameObject;
-            Debug.Log("Obj in CacHitZone : " + directHitObj.name);
-            ApplyDamage(directHitObj, damage);
-             
-        }
-        */
     }
 
     private void Update()
@@ -79,12 +93,13 @@ public class CacHitZone : MonoBehaviour, IPunObservable {
         directHitObjs.Clear();
     }
 
-    private void ApplyDamage(GameObject target, float damage)
+    private void ApplyDamage(GameObject target, int damage)
     {
         PUNTutorial.HealthScript healthScript = target.GetComponent<PUNTutorial.HealthScript>();
         if (healthScript != null)
         {
-            healthScript.Damage(damage);
+            //healthScript.Damage(damage);
+            healthScript.photonView.RPC("Damage", PhotonTargets.All, damage);
             Debug.Log("Damage : " + damage + " deals to : " + target.name);
         }
 
@@ -92,26 +107,6 @@ public class CacHitZone : MonoBehaviour, IPunObservable {
         if (healthScript2 != null)
         {
             healthScript2.Damage2(damage);
-        }
-    }
-
-    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (!netWorkingDone)
-        {
-            if (stream.isWriting)
-            {
-                stream.SendNext(this.damage);
-                stream.SendNext(this.fireRate);
-                stream.SendNext(this.team);
-            }
-            else
-            {
-                this.damage = (float)stream.ReceiveNext();
-                this.fireRate = (float)stream.ReceiveNext();
-                this.team = (string)stream.ReceiveNext();
-            }
-            netWorkingDone = true;
         }
     }
 }

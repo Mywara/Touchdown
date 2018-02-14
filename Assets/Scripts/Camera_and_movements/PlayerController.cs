@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : Photon.PunBehaviour
-{
+public class PlayerController : Photon.PunBehaviour{
 
     public float movementSpeed = 10;
     public float turningSpeed = 60;
@@ -17,6 +16,8 @@ public class PlayerController : Photon.PunBehaviour
     private float VerticalVelocity;
     public float jumpForce = 10.0f;
     private bool isGrounded = true;
+    public int team = 0;
+    private bool netWorkingDone = false;
 
     void Awake()
     {
@@ -24,18 +25,19 @@ public class PlayerController : Photon.PunBehaviour
         anim = GetComponent<Animator>();
     }
 
+
     void Start ()
     {
         Vector3 rot = transform.localRotation.eulerAngles;
         rotY = rot.y;
 
-        if(photonView.isMine)
+        if (photonView.isMine)
         {
             GameObject cameraPrefab = Camera.main.transform.root.gameObject;
-            if(cameraPrefab != null)
+            if (cameraPrefab != null)
             {
                 CameraFollow cameraFollowScript = cameraPrefab.GetComponent<CameraFollow>();
-                if(cameraFollowScript != null)
+                if (cameraFollowScript != null)
                 {
                     cameraFollowScript.SetObjectToFollow(cameraFollow);
                 }
@@ -80,15 +82,6 @@ public class PlayerController : Photon.PunBehaviour
         float vertical = Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime;
         transform.Translate(0, 0, vertical);
 
-        // rotation perso
-        float inputX = Input.GetAxis("RightStickHorizontal");
-        mouseX = Input.GetAxis("Mouse X");
-        finalInputX = inputX + mouseX;
-
-        rotY += finalInputX * inputSensitivity * Time.deltaTime;
-        Quaternion localRotation = Quaternion.Euler(0.0f, rotY, 0.0f);
-        transform.rotation = localRotation;
-
         Animate(horizontal, vertical);
     }
 
@@ -122,4 +115,31 @@ public class PlayerController : Photon.PunBehaviour
         }
     }
 
+    public int Team
+    {
+        get
+        {
+            return this.team;
+        }
+        set
+        {
+            if(this.team != value)
+            {
+                this.team = value;
+                AutoAttaqueCac autoCacScript = this.gameObject.GetComponent<AutoAttaqueCac>();
+                if (autoCacScript != null)
+                {
+                    CacHitZone cacHitZoneScript = autoCacScript.cacHitZone.GetComponent<CacHitZone>();
+                    if(cacHitZoneScript != null)
+                    {
+                        cacHitZoneScript.SetTeam(this.Team);
+                    }
+                    else
+                    {
+                        Debug.Log("AutoAttaqueCac does not have CacHitZone script");
+                    }
+                }
+            }  
+        }
+    }
 }

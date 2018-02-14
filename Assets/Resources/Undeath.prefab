@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 114282031320283286}
   m_Layer: 0
   m_Name: Undeath
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1412,7 +1412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   fireRate: 1
-  team: 
+  team: 0
 --- !u!114 &114389395141144694
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1600,6 +1600,7 @@ MonoBehaviour:
   inputSensitivity: 120
   cameraFollow: {fileID: 1801170955047948}
   jumpForce: 40
+<<<<<<< HEAD
 --- !u!114 &114910069067748840
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1648,6 +1649,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+=======
+  team: 0
+>>>>>>> 1e77df72d21089a8e4e5934844483c29b84f270c
 --- !u!136 &136335632211287262
 CapsuleCollider:
   m_ObjectHideFlags: 1

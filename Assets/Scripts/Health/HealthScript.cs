@@ -8,20 +8,26 @@ namespace PUNTutorial
     public class HealthScript : Photon.PunBehaviour
     {
         public Slider HealthSlider;
-        private float HealthMax;
-
-        public void Start()
+        private int HealthMax;
+        private bool netWorkingDone = false;
+       
+        private void Awake()
         {
             //Set health depending on the character
             HealthMax = GetComponentInParent<CharacterCaracteristic>().health;
             //initialisation de la vie en fonction du personnage
             HealthSlider.maxValue = HealthMax;
             HealthSlider.value = HealthMax;
+<<<<<<< HEAD
 
   
+=======
+            Debug.Log(this.gameObject.name + " AwakeEnded");
+>>>>>>> 1e77df72d21089a8e4e5934844483c29b84f270c
         }
 
-        public void Damage(float damage)
+        [PunRPC]
+        public void Damage(int damage)
         {
             HealthSlider.value = HealthSlider.value - damage;
 
@@ -30,12 +36,49 @@ namespace PUNTutorial
         public void Update()
         {
 
+<<<<<<< HEAD
         
             if (HealthSlider.value <= 0)
+            if(HealthSlider.value <= 0)
+>>>>>>> 1e77df72d21089a8e4e5934844483c29b84f270c
             {
                 //mort
+                if (photonView.isMine)
+                {
+                    Debug.Log("Player died");
+                    photonView.RPC("ResetHealth", PhotonTargets.All);
+                    RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.All, this.gameObject.GetPhotonView().viewID);
+                }
+                
             }
         }
 
+        [PunRPC]
+        public void ResetHealth()
+        {
+            HealthSlider.value = HealthMax;
+        }
+
+        [PunRPC]
+        public void KillPlayer()
+        {
+            HealthSlider.value = 0;
+        }
+
+        [PunRPC]
+        public void SynchroHealth(int health)
+        {
+            this.HealthSlider.value = health;
+            Debug.Log(this.gameObject.name + " RPC sync Health called : " + health);
+        }
+
+        public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
+        {
+            if(photonView.isMine)
+            {
+                Debug.Log(this.gameObject.name + " HealthScript : player connected");
+                photonView.RPC("SynchroHealth", PhotonTargets.All, (int)this.HealthSlider.value);
+            }
+        }
     }  
 }
