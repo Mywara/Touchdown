@@ -85,6 +85,12 @@ public class Projectile : MonoBehaviour, IPunObservable {
             healthScript.Damage(damage);
             Debug.Log("Damage : " + damage +" deals to : " + target.name);
         }
+
+        PUNTutorial.HealthScript2 healthScript2 = target.GetComponent<PUNTutorial.HealthScript2>();
+        if (healthScript2 != null)
+        {
+            healthScript2.Damage2(damage);
+        }
     }
 
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

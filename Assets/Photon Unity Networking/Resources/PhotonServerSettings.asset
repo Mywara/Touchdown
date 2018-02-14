@@ -42,4 +42,7 @@ MonoBehaviour:
   - RequestForPickupItems
   - RequestForPickupTimes
   - TaggedPlayer
+  - UpdateBar
+  - ChangeScore
+  - Damage2
   DisableAutoOpenWizard: 1

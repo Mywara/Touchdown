@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 224981937657065404}
   - component: {fileID: 114718546954286262}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: SliderUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -230,6 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthSlider: {fileID: 114718546954286262}
+  HealthSliderUI: {fileID: 0}
 --- !u!114 &114948040336279390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -367,8 +368,8 @@ RectTransform:
   m_Father: {fileID: 224166956825135806}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -143, y: 123.4}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 20}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}

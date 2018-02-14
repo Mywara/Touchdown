@@ -17,22 +17,21 @@ namespace PUNTutorial
             //initialisation de la vie en fonction du personnage
             HealthSlider.maxValue = HealthMax;
             HealthSlider.value = HealthMax;
+
+  
         }
 
         public void Damage(float damage)
         {
             HealthSlider.value = HealthSlider.value - damage;
+
         }
 
         public void Update()
         {
 
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                Damage(90);
-            }
-
-            if(HealthSlider.value <= 0)
+        
+            if (HealthSlider.value <= 0)
             {
                 //mort
             }
