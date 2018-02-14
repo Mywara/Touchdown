@@ -14,8 +14,8 @@ MonoBehaviour:
   AppID: 058bba78-d122-45d4-ae31-543afd37b07a
   VoiceAppID: 
   ChatAppID: 
-  HostType: 1
-  PreferredRegion: 8
+  HostType: 4
+  PreferredRegion: 0
   EnabledRegions: -1
   Protocol: 0
   ServerAddress: 
@@ -27,34 +27,23 @@ MonoBehaviour:
   NetworkLogging: 1
   RunInBackground: 1
   RpcList:
+  - ChangeScore
   - Chat
-  - ColorRpc
+  - Damage2
   - DestroyRpc
-  - DoJump
-  - Flash
   - InstantiateRpc
-  - Marco
   - PickupItemInit
-  - Polo
   - PunPickup
   - PunPickupSimple
   - PunRespawn
   - RequestForPickupItems
   - RequestForPickupTimes
-  - TaggedPlayer
-<<<<<<< HEAD
-  - UpdateBar
-  - ChangeScore
-  - Damage2
-=======
-  - Damage
   - AutoJoinTeam
+  - Damage
   - JoinTeam1
   - JoinTeam2
-  - RespawnPlayer
-  - ResetHealth
   - KillPlayer
-  - SyncroHealth
+  - ResetHealth
+  - RespawnPlayer
   - SynchroHealth
->>>>>>> 1e77df72d21089a8e4e5934844483c29b84f270c
   DisableAutoOpenWizard: 1

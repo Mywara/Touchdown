@@ -18,12 +18,12 @@ namespace PUNTutorial
             //initialisation de la vie en fonction du personnage
             HealthSlider.maxValue = HealthMax;
             HealthSlider.value = HealthMax;
-<<<<<<< HEAD
+
 
   
-=======
+
             Debug.Log(this.gameObject.name + " AwakeEnded");
->>>>>>> 1e77df72d21089a8e4e5934844483c29b84f270c
+
         }
 
         [PunRPC]
@@ -36,11 +36,7 @@ namespace PUNTutorial
         public void Update()
         {
 
-<<<<<<< HEAD
-        
-            if (HealthSlider.value <= 0)
             if(HealthSlider.value <= 0)
->>>>>>> 1e77df72d21089a8e4e5934844483c29b84f270c
             {
                 //mort
                 if (photonView.isMine)
