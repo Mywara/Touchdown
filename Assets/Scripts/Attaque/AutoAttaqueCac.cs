@@ -31,7 +31,16 @@ public class AutoAttaqueCac : Photon.MonoBehaviour, IPunObservable {
             cacHitZoneScript.SetDamage(this.damage);
             cacHitZoneScript.SetFireRate(this.fireRate);
             //dire de quelle equipe vient le projectile pour ne pas TK
-            //cacHitZoneScript.SetTeam();
+            PlayerController playerControllerScript = this.gameObject.GetComponent<PlayerController>();
+            if (playerControllerScript != null)
+            {
+                cacHitZoneScript.SetTeam(playerControllerScript.Team);
+                //Debug.Log("cachitzone team set to : " + playerControllerScript.Team);
+            }
+            else
+            {
+                Debug.Log("player have no PlayerController script");
+            }
         }
         else
         {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CacHitZone : Photon.PunBehaviour, IPunObservable {
+public class CacHitZone : Photon.PunBehaviour/*, IPunObservable*/ {
 
     public int damage = 10;
     public float fireRate = 1;
@@ -11,6 +11,8 @@ public class CacHitZone : Photon.PunBehaviour, IPunObservable {
     private bool netWorkingDone = false;
     private float nextFire = 0f;
     private List<GameObject> directHitObjs = new List<GameObject>();
+    private bool syncTeam = true;
+
     // Use this for initialization
     void Start()
     {
@@ -43,10 +45,24 @@ public class CacHitZone : Photon.PunBehaviour, IPunObservable {
         GameObject otherGO = other.transform.root.gameObject;
         if (otherGO.tag.Equals("Respawn") || otherGO.tag.Equals("Boundary"))
         {
-            //Debug.Log("hit Respawn");
             return;
         }
-        if (!directHitObjs.Contains(otherGO) && otherGO.GetComponent<PUNTutorial.HealthScript>() != null)
+        if (!RoomManager.instance.FriendlyFire)
+        {
+            if (otherGO.tag.Equals("Player"))
+            {
+                PlayerController playerControllerScript = otherGO.GetComponent<PlayerController>();
+                if (playerControllerScript != null)
+                {
+                    if (playerControllerScript.Team == this.team)
+                    {
+                        Debug.Log("Friend hit, not FF, do nothing");
+                        return;
+                    }
+                }
+            }
+        }
+        if (!directHitObjs.Contains(otherGO) && otherGO.tag.Equals("Player"))
         {
             directHitObjs.Add(otherGO);
         }
@@ -86,30 +102,5 @@ public class CacHitZone : Photon.PunBehaviour, IPunObservable {
             healthScript.photonView.RPC("Damage", PhotonTargets.All, damage);
             Debug.Log("Damage : " + damage + " deals to : " + target.name);
         }
-    }
-
-    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (!netWorkingDone)
-        {
-            if (stream.isWriting)
-            {
-                stream.SendNext(this.damage);
-                stream.SendNext(this.fireRate);
-                stream.SendNext(this.team);
-            }
-            else
-            {
-                this.damage = (int)stream.ReceiveNext();
-                this.fireRate = (float)stream.ReceiveNext();
-                this.team = (int)stream.ReceiveNext();
-                netWorkingDone = true;
-            }
-        }
-    }
-
-    private void OnPlayerConnected(NetworkPlayer player)
-    {
-        netWorkingDone = false;
     }
 }

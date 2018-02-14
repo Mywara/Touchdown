@@ -71,19 +71,49 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
             //Debug.Log("hit Respawn");
             return;
         }
+        if(!RoomManager.instance.FriendlyFire)
+        {
+            if (directHitObj.tag.Equals("Player"))
+            {
+                PlayerController playerControllerScript = directHitObj.GetComponent<PlayerController>();
+                if(playerControllerScript != null)
+                {
+                    if(playerControllerScript.Team == this.team)
+                    {
+                        Debug.Log("Friend hit, not FF, do nothing");
+                        return;
+                    }
+                }
+            }
+        }    
         Debug.Log("Direct hit on object : " + directHitObj.name);
-        ApplyDamage(directHitObj, impactDamage);
+        if (directHitObj.tag.Equals("Player"))
+        {
+            ApplyDamage(directHitObj, impactDamage);
+        }
+        
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, AOERadius);
         foreach(Collider colliITE in hitColliders)
         {
             GameObject objInAOE = colliITE.transform.root.gameObject;
-            Debug.Log("AOE hits object : " + objInAOE.name);
-            if (objInAOE != directHitObj)
+            if(objInAOE.tag.Equals("Player"))
             {
-                ApplyDamage(objInAOE, splashDamage);
-            }
+                Debug.Log("AOE hits object : " + objInAOE.name);
+                if (objInAOE != directHitObj)
+                {
+                    PlayerController playerControllerScript = objInAOE.GetComponent<PlayerController>();
+                    if (playerControllerScript != null)
+                    {
+                        if (playerControllerScript.Team != this.team)
+                        {
+                            ApplyDamage(objInAOE, splashDamage);
+                        }
+                    }  
+                }
+            }  
         }
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
+        PhotonNetwork.Destroy(this.gameObject);
     }
 
     private void ApplyDamage(GameObject target, int damage)
@@ -97,7 +127,7 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
             Debug.Log("Damage : " + damage +" deals to : " + target.name);
         }
     }
-
+    
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if(!netWorkingDone)
@@ -118,7 +148,7 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
                 this.speed = (float)stream.ReceiveNext();
                 this.team = (int)stream.ReceiveNext();
                 netWorkingDone = true;
-
+                Debug.Log("Networking Done for projectiles");
                 //Reset the velocity of the projectile
                 if (myRb != null)
                 {
@@ -128,7 +158,7 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
         }
     }
 
-    private void OnPlayerConnected(NetworkPlayer player)
+    public override void OnJoinedRoom()
     {
         netWorkingDone = false;
     }

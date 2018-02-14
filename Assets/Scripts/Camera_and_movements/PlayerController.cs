@@ -133,7 +133,23 @@ public class PlayerController : Photon.PunBehaviour, IPunObservable {
         }
         set
         {
-            this.team = value;
+            if(this.team != value)
+            {
+                this.team = value;
+                AutoAttaqueCac autoCacScript = this.gameObject.GetComponent<AutoAttaqueCac>();
+                if (autoCacScript != null)
+                {
+                    CacHitZone cacHitZoneScript = autoCacScript.cacHitZone.GetComponent<CacHitZone>();
+                    if(cacHitZoneScript != null)
+                    {
+                        cacHitZoneScript.SetTeam(this.Team);
+                    }
+                    else
+                    {
+                        Debug.Log("AutoAttaqueCac does not have CacHitZone script");
+                    }
+                }
+            }  
         }
     }
 
@@ -143,7 +159,7 @@ public class PlayerController : Photon.PunBehaviour, IPunObservable {
         {
             if (stream.isWriting)
             {
-                //stream.SendNext(this.team);
+                //stream.SendNext(this.health);
             }
             else
             {

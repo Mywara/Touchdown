@@ -49,4 +49,6 @@ MonoBehaviour:
   - RespawnPlayer
   - ResetHealth
   - KillPlayer
+  - SyncroHealth
+  - SynchroHealth
   DisableAutoOpenWizard: 1

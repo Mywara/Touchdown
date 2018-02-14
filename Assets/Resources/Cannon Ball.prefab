@@ -145,7 +145,7 @@ MonoBehaviour:
   splashDamage: 0
   AOERadius: 0
   speed: 1
-  team: 
+  team: 0
 --- !u!114 &114915711791220148
 MonoBehaviour:
   m_ObjectHideFlags: 1

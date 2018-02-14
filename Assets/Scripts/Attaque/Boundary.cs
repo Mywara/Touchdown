@@ -34,7 +34,8 @@ public class Boundary : MonoBehaviour {
         else
         {
             //Debug.Log("Object out of boundary -> destroy");
-            Destroy(otherGO);
+            //Destroy(otherGO);
+            PhotonNetwork.Destroy(otherGO);
         } 
     }
 }

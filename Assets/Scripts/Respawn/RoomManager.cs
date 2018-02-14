@@ -13,6 +13,7 @@ public class RoomManager : Photon.PunBehaviour {
     private List<GameObject> team1 = new List<GameObject>();
     private List<GameObject> team2 = new List<GameObject>();
     private bool teamHaveChanged = false;
+    private bool friendlyFire = false;
 
     void Awake()
     {
@@ -154,5 +155,23 @@ public class RoomManager : Photon.PunBehaviour {
         {
             JoinTeam2(playerViewID);
         }
+    }
+
+    public bool FriendlyFire
+    {
+        get
+        {
+            return this.friendlyFire;
+        }
+    }
+
+    public void FriendlyFireOn()
+    {
+        this.friendlyFire = true;
+    }
+
+    public void FriendlyFireOff()
+    {
+        this.friendlyFire = false;
     }
 }

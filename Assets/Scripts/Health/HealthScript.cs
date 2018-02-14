@@ -9,15 +9,18 @@ namespace PUNTutorial
     {
         public Slider HealthSlider;
         private int HealthMax;
-
-        public void Start()
+        private bool netWorkingDone = false;
+       
+        private void Awake()
         {
             //Set health depending on the character
             HealthMax = GetComponentInParent<CharacterCaracteristic>().health;
             //initialisation de la vie en fonction du personnage
             HealthSlider.maxValue = HealthMax;
             HealthSlider.value = HealthMax;
+            Debug.Log(this.gameObject.name + " AwakeEnded");
         }
+
         [PunRPC]
         public void Damage(int damage)
         {
@@ -61,6 +64,22 @@ namespace PUNTutorial
         public void KillPlayer()
         {
             HealthSlider.value = 0;
+        }
+
+        [PunRPC]
+        public void SynchroHealth(int health)
+        {
+            this.HealthSlider.value = health;
+            Debug.Log(this.gameObject.name + " RPC sync Health called : " + health);
+        }
+
+        public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
+        {
+            if(photonView.isMine)
+            {
+                Debug.Log(this.gameObject.name + " HealthScript : player connected");
+                photonView.RPC("SynchroHealth", PhotonTargets.All, (int)this.HealthSlider.value);
+            }
         }
     }  
 }
