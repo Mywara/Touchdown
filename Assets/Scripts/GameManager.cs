@@ -50,12 +50,9 @@ namespace PUNTutorial
         void OnLevelWasLoaded(int levelNumber)
         {
             if (!PhotonNetwork.inRoom) return;
-            //RoomManager.instance.UpdateInfo();
             //localPlayer = PhotonNetwork.Instantiate("TempPlayer", new Vector3(0, 0.5f, 0), Quaternion.identity, 0);
             localPlayer = PhotonNetwork.Instantiate(characterToLoad, new Vector3(0, 2f, 0), Quaternion.identity, 0);
 
-            //RoomManager.instance.AutoJoinTeam(localPlayer);
-            //RoomManager.instance.RespawnPlayer(localPlayer, 5.0f);
             RoomManager.instance.photonView.RPC("AutoJoinTeam", PhotonTargets.AllBufferedViaServer, localPlayer.GetPhotonView().viewID);
             RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.AllViaServer, localPlayer.GetPhotonView().viewID, 5.0f);       
         }

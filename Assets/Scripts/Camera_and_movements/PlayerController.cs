@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : Photon.PunBehaviour, IPunObservable {
+public class PlayerController : Photon.PunBehaviour{
 
     public float movementSpeed = 10;
     public float turningSpeed = 60;
@@ -82,16 +82,6 @@ public class PlayerController : Photon.PunBehaviour, IPunObservable {
         float vertical = Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime;
         transform.Translate(0, 0, vertical);
 
-        /*
-        // rotation perso
-        float inputX = Input.GetAxis("RightStickHorizontal");
-        mouseX = Input.GetAxis("Mouse X");
-        finalInputX = inputX + mouseX;
-
-        rotY += finalInputX * inputSensitivity * Time.deltaTime;
-        Quaternion localRotation = Quaternion.Euler(0.0f, rotY, 0.0f);
-        transform.rotation = localRotation;
-        */
         Animate(horizontal, vertical);
     }
 
@@ -151,27 +141,5 @@ public class PlayerController : Photon.PunBehaviour, IPunObservable {
                 }
             }  
         }
-    }
-
-    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (!netWorkingDone)
-        {
-            if (stream.isWriting)
-            {
-                //stream.SendNext(this.health);
-            }
-            else
-            {
-                //this.team = (int)stream.ReceiveNext();
-                netWorkingDone = true;
-            }
-            
-        }
-    }
-
-    private void OnPlayerConnected(NetworkPlayer player)
-    {
-        netWorkingDone = false;
     }
 }

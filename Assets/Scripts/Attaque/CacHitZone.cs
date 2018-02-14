@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CacHitZone : Photon.PunBehaviour/*, IPunObservable*/ {
+public class CacHitZone : Photon.PunBehaviour {
 
     public int damage = 10;
     public float fireRate = 1;
