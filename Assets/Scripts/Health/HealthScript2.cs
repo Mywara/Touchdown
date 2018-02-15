@@ -11,15 +11,17 @@ namespace PUNTutorial
         // Use this for initialization
         private GameObject PlayerHealth;
         public Slider HealthSliderUI;
-        private float HealthMax;
-        private float CurrentValue;
+        private int HealthMax;
+        private int CurrentValue;
 
 
-        void Start()
+        void Awake()
         {
 
             if (!photonView.isMine)
             {
+                HealthSliderUI.transform.parent.gameObject.SetActive(false);
+                //Debug.Log(this.gameObject.name +" : Not local player disable health bar");
                 return;
             }
             HealthMax = GetComponentInParent<CharacterCaracteristic>().health;
@@ -29,12 +31,14 @@ namespace PUNTutorial
         }
 
         [PunRPC]
-        public void Damage2(float damage)
+        public void Damage2(int damage)
         {
+            /*
             if (!photonView.isMine)
             {
                 return;
             }
+            */
            // HealthSliderUI.value = HealthSliderUI.value - damage;
             CurrentValue = CurrentValue - damage;
             HealthSliderUI.value = CurrentValue;

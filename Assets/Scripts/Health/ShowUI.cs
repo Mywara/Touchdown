@@ -17,7 +17,5 @@ namespace PUNTutorial
                 slider.enabled = false;
             }
         }
-
-
     }
 }

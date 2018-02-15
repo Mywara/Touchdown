@@ -47,7 +47,7 @@ public class RoomManager : Photon.PunBehaviour {
             GameObject[] spawnSlots = null;
             if(playerControllerScript.Team == 1)
             {
-                Debug.Log("Player is in team one, will respawn in team 1 spawn");
+                //Debug.Log("Player is in team one, will respawn in team 1 spawn");
                 SpawnPoint spawnPointScript = respawnTeam1.GetComponent<SpawnPoint>();
                 if(spawnPointScript != null)
                 {
@@ -61,7 +61,7 @@ public class RoomManager : Photon.PunBehaviour {
             else if(playerControllerScript.Team == 2)
             {
                 SpawnPoint spawnPointScript = respawnTeam2.GetComponent<SpawnPoint>();
-                Debug.Log("Player is in team two, will respawn in team 2 spawn");
+                //Debug.Log("Player is in team two, will respawn in team 2 spawn");
                 if (spawnPointScript != null)
                 {
                     spawnSlots = spawnPointScript.SpawnSlotsAvailiable;
@@ -105,7 +105,7 @@ public class RoomManager : Photon.PunBehaviour {
     {
         yield return new WaitForSeconds(timeBeforRespawn);
         player.SetActive(true);
-        Debug.Log("Player: "+ player.name + " respawned");
+        //Debug.Log("Player: "+ player.name + " respawned");
     }
 
     [PunRPC]
@@ -117,7 +117,7 @@ public class RoomManager : Photon.PunBehaviour {
         {
             playerControllerScript.Team = 1;
             this.team1.Add(player);
-            Debug.Log("Player : " + player.name + " Joined team 1");
+            //Debug.Log("Player : " + player.name + " Joined team 1");
         }
         else
         {
@@ -135,7 +135,7 @@ public class RoomManager : Photon.PunBehaviour {
         {
             playerControllerScript.Team = 2;
             this.team2.Add(player);
-            Debug.Log("Player : "+ player.name + " Joined team 2");
+            //Debug.Log("Player : "+ player.name + " Joined team 2");
         }
         else
         {

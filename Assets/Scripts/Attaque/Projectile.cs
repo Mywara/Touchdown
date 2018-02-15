@@ -130,7 +130,8 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
         PUNTutorial.HealthScript2 healthScript2 = target.GetComponent<PUNTutorial.HealthScript2>();
         if (healthScript2 != null)
         {
-            healthScript2.Damage2(damage);
+            //healthScript2.Damage2(damage);
+            healthScript2.photonView.RPC("Damage2", PhotonTargets.All, damage);
         }
     }
     
@@ -154,7 +155,7 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
                 this.speed = (float)stream.ReceiveNext();
                 this.team = (int)stream.ReceiveNext();
                 netWorkingDone = true;
-                Debug.Log("Networking Done for projectiles");
+                //Debug.Log("Networking Done for projectiles");
                 //Reset the velocity of the projectile
                 if (myRb != null)
                 {

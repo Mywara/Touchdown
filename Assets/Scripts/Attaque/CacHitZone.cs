@@ -106,7 +106,8 @@ public class CacHitZone : Photon.PunBehaviour {
         PUNTutorial.HealthScript2 healthScript2 = target.GetComponent<PUNTutorial.HealthScript2>();
         if (healthScript2 != null)
         {
-            healthScript2.Damage2(damage);
+            //healthScript2.Damage2(damage);
+            healthScript2.photonView.RPC("Damage2", PhotonTargets.All, damage);
         }
     }
 }
