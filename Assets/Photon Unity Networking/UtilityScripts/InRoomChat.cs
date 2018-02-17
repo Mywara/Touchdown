@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(PhotonView))]
-public class InRoomChat : Photon.MonoBehaviour
+public class InRoomChat : Photon.PUNBehaviour
 {
     public Rect GuiRect = new Rect(0,0, 250,300);
     public bool IsVisible = true;

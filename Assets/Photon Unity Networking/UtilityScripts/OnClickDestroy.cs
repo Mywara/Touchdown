@@ -19,7 +19,7 @@ using System.Collections;
 /// Gets OnClick() calls by InputToEvent class attached to a camera.
 /// </remarks>
 [RequireComponent(typeof(PhotonView))]
-public class OnClickDestroy : Photon.MonoBehaviour
+public class OnClickDestroy : Photon.PUNBehaviour
 {
     public bool DestroyByRpc;
 

@@ -17,7 +17,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 
-public class PhotonConverter : Photon.MonoBehaviour
+public class PhotonConverter : Photon.PUNBehaviour
 {
     public static List<string> GetScriptsInFolder(string folder)
     {

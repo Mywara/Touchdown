@@ -5,7 +5,7 @@ using System.Collections;
 /// Makes a scene object pickup-able. Needs a PhotonView which belongs to the scene.
 /// </summary>
 [RequireComponent(typeof(PhotonView))]
-public class PickupItemSimple : Photon.MonoBehaviour
+public class PickupItemSimple : Photon.PUNBehaviour
 {
     public float SecondsBeforeRespawn = 2;
     public bool PickupOnCollide;

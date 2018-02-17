@@ -53,7 +53,7 @@ public enum OwnershipOption
 /// </summary>
 /// \ingroup publicApi
 [AddComponentMenu("Photon Networking/Photon View &v")]
-public class PhotonView : Photon.MonoBehaviour
+public class PhotonView : Photon.PUNBehaviour
 {
     #if UNITY_EDITOR
     [ContextMenu("Open PUN Wizard")]

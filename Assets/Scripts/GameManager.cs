@@ -28,7 +28,7 @@ namespace PUNTutorial
 
         void Start()
         {
-            PhotonNetwork.ConnectUsingSettings("Version_1.1");
+            PhotonNetwork.ConnectUsingSettings("Version_1.10");
         }
 
         public void JoinGame()
@@ -49,12 +49,14 @@ namespace PUNTutorial
         
         void OnLevelWasLoaded(int levelNumber)
         {
+            if (levelNumber != 2) { //level 2 is end level, photonView don't exist
             if (!PhotonNetwork.inRoom) return;
             //localPlayer = PhotonNetwork.Instantiate("TempPlayer", new Vector3(0, 0.5f, 0), Quaternion.identity, 0);
             localPlayer = PhotonNetwork.Instantiate(characterToLoad, new Vector3(0, 2f, 0), Quaternion.identity, 0);
 
             RoomManager.instance.photonView.RPC("AutoJoinTeam", PhotonTargets.AllBufferedViaServer, localPlayer.GetPhotonView().viewID);
-            RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.AllViaServer, localPlayer.GetPhotonView().viewID, 5.0f);       
+            RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.AllViaServer, localPlayer.GetPhotonView().viewID, 5.0f);
+            }
         }
         
 

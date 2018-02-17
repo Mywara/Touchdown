@@ -468,7 +468,7 @@ namespace Photon
     /// <summary>
     /// This class adds the property photonView, while logging a warning when your game still uses the networkView.
     /// </summary>
-    public class MonoBehaviour : UnityEngine.MonoBehaviour
+    public class PUNBehaviour : UnityEngine.MonoBehaviour
     {
         /// <summary>Cache field for the PhotonView on this GameObject.</summary>
         private PhotonView pvCache = null;
@@ -533,7 +533,7 @@ namespace Photon
     /// </remarks>
     /// \ingroup publicApi
     // the documentation for the interface methods becomes inherited when Doxygen builds it.
-    public class PunBehaviour : Photon.MonoBehaviour, IPunCallbacks
+    public class PunBehaviour : Photon.PUNBehaviour, IPunCallbacks
     {
         /// <summary>
         /// Called when the initial connection got established but before you can use the server. OnJoinedLobby() or OnConnectedToMaster() are called when PUN is ready.

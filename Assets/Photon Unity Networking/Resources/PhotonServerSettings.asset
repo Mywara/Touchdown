@@ -46,4 +46,6 @@ MonoBehaviour:
   - ResetHealth
   - RespawnPlayer
   - SynchroHealth
+  - StartCountdownTime
+  - EndCountdownTime
   DisableAutoOpenWizard: 1

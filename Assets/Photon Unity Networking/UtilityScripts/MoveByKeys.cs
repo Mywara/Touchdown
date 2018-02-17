@@ -12,7 +12,7 @@ using UnityEngine;
 /// JumpTimeout defines after how many seconds you can jump again.
 /// </remarks>
 [RequireComponent(typeof (PhotonView))]
-public class MoveByKeys : Photon.MonoBehaviour
+public class MoveByKeys : Photon.PUNBehaviour
 {
     public float Speed = 10f;
     public float JumpForce = 200f;

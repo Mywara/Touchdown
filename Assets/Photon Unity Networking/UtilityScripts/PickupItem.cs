@@ -8,7 +8,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 /// </summary>
 /// <remarks>Includes a OnPhotonSerializeView implementation that </remarks>
 [RequireComponent(typeof(PhotonView))]
-public class PickupItem : Photon.MonoBehaviour, IPunObservable
+public class PickupItem : Photon.PUNBehaviour, IPunObservable
 {
     ///<summary>Enables you to define a timeout when the picked up item should re-spawn at the same place it was before.</summary>
     /// <remarks>

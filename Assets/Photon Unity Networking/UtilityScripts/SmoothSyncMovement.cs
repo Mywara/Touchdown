@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(PhotonView))]
-public class SmoothSyncMovement : Photon.MonoBehaviour, IPunObservable
+public class SmoothSyncMovement : Photon.PUNBehaviour, IPunObservable
 {
     public float SmoothingDelay = 5;
     public void Awake()

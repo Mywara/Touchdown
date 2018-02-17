@@ -834,7 +834,9 @@ MonoBehaviour:
   mouseX: 0
   finalInputX: 0
   inputSensitivity: 120
+  cameraFollow: {fileID: 0}
   jumpForce: 40
+  team: 0
 --- !u!136 &136575041922390480
 CapsuleCollider:
   m_ObjectHideFlags: 1

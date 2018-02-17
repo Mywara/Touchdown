@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoAttaqueCac : Photon.MonoBehaviour, IPunObservable {
+public class AutoAttaqueCac : Photon.PUNBehaviour, IPunObservable {
 
     public int damage = 10;
     public float fireRate = 1;
