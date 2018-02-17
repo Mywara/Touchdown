@@ -23,6 +23,7 @@ namespace PUNTutorial
                 photonView.RPC("ChangeScore", PhotonTargets.All);
                 if (scoreG >= endScore)
                 {
+                    GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "gauche"; 
                     PhotonNetwork.LoadLevel("EndScene");
                 }
             }
@@ -32,6 +33,7 @@ namespace PUNTutorial
                 photonView.RPC("ChangeScore", PhotonTargets.All);
                 if(scoreD >= endScore)
                 {
+                    GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "droite";
                     PhotonNetwork.LoadLevel("EndScene");
                 }
             }
