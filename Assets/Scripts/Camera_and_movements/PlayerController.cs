@@ -18,6 +18,7 @@ public class PlayerController : Photon.PunBehaviour{
     public int team = 0;
     private bool netWorkingDone = false;
 
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -84,6 +85,7 @@ public class PlayerController : Photon.PunBehaviour{
         }
     }
 
+
     public static float CalculateJumpVerticalSpeed(float targetJumpHeight)
     {
         // From the jump height and gravity we deduce the upwards speed 
@@ -110,9 +112,32 @@ public class PlayerController : Photon.PunBehaviour{
 
     void Animate(float h, float v)
     {
-        bool running = h != 0f || v != 0f;
-        anim.SetBool("IsRunning", running);
+        // s'il y a déplacement latéral
+        if(h != 0f)
+        {
+            anim.SetBool("RunningForward", false);
+
+            if(h < 0f)
+            {
+                anim.SetBool("RunningLeft", true);
+                anim.SetBool("RunningRight", false);
+            }
+            else if(h > 0f)
+            {
+                anim.SetBool("RunningLeft", false);
+                anim.SetBool("RunningRight", true);
+            }
+        }
+        // s'il n'y a pas de déplacement latéral
+        else
+        {
+            anim.SetBool("RunningForward", (v != 0f));
+
+            anim.SetBool("RunningLeft", false);
+            anim.SetBool("RunningRight", false);
+        }
     }
+
 
     public int Team
     {

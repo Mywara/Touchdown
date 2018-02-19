@@ -19,12 +19,18 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
     //
 
     private float nextFire = 0f;
+    private Animator anim;
+
+    void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         offset_tire_vertical = 12;
         offset_tire_horizontal = 23;
-
     }
 	
 	// Update is called once per frame
@@ -36,6 +42,8 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
         }
         if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
+            // animation trigger
+            anim.SetTrigger("AttackGun");
 
             RaycastHit hit;
             Camera cam = Camera.main;
@@ -58,7 +66,6 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
             var rotationVector = cam.transform.rotation.eulerAngles;
             rotationVector.y += (1 / distance) * offset_tire_horizontal; // axe horizontal de visée 
             rotationVector.x -= (1 / distance) * offset_tire_vertical; // axe Vertical de visée
-
 
             nextFire = Time.time + fireRate;
             GameObject projo;

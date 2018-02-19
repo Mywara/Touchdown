@@ -9,6 +9,7 @@ public class AutoAttaqueCac : Photon.PUNBehaviour, IPunObservable {
     public GameObject cacHitZone;
 
     private bool isAttacking = false;
+    private Animator anim;
 
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -20,6 +21,11 @@ public class AutoAttaqueCac : Photon.PUNBehaviour, IPunObservable {
         {
             this.cacHitZone.SetActive((bool)stream.ReceiveNext());
         }
+    }
+
+    void Awake()
+    {
+        anim = GetComponent<Animator>();
     }
 
     // Use this for initialization
@@ -59,6 +65,9 @@ public class AutoAttaqueCac : Photon.PUNBehaviour, IPunObservable {
 
         if(Input.GetButtonDown("Fire1"))
         {
+            // animation trigger
+            anim.SetTrigger("AttackCac");
+
             cacHitZone.SetActive(true);
         }
         if (Input.GetButtonUp("Fire1"))

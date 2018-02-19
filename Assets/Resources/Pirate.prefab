@@ -588,6 +588,7 @@ GameObject:
   - component: {fileID: 114871883346983298}
   - component: {fileID: 114597776403633338}
   - component: {fileID: 114757451083216452}
+  - component: {fileID: 114805491446883470}
   - component: {fileID: 114723757052121632}
   m_Layer: 0
   m_Name: Pirate
@@ -1040,6 +1041,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1983727145572376, guid: a581bdce5aaa32f4f92756906724583f,
     type: 2}
   projectileSpawn: {fileID: 4193193885231094}
+  offset_tire_vertical: 0
+  offset_tire_horizontal: 0
+  sourceObject: {fileID: 0}
 --- !u!114 &114013642118591332
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1182,6 +1186,7 @@ MonoBehaviour:
   inputSensitivity: 120
   cameraFollow: {fileID: 1841835560823816}
   jumpForce: 40
+  myJumpHeight: 5
   team: 0
 --- !u!114 &114269722440633300
 MonoBehaviour:
@@ -1345,6 +1350,7 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 114757451083216452}
+  - {fileID: 114805491446883470}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -1427,6 +1433,32 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &114805491446883470
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1992377452375106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 1
+    Name: IsRunning
+  - Type: 9
+    SynchronizeType: 1
+    Name: BaseAttack
+  - Type: 9
+    SynchronizeType: 1
+    Name: Jump
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!114 &114860736693206500
 MonoBehaviour:
   m_ObjectHideFlags: 1
