@@ -46,7 +46,7 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
             {
                 //Debug.Log(hit.collider.name);
                 //Debug.Log(hit.distance);
-                Instantiate(sourceObject, hit.point, Quaternion.identity);
+                //Instantiate(sourceObject, hit.point, Quaternion.identity);
 
                 distance = hit.distance;
             }
