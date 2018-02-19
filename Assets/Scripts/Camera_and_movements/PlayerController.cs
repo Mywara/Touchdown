@@ -13,9 +13,8 @@ public class PlayerController : Photon.PunBehaviour{
 
     private Rigidbody rb;
     private Animator anim;
-    private float VerticalVelocity;
     public float jumpForce = 10.0f;
-    private bool isGrounded = true;
+    public float myJumpHeight = 5.0f;
     public int team = 0;
     private bool netWorkingDone = false;
 
@@ -61,11 +60,35 @@ public class PlayerController : Photon.PunBehaviour{
             return;
         }
         // saut perso
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
-            anim.SetTrigger("Jump");
+            // on utilise un raycast pour connaitre la distance vis a vis du sol
+            RaycastHit hit;
+
+            // On appelle le Raycast dans un if car s'il ne touche rien il renvoit false (c'est qu'on est dans le vide et on peut pas sauter)
+            if (Physics.Raycast(rb.transform.position + Vector3.up * 0.1f, -rb.transform.up, out hit, 10))
+            {
+                //test
+                print(hit.distance);
+                //
+                if (hit.distance <= 0.2)
+                {
+                    Vector2 velocity = rb.velocity;
+                    velocity.y = CalculateJumpVerticalSpeed(myJumpHeight);
+                    rb.velocity = velocity;
+                    //rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+                    anim.SetTrigger("Jump");
+                }
+
+            }
         }
+    }
+
+    public static float CalculateJumpVerticalSpeed(float targetJumpHeight)
+    {
+        // From the jump height and gravity we deduce the upwards speed 
+        // for the character to reach at the apex.
+        return Mathf.Sqrt(2f * targetJumpHeight * -Physics.gravity.y);
     }
 
 
@@ -89,30 +112,6 @@ public class PlayerController : Photon.PunBehaviour{
     {
         bool running = h != 0f || v != 0f;
         anim.SetBool("IsRunning", running);
-    }
-
-    void OnCollisionEnter(Collision other)
-    {
-        if (!photonView.isMine && PhotonNetwork.connected == true)
-        {
-            return;
-        }
-        if (other.gameObject.tag == "Floor" && isGrounded == false)
-        {
-            isGrounded = true;
-        }
-    }
-
-    void OnCollisionExit(Collision other)
-    {
-        if (!photonView.isMine && PhotonNetwork.connected == true)
-        {
-            return;
-        }
-        if (other.gameObject.tag == "Floor" && isGrounded == true)
-        {
-            isGrounded = false;
-        }
     }
 
     public int Team

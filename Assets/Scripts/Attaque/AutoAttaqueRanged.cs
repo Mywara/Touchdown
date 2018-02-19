@@ -11,13 +11,21 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
     public float projectileSpeed = 10;
     public GameObject projectilePrefab;
     public Transform projectileSpawn;
+    public float offset_tire_vertical;
+    public float offset_tire_horizontal;
+
+    // test
+    public GameObject sourceObject;
+    //
 
     private float nextFire = 0f;
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        offset_tire_vertical = 12;
+        offset_tire_horizontal = 23;
+
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -28,17 +36,41 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
         }
         if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
+
+            RaycastHit hit;
+            Camera cam = Camera.main;
+
+            float distance; // La distance d'un point prêt du personnage jusqu'à la cible
+
+            if (Physics.Raycast(cam.transform.position + cam.transform.forward * 2.5f, cam.transform.forward, out hit, 500))
+            {
+                //Debug.Log(hit.collider.name);
+                //Debug.Log(hit.distance);
+                Instantiate(sourceObject, hit.point, Quaternion.identity);
+
+                distance = hit.distance;
+            }
+            else
+            {
+                distance = 30;
+            }
+
+            var rotationVector = cam.transform.rotation.eulerAngles;
+            rotationVector.y += (1 / distance) * offset_tire_horizontal; // axe horizontal de visée 
+            rotationVector.x -= (1 / distance) * offset_tire_vertical; // axe Vertical de visée
+
+
             nextFire = Time.time + fireRate;
             GameObject projo;
             //Pour le local
             if (PhotonNetwork.connected == false)
             {
-                projo = Instantiate(projectilePrefab, projectileSpawn.position, projectileSpawn.rotation).gameObject as GameObject;
+                projo = Instantiate(projectilePrefab, projectileSpawn.position, Quaternion.Euler(rotationVector) ).gameObject as GameObject;
             }
             else
             {
                 //Pour le reseau
-                projo = PhotonNetwork.Instantiate(this.projectilePrefab.name, projectileSpawn.position, projectileSpawn.rotation, 0);
+                projo = PhotonNetwork.Instantiate(this.projectilePrefab.name, projectileSpawn.position, Quaternion.Euler(rotationVector), 0);
             }
             
             Projectile projectileScript = projo.GetComponent<Projectile>();
