@@ -4,8 +4,24 @@ using UnityEngine;
 
 //attaque large peu profonde
 //repousse les ennemis et fait peu de dégâts
-public class GrapeShot : DistanceHitZone
+public class GrapeShot : Photon.PunBehaviour
 {
+
+    private int damage;
+    private float fireRate = 1;
+    public int team;
+
+    private bool netWorkingDone = false;
+    private float nextFire = 0f;
+    private List<GameObject> directHitObjs = new List<GameObject>();
+    private bool syncTeam = true;
+
+    //the radius of the circular zone
+    //= depth of the spell
+    private float radius;
+    //the angle of the circular zone
+    private float angle;
+
     public void Start()
     {
         damage = Constants.GRAPE_DAMAGE;
@@ -26,13 +42,81 @@ public class GrapeShot : DistanceHitZone
         target.transform.SetPositionAndRotation(transform.position + q * Vector3.right * radius, q);
     }
 
-    /*
-     * Et là genre t'as le OnTriggerStay qui prend toutes les instances
-     * Et puis le Update qui applique les dégats et l'effet de recul
-     * Mais je sais pas faire un GO pour chaque attaque on va vite se retrouver
-     * avec des tas et des tas de GO qu'il faut instancier et libérer à chaque
-     * lancer ça va bouffer tellement le jeu il va lag avec tous ces objets 
-     * sur la scène imagine tout le monde lance un sort en même temps ça va être full 
-     * instanciation
-     */
+    //Ici other = l'object que l'on a touché
+    //Modif a faire, limiter dmg au cible valide -> layer + test
+    private void OnTriggerStay(Collider other)
+    {
+        if (!photonView.isMine)
+        {
+            return;
+        }
+        GameObject otherGO = other.transform.root.gameObject;
+        if (otherGO.tag.Equals("Respawn") || otherGO.tag.Equals("Boundary"))
+        {
+            return;
+        }
+        if (!RoomManager.instance.FriendlyFire)
+        {
+            if (otherGO.tag.Equals("Player"))
+            {
+                PlayerController playerControllerScript = otherGO.GetComponent<PlayerController>();
+                if (playerControllerScript != null)
+                {
+                    if (playerControllerScript.Team == this.team)
+                    {
+                        Debug.Log("Friend hit, not FF, do nothing");
+                        return;
+                    }
+                }
+            }
+        }
+        if (!directHitObjs.Contains(otherGO) && otherGO.tag.Equals("Player"))
+        {
+            directHitObjs.Add(otherGO);
+        }
+    }
+
+    private void Update()
+    {
+        if (Time.time > nextFire)
+        {
+            nextFire = Time.time + fireRate;
+            foreach (GameObject directHitObj in directHitObjs.ToArray())
+            {
+                Debug.Log("Obj in CacHitZone : " + directHitObj.name);
+                ApplyDamage(directHitObj, damage);
+                repulse(directHitObj);
+                directHitObjs.Remove(directHitObj);
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        directHitObjs.Remove(other.transform.root.gameObject);
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("CacHitZone disable");
+        directHitObjs.Clear();
+    }
+
+    private void ApplyDamage(GameObject target, int damage)
+    {
+        PUNTutorial.HealthScript healthScript = target.GetComponent<PUNTutorial.HealthScript>();
+        if (healthScript != null)
+        {
+            //healthScript.Damage(damage);
+            healthScript.photonView.RPC("Damage", PhotonTargets.All, damage);
+            Debug.Log("Damage : " + damage + " deals to : " + target.name);
+        }
+
+        PUNTutorial.HealthScript2 healthScript2 = target.GetComponent<PUNTutorial.HealthScript2>();
+        if (healthScript2 != null)
+        {
+            //healthScript2.Damage2(damage);
+            healthScript2.photonView.RPC("Damage2", PhotonTargets.All, damage);
+        }
+    }
 }
