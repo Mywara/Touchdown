@@ -38,7 +38,7 @@ public class CacHitZone : Photon.PunBehaviour {
     //Modif a faire, limiter dmg au cible valide -> layer + test
     private void OnTriggerStay(Collider other)
     {
-        if (!photonView.isMine)
+        if (!photonView.isMine && PhotonNetwork.connected == true)
         {
             return;
         }

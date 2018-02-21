@@ -38,25 +38,30 @@ public class GrapeShot : Photon.PunBehaviour
         float angle = Vector3.Angle(targetDir, transform.forward);
 
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-
-        target.transform.SetPositionAndRotation(transform.position + q * Vector3.right * radius, q);
+        
+        target.GetComponent<Rigidbody>().AddForce(targetDir * radius * 250);
     }
 
     //Ici other = l'object que l'on a touché
     //Modif a faire, limiter dmg au cible valide -> layer + test
     private void OnTriggerStay(Collider other)
     {
-        if (!photonView.isMine)
+        Debug.Log("Entrée dans le OnTriggerStay");
+        if (!photonView.isMine && PhotonNetwork.connected == true)
         {
+            Debug.Log("PhotonView");
             return;
         }
         GameObject otherGO = other.transform.root.gameObject;
         if (otherGO.tag.Equals("Respawn") || otherGO.tag.Equals("Boundary"))
         {
+            Debug.Log("In Respawn");
             return;
         }
+        /*
         if (!RoomManager.instance.FriendlyFire)
         {
+            Debug.Log("Room Manager");
             if (otherGO.tag.Equals("Player"))
             {
                 PlayerController playerControllerScript = otherGO.GetComponent<PlayerController>();
@@ -70,36 +75,33 @@ public class GrapeShot : Photon.PunBehaviour
                 }
             }
         }
+        */
+        Debug.Log("name : "+otherGO.name);
         if (!directHitObjs.Contains(otherGO) && otherGO.tag.Equals("Player"))
         {
+            Debug.Log("Ajout");
             directHitObjs.Add(otherGO);
         }
     }
 
     private void Update()
     {
-        if (Time.time > nextFire)
+        Debug.Log("Entrée Dans l'update");
+        foreach (GameObject directHitObj in directHitObjs.ToArray())
         {
-            nextFire = Time.time + fireRate;
-            foreach (GameObject directHitObj in directHitObjs.ToArray())
-            {
-                Debug.Log("Obj in CacHitZone : " + directHitObj.name);
-                ApplyDamage(directHitObj, damage);
-                repulse(directHitObj);
-                directHitObjs.Remove(directHitObj);
-            }
+            Debug.Log("Obj in GrapeShotZone : " + directHitObj.name);
+            ApplyDamage(directHitObj, damage);
+            repulse(directHitObj);
+            directHitObjs.Remove(directHitObj);
         }
+        Debug.Log("before destroy");
+        Destroy(this);
+        Debug.Log("Destroy");
     }
 
     private void OnTriggerExit(Collider other)
     {
         directHitObjs.Remove(other.transform.root.gameObject);
-    }
-
-    private void OnDisable()
-    {
-        Debug.Log("CacHitZone disable");
-        directHitObjs.Clear();
     }
 
     private void ApplyDamage(GameObject target, int damage)

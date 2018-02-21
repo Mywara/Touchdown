@@ -61,7 +61,7 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
     //Modif a faire, limiter dmg au cible valide -> layer + test
     private void OnTriggerEnter(Collider other)
     {
-        if(!photonView.isMine)
+        if(!photonView.isMine && PhotonNetwork.connected == true)
         {
             return;
         }
