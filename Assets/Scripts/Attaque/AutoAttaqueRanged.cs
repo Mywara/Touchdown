@@ -13,7 +13,7 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
     public Transform projectileSpawn;
     public float offset_tir_vertical = 12;
     public float offset_tir_horizontal = 23;
-    public float gunShotDelay = 1f;
+    public float gunShotDelay = .5f;
 
     // test
     public GameObject sourceObject;

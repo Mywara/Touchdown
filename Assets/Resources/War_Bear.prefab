@@ -1469,8 +1469,8 @@ MonoBehaviour:
   finalInputX: 0
   inputSensitivity: 120
   cameraFollow: {fileID: 1406215290990354}
-  jumpForce: 40
-  myJumpHeight: 5
+  jumpForce: 20
+  myJumpHeight: 3
   team: 0
 --- !u!114 &114977305829112610
 MonoBehaviour:

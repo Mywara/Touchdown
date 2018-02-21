@@ -17,7 +17,6 @@ public class PlayerController : Photon.PunBehaviour{
     private Rigidbody rb;
     private Animator anim;
     private bool netWorkingDone = false;
-    private bool jumpTriggered = false;
 
     void Awake()
     {
@@ -62,8 +61,7 @@ public class PlayerController : Photon.PunBehaviour{
         }
 
         // saut perso
-        if(jumpTriggered)
-        //if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             // on utilise un raycast pour connaitre la distance vis a vis du sol
             RaycastHit hit;
@@ -83,8 +81,6 @@ public class PlayerController : Photon.PunBehaviour{
                     velocity.y = CalculateJumpVerticalSpeed(myJumpHeight);
                     rb.velocity = velocity;
                     //rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
-
-                    jumpTriggered = false;
                 }
 
             }
@@ -116,12 +112,6 @@ public class PlayerController : Photon.PunBehaviour{
 
         // animation de déplacement en fonction des inputs horizontaux et verticaux (flèches directionnelles)
         Animate(horizontal, vertical);
-
-        // on vérifie que le personnage n'est pas déjà en train de sauter pour activer le trigger de saut qui sera traité par FixedUpdate
-        if (Input.GetKeyDown(KeyCode.Space) && !anim.GetCurrentAnimatorStateInfo(0).IsName("JumpCut"))
-        {
-            jumpTriggered = true;
-        }
     }
 
     void Animate(float h, float v)

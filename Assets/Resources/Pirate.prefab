@@ -1003,7 +1003,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 3ecd69f60e1b442f8922995dc9f7989a, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1041,8 +1041,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1983727145572376, guid: a581bdce5aaa32f4f92756906724583f,
     type: 2}
   projectileSpawn: {fileID: 4193193885231094}
-  offset_tire_vertical: 0
-  offset_tire_horizontal: 0
+  offset_tir_vertical: 12
+  offset_tir_horizontal: 23
+  gunShotDelay: 0.5
   sourceObject: {fileID: 0}
 --- !u!114 &114013642118591332
 MonoBehaviour:
@@ -1185,8 +1186,8 @@ MonoBehaviour:
   finalInputX: 0
   inputSensitivity: 120
   cameraFollow: {fileID: 1841835560823816}
-  jumpForce: 40
-  myJumpHeight: 5
+  jumpForce: 20
+  myJumpHeight: 3
   team: 0
 --- !u!114 &114269722440633300
 MonoBehaviour:
@@ -1447,15 +1448,30 @@ MonoBehaviour:
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
   m_SynchronizeParameters:
-  - Type: 4
-    SynchronizeType: 1
-    Name: IsRunning
-  - Type: 9
-    SynchronizeType: 1
-    Name: BaseAttack
   - Type: 9
     SynchronizeType: 1
     Name: Jump
+  - Type: 4
+    SynchronizeType: 0
+    Name: RunningForward
+  - Type: 4
+    SynchronizeType: 0
+    Name: RunningLeft
+  - Type: 4
+    SynchronizeType: 0
+    Name: RunningRight
+  - Type: 4
+    SynchronizeType: 0
+    Name: AttackCac
+  - Type: 9
+    SynchronizeType: 0
+    Name: AttackGun
+  - Type: 9
+    SynchronizeType: 0
+    Name: Damage
+  - Type: 9
+    SynchronizeType: 0
+    Name: Die
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
