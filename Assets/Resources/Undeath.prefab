@@ -569,6 +569,7 @@ GameObject:
   - component: {fileID: 114621299335967458}
   - component: {fileID: 114632834128214476}
   - component: {fileID: 114655161566790484}
+  - component: {fileID: 114701847743013310}
   m_Layer: 0
   m_Name: Undeath
   m_TagString: Player
@@ -1564,6 +1565,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthSliderUI: {fileID: 114093927385117972}
+--- !u!114 &114701847743013310
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1901769844858788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061aa72de0f4c1741b239c70d4c1e100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab1: {fileID: 0}
+  projectilePrefab2: {fileID: 0}
+  projectilePrefabUlt: {fileID: 0}
+  projectileSpawn1: {fileID: 0}
+  projectileSpawn2: {fileID: 0}
+  projectileSpawnUlt: {fileID: 0}
+  sourceObject: {fileID: 0}
 --- !u!114 &114743294818448230
 MonoBehaviour:
   m_ObjectHideFlags: 1

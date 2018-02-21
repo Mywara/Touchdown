@@ -335,6 +335,7 @@ GameObject:
   - component: {fileID: 114513372739151394}
   - component: {fileID: 114781331123741138}
   - component: {fileID: 114456571866853952}
+  - component: {fileID: 114894028675247176}
   m_Layer: 0
   m_Name: War_Bear
   m_TagString: Player
@@ -1452,6 +1453,24 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!114 &114894028675247176
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1640654363724030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061aa72de0f4c1741b239c70d4c1e100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab1: {fileID: 0}
+  projectilePrefab2: {fileID: 0}
+  projectilePrefabUlt: {fileID: 0}
+  projectileSpawn1: {fileID: 0}
+  projectileSpawn2: {fileID: 0}
+  projectileSpawnUlt: {fileID: 0}
+  sourceObject: {fileID: 0}
 --- !u!114 &114970982845910662
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -39,7 +39,7 @@ public class GrapeShot : Photon.PunBehaviour
 
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
         
-        target.GetComponent<Rigidbody>().AddForce(targetDir * radius * 250);
+        target.GetComponent<Rigidbody>().AddForce(targetDir * radius * 50);
     }
 
     //Ici other = l'object que l'on a touché
@@ -95,7 +95,7 @@ public class GrapeShot : Photon.PunBehaviour
             directHitObjs.Remove(directHitObj);
         }
         Debug.Log("before destroy");
-        Destroy(this);
+        Destroy(this.gameObject);
         Debug.Log("Destroy");
     }
 
