@@ -742,7 +742,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1640654363724030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.23, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4977634266821520}
@@ -1101,6 +1101,7 @@ MonoBehaviour:
   damage: 80
   fireRate: 1
   cacHitZone: {fileID: 1137029520731408}
+  hclamp: 60
 --- !u!114 &114267205433509544
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1469,8 +1470,7 @@ MonoBehaviour:
   finalInputX: 0
   inputSensitivity: 120
   cameraFollow: {fileID: 1406215290990354}
-  jumpForce: 40
-  myJumpHeight: 5
+  myJumpHeight: 1.5
   team: 0
 --- !u!114 &114977305829112610
 MonoBehaviour:
@@ -1509,10 +1509,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 1
+  m_Radius: 0.5
   m_Height: 1.5
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.8, z: -0.4}
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.6, z: -0.4}
 --- !u!136 &136976763932294706
 CapsuleCollider:
   m_ObjectHideFlags: 1
