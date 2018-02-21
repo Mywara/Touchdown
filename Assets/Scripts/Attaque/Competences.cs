@@ -49,6 +49,7 @@ public class Competences : Photon.PunBehaviour
             {
                 Debug.Log("En local");
                 projo = Instantiate(projectilePrefab1, new Vector3(projectileSpawn1.position.x, projectileSpawn1.position.y + 0.5f, projectileSpawn1.position.z), Quaternion.identity).gameObject as GameObject;
+                //projectilePrefab1.GetComponent<projectilePrefab1.name>.SetTeam(playerControllerScript.Team);
                 Debug.Log("Instantiate ok");
             }
             else
@@ -56,6 +57,7 @@ public class Competences : Photon.PunBehaviour
                 Debug.Log("En réseau");
                 //Pour le reseau
                 projo = PhotonNetwork.Instantiate(this.projectilePrefab1.name, new Vector3(projectileSpawn1.position.x, projectileSpawn1.position.y + 0.5f, projectileSpawn1.position.z), Quaternion.identity, 0);
+                //projectilePrefab1.GetComponent<projectilePrefab1.name>.SetTeam(playerControllerScript.Team);
                 Debug.Log("Instantiate ok");
             }
         }

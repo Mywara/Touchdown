@@ -95,7 +95,7 @@ public class GrapeShot : Photon.PunBehaviour
             directHitObjs.Remove(directHitObj);
         }
         Debug.Log("before destroy");
-        Destroy(this.gameObject);
+        PhotonNetwork.Destroy(this.gameObject);
         Debug.Log("Destroy");
     }
 

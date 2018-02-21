@@ -17,4 +17,15 @@ public static class Constants : object {
     //angle du cône d'attaque du tir de mitraille
     //angle calculé du centre vers une extrémité du cône
     public static float GRAPE_ANGLE = 2;
+
+    /*
+     * Static values associated to the CurseDoT
+     */
+    public static int CURSEDOT_DAMAGE = 5;
+    //3 unités de profondeurs - enfin peut toucher trois ennemis 
+    //alignés et qui sont collés les uns aux autres
+    public static float CURSEDOT_RADIUS = 3;
+    //angle du cône d'attaque du tir de mitraille
+    //angle calculé du centre vers une extrémité du cône
+    public static float CURSEDOT_ANGLE = 360;
 }
