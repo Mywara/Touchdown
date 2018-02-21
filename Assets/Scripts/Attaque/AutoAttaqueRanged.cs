@@ -11,8 +11,9 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
     public float projectileSpeed = 10;
     public GameObject projectilePrefab;
     public Transform projectileSpawn;
-    public float offset_tire_vertical;
-    public float offset_tire_horizontal;
+    public float offset_tir_vertical = 12;
+    public float offset_tir_horizontal = 23;
+    public float gunShotDelay = 1f;
 
     // test
     public GameObject sourceObject;
@@ -24,13 +25,6 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
     void Awake()
     {
         anim = GetComponent<Animator>();
-    }
-
-	// Use this for initialization
-	void Start ()
-    {
-        offset_tire_vertical = 12;
-        offset_tire_horizontal = 23;
     }
 	
 	// Update is called once per frame
@@ -45,64 +39,70 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
             // animation trigger
             anim.SetTrigger("AttackGun");
 
-            RaycastHit hit;
-            Camera cam = Camera.main;
-
-            float distance; // La distance d'un point prêt du personnage jusqu'à la cible
-
-            if (Physics.Raycast(cam.transform.position + cam.transform.forward * 2.5f, cam.transform.forward, out hit, 500))
-            {
-                //Debug.Log(hit.collider.name);
-                //Debug.Log(hit.distance);
-                //Instantiate(sourceObject, hit.point, Quaternion.identity);
-
-                distance = hit.distance;
-            }
-            else
-            {
-                distance = 30;
-            }
-
-            var rotationVector = cam.transform.rotation.eulerAngles;
-            rotationVector.y += (1 / distance) * offset_tire_horizontal; // axe horizontal de visée 
-            rotationVector.x -= (1 / distance) * offset_tire_vertical; // axe Vertical de visée
-
             nextFire = Time.time + fireRate;
-            GameObject projo;
-            //Pour le local
-            if (PhotonNetwork.connected == false)
+
+            StartCoroutine("DelayedGunShot");
+        }
+    }
+
+    IEnumerator DelayedGunShot()
+    {
+        yield return new WaitForSeconds(gunShotDelay);
+
+        Camera cam = Camera.main;
+        RaycastHit hit;
+        GameObject projo;
+        float distance; // la distance d'un point près du personnage jusqu'à la cible
+
+        if (Physics.Raycast(cam.transform.position + cam.transform.forward * 2.5f, cam.transform.forward, out hit, 500))
+        {
+            //Debug.Log(hit.collider.name);
+            //Debug.Log(hit.distance);
+            //Instantiate(sourceObject, hit.point, Quaternion.identity);
+
+            distance = hit.distance;
+        }
+        else
+        {
+            distance = 30;
+        }
+
+        Vector3 rotationVector = cam.transform.rotation.eulerAngles;
+        rotationVector.y += (1 / distance) * offset_tir_horizontal; // axe horizontal de visée 
+        rotationVector.x -= (1 / distance) * offset_tir_vertical; // axe vertical de visée
+
+        //Pour le local
+        if (PhotonNetwork.connected == false)
+        {
+            projo = Instantiate(projectilePrefab, projectileSpawn.position, Quaternion.Euler(rotationVector)).gameObject as GameObject;
+        }
+        else
+        {
+            //Pour le reseau
+            projo = PhotonNetwork.Instantiate(this.projectilePrefab.name, projectileSpawn.position, Quaternion.Euler(rotationVector), 0);
+        }
+
+        Projectile projectileScript = projo.GetComponent<Projectile>();
+        if (projectileScript != null)
+        {
+            projectileScript.SetDamage(impactDamage, splashDamage);
+            projectileScript.SetSpeed(projectileSpeed);
+            //dire de quelle equipe vient le projectile pour ne pas TK
+            PlayerController playerControllerScript = this.gameObject.GetComponent<PlayerController>();
+            if (playerControllerScript != null)
             {
-                projo = Instantiate(projectilePrefab, projectileSpawn.position, Quaternion.Euler(rotationVector) ).gameObject as GameObject;
+                projectileScript.SetTeam(playerControllerScript.Team);
             }
             else
             {
-                //Pour le reseau
-                projo = PhotonNetwork.Instantiate(this.projectilePrefab.name, projectileSpawn.position, Quaternion.Euler(rotationVector), 0);
+                Debug.Log("player have no PlayerController script");
             }
-            
-            Projectile projectileScript = projo.GetComponent<Projectile>();
-            if(projectileScript != null)
-            {
-                projectileScript.SetDamage(impactDamage, splashDamage);
-                projectileScript.SetSpeed(projectileSpeed);
-                //dire de quelle equipe vient le projectile pour ne pas TK
-                PlayerController playerControllerScript = this.gameObject.GetComponent<PlayerController>();
-                if (playerControllerScript != null)
-                {
-                    projectileScript.SetTeam(playerControllerScript.Team);
-                }
-                else
-                {
-                    Debug.Log("player have no PlayerController script");
-                }
-                
-                projectileScript.SetAOERadius(AOERadius);
-            }
-            else
-            {
-                Debug.Log("Projectile missing 'Projectile' script");
-            }
-            
+
+            projectileScript.SetAOERadius(AOERadius);
+        }
+        else
+        {
+            Debug.Log("Projectile missing 'Projectile' script");
         }
     }
 }

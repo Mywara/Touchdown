@@ -66,12 +66,15 @@ public class AutoAttaqueCac : Photon.PUNBehaviour, IPunObservable {
         if(Input.GetButtonDown("Fire1"))
         {
             // animation trigger
-            anim.SetTrigger("AttackCac");
+            anim.SetBool("AttackCac", true);
 
             cacHitZone.SetActive(true);
         }
         if (Input.GetButtonUp("Fire1"))
         {
+            // animation trigger
+            anim.SetBool("AttackCac", false);
+
             cacHitZone.SetActive(false);
         }
     }

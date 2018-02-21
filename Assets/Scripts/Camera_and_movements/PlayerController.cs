@@ -10,14 +10,14 @@ public class PlayerController : Photon.PunBehaviour{
     public float finalInputX;
     public float inputSensitivity = 150.0f;
     public GameObject cameraFollow;
-
-    private Rigidbody rb;
-    private Animator anim;
     public float jumpForce = 10.0f;
     public float myJumpHeight = 5.0f;
     public int team = 0;
-    private bool netWorkingDone = false;
 
+    private Rigidbody rb;
+    private Animator anim;
+    private bool netWorkingDone = false;
+    private bool jumpTriggered = false;
 
     void Awake()
     {
@@ -60,8 +60,10 @@ public class PlayerController : Photon.PunBehaviour{
         {
             return;
         }
+
         // saut perso
-        if (Input.GetKeyDown(KeyCode.Space))
+        if(jumpTriggered)
+        //if (Input.GetKeyDown(KeyCode.Space))
         {
             // on utilise un raycast pour connaitre la distance vis a vis du sol
             RaycastHit hit;
@@ -71,14 +73,18 @@ public class PlayerController : Photon.PunBehaviour{
             {
                 //test
                 print(hit.distance);
-                //
+
                 if (hit.distance <= 0.2)
                 {
+                    // Set jump animation trigger
+                    anim.SetTrigger("Jump");
+
                     Vector2 velocity = rb.velocity;
                     velocity.y = CalculateJumpVerticalSpeed(myJumpHeight);
                     rb.velocity = velocity;
                     //rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
-                    anim.SetTrigger("Jump");
+
+                    jumpTriggered = false;
                 }
 
             }
@@ -100,6 +106,7 @@ public class PlayerController : Photon.PunBehaviour{
         {
             return;
         }
+
         // translation perso
         float horizontal = Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime;
         transform.Translate(horizontal, 0, 0);
@@ -107,7 +114,14 @@ public class PlayerController : Photon.PunBehaviour{
         float vertical = Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime;
         transform.Translate(0, 0, vertical);
 
+        // animation de déplacement en fonction des inputs horizontaux et verticaux (flèches directionnelles)
         Animate(horizontal, vertical);
+
+        // on vérifie que le personnage n'est pas déjà en train de sauter pour activer le trigger de saut qui sera traité par FixedUpdate
+        if (Input.GetKeyDown(KeyCode.Space) && !anim.GetCurrentAnimatorStateInfo(0).IsName("JumpCut"))
+        {
+            jumpTriggered = true;
+        }
     }
 
     void Animate(float h, float v)
