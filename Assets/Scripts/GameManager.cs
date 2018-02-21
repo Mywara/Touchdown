@@ -12,6 +12,8 @@ namespace PUNTutorial
         public static GameObject localPlayer;
 
         private string characterToLoad = "Pirate";
+        private string levelToLoad = "Scene1";
+        private int[][] seeds = null;
 
         void Awake()
         {
@@ -28,7 +30,7 @@ namespace PUNTutorial
 
         void Start()
         {
-            PhotonNetwork.ConnectUsingSettings("Version_1.10");
+            PhotonNetwork.ConnectUsingSettings("Version_1.2");
         }
 
         public void JoinGame()
@@ -43,19 +45,27 @@ namespace PUNTutorial
             Debug.Log("Joined Room");
             if (PhotonNetwork.isMasterClient)
             {
-                PhotonNetwork.LoadLevel("Scene1");
+                PhotonNetwork.LoadLevel(levelToLoad);
             }
         }
         
         void OnLevelWasLoaded(int levelNumber)
         {
             if (levelNumber != 2) { //level 2 is end level, photonView don't exist
-            if (!PhotonNetwork.inRoom) return;
-            //localPlayer = PhotonNetwork.Instantiate("TempPlayer", new Vector3(0, 0.5f, 0), Quaternion.identity, 0);
-            localPlayer = PhotonNetwork.Instantiate(characterToLoad, new Vector3(0, 2f, 0), Quaternion.identity, 0);
+                if (!PhotonNetwork.inRoom) return;
+                if (levelToLoad.Equals("RandomMap") && PhotonNetwork.isMasterClient)
+                {
+                    Debug.Log("should load map");
+                    RoomManager.instance.photonView.RPC("SetMapSize", PhotonTargets.AllBuffered, 5, 3);
+                    seeds = RoomManager.instance.GenerateSeed();
+                    RoomManager.instance.photonView.RPC("GenerateMap", PhotonTargets.AllBufferedViaServer, seeds);
+                }
 
-            RoomManager.instance.photonView.RPC("AutoJoinTeam", PhotonTargets.AllBufferedViaServer, localPlayer.GetPhotonView().viewID);
-            RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.AllViaServer, localPlayer.GetPhotonView().viewID, 5.0f);
+                //localPlayer = PhotonNetwork.Instantiate("TempPlayer", new Vector3(0, 0.5f, 0), Quaternion.identity, 0);
+                localPlayer = PhotonNetwork.Instantiate(characterToLoad, new Vector3(0, 2f, 0), Quaternion.identity, 0);
+
+                RoomManager.instance.photonView.RPC("AutoJoinTeam", PhotonTargets.AllBufferedViaServer, localPlayer.GetPhotonView().viewID);
+                RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.AllViaServer, localPlayer.GetPhotonView().viewID, 5.0f);
             }
         }
         
@@ -73,6 +83,16 @@ namespace PUNTutorial
         public void SelectCharacterWarBear()
         {
             characterToLoad = "War_Bear";
+        }
+
+        public void SelectLevelScene1()
+        {
+            levelToLoad = "Scene1";
+        }
+
+        public void SelectLevelRandomMap()
+        {
+            levelToLoad = "RandomMap";
         }
     }
 }

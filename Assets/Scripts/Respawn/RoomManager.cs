@@ -38,61 +38,66 @@ public class RoomManager : Photon.PunBehaviour {
     [PunRPC]
     public void RespawnPlayer(int playerViewID, float timeBeforeRespawn)
     {
+        bool needRespawn = true;
         GameObject player = PhotonView.Find(playerViewID).gameObject;
         //Debug.Log("player found : " + player.name);
         player.SetActive(false);
         PlayerController playerControllerScript = player.GetComponent<PlayerController>();
-        if(playerControllerScript != null)
+        while (needRespawn)
         {
-            GameObject[] spawnSlots = null;
-            if(playerControllerScript.Team == 1)
+            if (playerControllerScript != null)
             {
-                //Debug.Log("Player is in team one, will respawn in team 1 spawn");
-                SpawnPoint spawnPointScript = respawnTeam1.GetComponent<SpawnPoint>();
-                if(spawnPointScript != null)
+                GameObject[] spawnSlots = null;
+                if (playerControllerScript.Team == 1)
                 {
-                    spawnSlots = spawnPointScript.SpawnSlotsAvailiable;
+                    //Debug.Log("Player is in team one, will respawn in team 1 spawn");
+                    SpawnPoint spawnPointScript = respawnTeam1.GetComponent<SpawnPoint>();
+                    if (spawnPointScript != null)
+                    {
+                        spawnSlots = spawnPointScript.SpawnSlotsAvailiable;
+                    }
+                    else
+                    {
+                        Debug.Log("Respawn point does not have a SpawnPoint script");
+                    }
+                }
+                else if (playerControllerScript.Team == 2)
+                {
+                    SpawnPoint spawnPointScript = respawnTeam2.GetComponent<SpawnPoint>();
+                    //Debug.Log("Player is in team two, will respawn in team 2 spawn");
+                    if (spawnPointScript != null)
+                    {
+                        spawnSlots = spawnPointScript.SpawnSlotsAvailiable;
+                    }
+                    else
+                    {
+                        Debug.Log("Respawn point does not have a SpawnPoint script");
+                    }
                 }
                 else
                 {
-                    Debug.Log("Respawn point does not have a SpawnPoint script");
+                    Debug.Log("Error Player have no team");
                 }
-            }
-            else if(playerControllerScript.Team == 2)
-            {
-                SpawnPoint spawnPointScript = respawnTeam2.GetComponent<SpawnPoint>();
-                //Debug.Log("Player is in team two, will respawn in team 2 spawn");
-                if (spawnPointScript != null)
+                if (spawnSlots != null && spawnSlots.Length != 0)
                 {
-                    spawnSlots = spawnPointScript.SpawnSlotsAvailiable;
+                    int randromInt = Random.Range(0, spawnSlots.Length);
+                    GameObject spawn = spawnSlots[randromInt];
+                    Vector3 tpToSpawnPos = spawn.transform.position;
+                    tpToSpawnPos.y += respawnHeight;
+                    player.transform.position = tpToSpawnPos;
+                    player.transform.rotation = spawn.transform.rotation;
+                    StartCoroutine(RespawnCoroutine(player, timeBeforeRespawn));
+                    needRespawn = false;
                 }
                 else
                 {
-                    Debug.Log("Respawn point does not have a SpawnPoint script");
+                    Debug.Log("Error no spawn slot avaiable");
                 }
             }
             else
             {
-                Debug.Log("Error Player have no team");
+                Debug.Log("player don't have PlayerController script");
             }
-            if(spawnSlots != null && spawnSlots.Length != 0)
-            {
-                int randromInt = Random.Range(0, spawnSlots.Length);
-                GameObject spawn = spawnSlots[randromInt];
-                Vector3 tpToSpawnPos = spawn.transform.position;
-                tpToSpawnPos.y += respawnHeight;
-                player.transform.position = tpToSpawnPos;
-                player.transform.rotation = spawn.transform.rotation;
-                StartCoroutine(RespawnCoroutine(player, timeBeforeRespawn));
-            }
-            else
-            {
-                Debug.Log("Error no spawn slot avaiable");
-            }
-        }
-        else
-        {
-            Debug.Log("player don't have PlayerController script");
         }
     }
     [PunRPC]
@@ -173,5 +178,29 @@ public class RoomManager : Photon.PunBehaviour {
     public void FriendlyFireOff()
     {
         this.friendlyFire = false;
+    }
+
+    [PunRPC]
+    public int[][] GenerateSeed()
+    {
+
+        //return MapGeneration.instance.GenerateSeed3x3();
+        return MapGeneration.instance.GenerateSeed5x5();
+    }
+
+    [PunRPC]
+    public void SetMapSize(int nombLigne, int nombColonne)
+    {
+        MapGeneration mapGen = MapGeneration.instance;
+        mapGen.NbLigne = nombLigne;
+        mapGen.NbColonne = nombColonne;
+    }
+
+    [PunRPC]
+    public void GenerateMap(int[][] seeds)
+    {
+        //Debug.Log("GenerateMap, seed length : " +seeds.Length);
+        //MapGeneration.instance.ThreeByThreeGeneration(seeds);
+        MapGeneration.instance.FiveByFiveGeneration(seeds);
     }
 }
