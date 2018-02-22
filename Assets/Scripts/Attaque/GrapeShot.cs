@@ -46,7 +46,7 @@ public class GrapeShot : Photon.PunBehaviour
     //Modif a faire, limiter dmg au cible valide -> layer + test
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("Entrée dans le OnTriggerStay");
+        Debug.Log("Entrée dans le OnTriggerStay GS");
         if (!photonView.isMine && PhotonNetwork.connected == true)
         {
             Debug.Log("PhotonView");
@@ -106,19 +106,26 @@ public class GrapeShot : Photon.PunBehaviour
 
     private void ApplyDamage(GameObject target, int damage)
     {
-        PUNTutorial.HealthScript healthScript = target.GetComponent<PUNTutorial.HealthScript>();
-        if (healthScript != null)
+        if(PhotonNetwork.connected == true)
         {
-            //healthScript.Damage(damage);
-            healthScript.photonView.RPC("Damage", PhotonTargets.All, damage);
-            Debug.Log("Damage : " + damage + " deals to : " + target.name);
-        }
+            PUNTutorial.HealthScript healthScript = target.GetComponent<PUNTutorial.HealthScript>();
+            if (healthScript != null)
+            {
+                //healthScript.Damage(damage);
+                healthScript.photonView.RPC("Damage", PhotonTargets.All, damage);
+                Debug.Log("Damage : " + damage + " deals to : " + target.name);
+            }
 
-        PUNTutorial.HealthScript2 healthScript2 = target.GetComponent<PUNTutorial.HealthScript2>();
-        if (healthScript2 != null)
+            PUNTutorial.HealthScript2 healthScript2 = target.GetComponent<PUNTutorial.HealthScript2>();
+            if (healthScript2 != null)
+            {
+                //healthScript2.Damage2(damage);
+                healthScript2.photonView.RPC("Damage2", PhotonTargets.All, damage);
+            }
+        }
+        else
         {
-            //healthScript2.Damage2(damage);
-            healthScript2.photonView.RPC("Damage2", PhotonTargets.All, damage);
+            target.GetComponent<PUNTutorial.HealthScript>().Damage(damage);
         }
     }
 }

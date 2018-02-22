@@ -21,11 +21,12 @@ public static class Constants : object {
     /*
      * Static values associated to the CurseDoT
      */
-    public static int CURSEDOT_DAMAGE = 5;
+    public static int CURSEDOT_DAMAGE = 2;
     //3 unités de profondeurs - enfin peut toucher trois ennemis 
     //alignés et qui sont collés les uns aux autres
     public static float CURSEDOT_RADIUS = 3;
-    //angle du cône d'attaque du tir de mitraille
-    //angle calculé du centre vers une extrémité du cône
-    public static float CURSEDOT_ANGLE = 360;
+    //nombre de tics appliqué à la cible
+    public static float CURSEDOT_TIC = 4;
+    //nombre de cible maximum pouvant être touchées
+    public static float CURSEDOT_TARGETS = 5;
 }
