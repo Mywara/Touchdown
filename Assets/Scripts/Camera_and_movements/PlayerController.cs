@@ -71,7 +71,7 @@ public class PlayerController : Photon.PunBehaviour{
             {
                 
                 //test
-                print(hit.distance);
+                //print(hit.distance);
 
                 // On vérifie si on est assez prêt du sol poour pouvoir sauter
                 if (hit.distance <= 0.2)

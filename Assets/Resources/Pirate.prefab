@@ -1468,31 +1468,31 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Jump
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: RunningForward
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: RunningLeft
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: RunningRight
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: AttackCac
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: AttackGun
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Damage
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Die
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 2
     LayerIndex: 0
 --- !u!114 &114860736693206500
 MonoBehaviour:
