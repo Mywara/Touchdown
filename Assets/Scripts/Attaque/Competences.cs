@@ -32,7 +32,7 @@ public class Competences : Photon.PunBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Competences Update");
+        //Debug.Log("Competences Update");
         if (!photonView.isMine && PhotonNetwork.connected == true)
         {
             return;

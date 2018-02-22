@@ -35,7 +35,7 @@ namespace PUNTutorial
                 //mort
                 if (photonView.isMine)
                 {
-                    Debug.Log("Player died");
+                    //Debug.Log("Player died");
                     photonView.RPC("ResetHealth", PhotonTargets.All);
                     RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.All, this.gameObject.GetPhotonView().viewID);
                 }

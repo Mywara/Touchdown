@@ -66,12 +66,12 @@ public class PlayerController : Photon.PunBehaviour{
             // on utilise un raycast pour connaitre la distance vis a vis du sol
             RaycastHit hit;
 
-            // On appelle le Raycast dans un if car s'il ne touche rien il renvoit false (c'est qu'on est dans le vide et on peut pas sauter)
-            if (Physics.Raycast(rb.transform.position + Vector3.up * 0.1f, -rb.transform.up, out hit, 10))
+            // On appelle le SphereCast dans un if car s'il ne touche rien il renvoit false (c'est qu'on est dans le vide et on peut pas sauter)
+            if (Physics.SphereCast(rb.transform.position + Vector3.up * 0.35f,0.25f, -rb.transform.up, out hit, 10))
             {
                 
                 //test
-                //print(hit.distance);
+                print(hit.distance);
 
                 // On vérifie si on est assez prêt du sol poour pouvoir sauter
                 if (hit.distance <= 0.2)

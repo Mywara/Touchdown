@@ -75,7 +75,10 @@ public class CameraFollow : MonoBehaviour {
         rotX = Mathf.Clamp(rotX, -minClampAngle, maxClampAngle);
 
         Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
-        CameraFollowObj.transform.root.rotation = Quaternion.Euler(0.0f, rotY, 0.0f);
+        if(CameraFollowObj != null)
+        {
+            CameraFollowObj.transform.root.rotation = Quaternion.Euler(0.0f, rotY, 0.0f);
+        }
         transform.rotation = localRotation;
 
     }

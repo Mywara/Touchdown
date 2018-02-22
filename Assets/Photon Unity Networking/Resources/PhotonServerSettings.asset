@@ -48,4 +48,9 @@ MonoBehaviour:
   - SynchroHealth
   - StartCountdownTime
   - EndCountdownTime
+  - FiveByFiveGeneration
+  - ThreeByThreeGeneration
+  - GenerateMap
+  - SetMapSize
+  - GenerateSeed
   DisableAutoOpenWizard: 1
