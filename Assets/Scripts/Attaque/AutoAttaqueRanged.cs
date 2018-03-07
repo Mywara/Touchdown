@@ -14,6 +14,7 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
     public float offset_tir_vertical = 12;
     public float offset_tir_horizontal = 23;
     public float gunShotDelay = .5f;
+    public bool inModePlacing = false;
 
     // test
     public GameObject sourceObject;
@@ -34,7 +35,7 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
         {
             return;
         }
-        if (Input.GetButton("Fire1") && Time.time > nextFire)
+        if (Input.GetButton("Fire1") && Time.time > nextFire && !inModePlacing)
         {
             // animation trigger
             anim.SetTrigger("AttackGun");

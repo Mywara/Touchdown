@@ -13,10 +13,11 @@ public class PlayerController : Photon.PunBehaviour{
     //public float jumpForce = 10.0f;
     public float myJumpHeight = 5.0f;
     public int team = 0;
-
     private Rigidbody rb;
     private Animator anim;
     private bool netWorkingDone = false;
+    public bool immobilization = false;
+    public Transform activeTrap;
 
     void Awake()
     {
@@ -106,7 +107,13 @@ public class PlayerController : Photon.PunBehaviour{
         {
             return;
         }
+        //permet de bouger a nouveau lorsque le piege immobilisant est détruit
+        if (!activeTrap && immobilization)
+        {
+            immobilization = false;
+        }
 
+        if (!immobilization) { 
         // translation perso
         float horizontal = Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime;
         transform.Translate(horizontal, 0, 0);
@@ -116,6 +123,7 @@ public class PlayerController : Photon.PunBehaviour{
 
         // animation de déplacement en fonction des inputs horizontaux et verticaux (flèches directionnelles)
         Animate(horizontal, vertical);
+        }
     }
 
     void Animate(float h, float v)

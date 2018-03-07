@@ -76,27 +76,27 @@ public class GrapeShot : Photon.PunBehaviour
             }
         }
         */
-        Debug.Log("name : "+otherGO.name);
+
         if (!directHitObjs.Contains(otherGO) && otherGO.tag.Equals("Player"))
         {
-            Debug.Log("Ajout");
+
             directHitObjs.Add(otherGO);
         }
     }
 
     private void Update()
     {
-        Debug.Log("Entrée Dans l'update");
+
         foreach (GameObject directHitObj in directHitObjs.ToArray())
         {
-            Debug.Log("Obj in GrapeShotZone : " + directHitObj.name);
+
             ApplyDamage(directHitObj, damage);
             repulse(directHitObj);
             directHitObjs.Remove(directHitObj);
         }
-        Debug.Log("before destroy");
+
         PhotonNetwork.Destroy(this.gameObject);
-        Debug.Log("Destroy");
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -113,7 +113,7 @@ public class GrapeShot : Photon.PunBehaviour
             {
                 //healthScript.Damage(damage);
                 healthScript.photonView.RPC("Damage", PhotonTargets.All, damage);
-                Debug.Log("Damage : " + damage + " deals to : " + target.name);
+
             }
 
             PUNTutorial.HealthScript2 healthScript2 = target.GetComponent<PUNTutorial.HealthScript2>();

@@ -42,7 +42,7 @@ namespace PUNTutorial
 
         public override void OnJoinedRoom()
         {
-            Debug.Log("Joined Room");
+
             if (PhotonNetwork.isMasterClient)
             {
                 PhotonNetwork.LoadLevel(levelToLoad);

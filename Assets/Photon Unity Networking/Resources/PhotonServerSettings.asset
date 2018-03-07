@@ -53,4 +53,7 @@ MonoBehaviour:
   - GenerateMap
   - SetMapSize
   - GenerateSeed
+  - DestroyTrap
+  - DestroyEffect
+  - SetOwner
   DisableAutoOpenWizard: 1

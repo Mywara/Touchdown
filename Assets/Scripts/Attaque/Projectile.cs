@@ -86,7 +86,7 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
                 }
             }
         }    
-        Debug.Log("Direct hit on object : " + directHitObj.name);
+
         if (directHitObj.tag.Equals("Player"))
         {
             ApplyDamage(directHitObj, impactDamage);
