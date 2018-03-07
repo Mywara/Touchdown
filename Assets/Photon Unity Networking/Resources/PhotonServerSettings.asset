@@ -14,14 +14,14 @@ MonoBehaviour:
   AppID: 058bba78-d122-45d4-ae31-543afd37b07a
   VoiceAppID: 
   ChatAppID: 
-  HostType: 4
-  PreferredRegion: 0
+  HostType: 1
+  PreferredRegion: 8
   EnabledRegions: -1
   Protocol: 0
   ServerAddress: 
   ServerPort: 5055
   VoiceServerPort: 5055
-  JoinLobby: 0
+  JoinLobby: 1
   EnableLobbyStatistics: 0
   PunLogging: 0
   NetworkLogging: 1
@@ -56,4 +56,5 @@ MonoBehaviour:
   - DestroyTrap
   - DestroyEffect
   - SetOwner
+  - LoadLevel
   DisableAutoOpenWizard: 1

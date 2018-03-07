@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 namespace PUNTutorial
 {
@@ -25,19 +25,20 @@ namespace PUNTutorial
             }
             DontDestroyOnLoad(gameObject);
             instance = this;
-            PhotonNetwork.automaticallySyncScene = true;
+          //  PhotonNetwork.automaticallySyncScene = true;
         }
 
         void Start()
         {
-            PhotonNetwork.ConnectUsingSettings("Version_1.2");
+            //PhotonNetwork.ConnectUsingSettings("Version_1.20");
         }
 
         public void JoinGame()
         {
-            RoomOptions ro = new RoomOptions();
+            PhotonNetwork.LoadLevel(levelToLoad);
+           /* RoomOptions ro = new RoomOptions();
             ro.MaxPlayers = 6;
-            PhotonNetwork.JoinOrCreateRoom("Default Room", ro, null);
+            PhotonNetwork.JoinOrCreateRoom("Default Room", ro, null);*/
         }
 
         public override void OnJoinedRoom()
@@ -45,13 +46,31 @@ namespace PUNTutorial
 
             if (PhotonNetwork.isMasterClient)
             {
-                PhotonNetwork.LoadLevel(levelToLoad);
+                //PhotonNetwork.LoadLevel(levelToLoad);
+                photonView.RPC("LoadLevel", PhotonTargets.AllViaServer,levelToLoad);
             }
         }
-        
-        void OnLevelWasLoaded(int levelNumber)
+
+        [PunRPC]
+        public void LoadLevel()
         {
-            if (levelNumber != 2) { //level 2 is end level, photonView don't exist
+            PhotonNetwork.LoadLevel(levelToLoad);
+        }
+        //
+        void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name != "EndScene" && scene.name != "StartScene")
+            { //level 2 is end level, photonView don't exist
                 if (!PhotonNetwork.inRoom) return;
                 if (levelToLoad.Equals("RandomMap") && PhotonNetwork.isMasterClient)
                 {

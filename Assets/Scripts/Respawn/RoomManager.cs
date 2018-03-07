@@ -28,13 +28,13 @@ public class RoomManager : Photon.PunBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Start() {
+    }
+
+    // Update is called once per frame
+    void Update() {
+
+    }
     [PunRPC]
     public void RespawnPlayer(int playerViewID, float timeBeforeRespawn)
     {
@@ -118,7 +118,7 @@ public class RoomManager : Photon.PunBehaviour {
     {
         GameObject player = PhotonView.Find(playerViewID).gameObject;
         PlayerController playerControllerScript = player.GetComponent<PlayerController>();
-        if(playerControllerScript != null)
+        if (playerControllerScript != null)
         {
             playerControllerScript.Team = 1;
             this.team1.Add(player);
@@ -152,7 +152,7 @@ public class RoomManager : Photon.PunBehaviour {
     [PunRPC]
     public void AutoJoinTeam(int playerViewID)
     {
-        if(this.team1.Count <= this.team2.Count)
+        if (this.team1.Count <= this.team2.Count)
         {
             JoinTeam1(playerViewID);
         }
@@ -202,5 +202,10 @@ public class RoomManager : Photon.PunBehaviour {
         //Debug.Log("GenerateMap, seed length : " +seeds.Length);
         //MapGeneration.instance.ThreeByThreeGeneration(seeds);
         MapGeneration.instance.FiveByFiveGeneration(seeds);
+    }
+    [PunRPC]
+    public void LoadLevel(string levelToLoad)
+    {
+        PhotonNetwork.LoadLevel(levelToLoad);
     }
 }
