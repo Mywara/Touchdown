@@ -1094,8 +1094,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1983727145572376, guid: a581bdce5aaa32f4f92756906724583f,
     type: 2}
   projectileSpawn: {fileID: 4193193885231094}
-  offset_tir_vertical: 12
-  offset_tir_horizontal: 23
+  offset_tir_vertical: 28
+  offset_tir_horizontal: 10
   gunShotDelay: 0.5
   inModePlacing: 0
   sourceObject: {fileID: 0}
