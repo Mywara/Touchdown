@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BearCompetences :  Photon.PunBehaviour {
+public class BearCompetences : Photon.PunBehaviour
+{
 
 
     private Rigidbody rb;
@@ -11,17 +12,28 @@ public class BearCompetences :  Photon.PunBehaviour {
     /////////// JUMP STUFF
 
     public float cooldownJump; // temps du cooldown du jump en seconde
-    private float lastUseJump ; // temps (en seconde) de derniere utilisation
+    private float lastUseJump; // temps (en seconde) de derniere utilisation
     public float JumpHeight; // La hauteur de saut de la competence
     private bool jumping; // Détermine si on est en saut après l'utilisation du Jump pour savoir si on applique les dégats à l'atterissage
     public GameObject JumpAOEZone;
     public int jumpDamage;
     private JumpAOE JumpAOEScript; // Utile pour communiquer avec la hitbox de la competence
 
+    public GameObject effetDecollage; // Il s'agit des effets visuels
+    public GameObject effetAtterrissage;
+
+    public AudioSource audioSource;
+    public AudioClip audioDecollage;
+    public AudioClip audioAtterrissage;
+
+    private PlayerController playerControllerScript;
+
+
 
     // Use this for initialization
-    void Start () {
-
+    void Start()
+    {
+        playerControllerScript = this.gameObject.GetComponent<PlayerController>();
 
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
@@ -35,7 +47,6 @@ public class BearCompetences :  Photon.PunBehaviour {
             JumpAOEScript.SetApply(false);
 
             //dire de quelle equipe vient le coup pour ne pas TK
-            PlayerController playerControllerScript = this.gameObject.GetComponent<PlayerController>();
             if (playerControllerScript != null)
             {
                 JumpAOEScript.SetTeam(playerControllerScript.Team);
@@ -55,6 +66,7 @@ public class BearCompetences :  Photon.PunBehaviour {
         lastUseJump = -cooldownJump; // Ainsi on peut utiliser la compétence dès le début
         jumping = false;
 
+
         /////////////
 
     }
@@ -71,7 +83,7 @@ public class BearCompetences :  Photon.PunBehaviour {
 
 
         // Si on est en saut depuis plus de 0.2 sec (pour éviter que le sherecast ne touche au décollage)
-        if (jumping && Time.time  > lastUseJump + 0.2)
+        if (jumping && Time.time > lastUseJump + 0.2)
         {
             // on utilise un raycast pour connaitre la distance vis a vis du sol
             RaycastHit hit;
@@ -81,8 +93,15 @@ public class BearCompetences :  Photon.PunBehaviour {
                 //print(hit.distance);
 
                 // Si on atterri
-                if (hit.distance <= 0.2)
+                if (hit.distance <= 0.3)
                 {
+
+                    Debug.Log("Launch JumpAOE");
+
+                    //Joue le son de l'atterrissage
+                    audioSource.clip = audioAtterrissage;
+                    audioSource.Play();
+
                     jumping = false;
                     LaunchJumpAOE();
                 }
@@ -98,15 +117,18 @@ public class BearCompetences :  Photon.PunBehaviour {
         // Input du Jump
         if (Input.GetKeyDown(KeyCode.LeftShift) && (Time.time > (lastUseJump + cooldownJump)))
         {
-
+            Debug.Log("Jump Competence");
             compJump(); // On lance le saut
+
+            playerControllerScript.photonView.RPC("ModificationVitesse", PhotonTargets.All, 250, 2.5f);
             lastUseJump = Time.time;
             jumping = true; // On considère qu'on est en train de sauter
         }
 
-        /////////////////////
-        
-        
+        ///////////////////// 
+
+
+
     }
 
 
@@ -117,6 +139,31 @@ public class BearCompetences :  Photon.PunBehaviour {
     {
         // Set jump animation trigger
         anim.SetTrigger("Jump");
+
+        //Joue le son de décollages
+        audioSource.clip = audioDecollage;
+        audioSource.Play();
+
+        //effetDecollage.transform.position = this.transform.position;
+
+        //effetDecollage.transform.SetPositionAndRotation(new Vector3(0,0,0), this.transform.rotation);
+        //effetDecollage.SetActive(true);
+        //finEffetDecollage = Time.time + 1.5f;
+
+
+        GameObject effetDecol;
+        //Pour le local
+        if (PhotonNetwork.connected == false)
+        {
+            effetDecol = Instantiate(effetDecollage, this.transform.position, effetDecollage.transform.rotation).gameObject as GameObject;
+        }
+        else
+        {
+            //Pour le reseau
+            effetDecol = PhotonNetwork.Instantiate(this.effetDecollage.name, this.transform.position, effetDecollage.transform.rotation, 0);
+        }
+
+        Destroy(effetDecol, 1.5f);
 
         // Modifie la velocité verticale
         Vector2 velocity = rb.velocity;
@@ -132,9 +179,30 @@ public class BearCompetences :  Photon.PunBehaviour {
         return Mathf.Sqrt(2f * targetJumpHeight * -Physics.gravity.y);
     }
 
-    // Applique les effets de l'aterrissage
+    // Applique l'animation et les effets de l'aterrissage
     void LaunchJumpAOE()
     {
+        // animations
+
+        //effetAtterrissage.SetActive(true);
+
+        //effetAtterrissage.transform.SetPositionAndRotation(this.transform.position + Vector3.up * 0.1f, this.transform.rotation);
+
+
+        GameObject effetAtterr;
+        //Pour le local
+        if (PhotonNetwork.connected == false)
+        {
+            effetAtterr = Instantiate(effetAtterrissage, this.transform.position + Vector3.up * 0.1f, effetAtterrissage.transform.rotation).gameObject as GameObject;
+        }
+        else
+        {
+            //Pour le reseau
+            effetAtterr = PhotonNetwork.Instantiate(this.effetAtterrissage.name, this.transform.position, effetAtterrissage.transform.rotation, 0);
+        }
+        Destroy(effetAtterr, 1.5f);
+
+        // applique les dégats et effets
         JumpAOEZone.SetActive(true);
         JumpAOEScript.SetApply(true);
     }

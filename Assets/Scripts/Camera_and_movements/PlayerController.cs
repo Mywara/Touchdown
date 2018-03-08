@@ -4,14 +4,14 @@ using System.Collections;
 public class PlayerController : Photon.PunBehaviour{
 
     public float movementSpeed = 10;
-    public float turningSpeed = 60;
-    public float rotY = 0.0f;
-    public float mouseX;
-    public float finalInputX;
+
+    public float movementSpeedTemp = 10; // sert pour les modifications de vitesse de déplacement
+    private float TempsRalentissement = 0.0f;
+
     public float inputSensitivity = 150.0f;
     public GameObject cameraFollow;
-    //public float jumpForce = 10.0f;
     public float myJumpHeight = 5.0f;
+
     public int team = 0;
     private Rigidbody rb;
     private Animator anim;
@@ -28,8 +28,6 @@ public class PlayerController : Photon.PunBehaviour{
 
     void Start ()
     {
-        Vector3 rot = transform.localRotation.eulerAngles;
-        rotY = rot.y;
 
         if (photonView.isMine)
         {
@@ -182,4 +180,24 @@ public class PlayerController : Photon.PunBehaviour{
             }  
         }
     }
+    ////////////////// Fonctions pour modifier les déplacements à cause de compétences.
+
+    // Modifie la vitesse de déplacement en prenant un pourcentage de la vitesse actuelle sur une certaine duree
+    [PunRPC]
+    public void ModificationVitesse(float pourcentageVitesse, float duree)
+    {
+        Debug.Log("entre");
+        movementSpeedTemp = movementSpeedTemp * (pourcentageVitesse / 100);
+        TempsRalentissement = Time.time + duree;
+    }
+
+    ///////////////// Fonctions qui font des effets sur le joueur
+    [PunRPC]
+    public void PetitSaut(float hauteurSaut)
+    {
+        Vector2 velocity = rb.velocity;
+        velocity.y = CalculateJumpVerticalSpeed(hauteurSaut);
+        rb.velocity = velocity;
+    }
+
 }

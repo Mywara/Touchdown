@@ -1233,14 +1233,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac7672bb277670459c27008173e4e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
+  movementSpeed: 3
   turningSpeed: 60
   rotY: 0
   mouseX: 0
   finalInputX: 0
   inputSensitivity: 120
   cameraFollow: {fileID: 1841835560823816}
-  myJumpHeight: 1.5
+  myJumpHeight: 1
   team: 0
   immobilization: 0
   activeTrap: {fileID: 0}

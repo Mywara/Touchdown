@@ -2,33 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpAOE :  Photon.PunBehaviour {
+public class JumpAOE : Photon.PunBehaviour
+{
 
     public int damage = 10;
     public int team;
     public float ennemiesJump = 0.2f; // fait décoller les ennemis du sol à l'atterrissage
 
+    public float pourcentageRalenti;
+    public float dureeRalenti;
+
     private List<GameObject> directHitObjs = new List<GameObject>(); // Pour lister les joueurs touchés
     private bool apply; // Détermine si on peut appliquer les dommages ou pas (on ne les appliquent qu'une fois par utilisation de la competence)
 
     // Use this for initialization
-    void Start () {
-        apply = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if(apply){
+    void Start()
+    {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Debug.Log("apply = " + apply);
+
+        if (apply)
+        {
+
+            Debug.Log("Obj in JumpAOEZone : " + directHitObjs);
             foreach (GameObject directHitObj in directHitObjs.ToArray())
             {
-                Debug.Log("Obj in CacHitZone : " + directHitObj.name);
+                Debug.Log("Obj in JumpAOEZone : " + directHitObj.name);
                 ApplyDamage(directHitObj, damage);
                 directHitObjs.Remove(directHitObj);
             }
 
             apply = false;
+            directHitObjs.Clear();
+            this.transform.gameObject.SetActive(false);
         }
-        
+
+        Debug.Log("end Jump skill");
 
     }
 
@@ -52,10 +65,10 @@ public class JumpAOE :  Photon.PunBehaviour {
     //Modif a faire, limiter dmg au cible valide -> layer + test
     private void OnTriggerStay(Collider other)
     {
-        if (!photonView.isMine && PhotonNetwork.connected == true)
-        {
-            return;
-        }
+        //if (!photonView.isMine && PhotonNetwork.connected == true)
+        //{
+        //    return;
+        //}
         GameObject otherGO = other.transform.root.gameObject;
         if (otherGO.tag.Equals("Respawn") || otherGO.tag.Equals("Boundary"))
         {
@@ -82,6 +95,11 @@ public class JumpAOE :  Photon.PunBehaviour {
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        directHitObjs.Remove(other.transform.root.gameObject);
+    }
+
 
     // Applique les dommages
     private void ApplyDamage(GameObject target, int damage)
@@ -101,12 +119,18 @@ public class JumpAOE :  Photon.PunBehaviour {
             healthScript2.photonView.RPC("Damage2", PhotonTargets.All, damage);
         }
 
-        // Fait sauter les ennemis touchés
-        Rigidbody rb;
-        rb = target.GetComponent<Rigidbody>();
-        Vector2 velocity = rb.velocity;
-        velocity.y = CalculateJumpVerticalSpeed(ennemiesJump);
-        rb.velocity = velocity;
+
+
+        PlayerController playerControllerScript = target.GetComponent<PlayerController>();
+
+        if (playerControllerScript != null)
+        {
+            // Fait sauter les ennemis touchés
+            playerControllerScript.photonView.RPC("PetitSaut", PhotonTargets.All, ennemiesJump);
+
+            // Ralenti les ennemis touchés
+            playerControllerScript.photonView.RPC("ModificationVitesse", PhotonTargets.All, pourcentageRalenti, dureeRalenti);
+        }
     }
 
     // Méthode pour calculer la velocité à donner pour atteindre la hauteur donnée
