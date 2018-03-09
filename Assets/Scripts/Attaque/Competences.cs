@@ -57,6 +57,17 @@ public class Competences : Photon.PunBehaviour
                 //projectilePrefab1.GetComponent<projectilePrefab1.name>.SetTeam(playerControllerScript.Team);
 
             }
+
+            PlayerController playerControllerScript = this.gameObject.GetComponent<PlayerController>();
+            GrapeShot grapeShotScript = projo.GetComponent<GrapeShot>();
+            if (playerControllerScript != null)
+            {
+                grapeShotScript.SetTeam(playerControllerScript.Team);
+            }
+            else
+            {
+                Debug.Log("player have no PlayerController script");
+            }
         }
     }
 }
