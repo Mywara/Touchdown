@@ -10,10 +10,10 @@ public class RoomManager : Photon.PunBehaviour {
     public GameObject respawnTeam1;
     public GameObject respawnTeam2;
 
-    //private List<GameObject> team1 = new List<GameObject>();
-    //private List<GameObject> team2 = new List<GameObject>();
-    public List<GameObject> team1 = new List<GameObject>();
-    public List<GameObject> team2 = new List<GameObject>();
+    private List<GameObject> team1 = new List<GameObject>();
+    private List<GameObject> team2 = new List<GameObject>();
+    //public List<GameObject> team1 = new List<GameObject>();
+    //public List<GameObject> team2 = new List<GameObject>();
     public Dictionary<int, GameObject> allPlayer = new Dictionary<int, GameObject>();
     private bool friendlyFire = false;
 
@@ -208,7 +208,6 @@ public class RoomManager : Photon.PunBehaviour {
     [PunRPC]
     public int[][] GenerateSeed()
     {
-
         //return MapGeneration.instance.GenerateSeed3x3();
         return MapGeneration.instance.GenerateSeed5x5();
     }
@@ -227,6 +226,10 @@ public class RoomManager : Photon.PunBehaviour {
         //Debug.Log("GenerateMap, seed length : " +seeds.Length);
         //MapGeneration.instance.ThreeByThreeGeneration(seeds);
         MapGeneration.instance.FiveByFiveGeneration(seeds);
+        MapGeneration mapGen = MapGeneration.instance;
+        int sizeMultiplicatorZ = (2 * mapGen.NbLigne -1) + 2;
+        int sizeMultiplicatorX = (2 * mapGen.NbColonne + 1) + 2;
+        Boundary.instance.SetSize(sizeMultiplicatorX * 5, 20, sizeMultiplicatorZ * 5);
     }
     [PunRPC]
     public void LoadLevel(string levelToLoad)
@@ -239,10 +242,5 @@ public class RoomManager : Photon.PunBehaviour {
         base.OnPhotonPlayerDisconnected(otherPlayer);
         Debug.Log("Player photon disconnected");
         RemoveFromTeam(otherPlayer.ID);
-    }
-
-    private void OnApplicationQuit()
-    {
-        Debug.Log("app quit");
     }
 }
