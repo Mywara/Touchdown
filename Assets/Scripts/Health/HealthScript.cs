@@ -37,7 +37,7 @@ namespace PUNTutorial
                 {
                     //Debug.Log("Player died");
                     photonView.RPC("ResetHealth", PhotonTargets.All);
-                    RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.All, this.gameObject.GetPhotonView().viewID);
+                    RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.All, PhotonNetwork.player.ID);
                 }
                 
             }

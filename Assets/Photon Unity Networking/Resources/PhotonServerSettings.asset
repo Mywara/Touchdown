@@ -59,4 +59,5 @@ MonoBehaviour:
   - LoadLevel
   - ModificationVitesse
   - PetitSaut
+  - RemoveFromTeam
   DisableAutoOpenWizard: 1

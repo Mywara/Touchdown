@@ -10,9 +10,11 @@ public class RoomManager : Photon.PunBehaviour {
     public GameObject respawnTeam1;
     public GameObject respawnTeam2;
 
-    private List<GameObject> team1 = new List<GameObject>();
-    private List<GameObject> team2 = new List<GameObject>();
-    private bool teamHaveChanged = false;
+    //private List<GameObject> team1 = new List<GameObject>();
+    //private List<GameObject> team2 = new List<GameObject>();
+    public List<GameObject> team1 = new List<GameObject>();
+    public List<GameObject> team2 = new List<GameObject>();
+    public Dictionary<int, GameObject> allPlayer = new Dictionary<int, GameObject>();
     private bool friendlyFire = false;
 
     void Awake()
@@ -36,10 +38,10 @@ public class RoomManager : Photon.PunBehaviour {
 
     }
     [PunRPC]
-    public void RespawnPlayer(int playerViewID, float timeBeforeRespawn)
+    public void RespawnPlayer(int playerID, float timeBeforeRespawn)
     {
         bool needRespawn = true;
-        GameObject player = PhotonView.Find(playerViewID).gameObject;
+        GameObject player = allPlayer[playerID];
         //Debug.Log("player found : " + player.name);
         player.SetActive(false);
         PlayerController playerControllerScript = player.GetComponent<PlayerController>();
@@ -101,9 +103,9 @@ public class RoomManager : Photon.PunBehaviour {
         }
     }
     [PunRPC]
-    public void RespawnPlayer(int playerViewID)
+    public void RespawnPlayer(int playerID)
     {
-        this.RespawnPlayer(playerViewID, this.respawnTime);
+        this.RespawnPlayer(playerID, this.respawnTime);
     }
 
     private IEnumerator RespawnCoroutine(GameObject player, float timeBeforRespawn)
@@ -114,7 +116,7 @@ public class RoomManager : Photon.PunBehaviour {
     }
 
     [PunRPC]
-    public void JoinTeam1(int playerViewID)
+    public void JoinTeam1(int playerID, int playerViewID)
     {
         GameObject player = PhotonView.Find(playerViewID).gameObject;
         PlayerController playerControllerScript = player.GetComponent<PlayerController>();
@@ -122,17 +124,17 @@ public class RoomManager : Photon.PunBehaviour {
         {
             playerControllerScript.Team = 1;
             this.team1.Add(player);
+            this.allPlayer.Add(playerID, player);
             //Debug.Log("Player : " + player.name + " Joined team 1");
         }
         else
         {
             Debug.Log("Error in joining team, player don't have PlayerController script");
         }
-        teamHaveChanged = true;
     }
 
     [PunRPC]
-    public void JoinTeam2(int playerViewID)
+    public void JoinTeam2(int playerID, int playerViewID)
     {
         GameObject player = PhotonView.Find(playerViewID).gameObject;
         PlayerController playerControllerScript = player.GetComponent<PlayerController>();
@@ -140,25 +142,48 @@ public class RoomManager : Photon.PunBehaviour {
         {
             playerControllerScript.Team = 2;
             this.team2.Add(player);
+            this.allPlayer.Add(playerID, player);
             //Debug.Log("Player : "+ player.name + " Joined team 2");
         }
         else
         {
             Debug.Log("Error in joining team, player d'ont have PlayerController script");
         }
-        teamHaveChanged = true;
     }
 
     [PunRPC]
-    public void AutoJoinTeam(int playerViewID)
+    public void AutoJoinTeam(int playerID, int playerViewID)
     {
         if (this.team1.Count <= this.team2.Count)
         {
-            JoinTeam1(playerViewID);
+            JoinTeam1(playerID, playerViewID);
         }
         else
         {
-            JoinTeam2(playerViewID);
+            JoinTeam2(playerID, playerViewID);
+        }
+    }
+
+    [PunRPC]
+    public void RemoveFromTeam(int playerID)
+    {
+        GameObject player = allPlayer[playerID];
+        PlayerController playerControllerScript = player.GetComponent<PlayerController>();
+        if (playerControllerScript != null)
+        {
+            int playerTeam = playerControllerScript.team;
+            if(playerTeam == 1)
+            {
+                this.team1.Remove(player);
+            }
+            else if (playerTeam == 2)
+            {
+                this.team2.Remove(player);
+            }
+        }
+        else
+        {
+            Debug.Log("Error in leaving team, player d'ont have PlayerController script");
         }
     }
 
@@ -207,5 +232,17 @@ public class RoomManager : Photon.PunBehaviour {
     public void LoadLevel(string levelToLoad)
     {
         PhotonNetwork.LoadLevel(levelToLoad);
+    }
+
+    public override void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
+    {
+        base.OnPhotonPlayerDisconnected(otherPlayer);
+        Debug.Log("Player photon disconnected");
+        RemoveFromTeam(otherPlayer.ID);
+    }
+
+    private void OnApplicationQuit()
+    {
+        Debug.Log("app quit");
     }
 }
