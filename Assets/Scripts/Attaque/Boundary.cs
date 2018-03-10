@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class Boundary : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    public static Boundary instance;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -14,6 +16,17 @@ public class Boundary : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    void Awake()
+    {
+        
+        if (instance != null)
+        {
+            DestroyImmediate(gameObject);
+            return;
+        }
+        instance = this;
+    }
 
     private void OnTriggerExit(Collider other)
     {
@@ -37,5 +50,10 @@ public class Boundary : MonoBehaviour {
             //Destroy(otherGO);
             PhotonNetwork.Destroy(otherGO);
         } 
+    }
+
+    public void SetSize(int x, int y , int z)
+    {
+        GetComponent<BoxCollider>().size = new Vector3 (x, y, z);
     }
 }

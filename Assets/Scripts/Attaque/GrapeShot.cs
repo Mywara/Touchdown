@@ -58,7 +58,7 @@ public class GrapeShot : Photon.PunBehaviour
             Debug.Log("In Respawn");
             return;
         }
-        /*
+        
         if (!RoomManager.instance.FriendlyFire)
         {
             Debug.Log("Room Manager");
@@ -75,7 +75,6 @@ public class GrapeShot : Photon.PunBehaviour
                 }
             }
         }
-        */
 
         if (!directHitObjs.Contains(otherGO) && otherGO.tag.Equals("Player"))
         {
@@ -127,5 +126,10 @@ public class GrapeShot : Photon.PunBehaviour
         {
             target.GetComponent<PUNTutorial.HealthScript>().Damage(damage);
         }
+    }
+
+    public void SetTeam(int newTeam)
+    {
+        this.team = newTeam;
     }
 }

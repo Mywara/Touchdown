@@ -146,6 +146,7 @@ MonoBehaviour:
   AOERadius: 0
   speed: 1
   team: 0
+  aoeActivated: 0
 --- !u!114 &114915711791220148
 MonoBehaviour:
   m_ObjectHideFlags: 1

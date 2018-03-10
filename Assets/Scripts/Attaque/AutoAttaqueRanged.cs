@@ -15,7 +15,7 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
     public float offset_tir_horizontal = 23;
     public float gunShotDelay = .5f;
     public bool inModePlacing = false;
-
+    public bool hasAnAOE = false;
     // test
     public GameObject sourceObject;
     //
@@ -86,6 +86,7 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
         Projectile projectileScript = projo.GetComponent<Projectile>();
         if (projectileScript != null)
         {
+            projectileScript.AOEActivated = hasAnAOE;
             projectileScript.SetDamage(impactDamage, splashDamage);
             projectileScript.SetSpeed(projectileSpeed);
             //dire de quelle equipe vient le projectile pour ne pas TK

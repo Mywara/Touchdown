@@ -1098,6 +1098,7 @@ MonoBehaviour:
   offset_tir_horizontal: 10
   gunShotDelay: 0.5
   inModePlacing: 0
+  hasAnAOE: 1
   sourceObject: {fileID: 0}
 --- !u!114 &114013642118591332
 MonoBehaviour:
