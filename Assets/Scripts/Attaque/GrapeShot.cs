@@ -15,6 +15,7 @@ public class GrapeShot : Photon.PunBehaviour
     private float nextFire = 0f;
     private List<GameObject> directHitObjs = new List<GameObject>();
     private bool syncTeam = true;
+    private GameObject owner;
 
     //the radius of the circular zone
     //= depth of the spell
@@ -29,17 +30,28 @@ public class GrapeShot : Photon.PunBehaviour
         angle  = Constants.GRAPE_ANGLE;
     }
 
+    public void SetTeam(int newTeam)
+    {
+        this.team = newTeam;
+    }
+
+    public void SetOwner(GameObject owner)
+    {
+        this.owner = owner;
+    }
+
     //fonction pour le repoussement des ennemis
     public void repulse(GameObject target)
     {
         //direction de la cible
         Vector3 targetDir = target.transform.position - transform.position;
+        float distance = Mathf.Sqrt(Mathf.Pow(targetDir.x, 2) + Mathf.Pow(targetDir.z, 2) + Mathf.Pow(targetDir.z, 2));
         //angle entre la cible et le point de visée du joueur
         float angle = Vector3.Angle(targetDir, transform.forward);
 
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
         
-        target.GetComponent<Rigidbody>().AddForce(targetDir * radius * 50);
+        target.GetComponent<Rigidbody>().AddForce(targetDir * 1/distance * 1000);
     }
 
     //Ici other = l'object que l'on a touché
@@ -62,7 +74,7 @@ public class GrapeShot : Photon.PunBehaviour
         if (!RoomManager.instance.FriendlyFire)
         {
             Debug.Log("Room Manager");
-            if (otherGO.tag.Equals("Player"))
+            if (otherGO.tag.Equals("Player") && otherGO != owner)
             {
                 PlayerController playerControllerScript = otherGO.GetComponent<PlayerController>();
                 if (playerControllerScript != null)
@@ -76,9 +88,8 @@ public class GrapeShot : Photon.PunBehaviour
             }
         }
 
-        if (!directHitObjs.Contains(otherGO) && otherGO.tag.Equals("Player"))
+        if (!directHitObjs.Contains(otherGO) && otherGO.tag.Equals("Player") && otherGO != owner && otherGO.GetComponent<PlayerController>().team != team)
         {
-
             directHitObjs.Add(otherGO);
         }
     }
@@ -126,10 +137,5 @@ public class GrapeShot : Photon.PunBehaviour
         {
             target.GetComponent<PUNTutorial.HealthScript>().Damage(damage);
         }
-    }
-
-    public void SetTeam(int newTeam)
-    {
-        this.team = newTeam;
     }
 }

@@ -2,19 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Competences : Photon.PunBehaviour
+public class PirateComp : Photon.PunBehaviour
 {
     public GameObject projectilePrefab1 = null;
     public GameObject projectilePrefab2 = null;
     public GameObject projectilePrefabUlt = null;
 
     public Transform projectileSpawn1 = null;
-    public Transform projectileSpawn2 = null;
-    public Transform projectileSpawnUlt = null;
-
-    // test
-    public GameObject sourceObject;
-    //
     
     private Animator anim;
 
@@ -46,14 +40,14 @@ public class Competences : Photon.PunBehaviour
             //Pour le local
             if (PhotonNetwork.connected == false)
             {
-                projo = Instantiate(projectilePrefab1, new Vector3(projectileSpawn1.position.x, projectileSpawn1.position.y + 0.5f, projectileSpawn1.position.z), Quaternion.identity).gameObject as GameObject;
+                projo = Instantiate(projectilePrefab1, projectileSpawn1.position, Quaternion.identity).gameObject as GameObject;
                 //projectilePrefab1.GetComponent<projectilePrefab1.name>.SetTeam(playerControllerScript.Team);
             }
             else
             {
 
                 //Pour le reseau
-                projo = PhotonNetwork.Instantiate(this.projectilePrefab1.name, new Vector3(projectileSpawn1.position.x, projectileSpawn1.position.y + 0.5f, projectileSpawn1.position.z), Quaternion.identity, 0);
+                projo = PhotonNetwork.Instantiate(this.projectilePrefab1.name, projectileSpawn1.position, Quaternion.identity, 0);
                 //projectilePrefab1.GetComponent<projectilePrefab1.name>.SetTeam(playerControllerScript.Team);
 
             }
@@ -63,6 +57,7 @@ public class Competences : Photon.PunBehaviour
             if (playerControllerScript != null)
             {
                 grapeShotScript.SetTeam(playerControllerScript.Team);
+                grapeShotScript.SetOwner(this.transform.gameObject);
             }
             else
             {
