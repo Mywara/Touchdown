@@ -61,5 +61,11 @@ namespace PUNTutorial
            // photonView.RPC("Dama", RPCMode.AllBuffered, HealthSliderUI, HealthSliderUI.value);
 
         }
+
+        public void ResetHealth()
+        {
+            HealthSliderUI.value = HealthMax;
+            CurrentValue = HealthMax;
+        }
     }
 }

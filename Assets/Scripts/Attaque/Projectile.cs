@@ -9,9 +9,11 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
     public float AOERadius = 0;
     public float speed = 10;
     public int team;
+    public bool aoeActivated = false;
 
     private Rigidbody myRb;
     private bool netWorkingDone = false;
+    
 
     // Use this for initialization
     void Start () {
@@ -92,25 +94,28 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
             ApplyDamage(directHitObj, impactDamage);
         }
         
-        Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, AOERadius);
-        foreach(Collider colliITE in hitColliders)
+        if(aoeActivated)
         {
-            GameObject objInAOE = colliITE.transform.root.gameObject;
-            if(objInAOE.tag.Equals("Player"))
+            Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, AOERadius);
+            foreach (Collider colliITE in hitColliders)
             {
-                Debug.Log("AOE hits object : " + objInAOE.name);
-                if (objInAOE != directHitObj)
+                GameObject objInAOE = colliITE.transform.root.gameObject;
+                if (objInAOE.tag.Equals("Player"))
                 {
-                    PlayerController playerControllerScript = objInAOE.GetComponent<PlayerController>();
-                    if (playerControllerScript != null)
+                    Debug.Log("AOE hits object : " + objInAOE.name);
+                    if (objInAOE != directHitObj)
                     {
-                        if (playerControllerScript.Team != this.team)
+                        PlayerController playerControllerScript = objInAOE.GetComponent<PlayerController>();
+                        if (playerControllerScript != null)
                         {
-                            ApplyDamage(objInAOE, splashDamage);
+                            if (playerControllerScript.Team != this.team)
+                            {
+                                ApplyDamage(objInAOE, splashDamage);
+                            }
                         }
-                    }  
+                    }
                 }
-            }  
+            }
         }
         //Destroy(this.gameObject);
         PhotonNetwork.Destroy(this.gameObject);
@@ -168,5 +173,17 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
     public override void OnJoinedRoom()
     {
         netWorkingDone = false;
+    }
+
+    public bool AOEActivated
+    {
+        get
+        {
+            return this.aoeActivated;
+        }
+        set
+        {
+            this.aoeActivated = value;
+        }
     }
 }

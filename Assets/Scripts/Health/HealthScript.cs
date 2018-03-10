@@ -36,7 +36,10 @@ namespace PUNTutorial
                 if (photonView.isMine)
                 {
                     //Debug.Log("Player died");
+                    //reset la vie au dessus du perso en reseau
                     photonView.RPC("ResetHealth", PhotonTargets.All);
+                    //reset la vie du client local en haut a gauche
+                    GetComponent<HealthScript2>().ResetHealth();
                     RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.All, PhotonNetwork.player.ID);
                 }
                 

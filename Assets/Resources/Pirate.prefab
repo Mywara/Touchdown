@@ -1098,6 +1098,7 @@ MonoBehaviour:
   offset_tir_horizontal: 10
   gunShotDelay: 0.5
   inModePlacing: 0
+  hasAnAOE: 1
   sourceObject: {fileID: 0}
 --- !u!114 &114013642118591332
 MonoBehaviour:
@@ -1484,8 +1485,8 @@ MonoBehaviour:
   - {fileID: 114757451083216452}
   - {fileID: 114805491446883470}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114646885973370570
