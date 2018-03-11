@@ -62,9 +62,9 @@ public class CurseDoT : Photon.PunBehaviour
         this.owner = owner;
     }
 
-    //Dans le OnTriggerEnter on applique le dégat au premier ennemi touché la
+    //Dans le OnTriggerStay on applique le dégat au premier ennemi touché la
     //propagation de la malédiction se fera dans l'update
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (directHitObjs != null) return;
 

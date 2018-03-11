@@ -62,6 +62,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1031291957287772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4688993104613258}
+  m_Layer: 0
+  m_Name: TPSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1039137782739492
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,6 +956,7 @@ Transform:
   - {fileID: 4212385452960490}
   - {fileID: 224771202095602876}
   - {fileID: 4101673138927030}
+  - {fileID: 4688993104613258}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -958,6 +974,19 @@ Transform:
   m_Father: {fileID: 4233817700497678}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4688993104613258
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1031291957287772}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 0.31, z: 3.091}
+  m_LocalScale: {x: 5, y: 1, z: 0.1}
+  m_Children: []
+  m_Father: {fileID: 4600489825551324}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 90, y: 90, z: 0}
 --- !u!4 &4695872209874300
 Transform:
   m_ObjectHideFlags: 1
@@ -1253,9 +1282,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab1: {fileID: 1953061402204318, guid: ed7dd81537b31574ca582a87b8997f51,
     type: 2}
-  projectilePrefab2: {fileID: 0}
+  projectilePrefab2: {fileID: 1492459339001764, guid: 84dbd390ecb94bc4788c1688a97c7733,
+    type: 2}
   projectilePrefabUlt: {fileID: 0}
   projectileSpawn1: {fileID: 4101673138927030}
+  projectileSpawn2: {fileID: 4688993104613258}
 --- !u!114 &114093927385117972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1391,7 +1422,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 3
-  movementSpeedTemp: 10
   inputSensitivity: 120
   cameraFollow: {fileID: 1090396475383946}
   myJumpHeight: 1

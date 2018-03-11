@@ -9,6 +9,7 @@ public class UndeadComp : Photon.PunBehaviour
     public GameObject projectilePrefabUlt = null;
 
     public Transform projectileSpawn1 = null;
+    public Transform projectileSpawn2 = null;
 
     private Animator anim;
 
@@ -41,14 +42,12 @@ public class UndeadComp : Photon.PunBehaviour
             if (PhotonNetwork.connected == false)
             {
                 projo = Instantiate(projectilePrefab1, projectileSpawn1.position, Quaternion.identity).gameObject as GameObject;
-                //projectilePrefab1.GetComponent<projectilePrefab1.name>.SetTeam(playerControllerScript.Team);
             }
             else
             {
 
                 //Pour le reseau
                 projo = PhotonNetwork.Instantiate(this.projectilePrefab1.name, projectileSpawn1.position, Quaternion.identity, 0);
-                //projectilePrefab1.GetComponent<projectilePrefab1.name>.SetTeam(playerControllerScript.Team);
 
             }
 
@@ -57,7 +56,39 @@ public class UndeadComp : Photon.PunBehaviour
             if (playerControllerScript != null)
             {
                 curseDoTScript.SetTeam(playerControllerScript.Team);
-                //curseDoTScript.SetOwner(this.transform.gameObject);
+                curseDoTScript.SetOwner(this.transform.gameObject);
+            }
+            else
+            {
+                Debug.Log("player have no PlayerController script");
+            }
+        }
+
+        else if (Input.GetButton("E"))
+        {
+            // animation trigger
+            //anim.SetTrigger("AttackGun");
+
+            GameObject projo;
+            //Pour le local
+            if (PhotonNetwork.connected == false)
+            {
+                projo = Instantiate(projectilePrefab2, projectileSpawn2.position, Quaternion.identity).gameObject as GameObject;
+            }
+            else
+            {
+
+                //Pour le reseau
+                projo = PhotonNetwork.Instantiate(this.projectilePrefab2.name, projectileSpawn2.position, Quaternion.identity, 0);
+
+            }
+
+            PlayerController playerControllerScript = this.gameObject.GetComponent<PlayerController>();
+            Teleportation tpScript = projo.GetComponent<Teleportation>();
+            if (playerControllerScript != null)
+            {
+                tpScript.SetTeam(playerControllerScript.Team);
+                tpScript.SetOwner(this.transform.gameObject);
             }
             else
             {
