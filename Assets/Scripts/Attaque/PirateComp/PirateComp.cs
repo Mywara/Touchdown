@@ -5,11 +5,11 @@ using UnityEngine;
 public class PirateComp : Photon.PunBehaviour
 {
     public GameObject projectilePrefab1 = null;
-    public GameObject projectilePrefab2 = null;
+    public GameObject rhumBottle = null;
     public GameObject projectilePrefabUlt = null;
 
     public Transform projectileSpawn1 = null;
-    
+
     private Animator anim;
 
     void Awake()
@@ -31,23 +31,22 @@ public class PirateComp : Photon.PunBehaviour
         {
             return;
         }
-        if (Input.GetButton("A"))
+        if (Input.GetButtonDown("A"))
         {
             // animation trigger
             //anim.SetTrigger("AttackGun");
-
             GameObject projo;
             //Pour le local
             if (PhotonNetwork.connected == false)
             {
-                projo = Instantiate(projectilePrefab1, projectileSpawn1.position, Quaternion.identity).gameObject as GameObject;
+                projo = Instantiate(projectilePrefab1, projectileSpawn1.position, projectileSpawn1.rotation).gameObject as GameObject;
                 //projectilePrefab1.GetComponent<projectilePrefab1.name>.SetTeam(playerControllerScript.Team);
             }
             else
             {
 
                 //Pour le reseau
-                projo = PhotonNetwork.Instantiate(this.projectilePrefab1.name, projectileSpawn1.position, Quaternion.identity, 0);
+                projo = PhotonNetwork.Instantiate(this.projectilePrefab1.name, projectileSpawn1.position, projectileSpawn1.rotation, 0);
                 //projectilePrefab1.GetComponent<projectilePrefab1.name>.SetTeam(playerControllerScript.Team);
 
             }
@@ -58,6 +57,34 @@ public class PirateComp : Photon.PunBehaviour
             {
                 grapeShotScript.SetTeam(playerControllerScript.Team);
                 grapeShotScript.SetOwner(this.transform.gameObject);
+            }
+            else
+            {
+                Debug.Log("player have no PlayerController script");
+            }
+        }
+        //Compétence Lancer de bouteille de rhum
+        if (Input.GetButtonDown("E"))
+        {
+            GameObject projo;
+            //Pour le local
+            if (PhotonNetwork.connected == false)
+            {
+                projo = Instantiate(rhumBottle, projectileSpawn1.position, projectileSpawn1.rotation).gameObject as GameObject;
+            }
+            else
+            {
+
+                //Pour le reseau
+                projo = PhotonNetwork.Instantiate(rhumBottle.name, projectileSpawn1.position, projectileSpawn1.rotation, 0);
+            }
+
+            //Fait de set de la team pour le projectile
+            PlayerController playerControllerScript = this.gameObject.GetComponent<PlayerController>();
+            RhumSpray rhumSprayScript = projo.GetComponent<RhumSpray>();
+            if (playerControllerScript != null)
+            {
+                rhumSprayScript.SetTeam(playerControllerScript.Team);
             }
             else
             {

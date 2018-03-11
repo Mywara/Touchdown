@@ -60,4 +60,6 @@ MonoBehaviour:
   - ModificationVitesse
   - PetitSaut
   - RemoveFromTeam
+  - Heal
+  - Heal2
   DisableAutoOpenWizard: 1

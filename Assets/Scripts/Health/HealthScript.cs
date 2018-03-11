@@ -27,6 +27,13 @@ namespace PUNTutorial
             HealthSlider.value = HealthSlider.value - damage;
         }
 
+        //fonction pour heal la barre de vie au dessus du joueur
+        [PunRPC]
+        public void Heal(int heal)
+        {
+            HealthSlider.value = HealthSlider.value + heal;
+        }
+
         public void Update()
         {
 

@@ -244,6 +244,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4193193885231094}
+  - component: {fileID: 114483398586639198}
   m_Layer: 0
   m_Name: Projectile Spawn
   m_TagString: Untagged
@@ -1123,11 +1124,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1983727145572376, guid: a581bdce5aaa32f4f92756906724583f,
     type: 2}
   projectileSpawn: {fileID: 4193193885231094}
-  offset_tir_vertical: 28
-  offset_tir_horizontal: 10
   gunShotDelay: 0.5
   inModePlacing: 0
-  hasAnAOE: 0
+  hasAnAOE: 1
   sourceObject: {fileID: 0}
 --- !u!114 &114013642118591332
 MonoBehaviour:
@@ -1254,9 +1253,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab1: {fileID: 1435132543270386, guid: d74efb937d9d9d04abc15bd774099f3c,
     type: 2}
-  projectilePrefab2: {fileID: 0}
+  rhumBottle: {fileID: 1351761271296770, guid: 27c85ccfe1e437c419876306106e83fe, type: 2}
   projectilePrefabUlt: {fileID: 0}
-  projectileSpawn1: {fileID: 4571389766241748}
+  projectileSpawn1: {fileID: 4193193885231094}
 --- !u!114 &114078414521588166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1412,6 +1411,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthSlider: {fileID: 114076923135450714}
+--- !u!114 &114483398586639198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1410119846108750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb4d1b4d53a1b4681459f9a0003636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset_tir_vertical: 28
+  offset_tir_horizontal: 10
 --- !u!114 &114497307542035870
 MonoBehaviour:
   m_ObjectHideFlags: 1

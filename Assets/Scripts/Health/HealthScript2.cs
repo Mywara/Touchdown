@@ -44,14 +44,22 @@ namespace PUNTutorial
             HealthSliderUI.value = CurrentValue;
         }
 
-      /*  [PunRPC]
-        public void UpdateBar()
+        //fonction pour heal la barre de vie du joueur local, celle en haut a gauche
+        [PunRPC]
+        public void Heal2(int heal)
         {
-
+            CurrentValue = CurrentValue + heal;
             HealthSliderUI.value = CurrentValue;
-            Debug.Log("current value " + CurrentValue);
         }
-        // Update is called once per frame*/
+
+        /*  [PunRPC]
+          public void UpdateBar()
+          {
+
+              HealthSliderUI.value = CurrentValue;
+              Debug.Log("current value " + CurrentValue);
+          }
+          // Update is called once per frame*/
         void Update()
         {
             if (!photonView.isMine)

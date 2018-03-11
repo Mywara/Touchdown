@@ -11,8 +11,10 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
     public float projectileSpeed = 10;
     public GameObject projectilePrefab;
     public Transform projectileSpawn;
+    /*
     public float offset_tir_vertical = 12;
     public float offset_tir_horizontal = 23;
+    */
     public float gunShotDelay = .5f;
     public bool inModePlacing = false;
     public bool hasAnAOE = false;
@@ -50,9 +52,10 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
     {
         yield return new WaitForSeconds(gunShotDelay);
 
+        /*
         Camera cam = Camera.main;
         RaycastHit hit;
-        GameObject projo;
+        
         float distance; // la distance d'un point près du personnage jusqu'à la cible
 
         if (Physics.Raycast(cam.transform.position + cam.transform.forward * 2.5f, cam.transform.forward, out hit, 500))
@@ -71,16 +74,19 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
         Vector3 rotationVector = cam.transform.rotation.eulerAngles;
         rotationVector.y += (1 / distance) * offset_tir_horizontal; // axe horizontal de visée 
         rotationVector.x -= (1 / distance) * offset_tir_vertical; // axe vertical de visée
-
+        */
+        GameObject projo;
         //Pour le local
         if (PhotonNetwork.connected == false)
         {
-            projo = Instantiate(projectilePrefab, projectileSpawn.position, Quaternion.Euler(rotationVector)).gameObject as GameObject;
+            //projo = Instantiate(projectilePrefab, projectileSpawn.position, Quaternion.Euler(rotationVector)).gameObject as GameObject;
+            projo = Instantiate(projectilePrefab, projectileSpawn.position, projectileSpawn.rotation).gameObject as GameObject;
         }
         else
         {
             //Pour le reseau
-            projo = PhotonNetwork.Instantiate(this.projectilePrefab.name, projectileSpawn.position, Quaternion.Euler(rotationVector), 0);
+            //projo = PhotonNetwork.Instantiate(this.projectilePrefab.name, projectileSpawn.position, Quaternion.Euler(rotationVector), 0);
+            projo = PhotonNetwork.Instantiate(this.projectilePrefab.name, projectileSpawn.position, projectileSpawn.rotation, 0);
         }
 
         Projectile projectileScript = projo.GetComponent<Projectile>();

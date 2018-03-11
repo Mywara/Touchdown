@@ -63,16 +63,22 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
     //Modif a faire, limiter dmg au cible valide -> layer + test
     private void OnTriggerEnter(Collider other)
     {
+        //Si l'objet n'est pas controlé localement quand on est connecté, on ne fait rien
+        //Donc c'est le possesseur de l'objet qui detectera les collisions et notifira les degats
         if(!photonView.isMine && PhotonNetwork.connected == true)
         {
             return;
         }
+        //on recupère l'object le plus haut de hierachie sur l'objet touché
         GameObject directHitObj = other.transform.root.gameObject;
+        //On enlève les collisions pour appliquer des dégâts avec le respawn et la bordure
         if(directHitObj.tag.Equals("Respawn") || directHitObj.tag.Equals("Boundary"))
         {
             //Debug.Log("hit Respawn");
             return;
         }
+
+        //on test si il a a du friendlyFire ou non
         if(!RoomManager.instance.FriendlyFire)
         {
             if (directHitObj.tag.Equals("Player"))
@@ -89,20 +95,27 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
             }
         }    
 
+        //On applique des dégâts direct avec le projectile
         if (directHitObj.tag.Equals("Player"))
         {
             ApplyDamage(directHitObj, impactDamage);
         }
         
+        //Si le projectile a de l'AOE
         if(aoeActivated)
         {
+            //on recupère les colliders dans la zone d'AOE
             Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, AOERadius);
+            //On parcours les objets dans l'AOE
             foreach (Collider colliITE in hitColliders)
             {
                 GameObject objInAOE = colliITE.transform.root.gameObject;
+                //Si c'est un joueur, on lui applique les degats
                 if (objInAOE.tag.Equals("Player"))
                 {
-                    Debug.Log("AOE hits object : " + objInAOE.name);
+                    Debug.Log("Projectile : AOE hits object : " + objInAOE.name);
+                    //on test sur l'objet dans l'AOE est celui du direct Hit pour ne pas aapliquer
+                    //les degats deux fois
                     if (objInAOE != directHitObj)
                     {
                         PlayerController playerControllerScript = objInAOE.GetComponent<PlayerController>();
@@ -117,10 +130,11 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
                 }
             }
         }
-        //Destroy(this.gameObject);
+        //On detruit le projectile apres l'impacte
         PhotonNetwork.Destroy(this.gameObject);
     }
 
+    //Fonction pour appliquer les degats sur un player
     private void ApplyDamage(GameObject target, int damage)
     {
         PUNTutorial.HealthScript healthScript = target.GetComponent<PUNTutorial.HealthScript>();
@@ -140,6 +154,7 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
         }
     }
     
+    //On set une fois en reseaux les valeurs de l'instance
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if(!netWorkingDone)
@@ -170,11 +185,13 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
         }
     }
 
+    //si quelqu'un join la room en cours, on resynchronise les valeurs en réseaux
     public override void OnJoinedRoom()
     {
         netWorkingDone = false;
     }
 
+    //activation ou non de l'AOE
     public bool AOEActivated
     {
         get
