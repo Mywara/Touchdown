@@ -95,7 +95,7 @@ ModelImporter:
     - serializedVersion: 16
       name: atk_gunCut
       takeName: Take 001
-      firstFrame: 560
+      firstFrame: 567
       lastFrame: 590
       wrapMode: 0
       orientationOffsetY: 0

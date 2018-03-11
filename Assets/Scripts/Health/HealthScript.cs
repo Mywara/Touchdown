@@ -10,7 +10,7 @@ namespace PUNTutorial
         public Slider HealthSlider;
 
         private int HealthMax;
-        public bool dying = false;
+        private bool dying = false;
         private Animator anim;
         private bool netWorkingDone = false;
        

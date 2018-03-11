@@ -421,7 +421,6 @@ GameObject:
   - component: {fileID: 114323733315689146}
   - component: {fileID: 114597409659258566}
   - component: {fileID: 82796195443261580}
-  - component: {fileID: 114781331123741138}
   m_Layer: 0
   m_Name: War_Bear
   m_TagString: Player
@@ -1397,6 +1396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthSlider: {fileID: 114341086683985522}
+  dying: 0
 --- !u!114 &114206932762142600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1847,44 +1847,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114781331123741138
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1640654363724030}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 9
-    SynchronizeType: 2
-    Name: Jump
-  - Type: 9
-    SynchronizeType: 2
-    Name: AttackCac
-  - Type: 9
-    SynchronizeType: 0
-    Name: AttackGun
-  - Type: 9
-    SynchronizeType: 2
-    Name: Damage
-  - Type: 9
-    SynchronizeType: 2
-    Name: Die
-  - Type: 1
-    SynchronizeType: 2
-    Name: VelX
-  - Type: 1
-    SynchronizeType: 2
-    Name: VelY
-  m_SynchronizeLayers:
-  - SynchronizeType: 2
-    LayerIndex: 0
 --- !u!114 &114783088361775828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1986,7 +1948,6 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114513372739151394}
   - {fileID: 114227236250211042}
-  - {fileID: 114781331123741138}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

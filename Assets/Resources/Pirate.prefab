@@ -658,7 +658,6 @@ GameObject:
   - component: {fileID: 114723757052121632}
   - component: {fileID: 114646885973370570}
   - component: {fileID: 114078031084326420}
-  - component: {fileID: 114805491446883470}
   m_Layer: 0
   m_Name: Pirate
   m_TagString: Player
@@ -1124,7 +1123,6 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1983727145572376, guid: a581bdce5aaa32f4f92756906724583f,
     type: 2}
   projectileSpawn: {fileID: 4193193885231094}
-  gunShotDelay: 0.5
   inModePlacing: 0
   hasAnAOE: 1
   sourceObject: {fileID: 0}
@@ -1253,7 +1251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab1: {fileID: 1435132543270386, guid: d74efb937d9d9d04abc15bd774099f3c,
     type: 2}
-  rhumBottle: {fileID: 1351761271296770, guid: 27c85ccfe1e437c419876306106e83fe, type: 2}
+  rhumBottle: {fileID: 0}
   projectilePrefabUlt: {fileID: 0}
   projectileSpawn1: {fileID: 4193193885231094}
 --- !u!114 &114078414521588166
@@ -1520,7 +1518,6 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 114757451083216452}
-  - {fileID: 114805491446883470}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -1623,44 +1620,6 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
---- !u!114 &114805491446883470
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1992377452375106}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 9
-    SynchronizeType: 2
-    Name: Jump
-  - Type: 4
-    SynchronizeType: 0
-    Name: AttackCac
-  - Type: 9
-    SynchronizeType: 2
-    Name: AttackGun
-  - Type: 9
-    SynchronizeType: 2
-    Name: Damage
-  - Type: 9
-    SynchronizeType: 2
-    Name: Die
-  - Type: 1
-    SynchronizeType: 2
-    Name: VelX
-  - Type: 1
-    SynchronizeType: 2
-    Name: VelY
-  m_SynchronizeLayers:
-  - SynchronizeType: 2
-    LayerIndex: 0
 --- !u!114 &114860736693206500
 MonoBehaviour:
   m_ObjectHideFlags: 1
