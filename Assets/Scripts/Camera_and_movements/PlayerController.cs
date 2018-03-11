@@ -4,9 +4,7 @@ using System.Collections;
 public class PlayerController : Photon.PunBehaviour{
 
     public float movementSpeed = 10;
-
-    public float movementSpeedTemp = 10; // sert pour les modifications de vitesse de déplacement
-    private float TempsRalentissement = 0.0f;
+    
 
     public float inputSensitivity = 150.0f;
     public GameObject cameraFollow;
@@ -184,11 +182,13 @@ public class PlayerController : Photon.PunBehaviour{
 
     // Modifie la vitesse de déplacement en prenant un pourcentage de la vitesse actuelle sur une certaine duree
     [PunRPC]
-    public void ModificationVitesse(float pourcentageVitesse, float duree)
+    public IEnumerator ModificationVitesse(float pourcentageVitesse, float duree)
     {
-        Debug.Log("entre");
-        movementSpeedTemp = movementSpeedTemp * (pourcentageVitesse / 100);
-        TempsRalentissement = Time.time + duree;
+        Debug.Log("modifie vitesse duree : "+duree);
+        movementSpeed = movementSpeed * (pourcentageVitesse / 100);
+        yield return new WaitForSeconds(duree);
+        movementSpeed = movementSpeed / (pourcentageVitesse / 100);
+        Debug.Log("retour vitesse");
     }
 
     ///////////////// Fonctions qui font des effets sur le joueur
