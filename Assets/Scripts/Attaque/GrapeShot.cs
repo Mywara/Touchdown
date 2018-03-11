@@ -88,7 +88,7 @@ public class GrapeShot : Photon.PunBehaviour
             }
         }
 
-        if (!directHitObjs.Contains(otherGO) && otherGO.tag.Equals("Player") && otherGO != owner && otherGO.GetComponent<PlayerController>().team != team)
+        if (!directHitObjs.Contains(otherGO) && otherGO.tag.Equals("Player") && otherGO.GetComponent<PlayerController>().team != team)
         {
             directHitObjs.Add(otherGO);
         }
