@@ -628,7 +628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1907049427700084
 GameObject:
   m_ObjectHideFlags: 1
@@ -1669,7 +1669,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1901769844858788}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 061aa72de0f4c1741b239c70d4c1e100, type: 3}
   m_Name: 
@@ -1678,10 +1678,6 @@ MonoBehaviour:
     type: 2}
   projectilePrefab2: {fileID: 0}
   projectilePrefabUlt: {fileID: 0}
-  projectileSpawn1: {fileID: 4600489825551324}
-  projectileSpawn2: {fileID: 0}
-  projectileSpawnUlt: {fileID: 0}
-  sourceObject: {fileID: 0}
 --- !u!114 &114743294818448230
 MonoBehaviour:
   m_ObjectHideFlags: 1

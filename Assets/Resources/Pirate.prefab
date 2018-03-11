@@ -140,6 +140,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1282333924919822
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4571389766241748}
+  m_Layer: 0
+  m_Name: GrapeShotSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1290736920118638
 GameObject:
   m_ObjectHideFlags: 1
@@ -641,8 +656,8 @@ GameObject:
   - component: {fileID: 114757451083216452}
   - component: {fileID: 114805491446883470}
   - component: {fileID: 114723757052121632}
-  - component: {fileID: 114108005886682082}
   - component: {fileID: 114646885973370570}
+  - component: {fileID: 114078031084326420}
   m_Layer: 0
   m_Name: Pirate
   m_TagString: Player
@@ -841,6 +856,19 @@ Transform:
   m_Father: {fileID: 4848084635738658}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4571389766241748
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1282333924919822}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.35199928, y: 0.288, z: 0.23594546}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4725525233759130}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4592707117575818
 Transform:
   m_ObjectHideFlags: 1
@@ -906,7 +934,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1992377452375106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4793090215876984}
@@ -915,6 +943,7 @@ Transform:
   - {fileID: 224659171899483574}
   - {fileID: 4756914443888908}
   - {fileID: 224441235715587650}
+  - {fileID: 4571389766241748}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1212,6 +1241,22 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114078031084326420
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1992377452375106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061aa72de0f4c1741b239c70d4c1e100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab1: {fileID: 1435132543270386, guid: d74efb937d9d9d04abc15bd774099f3c,
+    type: 2}
+  projectilePrefab2: {fileID: 0}
+  projectilePrefabUlt: {fileID: 0}
+  projectileSpawn1: {fileID: 4571389766241748}
 --- !u!114 &114078414521588166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1242,25 +1287,6 @@ MonoBehaviour:
   team: 0
   immobilization: 0
   activeTrap: {fileID: 0}
---- !u!114 &114108005886682082
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1992377452375106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 061aa72de0f4c1741b239c70d4c1e100, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab1: {fileID: 1435132543270386, guid: d74efb937d9d9d04abc15bd774099f3c,
-    type: 2}
-  projectilePrefab2: {fileID: 0}
-  projectilePrefabUlt: {fileID: 0}
-  projectileSpawn1: {fileID: 4725525233759130}
-  projectileSpawn2: {fileID: 0}
-  projectileSpawnUlt: {fileID: 0}
-  sourceObject: {fileID: 0}
 --- !u!114 &114226895873951830
 MonoBehaviour:
   m_ObjectHideFlags: 1
