@@ -183,13 +183,14 @@ GameObject:
   - component: {fileID: 224900153903304396}
   - component: {fileID: 223036445700533318}
   - component: {fileID: 114206932762142600}
+  - component: {fileID: 114951075203771070}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1284428119911786
 GameObject:
   m_ObjectHideFlags: 1
@@ -1735,6 +1736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 82796195443261580}
   transparenceCD: 0.5
+  HUD: {fileID: 1219552981948140}
   jumpHUD: {fileID: 1803891380660944}
   jumpCooldown: 5
   jumpHeight: 5
@@ -1932,6 +1934,18 @@ MonoBehaviour:
   ennemiesJump: 0.2
   pourcentageRalenti: 50
   dureeRalenti: 3
+--- !u!114 &114951075203771070
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1219552981948140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1adea86e67c3834e91b276c8b3e6b7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pvCache: {fileID: 0}
 --- !u!114 &114970982845910662
 MonoBehaviour:
   m_ObjectHideFlags: 1

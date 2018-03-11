@@ -12,6 +12,7 @@ public class BearCompetences : Photon.PunBehaviour
     public AudioSource audioSource;
     private PlayerController playerControllerScript;
     public float transparenceCD;
+    public GameObject HUD;
 
     /////////// JUMP STUFF
 
@@ -38,6 +39,11 @@ public class BearCompetences : Photon.PunBehaviour
     // Use this for initialization
     void Start()
     {
+        if (photonView.isMine)
+        {
+            HUD.SetActive(true);
+        }
+
         playerControllerScript = this.gameObject.GetComponent<PlayerController>();
 
         anim = GetComponent<Animator>();
