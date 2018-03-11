@@ -69,20 +69,33 @@ public class AutoAttaqueCac : Photon.PUNBehaviour, IPunObservable {
         if(Input.GetButtonDown("Fire1"))
         {
             // animation trigger
-            anim.SetBool("AttackCac", true);
+            //anim.SetBool("AttackCac", true);
+            photonView.RPC("isAttackingCacAnimation", PhotonTargets.All);
 
             cacHitZone.SetActive(true);
         }
         if (Input.GetButtonUp("Fire1"))
         {
             // animation trigger
-            anim.SetBool("AttackCac", false);
+            //anim.SetBool("AttackCac", false);
+            photonView.RPC("isNotAttackingCacAnimation", PhotonTargets.All);
 
             cacHitZone.SetActive(false);
         }
         // on oriente la CacHitZone (sa hauteur)
         cacHitZone.transform.position = calculHauteur();
+    }
 
+    [PunRPC]
+    private void isAttackingCacAnimation()
+    {
+        anim.SetBool("AttackCac", true);
+    }
+
+    [PunRPC]
+    private void isNotAttackingCacAnimation()
+    {
+        anim.SetBool("AttackCac", false);
     }
 
     private Vector3 calculHauteur()

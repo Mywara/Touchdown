@@ -62,4 +62,9 @@ MonoBehaviour:
   - RemoveFromTeam
   - Heal
   - Heal2
+  - JumpAnimation
+  - isAttackingCacAnimation
+  - isNotAttackingCacAnimation
+  - ShotgunAnimation
+  - Animate
   DisableAutoOpenWizard: 1
