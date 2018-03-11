@@ -109,45 +109,24 @@ public class PlayerController : Photon.PunBehaviour{
             immobilization = false;
         }
 
-        if (!immobilization) { 
-        // translation perso
-        float horizontal = Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime;
-        transform.Translate(horizontal, 0, 0);
+        if (!immobilization)
+        {
+            // translation perso
+            float horizontal = Input.GetAxis("Horizontal");
+            transform.Translate(horizontal * movementSpeed * Time.deltaTime, 0, 0);
 
-        float vertical = Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime;
-        transform.Translate(0, 0, vertical);
+            float vertical = Input.GetAxis("Vertical");
+            transform.Translate(0, 0, vertical * movementSpeed * Time.deltaTime);
 
-        // animation de déplacement en fonction des inputs horizontaux et verticaux (flèches directionnelles)
-        Animate(horizontal, vertical);
+            // animation de déplacement en fonction des inputs horizontaux et verticaux (flèches directionnelles)
+            Animate(horizontal, vertical);
         }
     }
 
     void Animate(float h, float v)
     {
-        // s'il y a déplacement latéral
-        if(h != 0f)
-        {
-            anim.SetBool("RunningForward", false);
-
-            if(h < 0f)
-            {
-                anim.SetBool("RunningLeft", true);
-                anim.SetBool("RunningRight", false);
-            }
-            else if(h > 0f)
-            {
-                anim.SetBool("RunningLeft", false);
-                anim.SetBool("RunningRight", true);
-            }
-        }
-        // s'il n'y a pas de déplacement latéral
-        else
-        {
-            anim.SetBool("RunningForward", (v != 0f));
-
-            anim.SetBool("RunningLeft", false);
-            anim.SetBool("RunningRight", false);
-        }
+        anim.SetFloat("VelY", v);
+        anim.SetFloat("VelX", h);
     }
 
 

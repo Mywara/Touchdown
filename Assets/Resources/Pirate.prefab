@@ -654,10 +654,10 @@ GameObject:
   - component: {fileID: 114871883346983298}
   - component: {fileID: 114597776403633338}
   - component: {fileID: 114757451083216452}
-  - component: {fileID: 114805491446883470}
   - component: {fileID: 114723757052121632}
   - component: {fileID: 114646885973370570}
   - component: {fileID: 114078031084326420}
+  - component: {fileID: 114805491446883470}
   m_Layer: 0
   m_Name: Pirate
   m_TagString: Player
@@ -1127,7 +1127,7 @@ MonoBehaviour:
   offset_tir_horizontal: 10
   gunShotDelay: 0.5
   inModePlacing: 0
-  hasAnAOE: 1
+  hasAnAOE: 0
   sourceObject: {fileID: 0}
 --- !u!114 &114013642118591332
 MonoBehaviour:
@@ -1280,7 +1280,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 3
-  movementSpeedTemp: 10
   inputSensitivity: 120
   cameraFollow: {fileID: 1841835560823816}
   myJumpHeight: 1
@@ -1630,16 +1629,7 @@ MonoBehaviour:
     SynchronizeType: 2
     Name: Jump
   - Type: 4
-    SynchronizeType: 2
-    Name: RunningForward
-  - Type: 4
-    SynchronizeType: 2
-    Name: RunningLeft
-  - Type: 4
-    SynchronizeType: 2
-    Name: RunningRight
-  - Type: 4
-    SynchronizeType: 2
+    SynchronizeType: 0
     Name: AttackCac
   - Type: 9
     SynchronizeType: 2
@@ -1650,6 +1640,12 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 2
     Name: Die
+  - Type: 1
+    SynchronizeType: 2
+    Name: VelX
+  - Type: 1
+    SynchronizeType: 2
+    Name: VelY
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0

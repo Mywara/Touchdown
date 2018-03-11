@@ -648,10 +648,10 @@ GameObject:
   - component: {fileID: 114932389592984284}
   - component: {fileID: 114412467641085906}
   - component: {fileID: 114621299335967458}
-  - component: {fileID: 114632834128214476}
   - component: {fileID: 114655161566790484}
   - component: {fileID: 114295618843314300}
   - component: {fileID: 114079411731952172}
+  - component: {fileID: 114632834128214476}
   m_Layer: 0
   m_Name: Undeath
   m_TagString: Player
@@ -1700,29 +1700,26 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Jump
-  - Type: 4
-    SynchronizeType: 1
-    Name: RunningForward
-  - Type: 4
-    SynchronizeType: 1
-    Name: RunningLeft
-  - Type: 4
-    SynchronizeType: 1
-    Name: RunningRight
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: AttackCac
   - Type: 9
     SynchronizeType: 0
     Name: AttackGun
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Damage
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Die
+  - Type: 1
+    SynchronizeType: 2
+    Name: VelX
+  - Type: 1
+    SynchronizeType: 2
+    Name: VelY
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
