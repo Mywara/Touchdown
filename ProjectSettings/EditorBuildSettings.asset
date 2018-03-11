@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScene.unity
     guid: 32d7b66488df82747bd9247c36cd8169
   - enabled: 1
+    path: Assets/Scenes/Scene1.unity
+    guid: d11e496cd0a99b14986354acba4389c1
+  - enabled: 1
     path: Assets/Scenes/RandomMap.unity
     guid: 01142c624c2ba314dbdbe5f90aa2fe4a
   - enabled: 1
@@ -20,6 +23,6 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/Scenes/Scene1.unity
-    guid: 64ff8b0a7fd766a408a7527d403457bd
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000

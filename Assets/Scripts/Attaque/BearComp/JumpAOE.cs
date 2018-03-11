@@ -23,15 +23,12 @@ public class JumpAOE : Photon.PunBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("apply = " + apply);
 
         if (apply)
         {
-
-            Debug.Log("Obj in JumpAOEZone : " + directHitObjs);
+            
             foreach (GameObject directHitObj in directHitObjs.ToArray())
             {
-                Debug.Log("Obj in JumpAOEZone : " + directHitObj.name);
                 ApplyDamage(directHitObj, damage);
                 directHitObjs.Remove(directHitObj);
             }
