@@ -26,7 +26,6 @@ public class PlayerController : Photon.PunBehaviour{
 
     void Start ()
     {
-
         if (photonView.isMine)
         {
             GameObject cameraPrefab = Camera.main.transform.root.gameObject;
@@ -74,7 +73,8 @@ public class PlayerController : Photon.PunBehaviour{
                 if (hit.distance <= 0.2)
                 {
                     // Set jump animation trigger
-                    anim.SetTrigger("Jump");
+                    photonView.RPC("JumpAnimation", PhotonTargets.All);
+                    //anim.SetTrigger("Jump");
 
 
                     // soit on utilise une force soit on modifie la velocité verticale
@@ -86,6 +86,12 @@ public class PlayerController : Photon.PunBehaviour{
 
             }
         }
+    }
+
+    [PunRPC]
+    private void JumpAnimation()
+    {
+        anim.SetTrigger("Jump");
     }
 
     // Méthode pour calculer la velocité à donner pour atteindre la hauteur donnée
@@ -103,6 +109,7 @@ public class PlayerController : Photon.PunBehaviour{
         {
             return;
         }
+
         //permet de bouger a nouveau lorsque le piege immobilisant est détruit
         if (!activeTrap && immobilization)
         {
@@ -119,11 +126,12 @@ public class PlayerController : Photon.PunBehaviour{
             transform.Translate(0, 0, vertical * movementSpeed * Time.deltaTime);
 
             // animation de déplacement en fonction des inputs horizontaux et verticaux (flèches directionnelles)
-            Animate(horizontal, vertical);
+            photonView.RPC("Animate", PhotonTargets.All, horizontal, vertical);
         }
     }
 
-    void Animate(float h, float v)
+    [PunRPC]
+    private void Animate(float h, float v)
     {
         anim.SetFloat("VelY", v);
         anim.SetFloat("VelX", h);

@@ -38,12 +38,19 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
         if (Input.GetButton("Fire1") && Time.time > nextFire && !inModePlacing)
         {
             // animation trigger
-            anim.SetTrigger("AttackGun");
+            //anim.SetTrigger("AttackGun");
+            photonView.RPC("ShotgunAnimation", PhotonTargets.All);
 
             nextFire = Time.time + fireRate;
 
             StartCoroutine("DelayedGunShot");
         }
+    }
+
+    [PunRPC]
+    private void ShotgunAnimation()
+    {
+        anim.SetTrigger("AttackGun");
     }
 
     IEnumerator DelayedGunShot()

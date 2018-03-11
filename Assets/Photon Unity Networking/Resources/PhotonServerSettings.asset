@@ -60,4 +60,9 @@ MonoBehaviour:
   - ModificationVitesse
   - PetitSaut
   - RemoveFromTeam
+  - JumpAnimation
+  - isAttackingCacAnimation
+  - isNotAttackingCacAnimation
+  - ShotgunAnimation
+  - Animate
   DisableAutoOpenWizard: 1
