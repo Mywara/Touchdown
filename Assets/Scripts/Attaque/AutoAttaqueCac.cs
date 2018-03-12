@@ -69,16 +69,20 @@ public class AutoAttaqueCac : Photon.PUNBehaviour, IPunObservable {
         if(Input.GetButtonDown("Fire1"))
         {
             // animation trigger
-            //anim.SetBool("AttackCac", true);
-            photonView.RPC("isAttackingCacAnimation", PhotonTargets.All);
+            if (PhotonNetwork.connected)
+                photonView.RPC("isAttackingCacAnimation", PhotonTargets.All);
+            else
+                isAttackingCacAnimation();
 
             cacHitZone.SetActive(true);
         }
         if (Input.GetButtonUp("Fire1"))
         {
             // animation trigger
-            //anim.SetBool("AttackCac", false);
-            photonView.RPC("isNotAttackingCacAnimation", PhotonTargets.All);
+            if (PhotonNetwork.connected)
+                photonView.RPC("isNotAttackingCacAnimation", PhotonTargets.All);
+            else
+                isNotAttackingCacAnimation();
 
             cacHitZone.SetActive(false);
         }

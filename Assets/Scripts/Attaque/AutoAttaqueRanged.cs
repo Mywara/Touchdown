@@ -41,7 +41,10 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
             nextFire = Time.time + fireRate;
 
             //animation trigger
-            photonView.RPC("ShotgunAnimation", PhotonTargets.All);
+            if (PhotonNetwork.connected)
+                photonView.RPC("ShotgunAnimation", PhotonTargets.All);
+            else
+                ShotgunAnimation();
 
             GameObject projo;
             //Pour le local
