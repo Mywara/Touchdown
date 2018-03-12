@@ -28,6 +28,7 @@ public class GrapeShot : Photon.PunBehaviour
         damage = Constants.GRAPE_DAMAGE;
         radius = Constants.GRAPE_RADIUS;
         angle  = Constants.GRAPE_ANGLE;
+
     }
 
     public void SetTeam(int newTeam)

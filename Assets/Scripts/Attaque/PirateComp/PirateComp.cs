@@ -64,7 +64,7 @@ public class PirateComp : Photon.PunBehaviour
             }
         }
         //Compétence Lancer de bouteille de rhum
-        if (Input.GetButtonDown("E"))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             GameObject projo;
             //Pour le local
@@ -85,6 +85,7 @@ public class PirateComp : Photon.PunBehaviour
             if (playerControllerScript != null)
             {
                 rhumSprayScript.SetTeam(playerControllerScript.Team);
+                rhumSprayScript.SetOwner(this.transform.gameObject);
             }
             else
             {

@@ -67,4 +67,6 @@ MonoBehaviour:
   - isNotAttackingCacAnimation
   - ShotgunAnimation
   - Animate
+  - BecameInvulnerable
+  - SetEffectAsParent
   DisableAutoOpenWizard: 1

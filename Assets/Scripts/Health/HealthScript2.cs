@@ -13,7 +13,7 @@ namespace PUNTutorial
         public Slider HealthSliderUI;
         private int HealthMax;
         private int CurrentValue;
-
+        private bool invulnerable = false;
 
         void Awake()
         {
@@ -39,7 +39,14 @@ namespace PUNTutorial
                 return;
             }
             */
-           // HealthSliderUI.value = HealthSliderUI.value - damage;
+            // HealthSliderUI.value = HealthSliderUI.value - damage;
+
+            //si l'on est invulnerable, on ne prend pas de degat
+            if (invulnerable)
+            {
+                Debug.Log("invulnerable, can't take damage");
+                return;
+            }
             CurrentValue = CurrentValue - damage;
             HealthSliderUI.value = CurrentValue;
         }
@@ -74,6 +81,18 @@ namespace PUNTutorial
         {
             HealthSliderUI.value = HealthMax;
             CurrentValue = HealthMax;
+        }
+
+        public bool Invulnerable
+        {
+            get
+            {
+                return this.invulnerable;
+            }
+            set
+            {
+                this.invulnerable = value;
+            }
         }
     }
 }

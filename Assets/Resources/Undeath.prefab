@@ -651,6 +651,7 @@ GameObject:
   - component: {fileID: 114655161566790484}
   - component: {fileID: 114295618843314300}
   - component: {fileID: 114079411731952172}
+  - component: {fileID: 114441045949053750}
   m_Layer: 0
   m_Name: Undeath
   m_TagString: Player
@@ -944,7 +945,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1901769844858788}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18, y: -2.1864526e-17, z: 0.3}
+  m_LocalPosition: {x: -5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4233817700497678}
@@ -1283,7 +1284,6 @@ MonoBehaviour:
     type: 2}
   projectilePrefab2: {fileID: 1492459339001764, guid: 84dbd390ecb94bc4788c1688a97c7733,
     type: 2}
-  projectilePrefabUlt: {fileID: 0}
   projectileSpawn1: {fileID: 4101673138927030}
   projectileSpawn2: {fileID: 4688993104613258}
 --- !u!114 &114093927385117972
@@ -1496,7 +1496,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthSlider: {fileID: 114125096484576428}
-  dying: 0
 --- !u!114 &114388092468223464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1565,6 +1564,20 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114441045949053750
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1901769844858788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f4e82432885c3b43906133824a2c5b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invunerabilityDuration: 5
+  InvulnerableEffect: {fileID: 1087044457579470, guid: cf7f47893aff2fb49a98673c1bd24f76,
+    type: 2}
 --- !u!114 &114445423741363890
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -6,7 +6,6 @@ public class UndeadComp : Photon.PunBehaviour
 {
     public GameObject projectilePrefab1 = null;
     public GameObject projectilePrefab2 = null;
-    public GameObject projectilePrefabUlt = null;
 
     public Transform projectileSpawn1 = null;
     public Transform projectileSpawn2 = null;
@@ -93,6 +92,20 @@ public class UndeadComp : Photon.PunBehaviour
             else
             {
                 Debug.Log("player have no PlayerController script");
+            }
+        }
+
+        //Compétence pour l'invulnerabilité
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Invulnerability invulScript = GetComponent<Invulnerability>();
+            if(invulScript != null)
+            {
+                invulScript.photonView.RPC("BecameInvulnerable", PhotonTargets.All);
+            }
+            else
+            {
+                Debug.Log("missinf Invulnerability script");
             }
         }
     }

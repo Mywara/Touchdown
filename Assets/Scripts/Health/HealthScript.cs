@@ -13,6 +13,7 @@ namespace PUNTutorial
         private bool dying = false;
         private Animator anim;
         private bool netWorkingDone = false;
+        private bool invulnerable = false;
        
         void Awake()
         {
@@ -29,6 +30,12 @@ namespace PUNTutorial
         [PunRPC]
         public void Damage(int damage)
         {
+            //si l'on est invulnerable, on ne prend pas de degat
+            if(invulnerable)
+            {
+                Debug.Log("invulnerable, can't take damage");
+                return;
+            }
             HealthSlider.value = HealthSlider.value - damage;
             anim.SetTrigger("Damage");
         }
@@ -95,6 +102,18 @@ namespace PUNTutorial
             {
                 Debug.Log(this.gameObject.name + " HealthScript : player connected");
                 photonView.RPC("SynchroHealth", PhotonTargets.All, (int)this.HealthSlider.value);
+            }
+        }
+
+        public bool Invulnerable
+        {
+            get
+            {
+                return this.invulnerable;
+            }
+            set
+            {
+                this.invulnerable = value;
             }
         }
     }  

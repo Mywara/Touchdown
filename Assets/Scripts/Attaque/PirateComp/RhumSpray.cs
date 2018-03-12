@@ -10,6 +10,8 @@ public class RhumSpray : Photon.PUNBehaviour {
     public float dureeConfusion = 3F;
     public float pourcentageConfusion = -100;
     public int team;
+    public float maxAnglularVelocity = 10;
+    private GameObject owner;
 
     private Rigidbody myRb;
 
@@ -22,6 +24,7 @@ public class RhumSpray : Photon.PUNBehaviour {
         {
             //On lance l'object vers l'avant (vers où on vise) avec une certaine vitesse
             myRb.velocity = transform.forward * projectileSpeed;
+            myRb.angularVelocity = Random.insideUnitSphere * maxAnglularVelocity;
         }
         else
         {
@@ -32,6 +35,10 @@ public class RhumSpray : Photon.PUNBehaviour {
     public void SetTeam(int newTeam)
     {
         this.team = newTeam;
+    }
+    public void SetOwner(GameObject owner)
+    {
+        this.owner = owner;
     }
 
     //Ici other = l'object que l'on a touché
@@ -47,7 +54,7 @@ public class RhumSpray : Photon.PUNBehaviour {
         //on recupère l'object le plus haut de hierachie sur l'objet touché
         GameObject directHitObj = other.transform.root.gameObject;
         //On enlève les collisions pour appliquer des dégâts avec le respawn et la bordure
-        if (directHitObj.tag.Equals("Respawn") || directHitObj.tag.Equals("Boundary"))
+        if (directHitObj.tag.Equals("Respawn") || directHitObj.tag.Equals("Boundary") || directHitObj == owner)
         {
             //Debug.Log("hit Respawn");
             return;
