@@ -73,9 +73,10 @@ public class PlayerController : Photon.PunBehaviour{
                 if (hit.distance <= 0.2)
                 {
                     // Set jump animation trigger
-                    photonView.RPC("JumpAnimation", PhotonTargets.All);
-                    //anim.SetTrigger("Jump");
-
+                    if (PhotonNetwork.connected)
+                        photonView.RPC("JumpAnimation", PhotonTargets.All);
+                    else
+                        JumpAnimation();
 
                     // soit on utilise une force soit on modifie la velocité verticale
                     Vector2 velocity = rb.velocity;
@@ -126,7 +127,10 @@ public class PlayerController : Photon.PunBehaviour{
             transform.Translate(0, 0, vertical * movementSpeed * Time.deltaTime);
 
             // animation de déplacement en fonction des inputs horizontaux et verticaux (flèches directionnelles)
-            photonView.RPC("Animate", PhotonTargets.All, horizontal, vertical);
+            if (PhotonNetwork.connected)
+                photonView.RPC("Animate", PhotonTargets.All, horizontal, vertical);
+            else
+                Animate(horizontal, vertical);
         }
     }
 
