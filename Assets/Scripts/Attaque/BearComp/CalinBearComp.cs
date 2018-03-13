@@ -31,6 +31,7 @@ public class CalinBearComp : Photon.PunBehaviour
 
     public AudioClip audioDash; // L'audio
 
+    private bool CalinActif = true;
 
 
     // Use this for initialization
@@ -58,7 +59,7 @@ public class CalinBearComp : Photon.PunBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!photonView.isMine && PhotonNetwork.connected == true)
+        if (!photonView.isMine && PhotonNetwork.connected == true || !CalinActif)
         {
             return;
         }
@@ -189,5 +190,10 @@ public class CalinBearComp : Photon.PunBehaviour
         image.color = c;
 
         t.text = "";
+    }
+
+    public void SetCalinActif(bool b)
+    {
+        this.CalinActif = b;
     }
 }
