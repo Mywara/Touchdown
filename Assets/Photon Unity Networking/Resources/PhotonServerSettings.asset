@@ -69,4 +69,9 @@ MonoBehaviour:
   - Animate
   - BecameInvulnerable
   - SetEffectAsParent
+  - Stun
+  - DestroyAnim
+  - SetImmobilization
+  - AnimManager
+  - SetParentAnim
   DisableAutoOpenWizard: 1

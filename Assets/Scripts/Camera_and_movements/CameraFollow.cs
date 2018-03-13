@@ -21,20 +21,16 @@ public class CameraFollow : MonoBehaviour {
     public float inputSensitivity = 150.0f;
 
     // La camera
-    public GameObject CameraObj;
-    public GameObject PlayerObj;
-    public float camDistanceXToPlayer;
-    public float camDistanceYToPlayer;
-    public float camDistanceZToPlayer;
-    public float mouseX;
-    public float mouseY;
-    public float finalInputX;
-    public float finalInputZ;
+    private float mouseX;
+    private float mouseY;
+    private float finalInputX;
+    private float finalInputZ;
 
-    public float smoothX;
-    public float smoothY;
-    public float rotX = 0.0f;
-    public float rotY = 0.0f;
+    private float rotX = 0.0f;
+    private float rotY = 0.0f;
+
+    // Permet ou non de controller la camera
+    private bool cameraActive; 
 
 
     // Use this for initialization
@@ -47,8 +43,10 @@ public class CameraFollow : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         // Rend le curseur invisible
         Cursor.visible = false;
+        cameraActive = true;
 
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -62,25 +60,27 @@ public class CameraFollow : MonoBehaviour {
             Cursor.visible = false;
         }
 
-        // On met en place la rotation du stick
-        float inputX = Input.GetAxis("RightStickHorizontal");
-        float inputZ = Input.GetAxis("RightStickVertical");
-        mouseX = Input.GetAxis("Mouse X");
-        mouseY = Input.GetAxis("Mouse Y");
-        finalInputX = inputX + mouseX;
-        finalInputZ = inputZ + mouseY;
-
-        rotY += finalInputX * inputSensitivity * Time.deltaTime;
-        rotX += finalInputZ * inputSensitivity * Time.deltaTime;
-        rotX = Mathf.Clamp(rotX, -minClampAngle, maxClampAngle);
-
-        Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
-        if(CameraFollowObj != null)
+        if (cameraActive)
         {
-            CameraFollowObj.transform.root.rotation = Quaternion.Euler(0.0f, rotY, 0.0f);
-        }
-        transform.rotation = localRotation;
+            // On met en place la rotation du stick
+            float inputX = Input.GetAxis("RightStickHorizontal");
+            float inputZ = Input.GetAxis("RightStickVertical");
+            mouseX = Input.GetAxis("Mouse X");
+            mouseY = Input.GetAxis("Mouse Y");
+            finalInputX = inputX + mouseX;
+            finalInputZ = inputZ + mouseY;
 
+            rotY += finalInputX * inputSensitivity * Time.deltaTime;
+            rotX += finalInputZ * inputSensitivity * Time.deltaTime;
+            rotX = Mathf.Clamp(rotX, -minClampAngle, maxClampAngle);
+
+            Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
+            if (CameraFollowObj != null)
+            {
+                CameraFollowObj.transform.root.rotation = Quaternion.Euler(0.0f, rotY, 0.0f);
+            }
+            transform.rotation = localRotation;
+        }
     }
 
     void LateUpdate ()
@@ -104,5 +104,14 @@ public class CameraFollow : MonoBehaviour {
     public void SetObjectToFollow(GameObject objToFollow)
     {
         this.CameraFollowObj = objToFollow;
+    }
+
+    public void StopCamera()
+    {
+        cameraActive = false;
+    }
+    public void ActiveCamera()
+    {
+        cameraActive = true;
     }
 }

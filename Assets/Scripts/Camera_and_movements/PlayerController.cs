@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : Photon.PunBehaviour{
+public class PlayerController : Photon.PunBehaviour
+{
 
     public float movementSpeed = 10;
-    
+
 
     public float inputSensitivity = 150.0f;
     public GameObject cameraFollow;
@@ -17,6 +18,9 @@ public class PlayerController : Photon.PunBehaviour{
     public bool immobilization = false;
     public Transform activeTrap;
 
+    // Script pour controler l'orientation de la camera
+    private CameraFollow cameraFollowScript;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -24,14 +28,14 @@ public class PlayerController : Photon.PunBehaviour{
     }
 
 
-    void Start ()
+    void Start()
     {
         if (photonView.isMine)
         {
             GameObject cameraPrefab = Camera.main.transform.root.gameObject;
             if (cameraPrefab != null)
             {
-                CameraFollow cameraFollowScript = cameraPrefab.GetComponent<CameraFollow>();
+                cameraFollowScript = cameraPrefab.GetComponent<CameraFollow>();
                 if (cameraFollowScript != null)
                 {
                     cameraFollowScript.SetObjectToFollow(cameraFollow);
@@ -57,17 +61,14 @@ public class PlayerController : Photon.PunBehaviour{
         }
 
         // saut perso
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !immobilization)
         {
             // on utilise un raycast pour connaitre la distance vis a vis du sol
             RaycastHit hit;
 
             // On appelle le SphereCast dans un if car s'il ne touche rien il renvoit false (c'est qu'on est dans le vide et on peut pas sauter)
-            if (Physics.SphereCast(rb.transform.position + Vector3.up * 0.35f,0.25f, -rb.transform.up, out hit, 10))
+            if (Physics.SphereCast(rb.transform.position + Vector3.up * 0.35f, 0.25f, -rb.transform.up, out hit, 10))
             {
-                
-                //test
-                //print(hit.distance);
 
                 // On vérifie si on est assez prêt du sol poour pouvoir sauter
                 if (hit.distance <= 0.2)
@@ -78,11 +79,9 @@ public class PlayerController : Photon.PunBehaviour{
                     else
                         JumpAnimation();
 
-                    // soit on utilise une force soit on modifie la velocité verticale
                     Vector2 velocity = rb.velocity;
                     velocity.y = CalculateJumpVerticalSpeed(myJumpHeight);
                     rb.velocity = velocity;
-                    //rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
                 }
 
             }
@@ -110,12 +109,16 @@ public class PlayerController : Photon.PunBehaviour{
         {
             return;
         }
-        
+
+        // TODO modifier cette condition (appel de la fonction SetImmobilization au bon moment (destruction du piege ?))
+        //Le probleme etant que s'il n'y a pas de piege on peut bouger (peut importe si une competence veut immobiliser ou non)
+        // En l'occurence une competence ne peut pas immobiliser s'il n'y a pas de piege
+
         //permet de bouger a nouveau lorsque le piege immobilisant est détruit
-        if (!activeTrap && immobilization)
-        {
-            immobilization = false;
-        }
+        //if (!activeTrap && immobilization)
+        //{
+        //    immobilization = false;
+        //}
 
         if (!immobilization)
         {
@@ -150,14 +153,14 @@ public class PlayerController : Photon.PunBehaviour{
         }
         set
         {
-            if(this.team != value)
+            if (this.team != value)
             {
                 this.team = value;
                 AutoAttaqueCac autoCacScript = this.gameObject.GetComponent<AutoAttaqueCac>();
                 if (autoCacScript != null)
                 {
                     CacHitZone cacHitZoneScript = autoCacScript.cacHitZone.GetComponent<CacHitZone>();
-                    if(cacHitZoneScript != null)
+                    if (cacHitZoneScript != null)
                     {
                         cacHitZoneScript.SetTeam(this.Team);
                     }
@@ -166,29 +169,65 @@ public class PlayerController : Photon.PunBehaviour{
                         Debug.Log("AutoAttaqueCac does not have CacHitZone script");
                     }
                 }
-            }  
+            }
         }
     }
-    ////////////////// Fonctions pour modifier les déplacements à cause de compétences.
+    ///////////////// Fonctions qui ont des effets sur le joueur
+
 
     // Modifie la vitesse de déplacement en prenant un pourcentage de la vitesse actuelle sur une certaine duree
     [PunRPC]
     public IEnumerator ModificationVitesse(float pourcentageVitesse, float duree)
     {
-        Debug.Log("modifie vitesse duree : "+duree);
+        Debug.Log("modifie vitesse duree : " + duree);
         movementSpeed = movementSpeed * (pourcentageVitesse / 100);
         yield return new WaitForSeconds(duree);
         movementSpeed = movementSpeed / (pourcentageVitesse / 100);
         Debug.Log("retour vitesse");
     }
 
-    ///////////////// Fonctions qui font des effets sur le joueur
+
+    // Fait faire un saut de la hauteur voulue
     [PunRPC]
     public void PetitSaut(float hauteurSaut)
     {
         Vector2 velocity = rb.velocity;
         velocity.y = CalculateJumpVerticalSpeed(hauteurSaut);
         rb.velocity = velocity;
+    }
+
+    // Stun le perso
+    [PunRPC]
+    public IEnumerator Stun(float duree)
+    {
+        if (!photonView.isMine && PhotonNetwork.connected == true)
+        {
+            yield return null;
+        }
+        else
+        {
+            // prive translation, rotation du perso et compétences du perso
+            SetImmobilization(true);
+            cameraFollowScript.StopCamera();
+            // TODO priver de l'utilisation des compétences
+
+            // Attend la duree demandé
+            yield return new WaitForSeconds(duree);
+
+            // autorise translation, rotation du perso et compétences du perso
+            SetImmobilization(false);
+            cameraFollowScript.ActiveCamera();
+            // TODO autoriser l'utilisation de compétences
+            
+        }
+        
+
+    }
+
+    // Stun le perso
+    public void SetImmobilization(bool immo)
+    {
+        this.immobilization = immo;
     }
 
 }
