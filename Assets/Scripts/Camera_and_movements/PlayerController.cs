@@ -207,7 +207,7 @@ public class PlayerController : Photon.PunBehaviour
             // prive translation, rotation du perso et compétences du perso
             SetImmobilization(true);
             cameraFollowScript.StopCamera();
-            // TODO priver de l'utilisation des compétences
+            SetActiveCompetence(false);
 
             // Attend la duree demandé
             yield return new WaitForSeconds(duree);
@@ -215,8 +215,8 @@ public class PlayerController : Photon.PunBehaviour
             // autorise translation, rotation du perso et compétences du perso
             SetImmobilization(false);
             cameraFollowScript.ActiveCamera();
-            // TODO autoriser l'utilisation de compétences
-            
+            SetActiveCompetence(true);
+
         }
         
 
@@ -226,6 +226,41 @@ public class PlayerController : Photon.PunBehaviour
     public void SetImmobilization(bool immo)
     {
         this.immobilization = immo;
+    }
+
+    // Set les competences a active ou non
+    public void SetActiveCompetence(bool b)
+    {
+
+        string name = GetComponent<CharacterCaracteristic>().Cname;
+        
+
+        switch (name)
+        {
+            case "WarBear":
+                JumpBearComp jbc = GetComponent<JumpBearComp>();
+                jbc.SetJumpActif(b);
+
+                CalinBearComp cbc = GetComponent<CalinBearComp>();
+                cbc.SetCalinActif(b);
+
+                // TODO le coup d'épaule
+                break;
+
+            case "Undeath":
+                // TODO les 3 comps
+                break;
+
+            case "Pirate":
+                // TODO les 3 comps
+                break;
+
+            default:
+                Debug.Log("name : \"" + name + "\" ne correspond pas à WarBear / Undeath / Pirate " +
+                    "\n voir Cname de CharacterCaractistique du prefab");
+                break;
+        }
+
     }
 
 }

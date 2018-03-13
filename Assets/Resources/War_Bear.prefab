@@ -1976,7 +1976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6177c6b922b5de49b1e15423302ef02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cname: 
+  Cname: WarBear
   health: 400
 --- !u!114 &114755321857810774
 MonoBehaviour:

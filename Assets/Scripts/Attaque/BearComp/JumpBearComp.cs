@@ -31,7 +31,9 @@ public class JumpBearComp : Photon.PunBehaviour
 
     public AudioClip audioDecollage;
     public AudioClip audioAtterrissage;
-    
+
+    private bool JumpActif = true;
+
 
 
     // Use this for initialization
@@ -81,7 +83,7 @@ public class JumpBearComp : Photon.PunBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!photonView.isMine && PhotonNetwork.connected == true)
+        if (!photonView.isMine && PhotonNetwork.connected == true || !JumpActif)
         {
             return;
         }
@@ -102,9 +104,7 @@ public class JumpBearComp : Photon.PunBehaviour
                 // Si on atterri
                 if (hit.distance <= 0.3)
                 {
-
-                    Debug.Log("Launch JumpAOE");
-
+                  
                     //Joue le son de l'atterrissage
                     audioSource.clip = audioAtterrissage;
                     audioSource.Play();
@@ -215,7 +215,6 @@ public class JumpBearComp : Photon.PunBehaviour
     private IEnumerator JumpAffichageCooldown()
     {
         float dureeCD = jumpCooldown;
-        Debug.Log("CD active");
         // Modifi la transparence
         Image image = jumpHUD.GetComponent<Image>();
         Color c = image.color;
@@ -252,5 +251,10 @@ public class JumpBearComp : Photon.PunBehaviour
         yield return new WaitForSeconds(1.5f);
 
         PhotonNetwork.Destroy(effet);
+    }
+
+    public void SetJumpActif(bool b)
+    {
+        this.JumpActif = b;
     }
 }
