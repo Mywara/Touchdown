@@ -11,6 +11,7 @@ public class RhumSpray : Photon.PUNBehaviour {
     public float pourcentageConfusion = -100;
     public int team;
     public float maxAnglularVelocity = 10;
+    public float verticalVelocity = 10;
     private GameObject owner;
 
     private Rigidbody myRb;
@@ -23,7 +24,7 @@ public class RhumSpray : Photon.PUNBehaviour {
         if (myRb != null)
         {
             //On lance l'object vers l'avant (vers où on vise) avec une certaine vitesse
-            myRb.velocity = transform.forward * projectileSpeed;
+            myRb.velocity = transform.forward * projectileSpeed + transform.up * verticalVelocity;
             myRb.angularVelocity = Random.insideUnitSphere * maxAnglularVelocity;
         }
         else

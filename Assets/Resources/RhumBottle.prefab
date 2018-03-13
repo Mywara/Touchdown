@@ -304,6 +304,7 @@ MonoBehaviour:
   pourcentageConfusion: -100
   team: 0
   maxAnglularVelocity: 10
+  verticalVelocity: 3
 --- !u!136 &136767423988983432
 CapsuleCollider:
   m_ObjectHideFlags: 1
