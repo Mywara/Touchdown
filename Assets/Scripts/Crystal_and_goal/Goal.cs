@@ -21,10 +21,11 @@ public class Goal : MonoBehaviour {
             if (crys.GetComponent<Crystal>().isHeld)
             {
                 crys.GetComponent<Crystal>().LeaveOnGround();
+                //Debug.Log("Crystal left on ground");
             }
 
             crys.GetComponent<Crystal>().transform.position = crys.GetComponent<Crystal>().startingPosition;
-
+            //Debug.Log("Crystal reset");
         }
 
         
