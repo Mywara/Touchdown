@@ -179,11 +179,9 @@ public class PlayerController : Photon.PunBehaviour
     [PunRPC]
     public IEnumerator ModificationVitesse(float pourcentageVitesse, float duree)
     {
-        Debug.Log("modifie vitesse duree : " + duree);
         movementSpeed = movementSpeed * (pourcentageVitesse / 100);
         yield return new WaitForSeconds(duree);
         movementSpeed = movementSpeed / (pourcentageVitesse / 100);
-        Debug.Log("retour vitesse");
     }
 
 

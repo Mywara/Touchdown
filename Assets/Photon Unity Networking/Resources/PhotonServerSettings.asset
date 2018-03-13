@@ -74,4 +74,7 @@ MonoBehaviour:
   - SetImmobilization
   - AnimManager
   - SetParentAnim
+  - SetShieldTemporaire
+  - SetShieldTemporaire1
+  - SetShieldTemporaire2
   DisableAutoOpenWizard: 1

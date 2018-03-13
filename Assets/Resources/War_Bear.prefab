@@ -1732,6 +1732,7 @@ MonoBehaviour:
   calinCooldown: 6
   calinDuree: 3
   maxRange: 4
+  calinShield: 0.4
   effetCalin: {fileID: 1484865827645534}
   audioDash: {fileID: 8300000, guid: 2a4f786b2d4704148a6a2544d50e081d, type: 3}
 --- !u!114 &114513372739151394

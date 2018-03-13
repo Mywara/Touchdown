@@ -14,7 +14,8 @@ namespace PUNTutorial
         private Animator anim;
         private bool netWorkingDone = false;
         private bool invulnerable = false;
-       
+        private float shield = 0; // doit être entre 0 et 1 (0 aucun shield / 1 zero degat reçu)
+
         void Awake()
         {
             anim = GetComponent<Animator>();
@@ -36,7 +37,8 @@ namespace PUNTutorial
                 Debug.Log("invulnerable, can't take damage");
                 return;
             }
-            HealthSlider.value = HealthSlider.value - damage;
+
+            HealthSlider.value = HealthSlider.value - (int)((float)damage * (1 - this.shield)); //gere le shield
             anim.SetTrigger("Damage");
         }
 
@@ -115,6 +117,15 @@ namespace PUNTutorial
             {
                 this.invulnerable = value;
             }
+        }
+
+        // setter pour le shield
+        [PunRPC]
+        public IEnumerator SetShieldTemporaire1(float s, float duree)
+        {
+            this.shield += s;
+            yield return new WaitForSeconds(duree);
+            this.shield -= s;
         }
     }  
 }

@@ -25,6 +25,7 @@ public class CalinBearComp : Photon.PunBehaviour
     public float calinDuree; // duree de la competence
     private float calinLastUse; // temps (en seconde) de derniere utilisation
     public float maxRange;
+    public float calinShield = 0; // doit être entre 0 et 1 (0 aucun shield / 1 zero degat reçu)
 
     public GameObject effetCalin; // L'effet visuel
 
@@ -118,6 +119,13 @@ public class CalinBearComp : Photon.PunBehaviour
         // On stun le lanceur et la cible
         playerControllerScript.photonView.RPC("Stun", PhotonTargets.All, calinDuree);
         ennemiPlayerControllerScript.photonView.RPC("Stun", PhotonTargets.All, calinDuree);
+
+        // On donne le shield
+        PUNTutorial.HealthScript healthScript = this.GetComponent<PUNTutorial.HealthScript>();
+        PUNTutorial.HealthScript2 healthScript2 = this.GetComponent<PUNTutorial.HealthScript2>();
+
+        healthScript.photonView.RPC("SetShieldTemporaire1", PhotonTargets.All, calinShield, calinDuree);
+        healthScript2.photonView.RPC("SetShieldTemporaire2", PhotonTargets.All, calinShield, calinDuree);
 
         // Animation du dash
         StartCoroutine("DashTranslation");
