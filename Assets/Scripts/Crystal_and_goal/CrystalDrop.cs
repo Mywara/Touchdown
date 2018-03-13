@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrystalDrop : MonoBehaviour {
+public class CrystalDrop : MonoBehaviour
+{
 
 
     public GameObject crys;
@@ -21,11 +22,11 @@ public class CrystalDrop : MonoBehaviour {
             && crys.GetComponent<Crystal>().isHeld == true)
         {
 
-            //Debug.Log("Le boutton G est pressé");
+            Debug.Log("Le boutton Drop est pressé");
 
-            crys.GetComponent<Crystal>().playerHolding = null;
+            crys.GetComponent<Crystal>().justDroppedCrystal = crys.GetComponent<Crystal>().playerHolding;
 
-            crys.GetComponent<Crystal>().isHeld = false;
+            crys.GetComponent<Crystal>().LeaveOnGround();
 
         }
 

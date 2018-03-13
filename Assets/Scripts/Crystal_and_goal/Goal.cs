@@ -20,8 +20,7 @@ public class Goal : MonoBehaviour {
 
             if (crys.GetComponent<Crystal>().isHeld)
             {
-                crys.GetComponent<Crystal>().isHeld = false;
-                crys.GetComponent<Crystal>().playerHolding = null;
+                crys.GetComponent<Crystal>().LeaveOnGround();
             }
 
             crys.GetComponent<Crystal>().transform.position = crys.GetComponent<Crystal>().startingPosition;
