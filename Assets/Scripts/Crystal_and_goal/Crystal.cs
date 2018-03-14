@@ -2,32 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crystal : MonoBehaviour
+public class Crystal : Photon.PUNBehaviour
 {
 
     static public Crystal instance;
     public bool isHeld;
+    //player currently holding the crystal
     public GameObject playerHolding;
+    //player who just dropped the crystal
     public GameObject justDroppedCrystal;
     public Vector3 startingPosition = new Vector3(-5f, 0.5653587f, 5f);
     public int pickupCooldown = 3;
 
-    private void OnTriggerEnter(Collider target)
+
+    [PunRPC]
+    public void PickupCrystal(GameObject o)
     {
+        //Debug.Log("crystal picked up");
 
-
-        if (target.transform.root.gameObject.tag == "Player" && target.transform.root.gameObject != justDroppedCrystal)
-        {
-            //Debug.Log("crystal_player collider OK!");
-
-            isHeld = true;
-
-            //Debug.Log("player collider ok");
-
-            playerHolding = target.transform.root.gameObject;
-        }
+        isHeld = true;
+        playerHolding = o;
     }
 
+    [PunRPC]
+    public void UpdateJustDroppedCrystal()
+    {
+        justDroppedCrystal = playerHolding;
+    }
+
+
+    [PunRPC]
+    public void ResetCrystalPosition()
+    {
+        this.transform.position = startingPosition;
+    }
+
+
+    [PunRPC]
     public void LeaveOnGround()
     {
         //resets the crystal without reinitializing it at its starting point
@@ -35,11 +46,15 @@ public class Crystal : MonoBehaviour
         isHeld = false;
     }
 
+
+
     private void ResetPreviousPlayer()
     {
         //resets the player name kept in memory in order to settle a cooldown on picking up the crystal again
         justDroppedCrystal = null;
     }
+
+
 
     // Use this for initialization
     void Start()

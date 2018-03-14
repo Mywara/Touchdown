@@ -8,7 +8,10 @@ public class Goal : MonoBehaviour {
 
     private void OnTriggerEnter(Collider target)
     {
-
+        if (PhotonNetwork.connected == true && !PhotonNetwork.isMasterClient)
+        {
+            return;
+        }
 
         //Debug.Log(target.transform.root.gameObject.name);
 
@@ -18,26 +21,15 @@ public class Goal : MonoBehaviour {
         {
             //Debug.Log("Crystal is in goal collider OK!");
 
-            if (crys.GetComponent<Crystal>().isHeld)
-            {
-                crys.GetComponent<Crystal>().LeaveOnGround();
-                //Debug.Log("Crystal left on ground");
-            }
+        
+            crys.GetComponent<Crystal>().photonView.RPC("LeaveOnGround", PhotonTargets.All);
+            //Debug.Log("Crystal left on ground");
 
-            crys.GetComponent<Crystal>().transform.position = crys.GetComponent<Crystal>().startingPosition;
+            crys.GetComponent<Crystal>().photonView.RPC("ResetCrystalPosition", PhotonTargets.All);
             //Debug.Log("Crystal reset");
         }
 
         
     }
 
-    //// Use this for initialization
-    //void Start () {
-
-    //}
-
-    //// Update is called once per frame
-    //void Update () {
-
-    //}
 }
