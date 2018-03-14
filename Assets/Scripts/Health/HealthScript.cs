@@ -74,6 +74,8 @@ namespace PUNTutorial
                 //reset la vie du client local en haut a gauche
                 GetComponent<HealthScript2>().ResetHealth();
                 RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.All, PhotonNetwork.player.ID);
+                //lache le crystal s'il était tenu par le joueur
+                Crystal.instance.photonView.RPC("LeaveOnGround", PhotonTargets.All);
             }
 
             dying = false;

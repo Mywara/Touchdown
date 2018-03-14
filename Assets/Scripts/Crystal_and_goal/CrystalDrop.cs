@@ -17,12 +17,17 @@ public class CrystalDrop : Photon.PUNBehaviour
             return;
         }
 
-        if (target.transform.root.gameObject.tag == "Crystal" && this.transform.root.gameObject != crys.GetComponent<Crystal>().justDroppedCrystal)
+        if (target.transform.root.gameObject.tag == "Crystal")
         {
             //Debug.Log("crystal_player collider OK!");
             crys = target.transform.root.gameObject;
 
-            crys.GetComponent<Crystal>().photonView.RPC("PickupCrystal", PhotonTargets.All, this.transform.root.gameObject);
+            if(this.transform.root.gameObject != crys.GetComponent<Crystal>().justDroppedCrystal)
+            {
+                crys.GetComponent<Crystal>().photonView.RPC("PickupCrystal", PhotonTargets.All, this.transform.root.gameObject.GetPhotonView().viewID);
+            }
+
+            
         }
     }
 
@@ -49,7 +54,7 @@ public class CrystalDrop : Photon.PUNBehaviour
 
             //Debug.Log("Le boutton Drop est pressé");
 
-            crys.GetComponent<Crystal>().photonView.RPC("UpdateJustDropedCrystal", PhotonTargets.All);
+            crys.GetComponent<Crystal>().photonView.RPC("UpdateJustDroppedCrystal", PhotonTargets.All);
 
             crys.GetComponent<Crystal>().photonView.RPC("LeaveOnGround", PhotonTargets.All);
 

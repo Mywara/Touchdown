@@ -85,4 +85,5 @@ MonoBehaviour:
   - PickupCrystal
   - ResetCrystalPosition
   - UpdateJustDroppedCrystal
+  - SetStartingPosition
   DisableAutoOpenWizard: 1

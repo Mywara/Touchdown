@@ -13,6 +13,9 @@ public class Goal : MonoBehaviour {
             return;
         }
 
+
+        crys = GameObject.FindGameObjectWithTag("Crystal");
+
         //Debug.Log(target.transform.root.gameObject.name);
 
         if (target.transform.root.gameObject.tag == "Player"
@@ -21,7 +24,6 @@ public class Goal : MonoBehaviour {
         {
             //Debug.Log("Crystal is in goal collider OK!");
 
-        
             crys.GetComponent<Crystal>().photonView.RPC("LeaveOnGround", PhotonTargets.All);
             //Debug.Log("Crystal left on ground");
 
