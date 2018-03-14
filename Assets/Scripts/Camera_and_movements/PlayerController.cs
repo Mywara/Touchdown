@@ -252,7 +252,9 @@ public class PlayerController : Photon.PunBehaviour
                 break;
 
             case "Pirate":
-                // TODO les 3 comps
+                TirClochePirateComp tcpc = GetComponent<TirClochePirateComp>();
+                tcpc.SetTirClocheActif(b);
+                // TODO pirateComp
                 break;
 
             default:
