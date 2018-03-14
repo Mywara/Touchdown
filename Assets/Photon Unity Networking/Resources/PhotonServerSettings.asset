@@ -81,4 +81,8 @@ MonoBehaviour:
   - Behind
   - LookAt
   - SetPosition
+  - LeaveOnGround
+  - PickupCrystal
+  - ResetCrystalPosition
+  - UpdateJustDroppedCrystal
   DisableAutoOpenWizard: 1
