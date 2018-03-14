@@ -238,7 +238,7 @@ Prefab:
         type: 2}
       propertyPath: projectileSpawn2
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1833690579}
     - target: {fileID: 224293253456442892, guid: ca5b31528ffaea848844e43575f6deca,
         type: 2}
       propertyPath: m_AnchorMax.x
@@ -7075,6 +7075,11 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1829622610}
+--- !u!4 &1833690579 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4611389373897918, guid: ca5b31528ffaea848844e43575f6deca,
+    type: 2}
+  m_PrefabInternal: {fileID: 38731012}
 --- !u!1 &1936576886
 GameObject:
   m_ObjectHideFlags: 0
