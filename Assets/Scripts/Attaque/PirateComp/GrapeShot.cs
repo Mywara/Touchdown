@@ -46,18 +46,22 @@ public class GrapeShot : Photon.PunBehaviour
     {
         //direction de la cible
         Vector3 targetDir = target.transform.position - transform.position;
-        float distance = Mathf.Sqrt(Mathf.Pow(targetDir.x, 2) + Mathf.Pow(targetDir.z, 2) + Mathf.Pow(targetDir.z, 2));
-        //angle entre la cible et le point de visée du joueur
-        float angle = Vector3.Angle(targetDir, transform.forward);
 
-        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-        
-        target.GetComponent<Rigidbody>().AddForce(targetDir * 1/distance * 1000);
+        float distance = Mathf.Sqrt(Mathf.Pow(targetDir.x, 2) + Mathf.Pow(targetDir.z, 2) + Mathf.Pow(targetDir.z, 2));
+
+        if (PhotonNetwork.connected == true)
+        {
+            target.GetComponent<PlayerController>().photonView.RPC("AddForceTo", PhotonTargets.All, targetDir.normalized * 1 / distance * 10000);
+        }
+        else
+        {
+            target.GetComponent<Rigidbody>().AddForce(targetDir.normalized * 1 / distance * 10000);
+        }
     }
 
     //Ici other = l'object que l'on a touché
     //Modif a faire, limiter dmg au cible valide -> layer + test
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Entrée dans le OnTriggerStay GS");
         if (!photonView.isMine && PhotonNetwork.connected == true)
@@ -97,22 +101,21 @@ public class GrapeShot : Photon.PunBehaviour
 
     private void Update()
     {
+        if(directHitObjs.Count == 0) { PhotonNetwork.Destroy(this.gameObject); return; }
 
         foreach (GameObject directHitObj in directHitObjs.ToArray())
         {
-
             ApplyDamage(directHitObj, damage);
             repulse(directHitObj);
             directHitObjs.Remove(directHitObj);
         }
-
-        PhotonNetwork.Destroy(this.gameObject);
 
     }
 
     private void OnTriggerExit(Collider other)
     {
         directHitObjs.Remove(other.transform.root.gameObject);
+        PhotonNetwork.Destroy(this.gameObject);
     }
 
     private void ApplyDamage(GameObject target, int damage)

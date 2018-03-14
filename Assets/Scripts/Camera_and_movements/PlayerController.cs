@@ -265,4 +265,9 @@ public class PlayerController : Photon.PunBehaviour
 
     }
 
+    [PunRPC]
+    public void AddForceTo(Vector3 forceVector)
+    {
+        this.GetComponent<Rigidbody>().AddForce(forceVector);
+    }
 }
