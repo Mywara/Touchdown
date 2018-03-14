@@ -9,7 +9,7 @@ namespace PUNTutorial
     {
         public Slider HealthSlider;
 
-        private int HealthMax;
+        public int HealthMax;
         private bool dying = false;
         private Animator anim;
         private bool netWorkingDone = false;
@@ -44,7 +44,7 @@ namespace PUNTutorial
 
         //fonction pour heal la barre de vie au dessus du joueur
         [PunRPC]
-        public void Heal(int heal)
+        public void Heal(float heal)
         {
             HealthSlider.value = HealthSlider.value + heal;
         }
