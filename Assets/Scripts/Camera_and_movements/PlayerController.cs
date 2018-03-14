@@ -18,6 +18,8 @@ public class PlayerController : Photon.PunBehaviour
     public bool immobilization = false;
     public Transform activeTrap;
 
+    public bool onCollision = false;
+
     // Script pour controler l'orientation de la camera
     private CameraFollow cameraFollowScript;
 
@@ -135,6 +137,20 @@ public class PlayerController : Photon.PunBehaviour
             else
                 Animate(horizontal, vertical);
         }
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag != "Player")
+        {
+            Debug.Log("COLLISION !!!");
+            onCollision = true;
+        }
+    }
+
+    public void OnCollisionExit(Collision collision)
+    {
+        onCollision = false;
     }
 
     [PunRPC]

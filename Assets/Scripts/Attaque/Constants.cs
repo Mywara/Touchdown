@@ -10,7 +10,7 @@ public static class Constants : object {
     /*
      * Static values associated to the GrapheShot
      */
-    public static int GRAPE_DAMAGE = 10;
+    public static int GRAPE_DAMAGE = 25;
     //3 unités de profondeurs - enfin peut toucher trois ennemis 
     //alignés et qui sont collés les uns aux autres
     public static float GRAPE_RADIUS = 5;
@@ -21,7 +21,7 @@ public static class Constants : object {
     /*
      * Static values associated to the CurseDoT
      */
-    public static int CURSEDOT_DAMAGE = 2;
+    public static int CURSEDOT_DAMAGE = 4;
     //3 unités de profondeurs - enfin peut toucher trois ennemis 
     //alignés et qui sont collés les uns aux autres
     public static float CURSEDOT_RADIUS = 3;
@@ -29,4 +29,10 @@ public static class Constants : object {
     public static float CURSEDOT_TIC = 4;
     //nombre de cible maximum pouvant être touchées
     public static float CURSEDOT_TARGETS = 5;
+
+    /*
+     * Static values associated to the ShoulderShot
+     */
+    public static int SHOULDER_DAMAGE = 15;
+    public static float SHOULDER_STUN_TIMER = 5f;
 }
