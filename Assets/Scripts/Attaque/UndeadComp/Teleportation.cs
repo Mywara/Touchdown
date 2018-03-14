@@ -93,6 +93,11 @@ public class Teleportation : Photon.PunBehaviour, IPunObservable
         }
     }
 
+    private void Update()
+    {
+        if (target == null) { PhotonNetwork.Destroy(this.gameObject); return; }
+    }
+
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (!netWorkingDone)
