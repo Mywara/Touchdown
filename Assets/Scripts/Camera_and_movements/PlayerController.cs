@@ -265,9 +265,28 @@ public class PlayerController : Photon.PunBehaviour
 
     }
 
+    //Applique une force "forceVector" au gameObject associe
     [PunRPC]
     public void AddForceTo(Vector3 forceVector)
     {
         this.GetComponent<Rigidbody>().AddForce(forceVector);
+    }
+
+    //Positionne le gameObject à la position "pos"
+    [PunRPC]
+    public void SetPosition(Vector3 pos)
+    {
+        this.transform.position = pos;
+    }
+
+    //Change la direction du gameObject dans le sens du vecteur "forward"
+    [PunRPC]
+    public void LookAt(Vector3 forward)
+    {
+        this.transform.forward = forward;
+        /*
+        cameraFollow.transform.forward = forward;
+        Camera.main.transform.root.gameObject.GetComponent<CameraFollow>().SetObjectToFollow(cameraFollow);
+        */
     }
 }

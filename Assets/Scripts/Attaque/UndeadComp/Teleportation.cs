@@ -80,8 +80,17 @@ public class Teleportation : Photon.PunBehaviour, IPunObservable
 
     private void Tp(GameObject target)
     {
-        owner.transform.position = target.transform.position - target.transform.forward;
-        owner.transform.forward = target.transform.position - owner.transform.position;
+        if(PhotonNetwork.connected == true)
+        {
+            owner.GetComponent<PlayerController>().photonView.RPC("SetPosition", PhotonTargets.All, target.transform.position - target.transform.forward);
+            //owner.GetComponent<PlayerController>().photonView.RPC("LookAt", PhotonTargets.All, target.transform.forward);
+            //owner.GetComponent<PlayerController>().cameraFollow.transform.forward = target.transform.forward;
+        }
+        else
+        {
+            owner.transform.position = target.transform.position - target.transform.forward;
+            owner.transform.forward = target.transform.forward;
+        }
     }
 
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

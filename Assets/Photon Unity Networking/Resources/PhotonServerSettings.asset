@@ -78,4 +78,7 @@ MonoBehaviour:
   - SetShieldTemporaire1
   - SetShieldTemporaire2
   - AddForceTo
+  - Behind
+  - LookAt
+  - SetPosition
   DisableAutoOpenWizard: 1
