@@ -15,7 +15,8 @@ public class MapGeneration : Photon.PUNBehaviour {
     public GameObject fiveByFiveBase;
     public GameObject fiveByFiveCenter;
     public GameObject fiveByFiveSpawn;
-    
+    public GameObject crystal;
+
     /*
     public Button threeByThreeGene;
     public Button fiveByFiveGene;
@@ -374,6 +375,15 @@ public class MapGeneration : Photon.PUNBehaviour {
 
         int cmpt = 0;
         GameObject center = Instantiate(fiveByFiveCenter, Vector3.zero, Quaternion.identity);
+        if (PhotonNetwork.isMasterClient)
+        {
+            Vector3 crystalStartingPosition = center.transform.position;
+            crystalStartingPosition.y += 1f;
+
+            GameObject crystalInstance = PhotonNetwork.InstantiateSceneObject("Crystal", crystalStartingPosition, Quaternion.identity, 0, null);
+
+            crystalInstance.GetComponent<Crystal>().photonView.RPC("SetStartingPosition", PhotonTargets.AllBuffered, crystalStartingPosition);
+        }
         instances.Add(center);
         for (int i = 0; i < nbLigne; i++)
         {
@@ -389,10 +399,12 @@ public class MapGeneration : Photon.PUNBehaviour {
                         GameObject posBase = Instantiate(fiveByFiveBase, spawnPos, Quaternion.identity);
                         instances.Add(posBase);
                         posBase.transform.Rotate(0, 180, 0);
+                        posBase.transform.Find("Goal").tag = "GoalD";
                         Vector3 spawnPosSym = center.transform.position;
                         spawnPosSym.x -= j * 5;
                         spawnPosSym.z -= i * 5;
                         GameObject posBase2 = Instantiate(fiveByFiveBase, spawnPosSym, posBase.transform.rotation);
+                        posBase2.transform.Find("Goal").tag = "GoalG";
                         instances.Add(posBase2);
                         posBase2.transform.Rotate(0, 180, 0);
                     }

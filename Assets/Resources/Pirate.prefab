@@ -812,6 +812,7 @@ GameObject:
   - component: {fileID: 114078031084326420}
   - component: {fileID: 114394239749175204}
   - component: {fileID: 82787678949598222}
+  - component: {fileID: 114948818325635750}
   m_Layer: 0
   m_Name: Pirate
   m_TagString: Player
@@ -1545,6 +1546,7 @@ MonoBehaviour:
   team: 0
   immobilization: 0
   activeTrap: {fileID: 0}
+  onCollision: 0
 --- !u!114 &114226895873951830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1799,6 +1801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthSlider: {fileID: 114076923135450714}
+  HealthMax: 0
 --- !u!114 &114466024719544408
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2143,6 +2146,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
+--- !u!114 &114948818325635750
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1992377452375106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 159c9e3e08407044bba09dacd9ce7b57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crys: {fileID: 0}
 --- !u!114 &114949193121223150
 MonoBehaviour:
   m_ObjectHideFlags: 1

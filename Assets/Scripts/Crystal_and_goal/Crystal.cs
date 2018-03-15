@@ -11,14 +11,22 @@ public class Crystal : Photon.PUNBehaviour
     public GameObject playerHolding;
     //player who just dropped the crystal
     public GameObject justDroppedCrystal;
-    public Vector3 startingPosition = new Vector3(-5f, 0.5653587f, 5f);
+    public Vector3 startingPosition = new Vector3(0f, 1.5f, 0f);
     public int pickupCooldown = 3;
 
 
     [PunRPC]
-    public void PickupCrystal(GameObject o)
+    public void SetStartingPosition(Vector3 pos)
+    {
+        startingPosition = pos;
+    }
+
+
+    [PunRPC]
+    public void PickupCrystal(int playerViewID)
     {
         //Debug.Log("crystal picked up");
+        GameObject o = PhotonView.Find(playerViewID).gameObject;
 
         isHeld = true;
         playerHolding = o;
@@ -34,16 +42,23 @@ public class Crystal : Photon.PUNBehaviour
     [PunRPC]
     public void ResetCrystalPosition()
     {
-        this.transform.position = startingPosition;
+        Vector3 pos = this.transform.position;
+        pos = startingPosition;
+        this.transform.position = pos;
     }
 
 
     [PunRPC]
     public void LeaveOnGround()
     {
+        Vector3 pos = this.transform.position;
+        pos.y = 0.8f;
+
         //resets the crystal without reinitializing it at its starting point
         playerHolding = null;
         isHeld = false;
+
+        this.transform.position = pos;
     }
 
 
@@ -54,7 +69,17 @@ public class Crystal : Photon.PUNBehaviour
         justDroppedCrystal = null;
     }
 
+    void Awake()
+    {
 
+        if (instance != null && instance != this)
+        {
+            Debug.Log("There is already a Crystal");
+            Destroy(this.gameObject);
+            return;
+        }
+        instance = this;
+    }
 
     // Use this for initialization
     void Start()
@@ -63,7 +88,6 @@ public class Crystal : Photon.PUNBehaviour
 
 
         isHeld = false;
-        this.transform.position = startingPosition;
     }
 
     // FixedUpdate is called once per frame
@@ -72,8 +96,10 @@ public class Crystal : Photon.PUNBehaviour
         if (isHeld == true)
         {
             //Debug.Log("following playerHolding ok");
+            Vector3 pos = playerHolding.gameObject.transform.position;
+            pos.y += 1f;
 
-            this.transform.position = playerHolding.gameObject.transform.position;
+            this.transform.position = pos;
         }
 
         if (justDroppedCrystal != null)

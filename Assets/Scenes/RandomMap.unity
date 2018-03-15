@@ -634,6 +634,7 @@ MonoBehaviour:
     type: 2}
   fiveByFiveSpawn: {fileID: 1732745179898112, guid: 213230b714c22ac4792ba272b5e935e3,
     type: 2}
+  crystal: {fileID: 1635052500047410, guid: c7f835e5a40f48e4a91ac3b6b0629a49, type: 2}
 --- !u!1 &1616502075
 GameObject:
   m_ObjectHideFlags: 0

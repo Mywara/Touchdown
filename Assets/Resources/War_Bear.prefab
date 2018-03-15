@@ -474,6 +474,7 @@ GameObject:
   - component: {fileID: 114571601762160396}
   - component: {fileID: 82796195443261580}
   - component: {fileID: 114351625274874004}
+  - component: {fileID: 114152891452610678}
   m_Layer: 0
   m_Name: War_Bear
   m_TagString: Player
@@ -1455,6 +1456,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114152891452610678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1640654363724030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 159c9e3e08407044bba09dacd9ce7b57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crys: {fileID: 0}
 --- !u!114 &114159536124972748
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1494,6 +1507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthSlider: {fileID: 114341086683985522}
+  HealthMax: 0
 --- !u!114 &114206932762142600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2182,6 +2196,7 @@ MonoBehaviour:
   team: 0
   immobilization: 0
   activeTrap: {fileID: 0}
+  onCollision: 0
 --- !u!114 &114977305829112610
 MonoBehaviour:
   m_ObjectHideFlags: 1

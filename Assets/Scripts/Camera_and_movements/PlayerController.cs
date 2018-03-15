@@ -141,7 +141,7 @@ public class PlayerController : Photon.PunBehaviour
     {
         if(collision.gameObject.tag != "Player")
         {
-            Debug.Log("COLLISION !!!");
+            //Debug.Log("COLLISION !!!");
             onCollision = true;
         }
     }
