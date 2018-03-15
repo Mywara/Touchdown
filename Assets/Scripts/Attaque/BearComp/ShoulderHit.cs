@@ -68,14 +68,14 @@ public class ShoulderHit : Photon.PunBehaviour
         else
         {
             // prive translation, rotation du perso et compétences du perso
-            target.GetComponent<PlayerController>().SetImmobilization(true);
+            target.GetComponent<PlayerController>().SetMobile(false);
             target.GetComponent<PlayerController>().SetActiveCompetence(false);
 
             // Attend la duree demandé
             yield return new WaitForSeconds(stunTimer);
 
             // autorise translation, rotation du perso et compétences du perso
-            target.GetComponent<PlayerController>().SetImmobilization(false);
+            target.GetComponent<PlayerController>().SetMobile(true);
             target.GetComponent<PlayerController>().SetActiveCompetence(true);
         }
     }

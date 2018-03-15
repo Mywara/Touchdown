@@ -475,6 +475,7 @@ GameObject:
   - component: {fileID: 82796195443261580}
   - component: {fileID: 114351625274874004}
   - component: {fileID: 114152891452610678}
+  - component: {fileID: 114613209810559646}
   m_Layer: 0
   m_Name: War_Bear
   m_TagString: Player
@@ -993,7 +994,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1640654363724030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16, y: -6.2200395e-17, z: 2.6}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4977634266821520}
@@ -1985,6 +1986,17 @@ MonoBehaviour:
     type: 2}
   audioDecollage: {fileID: 8300000, guid: 2a4f786b2d4704148a6a2544d50e081d, type: 3}
   audioAtterrissage: {fileID: 8300000, guid: 19f6323870643d140b27ab9935f0775c, type: 3}
+--- !u!114 &114613209810559646
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1640654363724030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08450f964935744d789036a85c72b5a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114660979639351568
 MonoBehaviour:
   m_ObjectHideFlags: 1

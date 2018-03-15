@@ -24,6 +24,8 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
     private float nextFire = 0f;
     private Animator anim;
 
+    private bool tirActif = true;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -32,7 +34,7 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (!photonView.isMine && PhotonNetwork.connected == true)
+        if (!photonView.isMine && PhotonNetwork.connected == true || !tirActif)
         {
             return;
         }
@@ -156,5 +158,10 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
         {
             Debug.Log("Projectile missing 'Projectile' script");
         }
+    }
+
+    public void SetTirActif(bool b)
+    {
+        this.tirActif = b;
     }
 }
