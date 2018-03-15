@@ -12,7 +12,7 @@ public class PGlace : Photon.PUNBehaviour
     private GameObject trap;
     public bool readyToPlace = false;
     public int nbCharges = 3;
-    private AutoAttaqueRanged autoAttaqueRanged;
+    //private AutoAttaqueRanged autoAttaqueRanged;
     //cooldown voulu + temps d'activation du pièges
     public float cooldown = 20;
     public bool startCoroutineGetACharge = false;
@@ -25,7 +25,7 @@ public class PGlace : Photon.PUNBehaviour
 
     // Use this for initialization
     void Start () {
-        autoAttaqueRanged = this.transform.GetComponent<AutoAttaqueRanged>();
+        //autoAttaqueRanged = this.transform.GetComponent<AutoAttaqueRanged>();
 
     }
 	
@@ -52,7 +52,7 @@ public class PGlace : Photon.PUNBehaviour
             
                 Destroy(trapVisualisation);
                 readyToPlace = false;
-                autoAttaqueRanged.inModePlacing = false;
+                //autoAttaqueRanged.inModePlacing = false;
             }
             //active la previsualisation pour placer le piege
                 if (Input.GetKeyDown(KeyCode.X) && !readyToPlace)
@@ -64,7 +64,7 @@ public class PGlace : Photon.PUNBehaviour
                     trapVisualisation = Instantiate(trapVisualisationPrefab,hit.point,Quaternion.identity);
                 }
                 readyToPlace = true;
-                autoAttaqueRanged.inModePlacing = true;
+                //autoAttaqueRanged.inModePlacing = true;
             }
             //pose le piege (si des charges sont disponible)
             if (readyToPlace && Input.GetMouseButtonDown(0) && nbCharges > 0)
@@ -78,7 +78,7 @@ public class PGlace : Photon.PUNBehaviour
                 idtrap++;
                 readyToPlace = false;
                 Destroy(trapVisualisation);
-                autoAttaqueRanged.inModePlacing = false;
+                //autoAttaqueRanged.inModePlacing = false;
                 photonView.RPC("SetOwner", PhotonTargets.All, this.photonView.viewID, trap.GetPhotonView().viewID);
                        
             }
@@ -90,7 +90,7 @@ public class PGlace : Photon.PUNBehaviour
             {
                 Destroy(trapVisualisation);
                 readyToPlace = false;
-                autoAttaqueRanged.inModePlacing = false;
+                //autoAttaqueRanged.inModePlacing = false;
             }
             //active la previsualisation pour placer le piege
             if (Input.GetKeyDown(KeyCode.X) && !readyToPlace)
@@ -102,7 +102,7 @@ public class PGlace : Photon.PUNBehaviour
                 trapVisualisation = Instantiate(trapVisualisationPrefab, hit.point, Quaternion.identity);
                 trapVisualisation.GetComponent<PGlaceMovement>().inGame = false;
                 readyToPlace = true;
-                autoAttaqueRanged.inModePlacing = true;
+                //autoAttaqueRanged.inModePlacing = true;
             }
             //pose le piege (si des charges sont disponible)
             if (readyToPlace && Input.GetMouseButtonDown(0) && nbCharges > 0)
@@ -113,7 +113,7 @@ public class PGlace : Photon.PUNBehaviour
                 idtrap++;
                 readyToPlace = false;
                 Destroy(trapVisualisation);
-                autoAttaqueRanged.inModePlacing = false;
+                //autoAttaqueRanged.inModePlacing = false;
                 photonView.RPC("SetOwner", PhotonTargets.All, this.photonView.viewID, trap.GetPhotonView().viewID);
 
             }
