@@ -37,6 +37,13 @@ public class Boundary : MonoBehaviour {
             if(healthScript != null)
             {
                 healthScript.photonView.RPC("KillPlayer", PhotonTargets.All);
+
+                HealthScript2 healthScript2 = otherGO.GetComponent<HealthScript2>();
+                if(healthScript2)
+                {
+                    healthScript2.EmptyBar();
+                }
+
                 Debug.Log("Player kill by boundary");
             }
             else

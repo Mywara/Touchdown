@@ -84,6 +84,12 @@ namespace PUNTutorial
             CurrentValue = HealthMax;
         }
 
+        public void EmptyBar()
+        {
+            HealthSliderUI.value = 0;
+            CurrentValue = 0;
+        }
+
         public bool Invulnerable
         {
             get
