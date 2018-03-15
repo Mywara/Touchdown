@@ -21,8 +21,8 @@ public class CameraFollow : MonoBehaviour {
     public float inputSensitivity = 150.0f;
 
     // La camera
-    public GameObject CameraObj;
-    public GameObject PlayerObj;
+   //useless ? public GameObject CameraObj;
+   //useless ? public GameObject PlayerObj;
     public float camDistanceXToPlayer;
     public float camDistanceYToPlayer;
     public float camDistanceZToPlayer;
@@ -35,6 +35,9 @@ public class CameraFollow : MonoBehaviour {
     public float smoothY;
     public float rotX = 0.0f;
     public float rotY = 0.0f;
+    [HideInInspector]
+    public bool inGame = true;
+
 
 
     // Use this for initialization
@@ -47,12 +50,28 @@ public class CameraFollow : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         // Rend le curseur invisible
         Cursor.visible = false;
+        
 
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            inGame = !inGame;
+            //vue intergame
+            Quaternion localRotation = Quaternion.Euler(90, 0, 0.0f);
+            transform.rotation = localRotation;
+            transform.position = new Vector3(0, 10, 0);
+            // deFige le curseur 
+            Cursor.lockState = CursorLockMode.None;
+            // Rend le curseur visible
+            Cursor.visible = true;
 
+        }
+
+        if (inGame) { 
         // Si on a quitté le jeu (Alt+Tab par exemple) et qu'on revient dessus on rebloque le curseur.
         if (Cursor.lockState != CursorLockMode.Locked)
         {
@@ -80,12 +99,47 @@ public class CameraFollow : MonoBehaviour {
             CameraFollowObj.transform.root.rotation = Quaternion.Euler(0.0f, rotY, 0.0f);
         }
         transform.rotation = localRotation;
+        }
+        else 
+        {
+            Vector3 MoveCamera = transform.position;
+            if (Input.GetKey(KeyCode.D))
+            {
+                MoveCamera.x += 0.1f;
+               
+            }
+            if (Input.GetKey(KeyCode.Q))
+            {
+                MoveCamera.x -= 0.1f;
+            }
+            if (Input.GetKey(KeyCode.Z))
+            {
+                MoveCamera.z += 0.1f;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                MoveCamera.z -= 0.1f;
 
+            }
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
+            {
+                MoveCamera.y -= 0.1f;
+            }
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0f) // backwards
+            {
+                MoveCamera.y += 0.1f;
+            }
+            transform.position = MoveCamera;
+
+        }
     }
 
     void LateUpdate ()
     {
-        CameraUpdater();
+        if (inGame)
+        {
+            CameraUpdater();
+        }
     }
 
     void CameraUpdater()
@@ -104,5 +158,7 @@ public class CameraFollow : MonoBehaviour {
     public void SetObjectToFollow(GameObject objToFollow)
     {
         this.CameraFollowObj = objToFollow;
+       
     }
+
 }

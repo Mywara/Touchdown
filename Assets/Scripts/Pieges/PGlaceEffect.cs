@@ -56,11 +56,12 @@ public class PGlaceEffect : Photon.PunBehaviour {
 
     public void OnTriggerStay(Collider other)
     {
+        if(other.tag == "Player") {
         //stop les animations de déplacement
         anim = other.transform.GetComponent<Animator>();
-        anim.SetBool("RunningForward", false);
-        anim.SetBool("RunningLeft", false);
-        anim.SetBool("RunningRight", false);
+            anim.SetFloat("VelX", 0);
+            anim.SetFloat("VelY", 0);
+        }
     }
 
     private void ApplyDamage(GameObject target, int damage)

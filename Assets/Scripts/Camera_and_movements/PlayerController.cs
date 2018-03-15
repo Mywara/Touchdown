@@ -16,6 +16,8 @@ public class PlayerController : Photon.PunBehaviour{
     private bool netWorkingDone = false;
     public bool immobilization = false;
     public Transform activeTrap;
+    public bool inGame = true;
+     
 
     void Awake()
     {
@@ -57,6 +59,7 @@ public class PlayerController : Photon.PunBehaviour{
         }
 
         // saut perso
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             // on utilise un raycast pour connaitre la distance vis a vis du sol
@@ -110,27 +113,41 @@ public class PlayerController : Photon.PunBehaviour{
         {
             return;
         }
-        
-        //permet de bouger a nouveau lorsque le piege immobilisant est détruit
-        if (!activeTrap && immobilization)
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            immobilization = false;
+            inGame = !inGame;
         }
-
-        if (!immobilization)
+        if (inGame)
         {
-            // translation perso
-            float horizontal = Input.GetAxis("Horizontal");
-            transform.Translate(horizontal * movementSpeed * Time.deltaTime, 0, 0);
+            //permet de bouger a nouveau lorsque le piege immobilisant est détruit
+            if (!activeTrap && immobilization)
+            {
+                immobilization = false;
+            }
 
-            float vertical = Input.GetAxis("Vertical");
-            transform.Translate(0, 0, vertical * movementSpeed * Time.deltaTime);
+            if (!immobilization)
+            {
+                // translation perso
+                float horizontal = Input.GetAxis("Horizontal");
+                transform.Translate(horizontal * movementSpeed * Time.deltaTime, 0, 0);
 
-            // animation de déplacement en fonction des inputs horizontaux et verticaux (flèches directionnelles)
-            if (PhotonNetwork.connected)
-                photonView.RPC("Animate", PhotonTargets.All, horizontal, vertical);
-            else
-                Animate(horizontal, vertical);
+                float vertical = Input.GetAxis("Vertical");
+                transform.Translate(0, 0, vertical * movementSpeed * Time.deltaTime);
+
+                // animation de déplacement en fonction des inputs horizontaux et verticaux (flèches directionnelles)
+                if (PhotonNetwork.connected)
+                    photonView.RPC("Animate", PhotonTargets.All, horizontal, vertical);
+                else
+                    Animate(horizontal, vertical);
+            }
+        }
+        else
+        {
+         /*   //phase inter, les joueurs ne bouge pas. On controle la caméra
+            float horizontalC = Input.GetAxis("Horizontal");
+            float verticalC = Input.GetAxis("Vertical");
+          //  cameraFollow.transform.Translate(new Vector3(horizontalC, 0.0f, verticalC));
+            cameraFollow.transform.position = new Vector3(horizontalC, 30, verticalC);*/
         }
     }
 

@@ -20,6 +20,8 @@ public class PGlace : Photon.PUNBehaviour
     GameObject[] traps = new GameObject[3];
     public Text nbtrap;
     public Text cd;
+    [HideInInspector]
+    public bool inGame = true;
 
     // Use this for initialization
     void Start () {
@@ -33,49 +35,90 @@ public class PGlace : Photon.PUNBehaviour
         {
             return;
         }
-        if (startCoroutineGetACharge)
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            StartCoroutine(GetaCharges(cooldown));
-            startCoroutineGetACharge = false;
+            inGame = !inGame;
         }
-
-        //désactive l'utilisation de la compétence sans poser le piege
-        if (readyToPlace && Input.GetKeyDown(KeyCode.X))
-        {
-            
-            Destroy(trapVisualisation);
-            readyToPlace = false;
-            autoAttaqueRanged.inModePlacing = false;
-        }
-        //active la previsualisation pour placer le piege
-            if (Input.GetKeyDown(KeyCode.X) && !readyToPlace)
-        {
-            RaycastHit hit;
-            Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)),out hit);
-            if(hit.transform.tag == "Floor")
+        if (inGame) { 
+            if (startCoroutineGetACharge)
             {
-                trapVisualisation = Instantiate(trapVisualisationPrefab,hit.point,Quaternion.identity);
+                StartCoroutine(GetaCharges(cooldown));
+                startCoroutineGetACharge = false;
             }
-            readyToPlace = true;
-            autoAttaqueRanged.inModePlacing = true;
-        }
-        //pose le piege (si des charges sont disponible)
-        if (readyToPlace && Input.GetMouseButtonDown(0) && nbCharges > 0)
-        {
+
+            //désactive l'utilisation de la compétence sans poser le piege
+            if (readyToPlace && Input.GetKeyDown(KeyCode.X))
+            {
+            
+                Destroy(trapVisualisation);
+                readyToPlace = false;
+                autoAttaqueRanged.inModePlacing = false;
+            }
+            //active la previsualisation pour placer le piege
+                if (Input.GetKeyDown(KeyCode.X) && !readyToPlace)
+            {
+                RaycastHit hit;
+                Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)),out hit);
+                if(hit.transform.tag == "Floor")
+                {
+                    trapVisualisation = Instantiate(trapVisualisationPrefab,hit.point,Quaternion.identity);
+                }
+                readyToPlace = true;
+                autoAttaqueRanged.inModePlacing = true;
+            }
+            //pose le piege (si des charges sont disponible)
+            if (readyToPlace && Input.GetMouseButtonDown(0) && nbCharges > 0)
+            {
             
                                  
-            trap = PhotonNetwork.Instantiate(trapPrefab.name, trapVisualisation.transform.position, Quaternion.identity, 0);
-            photonView.RPC("DestroyTrap", PhotonTargets.All, idtrap);
+                trap = PhotonNetwork.Instantiate(trapPrefab.name, trapVisualisation.transform.position, Quaternion.identity, 0);
+                photonView.RPC("DestroyTrap", PhotonTargets.All, idtrap);
             
-            traps[idtrap % 3] = trap;
-            idtrap++;
-            readyToPlace = false;
-            Destroy(trapVisualisation);
-            autoAttaqueRanged.inModePlacing = false;
-            photonView.RPC("SetOwner", PhotonTargets.All, this.photonView.viewID, trap.GetPhotonView().viewID);
+                traps[idtrap % 3] = trap;
+                idtrap++;
+                readyToPlace = false;
+                Destroy(trapVisualisation);
+                autoAttaqueRanged.inModePlacing = false;
+                photonView.RPC("SetOwner", PhotonTargets.All, this.photonView.viewID, trap.GetPhotonView().viewID);
                        
+            }
         }
-	}
+        else // en mode intermanche
+        {
+            //désactive l'utilisation de la compétence sans poser le piege
+            if (readyToPlace && Input.GetKeyDown(KeyCode.X))
+            {
+                Destroy(trapVisualisation);
+                readyToPlace = false;
+                autoAttaqueRanged.inModePlacing = false;
+            }
+            //active la previsualisation pour placer le piege
+            if (Input.GetKeyDown(KeyCode.X) && !readyToPlace)
+            {
+                Debug.Log("press x");
+                RaycastHit hit;
+                //on instancie la ou est la souris
+                Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);   
+                trapVisualisation = Instantiate(trapVisualisationPrefab, hit.point, Quaternion.identity);
+                trapVisualisation.GetComponent<PGlaceMovement>().inGame = false;
+                readyToPlace = true;
+                autoAttaqueRanged.inModePlacing = true;
+            }
+            //pose le piege (si des charges sont disponible)
+            if (readyToPlace && Input.GetMouseButtonDown(0) && nbCharges > 0)
+            {
+                trap = PhotonNetwork.Instantiate(trapPrefab.name, trapVisualisation.transform.position, Quaternion.identity, 0);
+                photonView.RPC("DestroyTrap", PhotonTargets.All, idtrap);
+                traps[idtrap % 3] = trap;
+                idtrap++;
+                readyToPlace = false;
+                Destroy(trapVisualisation);
+                autoAttaqueRanged.inModePlacing = false;
+                photonView.RPC("SetOwner", PhotonTargets.All, this.photonView.viewID, trap.GetPhotonView().viewID);
+
+            }
+        }
+    }
 
 
     public IEnumerator GetaCharges(float coolDown)
