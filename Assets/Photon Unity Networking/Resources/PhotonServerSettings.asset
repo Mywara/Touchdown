@@ -12,21 +12,72 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppID: 058bba78-d122-45d4-ae31-543afd37b07a
-  AppID: 
   VoiceAppID: 
   ChatAppID: 
+  HostType: 1
   PreferredRegion: 8
-  HostType: 0
-  PreferredRegion: 0
   EnabledRegions: -1
   Protocol: 0
   ServerAddress: 
   ServerPort: 5055
   VoiceServerPort: 5055
-  JoinLobby: 0
+  JoinLobby: 1
   EnableLobbyStatistics: 0
   PunLogging: 0
   NetworkLogging: 1
   RunInBackground: 1
-  RpcList: []
-  DisableAutoOpenWizard: 0
+  RpcList:
+  - AddForceTo
+  - Animate
+  - AnimManager
+  - AutoJoinTeam
+  - BecameInvulnerable
+  - ChangeScore
+  - Chat
+  - Curse
+  - Damage
+  - Damage2
+  - DestroyEffect
+  - DestroyRpc
+  - DestroyTrap
+  - ElevenByElevenGeneration
+  - EndCurse
+  - GenerateMap
+  - GenerateSeed
+  - Heal
+  - Heal2
+  - InstantiateRpc
+  - isAttackingCacAnimation
+  - isNotAttackingCacAnimation
+  - JoinTeam1
+  - JoinTeam2
+  - JumpAnimation
+  - KillPlayer
+  - LeaveOnGround
+  - LoadLevel
+  - LookAt
+  - ModificationVitesse
+  - PetitSaut
+  - PickupCrystal
+  - PickupItemInit
+  - PunPickup
+  - PunPickupSimple
+  - PunRespawn
+  - RemoveFromTeam
+  - RequestForPickupItems
+  - RequestForPickupTimes
+  - ResetCrystalPosition
+  - ResetHealth
+  - RespawnPlayer
+  - SetMapSize
+  - SetOwner
+  - SetPosition
+  - SetShieldTemporaire1
+  - SetShieldTemporaire2
+  - SetStartingPosition
+  - ShotgunAnimation
+  - StartCountdownTime
+  - Stun
+  - SynchroHealth
+  - UpdateJustDroppedCrystal
+  DisableAutoOpenWizard: 1
