@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 23434913183301504}
   m_Layer: 0
   m_Name: Cube Grass (107)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 23302136290051940}
   m_Layer: 0
   m_Name: Cube Grass (110)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 23458487131554994}
   m_Layer: 0
   m_Name: Cube Grass (115)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 23990597200329350}
   m_Layer: 0
   m_Name: Cube Grass (82)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 23387503097111222}
   m_Layer: 0
   m_Name: Cube Grass (109)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -451,7 +451,7 @@ GameObject:
   - component: {fileID: 23607406873788346}
   m_Layer: 0
   m_Name: Cube Grass (120)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -621,7 +621,7 @@ GameObject:
   - component: {fileID: 23518859753395218}
   m_Layer: 0
   m_Name: Cube Grass (81)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -726,7 +726,7 @@ GameObject:
   - component: {fileID: 23167110523848332}
   m_Layer: 0
   m_Name: Cube Grass (88)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -796,7 +796,7 @@ GameObject:
   - component: {fileID: 23093360803914192}
   m_Layer: 0
   m_Name: Cube Grass (116)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -865,7 +865,7 @@ GameObject:
   - component: {fileID: 23379315481609456}
   m_Layer: 0
   m_Name: Cube Grass (108)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -917,7 +917,7 @@ GameObject:
   - component: {fileID: 23664001196993698}
   m_Layer: 0
   m_Name: Cube Grass (118)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1175,7 +1175,7 @@ GameObject:
   - component: {fileID: 23993820594495488}
   m_Layer: 0
   m_Name: Cube Grass (91)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1280,7 +1280,7 @@ GameObject:
   - component: {fileID: 23398438605754242}
   m_Layer: 0
   m_Name: Cube Grass (117)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1315,7 +1315,7 @@ GameObject:
   - component: {fileID: 23825619089397242}
   m_Layer: 0
   m_Name: Cube Grass (114)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1436,7 +1436,7 @@ GameObject:
   - component: {fileID: 23181359574207240}
   m_Layer: 0
   m_Name: Cube Grass (119)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1488,7 +1488,7 @@ GameObject:
   - component: {fileID: 23082736643365034}
   m_Layer: 0
   m_Name: Cube Grass (87)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1555,7 +1555,7 @@ GameObject:
   - component: {fileID: 23177482023442992}
   m_Layer: 0
   m_Name: Cube Grass (104)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1657,7 +1657,7 @@ GameObject:
   - component: {fileID: 23527841747505758}
   m_Layer: 0
   m_Name: Cube Grass (79)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1762,7 +1762,7 @@ GameObject:
   - component: {fileID: 23895411135464474}
   m_Layer: 0
   m_Name: Cube Grass (95)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1815,7 +1815,7 @@ GameObject:
   - component: {fileID: 23738077728035512}
   m_Layer: 0
   m_Name: Cube Grass (106)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1850,7 +1850,7 @@ GameObject:
   - component: {fileID: 23474952862717906}
   m_Layer: 0
   m_Name: Cube Grass (97)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2058,7 +2058,7 @@ GameObject:
   - component: {fileID: 23609981985859512}
   m_Layer: 0
   m_Name: Cube Grass (63)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2093,7 +2093,7 @@ GameObject:
   - component: {fileID: 23716836945714724}
   m_Layer: 0
   m_Name: Cube Grass (121)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2129,7 +2129,7 @@ GameObject:
   - component: {fileID: 23893067073397318}
   m_Layer: 0
   m_Name: Cube Grass (98)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2164,7 +2164,7 @@ GameObject:
   - component: {fileID: 23780582617821406}
   m_Layer: 0
   m_Name: Cube Grass (103)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2268,7 +2268,7 @@ GameObject:
   - component: {fileID: 23524889629626236}
   m_Layer: 0
   m_Name: Cube Grass (61)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2303,7 +2303,7 @@ GameObject:
   - component: {fileID: 23440622374017518}
   m_Layer: 0
   m_Name: Cube Grass (89)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2355,7 +2355,7 @@ GameObject:
   - component: {fileID: 23805754120610242}
   m_Layer: 0
   m_Name: Cube Grass (90)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2407,7 +2407,7 @@ GameObject:
   - component: {fileID: 23822395899894778}
   m_Layer: 0
   m_Name: Cube Grass (99)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2459,7 +2459,7 @@ GameObject:
   - component: {fileID: 23364890017159710}
   m_Layer: 0
   m_Name: Cube Grass (86)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2629,7 +2629,7 @@ GameObject:
   - component: {fileID: 23335990715764322}
   m_Layer: 0
   m_Name: Cube Grass (96)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2734,7 +2734,7 @@ GameObject:
   - component: {fileID: 23829890622137568}
   m_Layer: 0
   m_Name: Cube Grass (105)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
