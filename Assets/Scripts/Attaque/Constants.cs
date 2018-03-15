@@ -19,6 +19,12 @@ public static class Constants : object {
     public static float GRAPE_ANGLE = 2;
 
     /*
+     * Static values associated to the Undead's passive
+     */
+    // quantité de PV drainés par le vol de vie
+    public static int UNDEAD_HP_DRAIN = 5;
+
+    /*
      * Static values associated to the CurseDoT
      */
     public static int CURSEDOT_DAMAGE = 4;
@@ -29,6 +35,16 @@ public static class Constants : object {
     public static float CURSEDOT_TIC = 4;
     //nombre de cible maximum pouvant être touchées
     public static float CURSEDOT_TARGETS = 5;
+
+    /*
+     * Static values associated to the Warbear's passive
+     */
+    // nombres d'auto-attaques nécessaires au déclenchement du passif
+    public static int WARBEAR_HITSTACK = 10;
+    // durée du stun occasionné
+    public static float WARBEAR_STUN_DURATION = 3f;
+    // laps de temps après une auto-attauqe au bout duquel la hit stack est reset à 0
+    public static float WARBEAR_TIME_BEFORE_STACK_RESET = 5f; // à mettre en place ?
 
     /*
      * Static values associated to the ShoulderShot

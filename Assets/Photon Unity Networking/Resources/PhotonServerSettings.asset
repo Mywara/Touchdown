@@ -86,4 +86,6 @@ MonoBehaviour:
   - ResetCrystalPosition
   - UpdateJustDroppedCrystal
   - SetStartingPosition
+  - Curse
+  - EndCurse
   DisableAutoOpenWizard: 1
