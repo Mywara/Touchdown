@@ -1619,7 +1619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 159c9e3e08407044bba09dacd9ce7b57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crys: {fileID: 0}
+  crys: {fileID: 1635052500047410, guid: c7f835e5a40f48e4a91ac3b6b0629a49, type: 2}
 --- !u!114 &114480644245631940
 MonoBehaviour:
   m_ObjectHideFlags: 1

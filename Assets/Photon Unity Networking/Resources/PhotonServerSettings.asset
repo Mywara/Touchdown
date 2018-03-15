@@ -86,4 +86,5 @@ MonoBehaviour:
   - ResetCrystalPosition
   - UpdateJustDroppedCrystal
   - SetStartingPosition
+  - ElevenByElevenGeneration
   DisableAutoOpenWizard: 1

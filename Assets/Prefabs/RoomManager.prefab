@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4511129092421280}
   - component: {fileID: 114045597979380404}
   - component: {fileID: 114010434499537474}
+  - component: {fileID: 114893022871882240}
   m_Layer: 0
   m_Name: RoomManager
   m_TagString: Untagged
@@ -82,3 +83,31 @@ MonoBehaviour:
   respawnHeight: 2
   respawnTeam1: {fileID: 0}
   respawnTeam2: {fileID: 0}
+--- !u!114 &114893022871882240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1613392808772166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75dae3eb6ee2c3b43a78618714498195, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elevenByElevenBlocks:
+  - {fileID: 1030884824468254, guid: f3136bd1268ff1641840586d8cc993a5, type: 2}
+  - {fileID: 1222199717927752, guid: 8d6987c21af913c4d90b6ac042b5c91f, type: 2}
+  - {fileID: 1640806015978548, guid: 15be9b05d32dc39429d60ad05065b2af, type: 2}
+  - {fileID: 1979825933520784, guid: 68f3f37f9b78c814eadd3192d105f05c, type: 2}
+  - {fileID: 1635122791311630, guid: a4596561182b119418201f17fc26cef0, type: 2}
+  - {fileID: 1468397618557544, guid: 720ff3762d1de6a4886a6fbe4b8c6dd5, type: 2}
+  - {fileID: 1944350023682712, guid: 7a5503d68f31de74a97912fc0f7cb86a, type: 2}
+  - {fileID: 1094822838920004, guid: 3ee42f9096757be498e6b2c49340d50f, type: 2}
+  - {fileID: 1968888176291224, guid: ad3cc19dd27959d42b1d77cea9aa7563, type: 2}
+  elevenByElevenBase: {fileID: 1717355305516612, guid: a561d80e88b3421469471e6dca32ee64,
+    type: 2}
+  elevenByElevenCenter: {fileID: 1194537898359294, guid: 22f34aed715ec334d978fafd8de1eff1,
+    type: 2}
+  elevenByElevenSpawn: {fileID: 1224011256543068, guid: 3142ee7727e35d34ba3c31da98b5f5af,
+    type: 2}
+  crystal: {fileID: 1635052500047410, guid: c7f835e5a40f48e4a91ac3b6b0629a49, type: 2}
