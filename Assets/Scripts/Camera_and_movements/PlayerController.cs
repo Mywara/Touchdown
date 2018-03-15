@@ -222,6 +222,7 @@ public class PlayerController : Photon.PunBehaviour
             SetMobile(false);
             cameraFollowScript.StopCamera();
             SetActiveCompetence(false);
+            SetActiveAutoAtt(false);
 
             // Attend la duree demandé
             yield return new WaitForSeconds(duree);
@@ -230,6 +231,7 @@ public class PlayerController : Photon.PunBehaviour
             SetMobile(true);
             cameraFollowScript.ActiveCamera();
             SetActiveCompetence(true);
+            SetActiveAutoAtt(true);
 
         }
         
@@ -269,6 +271,40 @@ public class PlayerController : Photon.PunBehaviour
                 TirClochePirateComp tcpc = GetComponent<TirClochePirateComp>();
                 tcpc.SetTirClocheActif(b);
                 // TODO pirateComp
+                break;
+
+            default:
+                Debug.Log("name : \"" + name + "\" ne correspond pas à WarBear / Undeath / Pirate " +
+                    "\n voir Cname de CharacterCaractistique du prefab");
+                break;
+        }
+
+    }
+
+
+    // Set les auto-attaques a active ou non
+    public void SetActiveAutoAtt(bool b)
+    {
+
+        string name = GetComponent<CharacterCaracteristic>().Cname;
+
+
+        switch (name)
+        {
+            case "WarBear" :
+                AutoAttaqueCac aacwb = GetComponent<AutoAttaqueCac>();
+                aacwb.SetCACActif(b);
+                break;
+
+            case "Undeath":
+                AutoAttaqueCac aacud = GetComponent<AutoAttaqueCac>();
+                aacud.SetCACActif(b);
+
+                break;
+
+            case "Pirate":
+                AutoAttaqueRanged aarp = GetComponent<AutoAttaqueRanged>();
+                aarp.SetTirActif(b);
                 break;
 
             default:

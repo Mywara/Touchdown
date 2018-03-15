@@ -12,6 +12,8 @@ public class AutoAttaqueCac : Photon.PUNBehaviour, IPunObservable {
     private bool isAttacking = false;
     private Animator anim;
     private Camera cam;
+    private bool cacActif = true;
+
 
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -61,7 +63,7 @@ public class AutoAttaqueCac : Photon.PUNBehaviour, IPunObservable {
     // Update is called once per frame
     void Update()
     {
-        if (!photonView.isMine && PhotonNetwork.connected == true)
+        if (!photonView.isMine && PhotonNetwork.connected == true || !cacActif)
         {
             return;
         }
@@ -117,5 +119,10 @@ public class AutoAttaqueCac : Photon.PUNBehaviour, IPunObservable {
         vect.y = this.transform.position.y - rx / hclamp;
 
         return vect;
+    }
+
+    public void SetCACActif(bool b)
+    {
+        this.cacActif = b;
     }
 }
