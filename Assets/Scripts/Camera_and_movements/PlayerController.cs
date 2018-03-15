@@ -19,6 +19,7 @@ public class PlayerController : Photon.PunBehaviour
     public Transform activeTrap;
 
     public bool onCollision = false;
+    private bool mobile = true;
 
     // Script pour controler l'orientation de la camera
     private CameraFollow cameraFollowScript;
@@ -57,13 +58,13 @@ public class PlayerController : Photon.PunBehaviour
 
     void FixedUpdate()
     {
-        if (!photonView.isMine && PhotonNetwork.connected == true)
+        if (!photonView.isMine && PhotonNetwork.connected == true )
         {
             return;
         }
 
         // saut perso
-        if (Input.GetKeyDown(KeyCode.Space) && !immobilization)
+        if (Input.GetKeyDown(KeyCode.Space) && !immobilization && mobile)
         {
             // on utilise un raycast pour connaitre la distance vis a vis du sol
             RaycastHit hit;
@@ -107,22 +108,19 @@ public class PlayerController : Photon.PunBehaviour
 
     void Update()
     {
-        if (!photonView.isMine && PhotonNetwork.connected == true)
+        if (!photonView.isMine && PhotonNetwork.connected == true )
         {
             return;
         }
 
-        // TODO modifier cette condition (appel de la fonction SetImmobilization au bon moment (destruction du piege ?))
-        //Le probleme etant que s'il n'y a pas de piege on peut bouger (peut importe si une competence veut immobiliser ou non)
-        // En l'occurence une competence ne peut pas immobiliser s'il n'y a pas de piege
 
         //permet de bouger a nouveau lorsque le piege immobilisant est détruit
-        //if (!activeTrap && immobilization)
-        //{
-        //    immobilization = false;
-        //}
+        if (!activeTrap && immobilization)
+        {
+            immobilization = false;
+        }
 
-        if (!immobilization)
+        if (!immobilization && mobile)
         {
             // translation perso
             float horizontal = Input.GetAxis("Horizontal");
@@ -221,7 +219,7 @@ public class PlayerController : Photon.PunBehaviour
         else
         {
             // prive translation, rotation du perso et compétences du perso
-            SetImmobilization(true);
+            SetMobile(false);
             cameraFollowScript.StopCamera();
             SetActiveCompetence(false);
 
@@ -229,7 +227,7 @@ public class PlayerController : Photon.PunBehaviour
             yield return new WaitForSeconds(duree);
 
             // autorise translation, rotation du perso et compétences du perso
-            SetImmobilization(false);
+            SetMobile(true);
             cameraFollowScript.ActiveCamera();
             SetActiveCompetence(true);
 
@@ -239,9 +237,9 @@ public class PlayerController : Photon.PunBehaviour
     }
 
     // Stun le perso
-    public void SetImmobilization(bool immo)
+    public void SetMobile(bool mob)
     {
-        this.immobilization = immo;
+        this.mobile = mob;
     }
 
     // Set les competences a active ou non

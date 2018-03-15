@@ -211,6 +211,7 @@ MonoBehaviour:
   verticalVelocity: 2
   effetExplosionCloche: {fileID: 1995613412275572, guid: 6516f2a0f322b7543a925c54d7356ee8,
     type: 2}
+  model: {fileID: 1928101389408736}
 --- !u!114 &114401663680701250
 MonoBehaviour:
   m_ObjectHideFlags: 1
