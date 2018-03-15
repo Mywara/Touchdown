@@ -12,61 +12,21 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppID: 058bba78-d122-45d4-ae31-543afd37b07a
+  AppID: 
   VoiceAppID: 
   ChatAppID: 
-  HostType: 1
   PreferredRegion: 8
+  HostType: 0
+  PreferredRegion: 0
   EnabledRegions: -1
   Protocol: 0
   ServerAddress: 
   ServerPort: 5055
   VoiceServerPort: 5055
-  JoinLobby: 1
+  JoinLobby: 0
   EnableLobbyStatistics: 0
   PunLogging: 0
   NetworkLogging: 1
   RunInBackground: 1
-  RpcList:
-  - ChangeScore
-  - Chat
-  - Damage2
-  - DestroyRpc
-  - InstantiateRpc
-  - PickupItemInit
-  - PunPickup
-  - PunPickupSimple
-  - PunRespawn
-  - RequestForPickupItems
-  - RequestForPickupTimes
-  - AutoJoinTeam
-  - Damage
-  - JoinTeam1
-  - JoinTeam2
-  - KillPlayer
-  - ResetHealth
-  - RespawnPlayer
-  - SynchroHealth
-  - StartCountdownTime
-  - EndCountdownTime
-  - FiveByFiveGeneration
-  - ThreeByThreeGeneration
-  - GenerateMap
-  - SetMapSize
-  - GenerateSeed
-  - DestroyTrap
-  - DestroyEffect
-  - SetOwner
-  - LoadLevel
-  - ModificationVitesse
-  - PetitSaut
-  - RemoveFromTeam
-  - Heal
-  - Heal2
-  - JumpAnimation
-  - isAttackingCacAnimation
-  - isNotAttackingCacAnimation
-  - ShotgunAnimation
-  - Animate
-  - BecameInvulnerable
-  - SetEffectAsParent
-  DisableAutoOpenWizard: 1
+  RpcList: []
+  DisableAutoOpenWizard: 0

@@ -14,6 +14,7 @@ namespace PUNTutorial
         private int HealthMax;
         private int CurrentValue;
         private bool invulnerable = false;
+        private float shield = 0; // doit être entre 0 et 1 (0 aucun shield / 1 zero degat reçu)
 
         void Awake()
         {
@@ -47,7 +48,7 @@ namespace PUNTutorial
                 Debug.Log("invulnerable, can't take damage");
                 return;
             }
-            CurrentValue = CurrentValue - damage;
+            CurrentValue = CurrentValue - (int)((float)damage * ( 1-this.shield)); //gere le shield
             HealthSliderUI.value = CurrentValue;
         }
 
@@ -93,6 +94,15 @@ namespace PUNTutorial
             {
                 this.invulnerable = value;
             }
+        }
+
+        // setter pour le shield
+        [PunRPC]
+        public IEnumerator SetShieldTemporaire2(float s, float duree)
+        {
+            this.shield += s;
+            yield return new WaitForSeconds(duree);
+            this.shield -= s;
         }
     }
 }

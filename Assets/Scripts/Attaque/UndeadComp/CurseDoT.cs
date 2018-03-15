@@ -168,14 +168,22 @@ public class CurseDoT : Photon.PunBehaviour
                     if (change) { i = hitColliders.Length; }
                 }
             }
-            if(!change) { stopPropag = true; }
+            if (!change) { stopPropag = true; }
         }
+        /*
         if (end)
         {
             Debug.Log("before destroy");
             PhotonNetwork.Destroy(this.gameObject);
             Debug.Log("Destroy");
         }
+        */
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        directHitObjs.Remove(other.transform.root.gameObject);
+        PhotonNetwork.Destroy(this.gameObject);
     }
 
     private void ApplyDamage(GameObject target, int damage)

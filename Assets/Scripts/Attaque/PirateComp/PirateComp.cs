@@ -31,7 +31,7 @@ public class PirateComp : Photon.PunBehaviour
         {
             return;
         }
-        if (Input.GetButtonDown("A"))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             // animation trigger
             //anim.SetTrigger("AttackGun");

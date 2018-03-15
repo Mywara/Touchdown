@@ -9,12 +9,16 @@ namespace PUNTutorial
     {
         public Slider HealthSlider;
 
-        private int HealthMax;
+        public int HealthMax;
         private bool dying = false;
         private Animator anim;
         private bool netWorkingDone = false;
         private bool invulnerable = false;
-       
+        private float shield = 0; // doit être entre 0 et 1 (0 aucun shield / 1 zero degat reçu)
+
+        // affecté ou non par le Curse DoT du Undead
+        private bool cursed = false;
+
         void Awake()
         {
             anim = GetComponent<Animator>();
@@ -36,13 +40,14 @@ namespace PUNTutorial
                 Debug.Log("invulnerable, can't take damage");
                 return;
             }
-            HealthSlider.value = HealthSlider.value - damage;
+
+            HealthSlider.value = HealthSlider.value - (int)((float)damage * (1 - this.shield)); //gere le shield
             anim.SetTrigger("Damage");
         }
 
         //fonction pour heal la barre de vie au dessus du joueur
         [PunRPC]
-        public void Heal(int heal)
+        public void Heal(float heal)
         {
             HealthSlider.value = HealthSlider.value + heal;
         }
@@ -72,6 +77,8 @@ namespace PUNTutorial
                 //reset la vie du client local en haut a gauche
                 GetComponent<HealthScript2>().ResetHealth();
                 RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.All, PhotonNetwork.player.ID);
+                //lache le crystal s'il était tenu par le joueur
+                Crystal.instance.photonView.RPC("LeaveOnGround", PhotonTargets.All);
             }
 
             dying = false;
@@ -115,6 +122,33 @@ namespace PUNTutorial
             {
                 this.invulnerable = value;
             }
+        }
+
+        // setter pour le shield
+        [PunRPC]
+        public IEnumerator SetShieldTemporaire1(float s, float duree)
+        {
+            this.shield += s;
+            yield return new WaitForSeconds(duree);
+            this.shield -= s;
+        }
+
+        // Curse DoT de l'Undead
+        [PunRPC]
+        public void Curse()
+        {
+            cursed = true;
+        }
+
+        [PunRPC]
+        public void EndCurse()
+        {
+            cursed = false;
+        }
+
+        public bool isCursed()
+        {
+            return cursed;
         }
     }  
 }

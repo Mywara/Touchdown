@@ -21,8 +21,7 @@ public class CameraFollow : MonoBehaviour {
     public float inputSensitivity = 150.0f;
 
     // La camera
-   //useless ? public GameObject CameraObj;
-   //useless ? public GameObject PlayerObj;
+
     public float camDistanceXToPlayer;
     public float camDistanceYToPlayer;
     public float camDistanceZToPlayer;
@@ -40,6 +39,11 @@ public class CameraFollow : MonoBehaviour {
 
 
 
+    // Permet ou non de controller la camera
+    private bool cameraActive; 
+
+
+
     // Use this for initialization
     void Start () {
 
@@ -50,9 +54,7 @@ public class CameraFollow : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         // Rend le curseur invisible
         Cursor.visible = false;
-        
-
-
+        cameraActive = true;
     }
 	
 	// Update is called once per frame
@@ -81,24 +83,27 @@ public class CameraFollow : MonoBehaviour {
             Cursor.visible = false;
         }
 
-        // On met en place la rotation du stick
-        float inputX = Input.GetAxis("RightStickHorizontal");
-        float inputZ = Input.GetAxis("RightStickVertical");
-        mouseX = Input.GetAxis("Mouse X");
-        mouseY = Input.GetAxis("Mouse Y");
-        finalInputX = inputX + mouseX;
-        finalInputZ = inputZ + mouseY;
-
-        rotY += finalInputX * inputSensitivity * Time.deltaTime;
-        rotX += finalInputZ * inputSensitivity * Time.deltaTime;
-        rotX = Mathf.Clamp(rotX, -minClampAngle, maxClampAngle);
-
-        Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
-        if(CameraFollowObj != null)
+        if (cameraActive)
         {
-            CameraFollowObj.transform.root.rotation = Quaternion.Euler(0.0f, rotY, 0.0f);
+            // On met en place la rotation du stick
+            float inputX = Input.GetAxis("RightStickHorizontal");
+            float inputZ = Input.GetAxis("RightStickVertical");
+            mouseX = Input.GetAxis("Mouse X");
+            mouseY = Input.GetAxis("Mouse Y");
+            finalInputX = inputX + mouseX;
+            finalInputZ = inputZ + mouseY;
+
+            rotY += finalInputX * inputSensitivity * Time.deltaTime;
+            rotX += finalInputZ * inputSensitivity * Time.deltaTime;
+            rotX = Mathf.Clamp(rotX, -minClampAngle, maxClampAngle);
+
+            Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
+            if (CameraFollowObj != null)
+            {
+                CameraFollowObj.transform.root.rotation = Quaternion.Euler(0.0f, rotY, 0.0f);
+            }
+            transform.rotation = localRotation;
         }
-        transform.rotation = localRotation;
         }
         else 
         {
@@ -132,6 +137,7 @@ public class CameraFollow : MonoBehaviour {
             transform.position = MoveCamera;
 
         }
+
     }
 
     void LateUpdate ()
@@ -159,6 +165,16 @@ public class CameraFollow : MonoBehaviour {
     {
         this.CameraFollowObj = objToFollow;
        
+    }
+
+
+    public void StopCamera()
+    {
+        cameraActive = false;
+    }
+    public void ActiveCamera()
+    {
+        cameraActive = true;
     }
 
 }

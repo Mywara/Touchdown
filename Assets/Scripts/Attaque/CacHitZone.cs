@@ -13,10 +13,33 @@ public class CacHitZone : Photon.PunBehaviour {
     private List<GameObject> directHitObjs = new List<GameObject>();
     private bool syncTeam = true;
 
-    // Use this for initialization
-    void Start()
-    {
+    // Passives
+    private BearPassive bearPassive;
+    private UndeadPassive undeadPassive;
 
+
+    void Awake()
+    {
+        bearPassive = gameObject.GetComponentInParent<BearPassive>();
+        undeadPassive = gameObject.GetComponentInParent<UndeadPassive>();
+
+        if(bearPassive)
+        {
+            Debug.Log("The owner of this CaC hit zone is a Warbear!");
+        }
+        else
+        {
+            Debug.Log("The owner of this CaC hit zone is not a Warbear.");
+        }
+
+        if (undeadPassive)
+        {
+            Debug.Log("The owner of this CaC hit zone is an Undead!");
+        }
+        else
+        {
+            Debug.Log("The owner of this CaC hit zone is not an Undead.");
+        }
     }
 
     public void SetDamage(int newdamage)
@@ -73,13 +96,19 @@ public class CacHitZone : Photon.PunBehaviour {
         if (Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
+
+            if(bearPassive && directHitObjs.Count > 0)
+            {
+                bearPassive.IncrementHitStack(directHitObjs);
+            }
+
             foreach (GameObject directHitObj in directHitObjs.ToArray())
             {
                 Debug.Log("Obj in CacHitZone : " + directHitObj.name);
                 ApplyDamage(directHitObj, damage);
                 directHitObjs.Remove(directHitObj);
             }
-        }
+    }
     }
 
     private void OnTriggerExit(Collider other)

@@ -53,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1849622287357348}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.84, y: 0, z: -2.19}
+  m_LocalPosition: {x: 0.57, y: 0, z: -2.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4439511110518684}
@@ -65,8 +65,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1312024921245202}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.0000001872535}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.83, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4066876115921264}
@@ -127,8 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f116c5c527e38284db3b1c613b7d7f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistance: 1
-  maxDistance: 2.5
+  minDistance: 1.5
+  maxDistance: 2.2
   smooth: 5
   dollyDirAdjusted: {x: 0, y: 0, z: 0}
   distance: 0
@@ -145,22 +145,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraMoveSpeed: 120
   CameraFollowObj: {fileID: 0}
-  minClampAngle: 50
-  maxClampAngle: 50
+  minClampAngle: 40
+  maxClampAngle: 40
   inputSensitivity: 120
-  CameraObj: {fileID: 0}
-  PlayerObj: {fileID: 0}
-  camDistanceXToPlayer: 0
-  camDistanceYToPlayer: 0
-  camDistanceZToPlayer: 0
-  mouseX: 0
-  mouseY: 0
-  finalInputX: 0
-  finalInputZ: 0
-  smoothX: 0
-  smoothY: 0
-  rotX: 0
-  rotY: 0
 --- !u!124 &124292949541413796
 Behaviour:
   m_ObjectHideFlags: 1

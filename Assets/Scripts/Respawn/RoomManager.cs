@@ -209,7 +209,8 @@ public class RoomManager : Photon.PunBehaviour {
     public int[][] GenerateSeed()
     {
         //return MapGeneration.instance.GenerateSeed3x3();
-        return MapGeneration.instance.GenerateSeed5x5();
+        //return MapGeneration.instance.GenerateSeed5x5();
+        return MapGeneration.instance.GenerateSeed11x11();
     }
 
     [PunRPC]
@@ -225,11 +226,12 @@ public class RoomManager : Photon.PunBehaviour {
     {
         //Debug.Log("GenerateMap, seed length : " +seeds.Length);
         //MapGeneration.instance.ThreeByThreeGeneration(seeds);
-        MapGeneration.instance.FiveByFiveGeneration(seeds);
+        //MapGeneration.instance.FiveByFiveGeneration(seeds);
+        MapGeneration.instance.ElevenByElevenGeneration(seeds);
         MapGeneration mapGen = MapGeneration.instance;
         int sizeMultiplicatorZ = (2 * mapGen.NbLigne -1) + 2;
         int sizeMultiplicatorX = (2 * mapGen.NbColonne + 1) + 2;
-        Boundary.instance.SetSize(sizeMultiplicatorX * 5, 20, sizeMultiplicatorZ * 5);
+        Boundary.instance.SetSize(sizeMultiplicatorX * 11, 20, sizeMultiplicatorZ * 11);
     }
     [PunRPC]
     public void LoadLevel(string levelToLoad)

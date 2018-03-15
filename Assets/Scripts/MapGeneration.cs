@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MapGeneration : Photon.PUNBehaviour {
 
     static public MapGeneration instance;
-
+    /*
     public GameObject[] threeByThreeBlocks;
     public GameObject threeByThreeBase;
     public GameObject threeByThreeCenter;
@@ -15,7 +15,13 @@ public class MapGeneration : Photon.PUNBehaviour {
     public GameObject fiveByFiveBase;
     public GameObject fiveByFiveCenter;
     public GameObject fiveByFiveSpawn;
-    
+    */
+    public GameObject[] elevenByElevenBlocks;
+    public GameObject elevenByElevenBase;
+    public GameObject elevenByElevenCenter;
+    public GameObject elevenByElevenSpawn;
+    public GameObject crystal;
+
     /*
     public Button threeByThreeGene;
     public Button fiveByFiveGene;
@@ -30,6 +36,7 @@ public class MapGeneration : Photon.PUNBehaviour {
     private Random rnd;
     private int threeTabLength;
     private int fiveTabLength;
+    private int elevenTabLength;
     private List<GameObject> instances;
     private int nbLigne;
     private int nbColonne;
@@ -50,8 +57,11 @@ public class MapGeneration : Photon.PUNBehaviour {
         instance = this;
         nbColonne = 0;
         nbLigne = 2;
+        /*
         threeTabLength = threeByThreeBlocks.Length;
         fiveTabLength = fiveByFiveBlocks.Length;
+        */
+        elevenTabLength = elevenByElevenBlocks.Length;
         instances = new List<GameObject>();
     }
 
@@ -263,7 +273,7 @@ public class MapGeneration : Photon.PUNBehaviour {
         }
         instances.Clear();
     }
-
+    /*
     public int[][] GenerateSeed3x3()
     {
         int nbNombreToGenerate = (nbLigne) * (2 * nbColonne + 1) - (nbColonne + 3);
@@ -289,7 +299,20 @@ public class MapGeneration : Photon.PUNBehaviour {
         }
         return seeds;
     }
-
+    */
+    public int[][] GenerateSeed11x11()
+    {
+        int nbNombreToGenerate = (nbLigne) * (2 * nbColonne + 1) - (nbColonne + 3);
+        int[][] seeds = new int[nbNombreToGenerate][];
+        for (int i = 0; i < nbNombreToGenerate; i++)
+        {
+            int randomPrefabNum = Random.Range(0, elevenTabLength);
+            int randomRot = Random.Range(0, 5);
+            seeds[i] = new int[] { randomPrefabNum, randomRot };
+        }
+        return seeds;
+    }
+    /*
     [PunRPC]
     public void ThreeByThreeGeneration(int[][] seeds)
     {
@@ -362,7 +385,8 @@ public class MapGeneration : Photon.PUNBehaviour {
             }
         }
     }
-    
+    */
+    /*
     [PunRPC]
     public void FiveByFiveGeneration(int[][] seeds)
     {
@@ -374,6 +398,15 @@ public class MapGeneration : Photon.PUNBehaviour {
 
         int cmpt = 0;
         GameObject center = Instantiate(fiveByFiveCenter, Vector3.zero, Quaternion.identity);
+        if (PhotonNetwork.isMasterClient)
+        {
+            Vector3 crystalStartingPosition = center.transform.position;
+            crystalStartingPosition.y += 1f;
+
+            GameObject crystalInstance = PhotonNetwork.InstantiateSceneObject("Crystal", crystalStartingPosition, Quaternion.identity, 0, null);
+
+            crystalInstance.GetComponent<Crystal>().photonView.RPC("SetStartingPosition", PhotonTargets.AllBuffered, crystalStartingPosition);
+        }
         instances.Add(center);
         for (int i = 0; i < nbLigne; i++)
         {
@@ -389,10 +422,12 @@ public class MapGeneration : Photon.PUNBehaviour {
                         GameObject posBase = Instantiate(fiveByFiveBase, spawnPos, Quaternion.identity);
                         instances.Add(posBase);
                         posBase.transform.Rotate(0, 180, 0);
+                        posBase.transform.Find("Goal").tag = "GoalD";
                         Vector3 spawnPosSym = center.transform.position;
                         spawnPosSym.x -= j * 5;
                         spawnPosSym.z -= i * 5;
                         GameObject posBase2 = Instantiate(fiveByFiveBase, spawnPosSym, posBase.transform.rotation);
+                        posBase2.transform.Find("Goal").tag = "GoalG";
                         instances.Add(posBase2);
                         posBase2.transform.Rotate(0, 180, 0);
                     }
@@ -427,6 +462,91 @@ public class MapGeneration : Photon.PUNBehaviour {
                         spawnPosSym.x -= j * 5;
                         spawnPosSym.z -= i * 5;
                         GameObject block2 = Instantiate(fiveByFiveBlocks[randomPrefabNum], spawnPosSym, block.transform.rotation);
+                        instances.Add(block2);
+                        block2.transform.Rotate(0, 180, 0);
+                        cmpt++;
+                    }
+                }
+            }
+        }
+    }
+    */
+
+    [PunRPC]
+    public void ElevenByElevenGeneration(int[][] seeds)
+    {
+        if (seeds == null || seeds.Length == 0)
+        {
+            Debug.Log("Error : no seed");
+            return;
+        }
+
+        int cmpt = 0;
+        GameObject center = Instantiate(elevenByElevenCenter, Vector3.zero, Quaternion.identity);
+        if (PhotonNetwork.isMasterClient)
+        {
+            Vector3 crystalStartingPosition = center.transform.position;
+            crystalStartingPosition.y += 1f;
+
+            GameObject crystalInstance = PhotonNetwork.InstantiateSceneObject("Crystal", crystalStartingPosition, Quaternion.identity, 0, null);
+
+            crystalInstance.GetComponent<Crystal>().photonView.RPC("SetStartingPosition", PhotonTargets.AllBuffered, crystalStartingPosition);
+        }
+        instances.Add(center);
+        for (int i = 0; i < nbLigne; i++)
+        {
+            for (int j = -nbColonne; j <= nbColonne; j++)
+            {
+                if ((i != 0 || j != 0) && (i != 0 || j < 0))
+                {
+                    if (i == (nbLigne - 1) && j == 0)
+                    {
+                        Vector3 spawnPos = center.transform.position;
+                        spawnPos.x += j * 11;
+                        spawnPos.z += i * 11;
+                        GameObject posBase = Instantiate(elevenByElevenBase, spawnPos, Quaternion.identity);
+                        instances.Add(posBase);
+                        posBase.transform.Rotate(0, 180, 0);
+                        posBase.transform.Find("Goal").tag = "GoalD";
+                        Vector3 spawnPosSym = center.transform.position;
+                        spawnPosSym.x -= j * 11;
+                        spawnPosSym.z -= i * 11;
+                        GameObject posBase2 = Instantiate(elevenByElevenBase, spawnPosSym, posBase.transform.rotation);
+                        posBase2.transform.Find("Goal").tag = "GoalG";
+                        instances.Add(posBase2);
+                        posBase2.transform.Rotate(0, 180, 0);
+                    }
+                    else if (i == (nbLigne - 1) && j == nbColonne)
+                    {
+                        Vector3 spawnPos = center.transform.position;
+                        spawnPos.x += j * 11;
+                        spawnPos.z += i * 11;
+                        GameObject posBase = Instantiate(elevenByElevenSpawn, spawnPos, Quaternion.identity);
+                        instances.Add(posBase);
+                        posBase.transform.Rotate(0, 180, 0);
+                        RoomManager.instance.respawnTeam2 = posBase;
+                        Vector3 spawnPosSym = center.transform.position;
+                        spawnPosSym.x -= j * 11;
+                        spawnPosSym.z -= i * 11;
+                        GameObject posBase2 = Instantiate(elevenByElevenSpawn, spawnPosSym, posBase.transform.rotation);
+                        instances.Add(posBase2);
+                        posBase2.transform.Rotate(0, 180, 0);
+                        RoomManager.instance.respawnTeam1 = posBase2;
+                    }
+                    else
+                    {
+                        Vector3 spawnPos = center.transform.position;
+                        spawnPos.x += j * 11;
+                        spawnPos.z += i * 11;
+                        int randomPrefabNum = seeds[cmpt][0];
+                        GameObject block = Instantiate(elevenByElevenBlocks[randomPrefabNum], spawnPos, Quaternion.identity);
+                        instances.Add(block);
+                        int randomRot = seeds[cmpt][1];
+                        block.transform.Rotate(0, 90 * randomRot, 0);
+                        Vector3 spawnPosSym = center.transform.position;
+                        spawnPosSym.x -= j * 11;
+                        spawnPosSym.z -= i * 11;
+                        GameObject block2 = Instantiate(elevenByElevenBlocks[randomPrefabNum], spawnPosSym, block.transform.rotation);
                         instances.Add(block2);
                         block2.transform.Rotate(0, 180, 0);
                         cmpt++;

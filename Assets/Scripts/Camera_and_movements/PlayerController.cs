@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : Photon.PunBehaviour{
+public class PlayerController : Photon.PunBehaviour
+{
 
     public float movementSpeed = 10;
-    
+
 
     public float inputSensitivity = 150.0f;
     public GameObject cameraFollow;
@@ -19,6 +20,12 @@ public class PlayerController : Photon.PunBehaviour{
     public bool inGame = true;
      
 
+    public bool onCollision = false;
+    private bool mobile = true;
+
+    // Script pour controler l'orientation de la camera
+    private CameraFollow cameraFollowScript;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -26,7 +33,7 @@ public class PlayerController : Photon.PunBehaviour{
     }
 
 
-    void Start ()
+    void Start()
     {
         if (photonView.isMine)
         {
@@ -53,24 +60,21 @@ public class PlayerController : Photon.PunBehaviour{
 
     void FixedUpdate()
     {
-        if (!photonView.isMine && PhotonNetwork.connected == true)
+        if (!photonView.isMine && PhotonNetwork.connected == true )
         {
             return;
         }
 
         // saut perso
-        
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        if (Input.GetKeyDown(KeyCode.Space) && !immobilization && mobile)
         {
             // on utilise un raycast pour connaitre la distance vis a vis du sol
             RaycastHit hit;
 
             // On appelle le SphereCast dans un if car s'il ne touche rien il renvoit false (c'est qu'on est dans le vide et on peut pas sauter)
-            if (Physics.SphereCast(rb.transform.position + Vector3.up * 0.35f,0.25f, -rb.transform.up, out hit, 10))
+            if (Physics.SphereCast(rb.transform.position + Vector3.up * 0.35f, 0.25f, -rb.transform.up, out hit, 10))
             {
-                
-                //test
-                //print(hit.distance);
 
                 // On vérifie si on est assez prêt du sol poour pouvoir sauter
                 if (hit.distance <= 0.2)
@@ -81,11 +85,9 @@ public class PlayerController : Photon.PunBehaviour{
                     else
                         JumpAnimation();
 
-                    // soit on utilise une force soit on modifie la velocité verticale
                     Vector2 velocity = rb.velocity;
                     velocity.y = CalculateJumpVerticalSpeed(myJumpHeight);
                     rb.velocity = velocity;
-                    //rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
                 }
 
             }
@@ -109,7 +111,7 @@ public class PlayerController : Photon.PunBehaviour{
 
     void Update()
     {
-        if (!photonView.isMine && PhotonNetwork.connected == true)
+        if (!photonView.isMine && PhotonNetwork.connected == true )
         {
             return;
         }
@@ -118,14 +120,14 @@ public class PlayerController : Photon.PunBehaviour{
             inGame = !inGame;
         }
         if (inGame)
-        {
+        { 
             //permet de bouger a nouveau lorsque le piege immobilisant est détruit
             if (!activeTrap && immobilization)
             {
                 immobilization = false;
             }
 
-            if (!immobilization)
+            if (!immobilization && mobile)
             {
                 // translation perso
                 float horizontal = Input.GetAxis("Horizontal");
@@ -141,14 +143,19 @@ public class PlayerController : Photon.PunBehaviour{
                     Animate(horizontal, vertical);
             }
         }
-        else
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag != "Player")
         {
-         /*   //phase inter, les joueurs ne bouge pas. On controle la caméra
-            float horizontalC = Input.GetAxis("Horizontal");
-            float verticalC = Input.GetAxis("Vertical");
-          //  cameraFollow.transform.Translate(new Vector3(horizontalC, 0.0f, verticalC));
-            cameraFollow.transform.position = new Vector3(horizontalC, 30, verticalC);*/
+            onCollision = true;
         }
+    }
+
+    public void OnCollisionExit(Collision collision)
+    {
+        onCollision = false;
     }
 
     [PunRPC]
@@ -167,14 +174,14 @@ public class PlayerController : Photon.PunBehaviour{
         }
         set
         {
-            if(this.team != value)
+            if (this.team != value)
             {
                 this.team = value;
                 AutoAttaqueCac autoCacScript = this.gameObject.GetComponent<AutoAttaqueCac>();
                 if (autoCacScript != null)
                 {
                     CacHitZone cacHitZoneScript = autoCacScript.cacHitZone.GetComponent<CacHitZone>();
-                    if(cacHitZoneScript != null)
+                    if (cacHitZoneScript != null)
                     {
                         cacHitZoneScript.SetTeam(this.Team);
                     }
@@ -183,23 +190,23 @@ public class PlayerController : Photon.PunBehaviour{
                         Debug.Log("AutoAttaqueCac does not have CacHitZone script");
                     }
                 }
-            }  
+            }
         }
     }
-    ////////////////// Fonctions pour modifier les déplacements à cause de compétences.
+    ///////////////// Fonctions qui ont des effets sur le joueur
+
 
     // Modifie la vitesse de déplacement en prenant un pourcentage de la vitesse actuelle sur une certaine duree
     [PunRPC]
     public IEnumerator ModificationVitesse(float pourcentageVitesse, float duree)
     {
-        Debug.Log("modifie vitesse duree : "+duree);
         movementSpeed = movementSpeed * (pourcentageVitesse / 100);
         yield return new WaitForSeconds(duree);
         movementSpeed = movementSpeed / (pourcentageVitesse / 100);
-        Debug.Log("retour vitesse");
     }
 
-    ///////////////// Fonctions qui font des effets sur le joueur
+
+    // Fait faire un saut de la hauteur voulue
     [PunRPC]
     public void PetitSaut(float hauteurSaut)
     {
@@ -208,4 +215,131 @@ public class PlayerController : Photon.PunBehaviour{
         rb.velocity = velocity;
     }
 
+    // Stun le perso
+    [PunRPC]
+    public IEnumerator Stun(float duree)
+    {
+        if (!photonView.isMine && PhotonNetwork.connected == true)
+        {
+            yield return null;
+        }
+        else
+        {
+            // prive translation, rotation du perso et compétences du perso
+            SetMobile(false);
+            cameraFollowScript.StopCamera();
+            SetActiveCompetence(false);
+            SetActiveAutoAtt(false);
+
+            // Attend la duree demandé
+            yield return new WaitForSeconds(duree);
+
+            // autorise translation, rotation du perso et compétences du perso
+            SetMobile(true);
+            cameraFollowScript.ActiveCamera();
+            SetActiveCompetence(true);
+            SetActiveAutoAtt(true);
+
+        }
+        
+
+    }
+
+    // Stun le perso
+    public void SetMobile(bool mob)
+    {
+        this.mobile = mob;
+    }
+
+    // Set les competences a active ou non
+    public void SetActiveCompetence(bool b)
+    {
+
+        string name = GetComponent<CharacterCaracteristic>().Cname;
+        
+
+        switch (name)
+        {
+            case "WarBear":
+                JumpBearComp jbc = GetComponent<JumpBearComp>();
+                jbc.SetJumpActif(b);
+
+                CalinBearComp cbc = GetComponent<CalinBearComp>();
+                cbc.SetCalinActif(b);
+
+                // TODO le coup d'épaule
+                break;
+
+            case "Undeath":
+                // TODO les 3 comps
+                break;
+
+            case "Pirate":
+                TirClochePirateComp tcpc = GetComponent<TirClochePirateComp>();
+                tcpc.SetTirClocheActif(b);
+                // TODO pirateComp
+                break;
+
+            default:
+                Debug.Log("name : \"" + name + "\" ne correspond pas à WarBear / Undeath / Pirate " +
+                    "\n voir Cname de CharacterCaractistique du prefab");
+                break;
+        }
+
+    }
+
+
+    // Set les auto-attaques a active ou non
+    public void SetActiveAutoAtt(bool b)
+    {
+
+        string name = GetComponent<CharacterCaracteristic>().Cname;
+
+
+        switch (name)
+        {
+            case "WarBear" :
+                AutoAttaqueCac aacwb = GetComponent<AutoAttaqueCac>();
+                aacwb.SetCACActif(b);
+                break;
+
+            case "Undeath":
+                AutoAttaqueCac aacud = GetComponent<AutoAttaqueCac>();
+                aacud.SetCACActif(b);
+
+                break;
+
+            case "Pirate":
+                AutoAttaqueRanged aarp = GetComponent<AutoAttaqueRanged>();
+                aarp.SetTirActif(b);
+                break;
+
+            default:
+                Debug.Log("name : \"" + name + "\" ne correspond pas à WarBear / Undeath / Pirate " +
+                    "\n voir Cname de CharacterCaractistique du prefab");
+                break;
+        }
+
+    }
+
+    //Applique une force "forceVector" au gameObject associe
+    [PunRPC]
+    public void AddForceTo(Vector3 forceVector)
+    {
+        this.GetComponent<Rigidbody>().AddForce(forceVector);
+    }
+
+    //Positionne le gameObject à la position "pos"
+    [PunRPC]
+    public void SetPosition(Vector3 pos)
+    {
+        this.transform.position = pos;
+    }
+
+    //Change la direction du gameObject dans le sens du vecteur "forward"
+    [PunRPC]
+    public void LookAt(Vector3 forward)
+    {
+        this.transform.forward = forward;
+    }
 }

@@ -559,81 +559,9 @@ Prefab:
       propertyPath: instantiationId
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114045597979380404, guid: 994216e58d0e63042bb20cd797ea6afc,
-        type: 2}
-      propertyPath: respawnTeam1
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114045597979380404, guid: 994216e58d0e63042bb20cd797ea6afc,
-        type: 2}
-      propertyPath: respawnTeam2
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 994216e58d0e63042bb20cd797ea6afc, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1595895042 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1613392808772166, guid: 994216e58d0e63042bb20cd797ea6afc,
-    type: 2}
-  m_PrefabInternal: {fileID: 1595895041}
---- !u!114 &1595895043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1595895042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75dae3eb6ee2c3b43a78618714498195, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  threeByThreeBlocks:
-  - {fileID: 1236947352059022, guid: 3952126f5ae4b4d48bf9d39b50329f9f, type: 2}
-  - {fileID: 1371566053321494, guid: bf5eb5a6f5dd4644194c6c82d6dc21f2, type: 2}
-  - {fileID: 1333419485595922, guid: e7d6ee0f37cc53a4e864148d4180928a, type: 2}
-  - {fileID: 1324771423775802, guid: 9d1087ba015676c4992ab48002182449, type: 2}
-  - {fileID: 1078610228620740, guid: d283d4d103aa42a41a32a4d11d1fc275, type: 2}
-  - {fileID: 1291095979488316, guid: 2871eba531fd5304bb6842a554e24ec8, type: 2}
-  - {fileID: 1740914314111562, guid: 07566848e6b8df946bdbb2e3ef005acc, type: 2}
-  - {fileID: 1087960624672916, guid: 23f0c39aa4930094cbb33ece65c1c21f, type: 2}
-  - {fileID: 1845191769422234, guid: 4bfc7c59fc8fc1546960073bd5f3b7bb, type: 2}
-  - {fileID: 1001926295335614, guid: 09df970b9c3390f49932742d985f067b, type: 2}
-  - {fileID: 1107386345873556, guid: ad4c56214612d3b4ea1e58080d86dbee, type: 2}
-  - {fileID: 1260252176996106, guid: aa80c5c66d872dd41ba09f509bdc3f99, type: 2}
-  - {fileID: 1587858732162590, guid: fd2ce80a5dbe4a24e96b591b1570e1a2, type: 2}
-  - {fileID: 1660729449188700, guid: 95801f3fde0399043acaaa16ed82dbad, type: 2}
-  - {fileID: 1663755874369676, guid: 94e5a0acbcf13c34297b99aade0a55c3, type: 2}
-  - {fileID: 1043270920495534, guid: b2d5d0a93577993419e65c81fbb5c199, type: 2}
-  - {fileID: 1957927681795860, guid: b45a0a85551f57c4b9bbba1d4d23487d, type: 2}
-  - {fileID: 1545244957772252, guid: b3e2f45baa20b4d41a312d5d3cfe598d, type: 2}
-  - {fileID: 1844716954203194, guid: 5d8b60bd89feeb645839a1fe627bc7b1, type: 2}
-  threeByThreeBase: {fileID: 1522635933475650, guid: 8760ee1627286584598caa579a134338,
-    type: 2}
-  threeByThreeCenter: {fileID: 1400169095073486, guid: 5c394ce75662893408ccec8bce9130a2,
-    type: 2}
-  threeByThreeSpawn: {fileID: 1211861293438304, guid: 7623f28fd46e89447a7857dc08e60cdf,
-    type: 2}
-  fiveByFiveBlocks:
-  - {fileID: 1282663362420522, guid: 1e40ea6cf67246e43adc3fb21e0e26ed, type: 2}
-  - {fileID: 1188149945780708, guid: 067ddf7186928f24eb2f7aa35da9d2b3, type: 2}
-  - {fileID: 1786910259882484, guid: 7f4736f8d8937dd4d91485ff4441dc15, type: 2}
-  - {fileID: 1523495072346280, guid: ebd181fe70cf1b94cbed1970290ef806, type: 2}
-  - {fileID: 1907197650674484, guid: c0bb0b018280bba489b6f8a7a2481ddc, type: 2}
-  - {fileID: 1508469527319014, guid: 8326db375520a2d4089adee8b5edb735, type: 2}
-  - {fileID: 1281163060942184, guid: cfde8c9148dc35c4dbf7d8546d2ff2d4, type: 2}
-  - {fileID: 1850835110979016, guid: 32530eb2f73a6f940af10abe78c60619, type: 2}
-  - {fileID: 1866690421631312, guid: f60fc7a3273d04d46a2419719a31fd66, type: 2}
-  - {fileID: 1526330667904122, guid: 6ee488b5188f0d94cbcf47e39518036d, type: 2}
-  - {fileID: 1417705342031208, guid: b2e6829542f483340875ea079ddfe9fe, type: 2}
-  - {fileID: 1786054205545990, guid: dda65478b7387b241a85f5e2d89c6a7f, type: 2}
-  - {fileID: 1229661115432982, guid: fa91a66b309193849bc61a40228dca2c, type: 2}
-  fiveByFiveBase: {fileID: 1827633433933182, guid: d60200aebc11c784b823d4a3356aaf24,
-    type: 2}
-  fiveByFiveCenter: {fileID: 1088339541642194, guid: 718ed3bd046d55e4399891052b281960,
-    type: 2}
-  fiveByFiveSpawn: {fileID: 1732745179898112, guid: 213230b714c22ac4792ba272b5e935e3,
-    type: 2}
 --- !u!1 &1616502075
 GameObject:
   m_ObjectHideFlags: 0
