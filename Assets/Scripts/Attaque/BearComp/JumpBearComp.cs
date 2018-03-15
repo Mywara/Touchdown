@@ -206,6 +206,7 @@ public class JumpBearComp : Photon.PunBehaviour
 
         // applique les dégats et effets
         jumpAOEZone.SetActive(true);
+        jumpAOEScript.SetTeam(playerControllerScript.team);
         jumpAOEScript.SetApply(true);
     }
 
