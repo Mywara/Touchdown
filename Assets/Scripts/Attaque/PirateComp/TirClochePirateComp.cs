@@ -135,4 +135,18 @@ public class TirClochePirateComp : Photon.PunBehaviour
     {
         this.tirClocheActif = b;
     }
+
+    private void OnDisable()
+    {
+
+        // On remet la transparence normale
+        Image image = tirClocheHUD.GetComponent<Image>();
+        Color c = image.color;
+        c.a = 255;
+        image.color = c;
+
+        // On remet l'affichage du cooldown à rien (pas de CD)
+        Text t = tirClocheHUD.GetComponentInChildren<Text>();
+        t.text = "";
+    }
 }

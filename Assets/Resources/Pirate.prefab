@@ -1515,7 +1515,6 @@ MonoBehaviour:
   projectilePrefab1: {fileID: 1435132543270386, guid: d74efb937d9d9d04abc15bd774099f3c,
     type: 2}
   rhumBottle: {fileID: 1351761271296770, guid: 27c85ccfe1e437c419876306106e83fe, type: 2}
-  projectilePrefabUlt: {fileID: 0}
   projectileSpawn1: {fileID: 4193193885231094}
 --- !u!114 &114078414521588166
 MonoBehaviour:
@@ -1726,7 +1725,7 @@ MonoBehaviour:
   HUD: {fileID: 1501390866478094}
   projectileSpawn: {fileID: 4193193885231094}
   tirClocheHUD: {fileID: 1248980510514596}
-  tirClocheCooldown: 2
+  tirClocheCooldown: 5
   tirClocheProjectile: {fileID: 1644292850688918, guid: 66171035c28e7f543b364cb6df213a2a,
     type: 2}
   audioTirCloche: {fileID: 0}
@@ -1951,8 +1950,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114757451083216452}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 3
-  instantiationId: 3
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114646885973370570

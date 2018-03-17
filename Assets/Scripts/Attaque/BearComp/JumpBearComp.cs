@@ -158,13 +158,11 @@ public class JumpBearComp : Photon.PunBehaviour
         if (PhotonNetwork.connected == false)
         {
             effetDecol = Instantiate(effetDecollage, this.transform.position, effetDecollage.transform.rotation).gameObject as GameObject;
-            Destroy(effetDecol, 1.5f);
         }
         else
         {
             //Pour le reseau
             effetDecol = PhotonNetwork.Instantiate(this.effetDecollage.name, this.transform.position, effetDecollage.transform.rotation, 0);
-            StartCoroutine("AnimManager", effetDecol);
         }
 
         
@@ -194,14 +192,11 @@ public class JumpBearComp : Photon.PunBehaviour
         if (PhotonNetwork.connected == false)
         {
             effetAtterr = Instantiate(effetAtterrissage, this.transform.position + Vector3.up * 0.1f, effetAtterrissage.transform.rotation).gameObject as GameObject;
-
-            Destroy(effetAtterr, 1.5f);
         }
         else
         {
             //Pour le reseau
             effetAtterr = PhotonNetwork.Instantiate(this.effetAtterrissage.name, this.transform.position, effetAtterrissage.transform.rotation, 0);
-            StartCoroutine("AnimManager", effetAtterr);
         }
 
         // applique les dégats et effets
@@ -246,16 +241,22 @@ public class JumpBearComp : Photon.PunBehaviour
 
     /////////////////// Autres méthodes
 
-    private IEnumerator AnimManager(GameObject effet)
-    {
-
-        yield return new WaitForSeconds(1.5f);
-
-        PhotonNetwork.Destroy(effet);
-    }
-
     public void SetJumpActif(bool b)
     {
         this.JumpActif = b;
+    }
+
+    private void OnDisable()
+    {
+
+        // On remet la transparence normale
+        Image image = jumpHUD.GetComponent<Image>();
+        Color c = image.color;
+        c.a = 255;
+        image.color = c;
+
+        // On remet l'affichage du cooldown à rien (pas de CD)
+        Text t = jumpHUD.GetComponentInChildren<Text>();
+        t.text = "";
     }
 }

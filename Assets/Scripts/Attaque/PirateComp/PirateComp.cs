@@ -6,7 +6,7 @@ public class PirateComp : Photon.PunBehaviour
 {
     public GameObject projectilePrefab1 = null;
     public GameObject rhumBottle = null;
-    public GameObject projectilePrefabUlt = null;
+    //public GameObject projectilePrefabUlt = null;
 
     public Transform projectileSpawn1 = null;
 

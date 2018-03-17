@@ -114,7 +114,7 @@ public class CalinBearComp : Photon.PunBehaviour
 
         // Animation
         
-        photonView.RPC("AnimManager", PhotonTargets.All);
+        // TODO Lancer l'animation
 
 
         // On stun le lanceur et la cible
@@ -147,17 +147,6 @@ public class CalinBearComp : Photon.PunBehaviour
 
     }
 
-    /////////////////// Autres méthodes
-
-
-    [PunRPC]
-    private IEnumerator AnimManager()
-    {
-        effetCalin.SetActive(true);
-        yield return new WaitForSeconds(calinDuree);
-        effetCalin.SetActive(false);
-    }
-
     /////////////////////// Affichage Competences
 
 
@@ -177,10 +166,10 @@ public class CalinBearComp : Photon.PunBehaviour
         while (dureeCD > 0)
         {
             dureeCD -= Time.deltaTime;
-            if (dureeCD <= 0)
-            {
-                // TODO ?
-            }
+            //if (dureeCD <= 0)
+            //{
+            //    // TODO ?
+            //}
             yield return new WaitForFixedUpdate();
             t.text = (Mathf.Floor(dureeCD) + 1).ToString();
         }
@@ -192,8 +181,26 @@ public class CalinBearComp : Photon.PunBehaviour
         t.text = "";
     }
 
+
+    /////////////////// Autres méthodes
+
+
     public void SetCalinActif(bool b)
     {
         this.CalinActif = b;
+    }
+
+    private void OnDisable()
+    {
+
+        // On remet la transparence normale
+        Image image = calinHUD.GetComponent<Image>();
+        Color c = image.color;
+        c.a = 255;
+        image.color = c;
+
+        // On remet l'affichage du cooldown à rien (pas de CD)
+        Text t = calinHUD.GetComponentInChildren<Text>();
+        t.text = "";
     }
 }

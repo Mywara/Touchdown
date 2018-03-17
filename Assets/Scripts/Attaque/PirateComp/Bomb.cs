@@ -16,6 +16,8 @@ public class Bomb : Photon.PUNBehaviour {
 
     private Rigidbody myRb;
 
+    private bool animLance = false;
+
 
     // Use this for initialization
     void Start()
@@ -61,7 +63,12 @@ public class Bomb : Photon.PUNBehaviour {
             
             return;
         }
-        LanceAnim();
+        if (!animLance)
+        {
+            LanceAnim();
+            animLance = true;
+        }
+        
 
         //on recupère les colliders dans la zone d'AOE
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, AOERadius);
@@ -84,8 +91,16 @@ public class Bomb : Photon.PUNBehaviour {
             }
         }
 
-        model.SetActive(false);
-        
+        //On detruit le projectile apres l'impacte
+        if (PhotonNetwork.connected == false)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            PhotonNetwork.Destroy(this.gameObject);
+        }
+
 
 
     }
@@ -115,27 +130,12 @@ public class Bomb : Photon.PUNBehaviour {
         {
             
             effetExplosion = Instantiate(effetExplosionCloche, this.transform.position + Vector3.up * 0.1f, effetExplosionCloche.transform.rotation).gameObject as GameObject;
-
-            Destroy(effetExplosion, 1.5f);
-            Destroy(this.gameObject);
         }
         else
         {
             //Pour le reseau
             effetExplosion = PhotonNetwork.Instantiate(this.effetExplosionCloche.name, this.transform.position, effetExplosionCloche.transform.rotation, 0);
-            StartCoroutine("AnimManager", effetExplosion);
         }
-    }
-
-    private IEnumerator AnimManager(GameObject effet)
-    {
-        
-        yield return new WaitForSeconds(1.5f);
-        PhotonNetwork.Destroy(effet);
-
-        //On detruit le projectile apres l'impacte
-        PhotonNetwork.Destroy(this.gameObject);
-
     }
 
 

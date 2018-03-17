@@ -18,10 +18,12 @@ public class PlayerController : Photon.PunBehaviour
     public bool immobilization = false;
     public Transform activeTrap;
     public bool inGame = true;
-     
+
 
     public bool onCollision = false;
-    private bool mobile = true;
+    private bool mobile = true; // sert à savoir si on a le droit de bouger
+    private float timeStun = 0; // sert à savoir jusqu'à quand on est stun
+    private bool isStun = false; // sert à savoir si on stun
 
     // Script pour controler l'orientation de la camera
     private CameraFollow cameraFollowScript;
@@ -40,7 +42,7 @@ public class PlayerController : Photon.PunBehaviour
             GameObject cameraPrefab = Camera.main.transform.root.gameObject;
             if (cameraPrefab != null)
             {
-                CameraFollow cameraFollowScript = cameraPrefab.GetComponent<CameraFollow>();
+                cameraFollowScript = cameraPrefab.GetComponent<CameraFollow>();
                 if (cameraFollowScript != null)
                 {
                     cameraFollowScript.SetObjectToFollow(cameraFollow);
@@ -60,7 +62,7 @@ public class PlayerController : Photon.PunBehaviour
 
     void FixedUpdate()
     {
-        if (!photonView.isMine && PhotonNetwork.connected == true )
+        if (!photonView.isMine && PhotonNetwork.connected == true)
         {
             return;
         }
@@ -111,7 +113,7 @@ public class PlayerController : Photon.PunBehaviour
 
     void Update()
     {
-        if (!photonView.isMine && PhotonNetwork.connected == true )
+        if (!photonView.isMine && PhotonNetwork.connected == true)
         {
             return;
         }
@@ -120,7 +122,15 @@ public class PlayerController : Photon.PunBehaviour
             inGame = !inGame;
         }
         if (inGame)
-        { 
+        {
+
+            // gestion du stun (on utilise mobile comme condition 
+            if (isStun && Time.time > timeStun)
+            {
+                FinStun();
+                isStun = false;
+            }
+
             //permet de bouger a nouveau lorsque le piege immobilisant est détruit
             if (!activeTrap && immobilization)
             {
@@ -143,11 +153,13 @@ public class PlayerController : Photon.PunBehaviour
                     Animate(horizontal, vertical);
             }
         }
+
+
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag != "Player")
+        if (collision.gameObject.tag != "Player")
         {
             onCollision = true;
         }
@@ -217,32 +229,31 @@ public class PlayerController : Photon.PunBehaviour
 
     // Stun le perso
     [PunRPC]
-    public IEnumerator Stun(float duree)
+    public void Stun(float duree)
     {
         if (!photonView.isMine && PhotonNetwork.connected == true)
         {
-            yield return null;
+            return;
         }
-        else
-        {
-            // prive translation, rotation du perso et compétences du perso
-            SetMobile(false);
-            cameraFollowScript.StopCamera();
-            SetActiveCompetence(false);
-            SetActiveAutoAtt(false);
 
-            // Attend la duree demandé
-            yield return new WaitForSeconds(duree);
+        timeStun = Time.time + duree;
+        isStun = true;
 
-            // autorise translation, rotation du perso et compétences du perso
-            SetMobile(true);
-            cameraFollowScript.ActiveCamera();
-            SetActiveCompetence(true);
-            SetActiveAutoAtt(true);
+        // prive translation, rotation du perso et compétences du perso
+        SetMobile(false);
+        cameraFollowScript.StopCamera();
+        SetActiveCompetence(false);
+        SetActiveAutoAtt(false);
 
-        }
-        
+    }
 
+    private void FinStun()
+    {
+        // autorise translation, rotation du perso et compétences du perso
+        SetMobile(true);
+        cameraFollowScript.ActiveCamera();
+        SetActiveCompetence(true);
+        SetActiveAutoAtt(true);
     }
 
     // Stun le perso
@@ -256,7 +267,7 @@ public class PlayerController : Photon.PunBehaviour
     {
 
         string name = GetComponent<CharacterCaracteristic>().Cname;
-        
+
 
         switch (name)
         {
@@ -298,7 +309,7 @@ public class PlayerController : Photon.PunBehaviour
 
         switch (name)
         {
-            case "WarBear" :
+            case "WarBear":
                 AutoAttaqueCac aacwb = GetComponent<AutoAttaqueCac>();
                 aacwb.SetCACActif(b);
                 break;
@@ -341,5 +352,10 @@ public class PlayerController : Photon.PunBehaviour
     public void LookAt(Vector3 forward)
     {
         this.transform.forward = forward;
+    }
+
+    private void OnDisable()
+    {
+
     }
 }
