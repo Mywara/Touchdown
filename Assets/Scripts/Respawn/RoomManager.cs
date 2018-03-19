@@ -59,7 +59,10 @@ public class RoomManager : Photon.PunBehaviour {
         bool needRespawn = true;
         GameObject player = allPlayer[playerID];
         //Debug.Log("player found : " + player.name);
-        player.SetActive(false);
+        if(player.GetActive())
+        {
+            player.SetActive(false);
+        }
         PlayerController playerControllerScript = player.GetComponent<PlayerController>();
         while (needRespawn)
         {

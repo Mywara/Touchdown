@@ -47,7 +47,7 @@ namespace PUNTutorial
 
         //fonction pour heal la barre de vie au dessus du joueur
         [PunRPC]
-        public void Heal(float heal)
+        public void Heal(int heal)
         {
             HealthSlider.value = HealthSlider.value + heal;
         }

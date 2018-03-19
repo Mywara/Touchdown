@@ -6,7 +6,7 @@ public class HealthTagEffect : Photon.PunBehaviour
 {
 
     // Use this for initialization
-    public float HealthContenance = 500f;
+    public int HealthContenance = 500;
     private Animator anim;
     private int team;
     private GameObject owner;
@@ -30,7 +30,7 @@ public class HealthTagEffect : Photon.PunBehaviour
             {
                 if(directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthMax - directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value < 20)
                 {
-                    ApplyHealing(directHitObj, directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthMax - directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value);
+                    ApplyHealing(directHitObj, (int)(directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthMax - directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value));
                 }
                 else
                 {
@@ -86,7 +86,7 @@ public class HealthTagEffect : Photon.PunBehaviour
         }
     }
 
-    private void ApplyHealing(GameObject target, float heal)
+    private void ApplyHealing(GameObject target, int heal)
     {
         if (PhotonNetwork.connected == true)
         {
