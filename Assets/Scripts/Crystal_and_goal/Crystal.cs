@@ -13,6 +13,15 @@ public class Crystal : Photon.PUNBehaviour
     public GameObject justDroppedCrystal;
     public Vector3 startingPosition = new Vector3(0f, 1.5f, 0f);
     public int pickupCooldown = 3;
+    // lumière
+    private Light volumetricLight;
+    private Color couleurRouge;
+    private Color couleurBleue;
+    private Color couleurOrange;
+    public int rougeIntensite;
+    public int bleuIntensite;
+    public int orangeIntensite;
+
 
 
     [PunRPC]
@@ -30,6 +39,21 @@ public class Crystal : Photon.PUNBehaviour
 
         isHeld = true;
         playerHolding = o;
+
+        // TODO le TODO du if
+        //PlayerController playerHoldingScript = playerHolding.GetComponent<PlayerController>();
+        //if (playerHoldingScript.team == /* TODO My team ?*/)
+        //{
+        //    SetCouleurLight(couleurBleue, bleuIntensite);
+        //}
+        //else
+        //{
+        //    SetCouleurLight(couleurRouge, rougeIntensite);
+        //}
+
+        //tests
+        SetCouleurLight(couleurBleue, bleuIntensite);
+        //fin test
     }
 
     [PunRPC]
@@ -57,6 +81,9 @@ public class Crystal : Photon.PUNBehaviour
         //resets the crystal without reinitializing it at its starting point
         playerHolding = null;
         isHeld = false;
+
+        //reset la couleur du halo
+        SetCouleurLight(couleurOrange, orangeIntensite);
 
         this.transform.position = pos;
     }
@@ -88,6 +115,22 @@ public class Crystal : Photon.PUNBehaviour
 
 
         isHeld = false;
+
+        // On set les couleurs
+        couleurRouge = new Vector4(246f / 255f, 20f / 255f, 20f / 255f, 1);
+        couleurBleue = new Vector4(28f / 255f, 20f / 255f, 246f / 255f, 1);
+        couleurOrange = new Vector4(246f / 255f, 211f / 255f, 20f / 255f, 1);
+
+
+        //On récupère le halo lumineux
+        volumetricLight = GetComponentInChildren<Light>();
+        // On lui donne la couleur qu'on veut
+        SetCouleurLight(couleurOrange, orangeIntensite);
+
+        //tests
+        //SetCouleurLight(couleurBleue, bleuIntensite);
+        //SetCouleurLight(couleurRouge, rougeIntensite);
+        // fin tests
     }
 
     // FixedUpdate is called once per frame
@@ -110,5 +153,11 @@ public class Crystal : Photon.PUNBehaviour
 
         }
 
+    }
+
+    private void SetCouleurLight(Color c, int intensite)
+    {
+        volumetricLight.color = c;
+        volumetricLight.intensity = intensite;
     }
 }
