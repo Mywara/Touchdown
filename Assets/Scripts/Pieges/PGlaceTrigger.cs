@@ -10,6 +10,10 @@ public class PGlaceTrigger : Photon.PUNBehaviour {
     public GameObject Owner;
 
 
+    private void Start()
+    {
+        
+    }
 
     public void OnTriggerEnter(Collider other)
     {

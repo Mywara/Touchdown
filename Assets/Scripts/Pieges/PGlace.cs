@@ -150,6 +150,14 @@ public class PGlace : Photon.PUNBehaviour
     [PunRPC]
     void SetOwner(int idt, int idTrap)
     {
-        PhotonView.Find(idTrap).gameObject.GetComponent<PGlaceTrigger>().Owner = PhotonView.Find(idt).gameObject;
+        GameObject owner = PhotonView.Find(idt).gameObject;
+        GameObject trap = PhotonView.Find(idTrap).gameObject;
+        trap.GetComponent<PGlaceTrigger>().Owner = owner;
+        Debug.Log("Owner : " + owner.name + " , This : " + PUNTutorial.GameManager.localPlayer.name);
+        if(owner.GetComponent<PlayerController>().Team != PUNTutorial.GameManager.localPlayer.GetComponent<PlayerController>().Team)
+        {
+            Debug.Log("render to false");
+            trap.GetComponent<Renderer>().enabled = false;
+        }
     }
 }
