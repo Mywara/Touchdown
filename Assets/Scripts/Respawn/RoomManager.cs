@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RoomManager : Photon.PunBehaviour {
 
@@ -10,12 +11,18 @@ public class RoomManager : Photon.PunBehaviour {
     public GameObject respawnTeam1;
     public GameObject respawnTeam2;
 
+
     private List<GameObject> team1 = new List<GameObject>();
     private List<GameObject> team2 = new List<GameObject>();
     //public List<GameObject> team1 = new List<GameObject>();
     //public List<GameObject> team2 = new List<GameObject>();
     public Dictionary<int, GameObject> allPlayer = new Dictionary<int, GameObject>();
     private bool friendlyFire = false;
+
+    public Button readyForNewPhase;
+    private int nbMaxPlayer;
+    private int nbPlayerReady;
+    private bool iAmReady = false;
 
     void Awake()
     {
@@ -27,6 +34,13 @@ public class RoomManager : Photon.PunBehaviour {
             return;
         }
         instance = this;
+        //on va chercher le nombre de joueur max dans la room
+        if (PhotonNetwork.connected)
+        {
+            nbMaxPlayer = PhotonNetwork.room.MaxPlayers;
+        }
+        //on initialise le bouton a rouge
+        readyForNewPhase.GetComponent<Image>().color = Color.red;
     }
 
     // Use this for initialization
@@ -37,6 +51,8 @@ public class RoomManager : Photon.PunBehaviour {
     void Update() {
 
     }
+
+
     [PunRPC]
     public void RespawnPlayer(int playerID, float timeBeforeRespawn)
     {
@@ -244,5 +260,63 @@ public class RoomManager : Photon.PunBehaviour {
         base.OnPhotonPlayerDisconnected(otherPlayer);
         Debug.Log("Player photon disconnected");
         RemoveFromTeam(otherPlayer.ID);
+    }
+
+    public void Ready()
+    {
+        if (iAmReady)
+        {
+            return;
+        }
+        iAmReady = true;
+        //Debug.Log("New player ready");
+        //augmente le nombre de joueur pret pour la prochaine phase (en reseau et en local)
+        if (PhotonNetwork.connected)
+        {
+            photonView.RPC("NewPlayerRdy", PhotonTargets.AllViaServer);
+        }
+        else
+        {
+            NewPlayerRdy();
+        }
+        //modification visuel du bouton pret -> rouge = pas pret / vert = pret
+        if (readyForNewPhase != null)
+        {
+            readyForNewPhase.GetComponent<Image>().color = Color.green;
+        }
+        else
+        {
+            Debug.Log("Party manage miss the button ready for new phase");
+        }
+    }
+
+    [PunRPC]
+    private void NewPlayerRdy()
+    {
+        nbPlayerReady++;
+        //Debug.Log("nb player ready / max player : " + nbPlayerReady + " / " + nbMaxPlayer);
+        UpdateReadyButtonText();
+    }
+
+    //reset la parametre au changement de phase
+    [PunRPC]
+    private void ResetPhase()
+    {
+        iAmReady = false;
+        nbPlayerReady = 0;
+        readyForNewPhase.GetComponent<Image>().color = Color.red;
+        UpdateReadyButtonText();
+    }
+
+    private void UpdateReadyButtonText()
+    {
+        if (readyForNewPhase != null)
+        {
+            readyForNewPhase.GetComponentInChildren<Text>().text = "Ready ( " + nbPlayerReady + " / " + nbMaxPlayer + " )";
+        }
+        else
+        {
+            Debug.Log("No ready for next phase button");
+        }
     }
 }

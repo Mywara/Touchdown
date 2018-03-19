@@ -12,10 +12,12 @@ public class RoomManager2 : Photon.PunBehaviour {
     public Text numberText;
     public string LevelToLoad = "SceneTest";
 
+    /*
     public void Start()
     {
         PhotonNetwork.ConnectUsingSettings("Version_1.20");
     }
+    */
     public void Awake()
     {
         if (instance != null && instance != this)
@@ -24,7 +26,8 @@ public class RoomManager2 : Photon.PunBehaviour {
             return;
         }
         instance = this;
-        PhotonNetwork.automaticallySyncScene = true;
+        //PhotonNetwork.automaticallySyncScene = true;
+        RefreshRoom();
     }
 
 
@@ -63,10 +66,14 @@ public class RoomManager2 : Photon.PunBehaviour {
 
     public override void OnJoinedRoom()
     {
+        /*
+         * //if auotSyncScene is on, just chang the scene on the master, then photon auto sync the scene
         if (PhotonNetwork.isMasterClient)
         {
             PhotonNetwork.LoadLevel("StartScene");
         }
+        */
+        PhotonNetwork.LoadLevel("StartScene");
     }
 
 

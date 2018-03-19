@@ -25,36 +25,46 @@ namespace PUNTutorial
             }
             DontDestroyOnLoad(gameObject);
             instance = this;
-          //  PhotonNetwork.automaticallySyncScene = true;
+            //PhotonNetwork.automaticallySyncScene = true;
+            PhotonNetwork.automaticallySyncScene = false;
         }
 
         void Start()
         {
-            //PhotonNetwork.ConnectUsingSettings("Version_1.20");
+            PhotonNetwork.ConnectUsingSettings("Version_1.20");
         }
 
         public void JoinGame()
         {
-            PhotonNetwork.LoadLevel(levelToLoad);
-           /* RoomOptions ro = new RoomOptions();
-            ro.MaxPlayers = 6;
-            PhotonNetwork.JoinOrCreateRoom("Default Room", ro, null);*/
+            //PhotonNetwork.LoadLevel(levelToLoad);
+
+            if (PhotonNetwork.isMasterClient)
+            {
+                photonView.RPC("LoadLevel", PhotonTargets.AllViaServer, levelToLoad);
+            }
+
+            /* RoomOptions ro = new RoomOptions();
+             ro.MaxPlayers = 6;
+             PhotonNetwork.JoinOrCreateRoom("Default Room", ro, null);*/
         }
 
+        /*
         public override void OnJoinedRoom()
         {
-
+            
             if (PhotonNetwork.isMasterClient)
             {
                 //PhotonNetwork.LoadLevel(levelToLoad);
                 photonView.RPC("LoadLevel", PhotonTargets.AllViaServer,levelToLoad);
             }
+            
         }
+        */
 
         [PunRPC]
-        public void LoadLevel()
+        public void LoadLevel(string theLevelToLoad)
         {
-            PhotonNetwork.LoadLevel(levelToLoad);
+            PhotonNetwork.LoadLevel(theLevelToLoad);
         }
         //
         void OnEnable()
@@ -87,31 +97,39 @@ namespace PUNTutorial
                 RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.AllViaServer, PhotonNetwork.player.ID, 5.0f);
             }
         }
-        
 
-        public void SelectCharacterPirate()
+        public void Quit()
         {
-            characterToLoad = "Pirate";
+            Application.Quit();
         }
 
-        public void SelectCharacterUndeath()
+        public void ToLobby()
         {
-            characterToLoad = "Undeath";
+            PhotonNetwork.LoadLevel("Lobby");
         }
 
-        public void SelectCharacterWarBear()
+        public string CharacterToLoad
         {
-            characterToLoad = "War_Bear";
+            get
+            {
+                return this.characterToLoad;
+            }
+            set
+            {
+                this.characterToLoad = value;
+            }
         }
 
-        public void SelectLevelScene1()
+        public string LevelToLoad
         {
-            levelToLoad = "Scene1";
-        }
-
-        public void SelectLevelRandomMap()
-        {
-            levelToLoad = "RandomMap";
+            get
+            {
+                return this.levelToLoad;
+            }
+            set
+            {
+                this.levelToLoad = value;
+            }
         }
     }
 }

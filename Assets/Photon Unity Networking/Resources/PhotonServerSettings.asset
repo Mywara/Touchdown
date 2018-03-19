@@ -80,4 +80,7 @@ MonoBehaviour:
   - Stun
   - SynchroHealth
   - UpdateJustDroppedCrystal
+  - NewPlayerRdy
+  - ResetPhase
+  - NewPlayerUnRdy
   DisableAutoOpenWizard: 1
