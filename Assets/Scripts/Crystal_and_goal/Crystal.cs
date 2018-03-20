@@ -39,20 +39,19 @@ public class Crystal : Photon.PUNBehaviour
 
         isHeld = true;
         playerHolding = o;
-
-        // TODO le TODO du if
-        //PlayerController playerHoldingScript = playerHolding.GetComponent<PlayerController>();
-        //if (playerHoldingScript.team == /* TODO My team ?*/)
-        //{
-        //    SetCouleurLight(couleurBleue, bleuIntensite);
-        //}
-        //else
-        //{
-        //    SetCouleurLight(couleurRouge, rougeIntensite);
-        //}
+        
+        PlayerController playerHoldingScript = playerHolding.GetComponent<PlayerController>();
+        if (playerHoldingScript.team == PUNTutorial.GameManager.localPlayer.GetComponent<PlayerController>().Team)
+        {
+            SetCouleurLight(couleurBleue, bleuIntensite);
+        }
+        else
+        {
+            SetCouleurLight(couleurRouge, rougeIntensite);
+        }
 
         //tests
-        SetCouleurLight(couleurBleue, bleuIntensite);
+        //SetCouleurLight(couleurBleue, bleuIntensite);
         //fin test
     }
 

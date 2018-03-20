@@ -141,10 +141,18 @@ public class PlayerController : Photon.PunBehaviour
             {
                 // translation perso
                 float horizontal = Input.GetAxis("Horizontal");
-                transform.Translate(horizontal * movementSpeed * Time.deltaTime, 0, 0);
-
                 float vertical = Input.GetAxis("Vertical");
-                transform.Translate(0, 0, vertical * movementSpeed * Time.deltaTime);
+
+                // Ancienne version sans la normalisation
+                //transform.Translate(horizontal * movementSpeed * Time.deltaTime, 0, 0);
+                //transform.Translate(0, 0, vertical * movementSpeed * Time.deltaTime);
+
+
+                // deplacement normalisé (pour diagonale)
+                Vector3 movement = (new Vector3(horizontal, 0, vertical).normalized) * Mathf.Max(Mathf.Abs(horizontal), Mathf.Abs(vertical));
+                transform.Translate(movement * movementSpeed * Time.deltaTime);
+
+
 
                 // animation de déplacement en fonction des inputs horizontaux et verticaux (flèches directionnelles)
                 if (PhotonNetwork.connected)
