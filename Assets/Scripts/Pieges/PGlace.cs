@@ -62,6 +62,7 @@ public class PGlace : Photon.PUNBehaviour
                 if(hit.transform.tag == "Floor")
                 {
                     trapVisualisation = Instantiate(trapVisualisationPrefab,hit.point,Quaternion.identity);
+                    
                 }
                 readyToPlace = true;
                 //autoAttaqueRanged.inModePlacing = true;
@@ -93,16 +94,30 @@ public class PGlace : Photon.PUNBehaviour
                 //autoAttaqueRanged.inModePlacing = false;
             }
             //active la previsualisation pour placer le piege
+            
             if (Input.GetKeyDown(KeyCode.X) && !readyToPlace)
             {
-                Debug.Log("press x");
+
                 RaycastHit hit;
                 //on instancie la ou est la souris
-                Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);   
-                trapVisualisation = Instantiate(trapVisualisationPrefab, hit.point, Quaternion.identity);
-                trapVisualisation.GetComponent<PGlaceMovement>().inGame = false;
-                readyToPlace = true;
-                //autoAttaqueRanged.inModePlacing = true;
+                Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);
+                if(this.transform.GetComponent<PlayerController>().team == 1 && hit.point.z < 0)
+                {
+                    trapVisualisation = Instantiate(trapVisualisationPrefab, hit.point, Quaternion.identity);
+                    trapVisualisation.GetComponent<PGlaceMovement>().Owner = this.transform.gameObject;
+                    trapVisualisation.GetComponent<PGlaceMovement>().inGame = false;
+                    readyToPlace = true;
+                    //autoAttaqueRanged.inModePlacing = true;
+                }
+                if (this.transform.GetComponent<PlayerController>().team == 2 && hit.point.z > 0)
+                {
+                    trapVisualisation = Instantiate(trapVisualisationPrefab, hit.point, Quaternion.identity);
+                    trapVisualisation.GetComponent<PGlaceMovement>().Owner = this.transform.gameObject;
+                    trapVisualisation.GetComponent<PGlaceMovement>().inGame = false;
+                    readyToPlace = true;
+                    //autoAttaqueRanged.inModePlacing = true;
+                }
+
             }
             //pose le piege (si des charges sont disponible)
             if (readyToPlace && Input.GetMouseButtonDown(0) && nbCharges > 0)

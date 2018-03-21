@@ -6,6 +6,7 @@ public class PGlaceMovement : MonoBehaviour {
 
     public int distanceMaxForTrap = 10;
     public bool inGame = true;
+    public GameObject Owner;
 	// Use this for initialization
 	void Start () {
 		
@@ -40,15 +41,25 @@ public class PGlaceMovement : MonoBehaviour {
            // Ray ray = new Ray(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)), Vector3.down);
            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             hits = Physics.RaycastAll(ray, Mathf.Infinity);
-            foreach(RaycastHit hit in hits)
-            {
-                if (hit.collider.transform.tag == "Floor")
+            if (Owner != null) {
+                if (Owner.GetComponent<PlayerController>().team == 1)
                 {
-                    this.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y + 0.5f, hit.collider.transform.position.z);
+                    foreach (RaycastHit hit in hits)
+                        if (hit.collider.transform.tag == "Floor" && hit.collider.transform.position.z < 0)
+                        {
+                            this.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y + 0.5f, hit.collider.transform.position.z);
+                        }
                 }
-
-              
+                else
+                {
+                    foreach (RaycastHit hit in hits)
+                        if (hit.collider.transform.tag == "Floor" && hit.collider.transform.position.z > 0)
+                        {
+                            this.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y + 0.5f, hit.collider.transform.position.z);
+                        }
+                }
             }
+
 
         }
 
