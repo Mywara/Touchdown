@@ -37,8 +37,8 @@ public class PGlaceMovement : MonoBehaviour {
             Vector3 pos = Input.mousePosition;
             RaycastHit[] hits;
             //pose les pieges case par case depuis le centre camera
-            Ray ray = new Ray(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)), Vector3.down);
-           //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+           // Ray ray = new Ray(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)), Vector3.down);
+           Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             hits = Physics.RaycastAll(ray, Mathf.Infinity);
             foreach(RaycastHit hit in hits)
             {
