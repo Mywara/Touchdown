@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class RoomManager : Photon.PunBehaviour {
 
@@ -19,10 +20,12 @@ public class RoomManager : Photon.PunBehaviour {
     public Dictionary<int, GameObject> allPlayer = new Dictionary<int, GameObject>();
     private bool friendlyFire = false;
 
-    public Button readyForNewPhase;
+    //public Button readyForNewPhase;
     private int nbMaxPlayer;
-    private int nbPlayerReady;
+    private int nbPlayerReady = 0;
     private bool iAmReady = false;
+    private bool allPlayerHaveGeneratedMap = false;
+    private int nbPlayerHaveGeneratedMap = 0;
 
     void Awake()
     {
@@ -40,16 +43,28 @@ public class RoomManager : Photon.PunBehaviour {
             nbMaxPlayer = PhotonNetwork.room.MaxPlayers;
         }
         //on initialise le bouton a rouge
-        readyForNewPhase.GetComponent<Image>().color = Color.red;
+        //readyForNewPhase.GetComponent<Image>().color = Color.red;
     }
 
     // Use this for initialization
     void Start() {
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name.Equals("Scene1"))
+        {
+            PUNTutorial.GameManager.instance.SpawnPlayerInTheGame();
+            Debug.Log("Scene1 detected, spawn the player, no need to wait for other player to load map");
+        }
     }
 
     // Update is called once per frame
     void Update() {
-
+        //Si tous les joueurs on chargé la carte, et que notre joueur n'a pas déjà été spawn, on le spawn
+        if(!allPlayerHaveGeneratedMap && nbPlayerHaveGeneratedMap == nbMaxPlayer)
+        {
+            Debug.Log("All player have generated the map");
+            PUNTutorial.GameManager.instance.SpawnPlayerInTheGame();
+            allPlayerHaveGeneratedMap = true;
+        }
     }
 
 
@@ -251,6 +266,8 @@ public class RoomManager : Photon.PunBehaviour {
         int sizeMultiplicatorZ = (2 * mapGen.NbLigne -1) + 2;
         int sizeMultiplicatorX = (2 * mapGen.NbColonne + 1) + 2;
         Boundary.instance.SetSize(sizeMultiplicatorX * 11, 20, sizeMultiplicatorZ * 11);
+        //On notifie a tout le monde que l'on a chargé la carte
+        photonView.RPC("NewPlayerHaveGenMap", PhotonTargets.All);
     }
     [PunRPC]
     public void LoadLevel(string levelToLoad)
@@ -265,6 +282,15 @@ public class RoomManager : Photon.PunBehaviour {
         RemoveFromTeam(otherPlayer.ID);
     }
 
+    //méthode pour incrémenter le compteur de nombre de joueur ayant chargé la map
+    [PunRPC]
+    private void NewPlayerHaveGenMap()
+    {
+        Debug.Log("new player have generated the map");
+        nbPlayerHaveGeneratedMap++;
+    }
+
+    /*
     public void Ready()
     {
         if (iAmReady)
@@ -292,7 +318,8 @@ public class RoomManager : Photon.PunBehaviour {
             Debug.Log("Party manage miss the button ready for new phase");
         }
     }
-
+    */
+    /*
     [PunRPC]
     private void NewPlayerRdy()
     {
@@ -300,6 +327,7 @@ public class RoomManager : Photon.PunBehaviour {
         //Debug.Log("nb player ready / max player : " + nbPlayerReady + " / " + nbMaxPlayer);
         UpdateReadyButtonText();
     }
+
 
     //reset la parametre au changement de phase
     [PunRPC]
@@ -322,4 +350,5 @@ public class RoomManager : Photon.PunBehaviour {
             Debug.Log("No ready for next phase button");
         }
     }
+    */
 }

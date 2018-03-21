@@ -67,6 +67,7 @@ namespace PUNTutorial
             PhotonNetwork.LoadLevel(theLevelToLoad);
         }
         //
+        
         void OnEnable()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
@@ -76,7 +77,7 @@ namespace PUNTutorial
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
-
+        
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             if (scene.name != "EndScene" && scene.name != "StartScene")
@@ -89,13 +90,19 @@ namespace PUNTutorial
                     seeds = RoomManager.instance.GenerateSeed();
                     RoomManager.instance.photonView.RPC("GenerateMap", PhotonTargets.AllBufferedViaServer, seeds);
                 }
-
-                //localPlayer = PhotonNetwork.Instantiate("TempPlayer", new Vector3(0, 0.5f, 0), Quaternion.identity, 0);
-                localPlayer = PhotonNetwork.Instantiate(characterToLoad, new Vector3(0, 20f, 0), Quaternion.identity, 0);
-                localPlayer.SetActive(false);
-                RoomManager.instance.photonView.RPC("AutoJoinTeam", PhotonTargets.AllBufferedViaServer, PhotonNetwork.player.ID, localPlayer.GetPhotonView().viewID);
-                RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.AllViaServer, PhotonNetwork.player.ID, 5.0f);
             }
+        }
+        
+
+        //Méthode pour faire spawn le joueur dans la partie != de respawn
+        //ici on creer le joueur pour la première fois
+        public void SpawnPlayerInTheGame()
+        {
+            //localPlayer = PhotonNetwork.Instantiate("TempPlayer", new Vector3(0, 0.5f, 0), Quaternion.identity, 0);
+            localPlayer = PhotonNetwork.Instantiate(characterToLoad, new Vector3(0, 20f, 0), Quaternion.identity, 0);
+            localPlayer.SetActive(false);
+            RoomManager.instance.photonView.RPC("AutoJoinTeam", PhotonTargets.AllBufferedViaServer, PhotonNetwork.player.ID, localPlayer.GetPhotonView().viewID);
+            RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.AllViaServer, PhotonNetwork.player.ID, 5.0f);
         }
 
         public void Quit()

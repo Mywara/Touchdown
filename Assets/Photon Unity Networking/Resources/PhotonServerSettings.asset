@@ -83,4 +83,5 @@ MonoBehaviour:
   - NewPlayerRdy
   - ResetPhase
   - NewPlayerUnRdy
+  - NewPlayerHaveGenMap
   DisableAutoOpenWizard: 1
