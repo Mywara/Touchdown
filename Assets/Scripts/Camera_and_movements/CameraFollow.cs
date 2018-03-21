@@ -63,7 +63,7 @@ public class CameraFollow : MonoBehaviour {
         {
             inGame = !inGame;
             //vue intergame
-            Quaternion localRotation = Quaternion.Euler(90, 0, 0.0f);
+            Quaternion localRotation = Quaternion.Euler(75, 0, 0.0f);
             transform.rotation = localRotation;
             transform.position = new Vector3(0, 10, 0);
             // deFige le curseur 

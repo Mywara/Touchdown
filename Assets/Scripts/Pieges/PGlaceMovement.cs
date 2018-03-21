@@ -25,33 +25,32 @@ public class PGlaceMovement : MonoBehaviour {
                 {
                     if (hit.distance < distanceMaxForTrap)
                     {
-                        this.transform.position = hit.transform.position;
+                        this.transform.position = new Vector3(hit.transform.position.x, hit.transform.position.y + 0.5f, hit.transform.position.z);
                     }
                 }
             }
         }
         else
         {
+
             //le gameobject suit la souris en restant sur le sol
             Vector3 pos = Input.mousePosition;
-            /*RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
-            Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)), out hit);
-            pos.z = hit.point.y;
-            Debug.Log("distance" + hit.point.y);
-            Debug.DrawRay(ray.origin, ray.direction, Color.green);*/
-            pos.z = 11.8f;
-            if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
+            RaycastHit[] hits;
+            //pose les pieges case par case depuis le centre camera
+            Ray ray = new Ray(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)), Vector3.down);
+           //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            hits = Physics.RaycastAll(ray, Mathf.Infinity);
+            foreach(RaycastHit hit in hits)
             {
-                pos.z -= 0.1f; 
+                if (hit.collider.transform.tag == "Floor")
+                {
+                    this.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y + 0.5f, hit.collider.transform.position.z);
+                }
+
+              
             }
-            else if (Input.GetAxis("Mouse ScrollWheel") < 0f) // backwards
-            {
-                pos.z += 0.1f;
-            }
-            this.transform.position = Camera.main.ScreenToWorldPoint(pos);
 
         }
-            
+
     }
 }
