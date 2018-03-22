@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1470526876769244}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4086781078035056}
@@ -126,9 +126,9 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 0.07586192, g: 0, b: 1, a: 1}
-  m_Intensity: 100
-  m_Range: 20
-  m_SpotAngle: 7
+  m_Intensity: 600
+  m_Range: 30.2
+  m_SpotAngle: 3
   m_CookieSize: 10
   m_Shadows:
     m_Type: 1
@@ -168,9 +168,9 @@ MonoBehaviour:
   justDroppedCrystal: {fileID: 0}
   startingPosition: {x: -5, y: 0.5653587, z: 5}
   pickupCooldown: 3
-  rougeIntensite: 100
-  bleuIntensite: 300
-  orangeIntensite: 70
+  rougeIntensite: 300
+  bleuIntensite: 8000
+  orangeIntensite: 100
 --- !u!114 &114690506073618724
 MonoBehaviour:
   m_ObjectHideFlags: 1

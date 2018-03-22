@@ -1516,6 +1516,12 @@ MonoBehaviour:
     type: 2}
   rhumBottle: {fileID: 1351761271296770, guid: 27c85ccfe1e437c419876306106e83fe, type: 2}
   projectileSpawn1: {fileID: 4193193885231094}
+  HUD: {fileID: 1501390866478094}
+  transparenceCD: 0.5
+  grapCooldown: 7
+  bouteilleCooldown: 6
+  grapHUD: {fileID: 1245266506599918}
+  bouteilleHUD: {fileID: 1709937468993422}
 --- !u!114 &114078414521588166
 MonoBehaviour:
   m_ObjectHideFlags: 1

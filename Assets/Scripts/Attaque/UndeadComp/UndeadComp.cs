@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class UndeadComp : Photon.PunBehaviour
@@ -12,6 +13,21 @@ public class UndeadComp : Photon.PunBehaviour
 
     private Animator anim;
 
+    public GameObject HUD;
+    public float transparenceCD;
+
+    private float invulnerableLastUse;
+    private float dotLastUse;
+    private float tpLastUse;
+
+    public float invulnerableCooldown;
+    public float dotCooldown;
+    public float tpCooldown;
+
+    public GameObject invulnerableHUD;
+    public GameObject dotHUD;
+    public GameObject tpHUD;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -20,6 +36,17 @@ public class UndeadComp : Photon.PunBehaviour
     // Use this for initialization
     void Start()
     {
+        // Pour pouvoir utiliser les compétences dès le début
+        invulnerableLastUse = -invulnerableCooldown;
+        dotLastUse = -dotCooldown;
+        tpLastUse = -tpCooldown;
+
+
+        // On affiche les competence et CD qu'à la personne concernée.
+        if (photonView.isMine)
+        {
+            HUD.SetActive(true);
+        }
 
     }
 
@@ -31,7 +58,9 @@ public class UndeadComp : Photon.PunBehaviour
         {
             return;
         }
-        if (Input.GetButton("A"))
+
+        // Lance le dot 
+        if (Input.GetButton("A") && Time.time > dotLastUse + dotCooldown)
         {
             // animation trigger
             //anim.SetTrigger("AttackGun");
@@ -56,6 +85,12 @@ public class UndeadComp : Photon.PunBehaviour
             {
                 curseDoTScript.SetTeam(playerControllerScript.Team);
                 curseDoTScript.SetOwner(this.transform.gameObject);
+
+                dotLastUse = Time.time;
+
+                // Lance l'affichage du CD
+                object[] parms = { dotHUD, dotCooldown };
+                StartCoroutine("AffichageCooldown", parms);
             }
             else
             {
@@ -63,7 +98,8 @@ public class UndeadComp : Photon.PunBehaviour
             }
         }
 
-        else if (Input.GetButton("E"))
+        // Lance la TP
+        else if (Input.GetButton("E") && Time.time > tpLastUse + tpCooldown)
         {
             // animation trigger
             //anim.SetTrigger("AttackGun");
@@ -88,6 +124,12 @@ public class UndeadComp : Photon.PunBehaviour
             {
                 tpScript.SetTeam(playerControllerScript.Team);
                 tpScript.SetOwner(this.transform.gameObject);
+
+                tpLastUse = Time.time;
+
+                // Lance l'affichage du CD
+                object[] parms = { tpHUD, tpCooldown };
+                StartCoroutine("AffichageCooldown", parms);
             }
             else
             {
@@ -96,17 +138,68 @@ public class UndeadComp : Photon.PunBehaviour
         }
 
         //Compétence pour l'invulnerabilité
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && Time.time > invulnerableLastUse + invulnerableCooldown)
         {
             Invulnerability invulScript = GetComponent<Invulnerability>();
-            if(invulScript != null)
+            if (invulScript != null)
             {
                 invulScript.photonView.RPC("BecameInvulnerable", PhotonTargets.All);
+
+                invulnerableLastUse = Time.time;
+
+                // Lance l'affichage du cooldown
+                object[] parms = { invulnerableHUD, invulnerableCooldown };
+                StartCoroutine("AffichageCooldown", parms);
             }
             else
             {
                 Debug.Log("missinf Invulnerability script");
             }
         }
+    }
+
+    // parms : arg0 = hud , arg1 = duree
+    private IEnumerator AffichageCooldown(object[] parms)
+    {
+        Debug.Log(((Object)parms[0]).name);
+        float dureeCD = (float)parms[1];
+        // Modifi la transparence
+        Image image = ((GameObject)parms[0]).GetComponent<Image>();
+        Color c = image.color;
+        c.a = transparenceCD;
+        image.color = c;
+
+        // Pour modifier le text
+        Text t = ((GameObject)parms[0]).GetComponentInChildren<Text>();
+
+        // Affiche le décompte
+        while (dureeCD > 0)
+        {
+            dureeCD -= Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+            t.text = (Mathf.Floor(dureeCD) + 1).ToString();
+        }
+
+        // On remet la transparence normale
+        c.a = 255;
+        image.color = c;
+
+        t.text = "";
+    }
+
+    // Reset le perso (si meurt)
+    private void OnDisable()
+    {
+
+        // On remet la transparence normale
+        Image image = invulnerableHUD.GetComponent<Image>();
+        Color c = image.color;
+        c.a = 255;
+        image.color = c;
+
+        // On remet l'affichage du cooldown à rien (pas de CD)
+        Text t = invulnerableHUD.GetComponentInChildren<Text>();
+        t.text = "";
+
     }
 }

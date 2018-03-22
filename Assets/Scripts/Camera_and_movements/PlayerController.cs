@@ -223,7 +223,7 @@ public class PlayerController : Photon.PunBehaviour
         movementSpeed = movementSpeed * (pourcentageVitesse / 100);
         yield return new WaitForSeconds(duree);
         movementSpeed = movementSpeed / (pourcentageVitesse / 100);
-    }
+    }// TODO refaire
 
 
     // Fait faire un saut de la hauteur voulue
@@ -364,6 +364,12 @@ public class PlayerController : Photon.PunBehaviour
 
     private void OnDisable()
     {
+
+        if (isStun)
+        {
+            FinStun();
+            isStun = false;
+        }
 
     }
 }

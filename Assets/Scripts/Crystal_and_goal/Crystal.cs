@@ -116,8 +116,8 @@ public class Crystal : Photon.PUNBehaviour
         isHeld = false;
 
         // On set les couleurs
-        couleurRouge = new Vector4(246f / 255f, 20f / 255f, 20f / 255f, 1);
-        couleurBleue = new Vector4(28f / 255f, 20f / 255f, 246f / 255f, 1);
+        couleurRouge = new Vector4(1, 0, 0, 1);
+        couleurBleue = new Vector4(0, 5f / 255f, 1, 1);
         couleurOrange = new Vector4(246f / 255f, 211f / 255f, 20f / 255f, 1);
 
 
