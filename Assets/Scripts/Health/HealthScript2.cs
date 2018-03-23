@@ -11,7 +11,7 @@ namespace PUNTutorial
         // Use this for initialization
         private GameObject PlayerHealth;
         public Slider HealthSliderUI;
-        private int HealthMax;
+        public int HealthMax;
         private int CurrentValue;
         private bool invulnerable = false;
         private float shield = 0; // doit être entre 0 et 1 (0 aucun shield / 1 zero degat reçu)

@@ -805,6 +805,7 @@ GameObject:
   - component: {fileID: 114079411731952172}
   - component: {fileID: 114441045949053750}
   - component: {fileID: 114473522420273746}
+  - component: {fileID: 114216439385356324}
   m_Layer: 0
   m_Name: Undeath
   m_TagString: Player
@@ -1688,6 +1689,26 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114216439385356324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1901769844858788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf34166058c2bd47ad085936e9bfe9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagVisualisationPrefab: {fileID: 1970358345820278, guid: bc210df87ffb02248aec367a91493ea3,
+    type: 2}
+  tagPrefab: {fileID: 1477956848800794, guid: bc210df87ffb02248aec367a91493ea3, type: 2}
+  readyToPlace: 0
+  nbCharges: 1
+  cooldown: 20
+  startCoroutineGetACharge: 0
+  nbtrap: {fileID: 0}
+  cd: {fileID: 0}
 --- !u!114 &114295618843314300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2001,6 +2022,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthSliderUI: {fileID: 114093927385117972}
+  HealthMax: 0
 --- !u!114 &114710662256472298
 MonoBehaviour:
   m_ObjectHideFlags: 1

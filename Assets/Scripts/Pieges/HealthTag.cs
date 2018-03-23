@@ -48,7 +48,7 @@ public class HealthTag : Photon.PUNBehaviour
             autoAttaqueRanged.inModePlacing = false;
         }
         //active la previsualisation pour placer le piege
-        if (Input.GetKeyDown(KeyCode.X) && !readyToPlace)
+        if (Input.GetKeyDown(KeyCode.C) && !readyToPlace)
         {
             RaycastHit hit;
             Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out hit);

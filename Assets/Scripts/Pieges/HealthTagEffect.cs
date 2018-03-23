@@ -96,12 +96,12 @@ public class HealthTagEffect : Photon.PunBehaviour
                 //healthScript.Damage(damage);
                 if(HealthContenance >= heal)
                 {
-                    healthScript.photonView.RPC("Heal", PhotonTargets.All, -heal);
+                    healthScript.photonView.RPC("Heal", PhotonTargets.All, heal);
                     HealthContenance -= heal;
                 }
                 else
                 {
-                    healthScript.photonView.RPC("Heal", PhotonTargets.All, -HealthContenance);
+                    healthScript.photonView.RPC("Heal", PhotonTargets.All, HealthContenance);
                     HealthContenance = 0;
                 }
             }
@@ -112,12 +112,12 @@ public class HealthTagEffect : Photon.PunBehaviour
                 //healthScript2.Damage2(damage);
                 if (HealthContenance >= heal)
                 {
-                    healthScript2.photonView.RPC("Damage2", PhotonTargets.All, -heal);
+                    healthScript2.photonView.RPC("Heal2", PhotonTargets.All, heal);
                     HealthContenance -= heal;
                 }
                 else
                 {
-                    healthScript2.photonView.RPC("Damage2", PhotonTargets.All, -HealthContenance);
+                    healthScript2.photonView.RPC("Heal2", PhotonTargets.All, HealthContenance);
                     HealthContenance = 0;
                 }
             }

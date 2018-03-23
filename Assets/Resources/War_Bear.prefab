@@ -510,6 +510,7 @@ GameObject:
   - component: {fileID: 114351625274874004}
   - component: {fileID: 114152891452610678}
   - component: {fileID: 114613209810559646}
+  - component: {fileID: 114701497756573366}
   m_Layer: 0
   m_Name: War_Bear
   m_TagString: Player
@@ -1845,6 +1846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthSliderUI: {fileID: 114267205433509544}
+  HealthMax: 0
 --- !u!114 &114484172287727220
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2147,6 +2149,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Cname: WarBear
   health: 400
+--- !u!114 &114701497756573366
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1640654363724030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf34166058c2bd47ad085936e9bfe9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagVisualisationPrefab: {fileID: 1970358345820278, guid: bc210df87ffb02248aec367a91493ea3,
+    type: 2}
+  tagPrefab: {fileID: 1477956848800794, guid: bc210df87ffb02248aec367a91493ea3, type: 2}
+  readyToPlace: 0
+  nbCharges: 1
+  cooldown: 20
+  startCoroutineGetACharge: 0
+  nbtrap: {fileID: 0}
+  cd: {fileID: 0}
 --- !u!114 &114755321857810774
 MonoBehaviour:
   m_ObjectHideFlags: 1

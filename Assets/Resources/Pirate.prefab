@@ -813,6 +813,7 @@ GameObject:
   - component: {fileID: 114394239749175204}
   - component: {fileID: 82787678949598222}
   - component: {fileID: 114948818325635750}
+  - component: {fileID: 114619501193145562}
   m_Layer: 0
   m_Name: Pirate
   m_TagString: Player
@@ -1960,6 +1961,26 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114619501193145562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1992377452375106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf34166058c2bd47ad085936e9bfe9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagVisualisationPrefab: {fileID: 1970358345820278, guid: bc210df87ffb02248aec367a91493ea3,
+    type: 2}
+  tagPrefab: {fileID: 1477956848800794, guid: bc210df87ffb02248aec367a91493ea3, type: 2}
+  readyToPlace: 0
+  nbCharges: 1
+  cooldown: 20
+  startCoroutineGetACharge: 0
+  nbtrap: {fileID: 0}
+  cd: {fileID: 0}
 --- !u!114 &114646885973370570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2026,6 +2047,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthSliderUI: {fileID: 114497307542035870}
+  HealthMax: 0
 --- !u!114 &114757451083216452
 MonoBehaviour:
   m_ObjectHideFlags: 1
