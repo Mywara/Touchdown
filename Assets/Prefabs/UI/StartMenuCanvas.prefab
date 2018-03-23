@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 223297136396926990}
   - component: {fileID: 114221364555298376}
   - component: {fileID: 114079322280271060}
+  - component: {fileID: 114711827175260396}
   m_Layer: 5
   m_Name: StartMenuCanvas
   m_TagString: Untagged
@@ -412,6 +413,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Play
+--- !u!114 &114711827175260396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1648881249452818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b12e0807a71e6334d95c706d15b8eec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreG: 0
+  scoreD: 0
 --- !u!222 &222038369986141642
 CanvasRenderer:
   m_ObjectHideFlags: 1

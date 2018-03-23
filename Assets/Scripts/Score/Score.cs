@@ -11,40 +11,52 @@ namespace PUNTutorial
         //attacher le script au drapeau et ajouter les tags goalG et goalD au zone de marquage
         //poser le gobal UI sur la scène
 
-         private int scoreG = 0;
-         private int scoreD = 0;
+        private ScoreUpdate scoreUpdate;
          public int endScore = 10;
-
+        private void Start()
+        {
+            scoreUpdate = GameObject.Find("GlobalUI").GetComponent<ScoreUpdate>();
+        }
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "GoalG")
+            if (other.gameObject.tag == "Player") 
             {
-                scoreG = scoreG + 1;
-                photonView.RPC("ChangeScore", PhotonTargets.All);
-                if (scoreG >= endScore)
+                if (other.gameObject.GetComponent<CrystalDrop>().crys != null && this.gameObject.tag == "GoalG")
                 {
-                    GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "gauche"; 
-                    PhotonNetwork.LoadLevel("EndScene");
+
+                    scoreUpdate.scoreG += 1;
+                        GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("ChangeScore", PhotonTargets.All);
+                        if (scoreUpdate.scoreG >= endScore)
+                        {
+                            GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "gauche";
+                            PhotonNetwork.LoadLevel("EndScene");
+                        }
+  
                 }
             }
-            if (other.gameObject.tag == "GoalD")
+            if (other.gameObject.tag == "Player")
             {
-                scoreD = scoreD + 1;
-                photonView.RPC("ChangeScore", PhotonTargets.All);
-                if(scoreD >= endScore)
+                if(other.gameObject.GetComponent<CrystalDrop>().crys != null && this.gameObject.tag == "GoalD")
                 {
-                    GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "droite";
-                    PhotonNetwork.LoadLevel("EndScene");
+
+                        scoreUpdate.scoreD += 1;
+                        GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("ChangeScore", PhotonTargets.All);
+                        if (scoreUpdate.scoreD >= endScore)
+                        {
+                            GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "droite";
+                            PhotonNetwork.LoadLevel("EndScene");
+                        }
+                    
                 }
+
             }
         }
 
-        [PunRPC]
+
+       /* [PunRPC]
         void ChangeScore()
         {
             GameObject.Find("GlobalUI").GetComponentInChildren<Text>().text = "Score :\n" + scoreG + ":" + scoreD;
-        }
-        
-
+        }*/
     }
 }
