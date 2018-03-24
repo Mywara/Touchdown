@@ -12,11 +12,16 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
     public bool aoeActivated = false;
 
     private Rigidbody myRb;
+    private GameObject sender;
+    private PiratePassive piratePassive;
+    private bool autoAttack = false;
+    private bool hasHitEnemies = false;
     private bool netWorkingDone = false;
     
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         myRb = this.gameObject.GetComponent<Rigidbody>();
         if(myRb != null)
         {
@@ -25,6 +30,19 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
         else
         {
             Debug.Log("error, no rigidbody on the projectile");
+        }
+        
+        if(sender)
+        {
+            piratePassive = sender.GetComponent<PiratePassive>();
+            if(piratePassive)
+            {
+                Debug.Log("The sender of this projectile is a Pirate!");
+            }
+            else
+            {
+                Debug.Log("The sender of this projectile is not a Pirate.");
+            }
         }
 	}
 
@@ -57,6 +75,16 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
     public void SetTeam(int newTeam)
     {
         this.team = newTeam;
+    }
+
+    public void SetSender(GameObject sender)
+    {
+        this.sender = sender;
+    }
+
+    public void SetAutoAttack()
+    {
+        this.autoAttack = true;
     }
 
     //Ici other = l'object que l'on a touché
@@ -93,12 +121,19 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
                     }
                 }
             }
-        }    
+        }
+        
+        if(autoAttack && piratePassive && piratePassive.PendingCriticalHit())
+        {
+            impactDamage = Mathf.RoundToInt(impactDamage * Constants.PIRATE_CRITICAL_RATE);
+            splashDamage = Mathf.RoundToInt(splashDamage * Constants.PIRATE_CRITICAL_RATE);
+        }
 
         //On applique des dégâts direct avec le projectile
         if (directHitObj.tag.Equals("Player"))
         {
             ApplyDamage(directHitObj, impactDamage);
+            hasHitEnemies = true;
         }
         
         //Si le projectile a de l'AOE
@@ -113,6 +148,7 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
                 //Si c'est un joueur, on lui applique les degats
                 if (objInAOE.tag.Equals("Player"))
                 {
+                    hasHitEnemies = true;
                     Debug.Log("Projectile : AOE hits object : " + objInAOE.name);
                     //on test sur l'objet dans l'AOE est celui du direct Hit pour ne pas aapliquer
                     //les degats deux fois
@@ -130,6 +166,19 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
                 }
             }
         }
+
+        if (autoAttack && piratePassive && hasHitEnemies)
+        {
+            if (piratePassive.PendingCriticalHit())
+            {
+                piratePassive.CriticalHitApplied();
+            }
+            else
+            {
+                piratePassive.IncrementHitStack();
+            }
+        }
+
         //On detruit le projectile apres l'impacte
         PhotonNetwork.Destroy(this.gameObject);
     }

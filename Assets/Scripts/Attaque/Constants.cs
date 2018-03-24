@@ -19,6 +19,14 @@ public static class Constants : object {
     public static float GRAPE_ANGLE = 2;
 
     /*
+     * Static values associated to the Pirate's passive
+     */
+    // nombres d'auto-attaques nécessaires au déclenchement du passif
+    public static int PIRATE_HITSTACK = 4;
+    // taux de critique du passif
+    public static float PIRATE_CRITICAL_RATE = 1.2f;
+
+    /*
      * Static values associated to the Undead's passive
      */
     // quantité de PV drainés par le vol de vie

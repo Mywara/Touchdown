@@ -28,18 +28,23 @@ public class BearPassive : MonoBehaviour {
                 }
                 else
                 {
-                    //// prive translation, rotation du perso et compétences du perso
-                    //enemyController.SetMobile(false);
-                    //enemyController.SetActiveCompetence(false);
-
-                    //// Attend la duree demandé
-                    //yield return new WaitForSeconds(Constants.WARBEAR_STUN_DURATION);
-
-                    //// autorise translation, rotation du perso et compétences du perso
-                    //enemyController.SetMobile(true);
-                    //enemyController.SetActiveCompetence(true);
+                    StartCoroutine("OfflineStun", enemyController);
                 }
             }
         }
+    }
+
+    private IEnumerator OfflineStun(PlayerController enemyController)
+    {
+        // prive translation, rotation du perso et compétences du perso
+        enemyController.SetMobile(false);
+        enemyController.SetActiveCompetence(false);
+
+        // Attend la duree demandé
+        yield return new WaitForSeconds(Constants.WARBEAR_STUN_DURATION);
+
+        // autorise translation, rotation du perso et compétences du perso
+        enemyController.SetMobile(true);
+        enemyController.SetActiveCompetence(true);
     }
 }

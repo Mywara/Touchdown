@@ -814,6 +814,7 @@ GameObject:
   - component: {fileID: 82787678949598222}
   - component: {fileID: 114948818325635750}
   - component: {fileID: 114619501193145562}
+  - component: {fileID: 114611635031907746}
   m_Layer: 0
   m_Name: Pirate
   m_TagString: Player
@@ -1961,6 +1962,17 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114611635031907746
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1992377452375106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a28470c1884beb84d96e37a3cf533e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114619501193145562
 MonoBehaviour:
   m_ObjectHideFlags: 1

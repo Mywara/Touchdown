@@ -23,7 +23,6 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
 
     private float nextFire = 0f;
     private Animator anim;
-
     private bool tirActif = true;
 
     void Awake()
@@ -63,10 +62,12 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
             }
 
             Projectile projectileScript = projo.GetComponent<Projectile>();
-            if (projectileScript != null)
+            if (projectileScript)
             {
-                projectileScript.AOEActivated = hasAnAOE;
+                projectileScript.SetAutoAttack();
                 projectileScript.SetDamage(impactDamage, splashDamage);
+                projectileScript.SetSender(gameObject);
+                projectileScript.AOEActivated = hasAnAOE;
                 projectileScript.SetSpeed(projectileSpeed);
                 //dire de quelle equipe vient le projectile pour ne pas TK
                 PlayerController playerControllerScript = this.gameObject.GetComponent<PlayerController>();
@@ -97,30 +98,7 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
     IEnumerator DelayedGunShot()
     {
         yield return new WaitForSeconds(0f);
-
-        /*
-        Camera cam = Camera.main;
-        RaycastHit hit;
         
-        float distance; // la distance d'un point près du personnage jusqu'à la cible
-
-        if (Physics.Raycast(cam.transform.position + cam.transform.forward * 2.5f, cam.transform.forward, out hit, 500))
-        {
-            //Debug.Log(hit.collider.name);
-            //Debug.Log(hit.distance);
-            //Instantiate(sourceObject, hit.point, Quaternion.identity);
-
-            distance = hit.distance;
-        }
-        else
-        {
-            distance = 30;
-        }
-
-        Vector3 rotationVector = cam.transform.rotation.eulerAngles;
-        rotationVector.y += (1 / distance) * offset_tir_horizontal; // axe horizontal de visée 
-        rotationVector.x -= (1 / distance) * offset_tir_vertical; // axe vertical de visée
-        */
         GameObject projo;
         //Pour le local
         if (PhotonNetwork.connected == false)
@@ -136,10 +114,12 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
         }
 
         Projectile projectileScript = projo.GetComponent<Projectile>();
-        if (projectileScript != null)
+        if (projectileScript)
         {
-            projectileScript.AOEActivated = hasAnAOE;
+            projectileScript.SetAutoAttack();
             projectileScript.SetDamage(impactDamage, splashDamage);
+            projectileScript.SetSender(gameObject);
+            projectileScript.AOEActivated = hasAnAOE;
             projectileScript.SetSpeed(projectileSpeed);
             //dire de quelle equipe vient le projectile pour ne pas TK
             PlayerController playerControllerScript = this.gameObject.GetComponent<PlayerController>();
