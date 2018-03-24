@@ -13,11 +13,11 @@ public class HealthTagTrigger : Photon.PUNBehaviour
 
     private void Start()
     {
-
+        zoneEffect.GetComponent<HealthTagEffect>().setOwner(Owner);
     }
 
     public void OnTriggerEnter(Collider other)
-    {
+    {/*
         if (other.tag == "Player")
         {
             //déclenche le piege et fait apparaitre la zone
@@ -25,19 +25,14 @@ public class HealthTagTrigger : Photon.PUNBehaviour
             {
                 PhotonNetwork.Instantiate(zoneEffect.name, this.transform.position, Quaternion.identity, 0);
                 notAlreadyActivate = false;
+                photonView.RPC("DestroyTrap", PhotonTargets.All);
                 //supprime une charge (on ne peut pas remplacer un piège en cd ou activer)
-                Owner.GetComponent<HealthTag>().nbCharges--;
-                Owner.GetComponent<HealthTag>().nbtrap.text = "" + Owner.GetComponent<HealthTag>().nbCharges;
+                Owner.GetComponent<PGlace>().nbCharges--;
+                Owner.GetComponent<PGlace>().nbtrap.text = "" + Owner.GetComponent<PGlace>().nbCharges;
                 //démarre la coroutine pour recuperer une charge dés que le piège est activé
-                Owner.GetComponent<HealthTag>().startCoroutineGetACharge = true;
+                Owner.GetComponent<PGlace>().startCoroutineGetACharge = true;
             }
-        }
-    }
-
-    [PunRPC]
-    void DestroyTrap()
-    {
-        Destroy(this.transform.gameObject);
+        }*/
     }
 
 
