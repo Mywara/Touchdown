@@ -2160,9 +2160,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf34166058c2bd47ad085936e9bfe9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagVisualisationPrefab: {fileID: 1970358345820278, guid: bc210df87ffb02248aec367a91493ea3,
+  tagVisualisationPrefab: {fileID: 1039843303556874, guid: f3cdfbb0d33dfe443ba48849151fed0c,
     type: 2}
-  tagPrefab: {fileID: 1477956848800794, guid: bc210df87ffb02248aec367a91493ea3, type: 2}
+  tagPrefab: {fileID: 1970358345820278, guid: bc210df87ffb02248aec367a91493ea3, type: 2}
   readyToPlace: 0
   nbCharges: 1
   cooldown: 20
