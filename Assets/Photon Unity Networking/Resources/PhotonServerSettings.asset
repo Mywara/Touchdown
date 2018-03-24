@@ -84,4 +84,6 @@ MonoBehaviour:
   - ResetPhase
   - NewPlayerUnRdy
   - NewPlayerHaveGenMap
+  - SetMyOwner
+  - DestroyMovementScript
   DisableAutoOpenWizard: 1

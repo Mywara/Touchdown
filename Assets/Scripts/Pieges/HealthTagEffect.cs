@@ -8,23 +8,35 @@ public class HealthTagEffect : Photon.PunBehaviour
     // Use this for initialization
     public int HealthContenance = 500;
     private Animator anim;
-    private int team;
     private GameObject owner;
 
-    private List<GameObject> directHitObjs;
+    private List<GameObject> directHitObjs = new List<GameObject>();
 
     void Start()
     {
 
+    }
 
+    public void setOwner(GameObject o)
+    {
+        owner = o;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (HealthContenance <= 0) { PhotonNetwork.Destroy(this.gameObject); return; }
+        if (HealthContenance <= 0) {
+            PhotonNetwork.Destroy(this.gameObject);
+            owner.GetComponent<HealthTag>().startCoroutineGetACharge = true;
+            return;
+        }
 
-        foreach (GameObject directHitObj in directHitObjs.ToArray())
+        if(directHitObjs == null)
+        {
+            Debug.Log("Personne ne se trouve dans la zone de heal");
+        }
+
+        foreach (GameObject directHitObj in directHitObjs)
         {
             if(HealthContenance > 0 && directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value < directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthMax)
             {
@@ -40,9 +52,9 @@ public class HealthTagEffect : Photon.PunBehaviour
         }
     }
 
-    public void OnTriggerStay(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Entrée dans le OnTriggerStay du Heal");
+        Debug.Log("Entrée dans le OnTriggerEnter du Heal");
         if (!photonView.isMine && PhotonNetwork.connected == true)
         {
             Debug.Log("PhotonView");
@@ -63,7 +75,7 @@ public class HealthTagEffect : Photon.PunBehaviour
                 PlayerController playerControllerScript = otherGO.GetComponent<PlayerController>();
                 if (playerControllerScript != null)
                 {
-                    if (playerControllerScript.Team == this.team)
+                    if (playerControllerScript.team == owner.GetComponent<PlayerController>().team)
                     {
                         Debug.Log("Friend hit, not FF, do nothing");
                         return;
@@ -72,22 +84,31 @@ public class HealthTagEffect : Photon.PunBehaviour
             }
         }
 
-        if (!directHitObjs.Contains(otherGO) && otherGO.tag.Equals("Player") && otherGO.GetComponent<PlayerController>().team == team)
+        Debug.Log("Ajout ?");
+        if (otherGO.tag.Equals("Player") &&
+            !directHitObjs.Contains(otherGO) &&
+            otherGO.GetComponent<PlayerController>().team == owner.GetComponent<PlayerController>().team)
         {
+            Debug.Log(otherGO.name + " a été ajouté à la liste des alliés à soigner");
             directHitObjs.Add(otherGO);
+            Debug.Log(otherGO.name + " appartient à la liste : " + directHitObjs.Contains(otherGO) + " " + directHitObjs.Count);
         }
+
     }
     
     public void OnTriggerExit(Collider other)
     {
         if(other.tag == "Player")
         {
+            Debug.Log(other.name + " suppression de la liste");
             directHitObjs.Remove(other.gameObject);
+            Debug.Log(other.name + " appartient à la liste : " + directHitObjs.Contains(other.gameObject) + " " + directHitObjs.Count);
         }
     }
 
     private void ApplyHealing(GameObject target, int heal)
     {
+        Debug.Log("Heal de " + heal);
         if (PhotonNetwork.connected == true)
         {
             PUNTutorial.HealthScript healthScript = target.GetComponent<PUNTutorial.HealthScript>();

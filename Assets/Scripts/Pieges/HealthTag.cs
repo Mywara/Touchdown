@@ -11,6 +11,7 @@ public class HealthTag : Photon.PUNBehaviour
     private GameObject tagVisualisation;
     private GameObject healthTag;
     public bool readyToPlace = false;
+    private int nbChargesMax = 1;
     public int nbCharges = 1;
     private AutoAttaqueRanged autoAttaqueRanged;
     //cooldown voulu + temps d'activation du pièges
@@ -64,13 +65,14 @@ public class HealthTag : Photon.PUNBehaviour
         {
 
 
-            healthTag = PhotonNetwork.Instantiate(tagPrefab.name, tagVisualisation.transform.position, Quaternion.identity, 0);
-            PhotonNetwork.Destroy(healthTag);
+            healthTag = PhotonNetwork.Instantiate(tagPrefab.name, new Vector3(tagVisualisation.transform.position.x, tagVisualisation.transform.position.y + 0.1f, tagVisualisation.transform.position.z), Quaternion.identity, 0);
 
             readyToPlace = false;
-            Destroy(tagVisualisation);
+            //Destroy(healthTag.gameObject.GetComponent<PGlaceMovement>());
+            photonView.RPC("DestroyMovementScript", PhotonTargets.All, "PGlaceMovement");
             autoAttaqueRanged.inModePlacing = false;
-            photonView.RPC("SetOwner", PhotonTargets.All, this.photonView.viewID, healthTag.GetPhotonView().viewID);
+            photonView.RPC("SetMyOwner", PhotonTargets.All, this.photonView.viewID, healthTag.GetPhotonView().viewID);
+            nbCharges--;
 
         }
     }
@@ -86,7 +88,7 @@ public class HealthTag : Photon.PUNBehaviour
                 cd.text = "" + coolDown;
             }
 
-            if (coolDown <= 0)
+            if (coolDown <= 0 && nbCharges < nbChargesMax)
             {
                 nbCharges++;
                 nbtrap.text = "" + nbCharges;
@@ -94,5 +96,25 @@ public class HealthTag : Photon.PUNBehaviour
             yield return null;
         }
 
+    }
+
+    [PunRPC]
+    void SetMyOwner(int idt, int idTrap)
+    {
+        GameObject owner = PhotonView.Find(idt).gameObject;
+        healthTag.GetComponent<HealthTagTrigger>().Owner = owner;
+        Debug.Log("Owner : " + owner.name + " , This : " + PUNTutorial.GameManager.localPlayer.name);
+        if (owner.GetComponent<PlayerController>().Team != PUNTutorial.GameManager.localPlayer.GetComponent<PlayerController>().Team)
+        {
+            Debug.Log("render to false");
+            healthTag.GetComponent<Renderer>().enabled = false;
+        }
+    }
+
+    [PunRPC]
+    void DestroyMovementScript(string scriptName)
+    {
+        Destroy(healthTag.gameObject.GetComponent(scriptName));
+        Destroy(tagVisualisation);
     }
 }
