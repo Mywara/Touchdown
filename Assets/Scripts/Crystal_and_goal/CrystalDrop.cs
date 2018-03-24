@@ -12,7 +12,7 @@ public class CrystalDrop : Photon.PUNBehaviour
     private void OnTriggerEnter(Collider target)
     {
 
-        if(!photonView.isMine && PhotonNetwork.connected == true)
+        if (!photonView.isMine && PhotonNetwork.connected == true)
         {
             return;
         }
@@ -22,12 +22,12 @@ public class CrystalDrop : Photon.PUNBehaviour
             //Debug.Log("crystal_player collider OK!");
             crys = target.transform.root.gameObject;
 
-            if(this.transform.root.gameObject != crys.GetComponent<Crystal>().justDroppedCrystal)
+            if (this.transform.root.gameObject != crys.GetComponent<Crystal>().justDroppedCrystal)
             {
                 crys.GetComponent<Crystal>().photonView.RPC("PickupCrystal", PhotonTargets.All, this.transform.root.gameObject.GetPhotonView().viewID);
             }
 
-            
+
         }
     }
 
@@ -53,11 +53,9 @@ public class CrystalDrop : Photon.PUNBehaviour
         {
 
             //Debug.Log("Le boutton Drop est pressé");
-
             crys.GetComponent<Crystal>().photonView.RPC("UpdateJustDroppedCrystal", PhotonTargets.All);
 
             crys.GetComponent<Crystal>().photonView.RPC("LeaveOnGround", PhotonTargets.All);
-
         }
 
     }

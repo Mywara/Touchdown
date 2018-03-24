@@ -18,6 +18,8 @@ public class ShoulderHit : Photon.PunBehaviour
     private bool syncTeam = true;
     private GameObject owner;
 
+    private GameObject crystal;
+
     public void Start()
     {
         damage = Constants.SHOULDER_DAMAGE;
@@ -32,6 +34,7 @@ public class ShoulderHit : Photon.PunBehaviour
     public void SetOwner(GameObject owner)
     {
         this.owner = owner;
+        crystal = owner.GetComponent<CrystalDrop>().crys;
     }
 
     //fonction pour le repoussement des ennemis
@@ -64,6 +67,13 @@ public class ShoulderHit : Photon.PunBehaviour
         if (PhotonNetwork.connected == true)
         {
             target.GetComponent<PlayerController>().photonView.RPC("Stun", PhotonTargets.All, stunTimer);
+
+            if (crystal.GetComponent<Crystal>().playerHolding == target.transform.root.gameObject)
+            {
+                crystal.GetComponent<Crystal>().photonView.RPC("UpdateJustDroppedCrystal", PhotonTargets.All);
+
+                crystal.GetComponent<Crystal>().photonView.RPC("LeaveOnGround", PhotonTargets.All);
+            }
         }
         else
         {
