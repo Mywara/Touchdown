@@ -102,6 +102,8 @@ public class CurseDoT : Photon.PunBehaviour
             Debug.Log("Ajout dans la liste");
             directHitObjs.Add(directHitObj);
             ApplyDamage(directHitObj, damage);
+            //On maudit ici l'ennemi
+            directHitObj.GetComponent<PlayerController>().Curse();
             dotNumber.Add(1);
             count++;
         }
@@ -121,20 +123,24 @@ public class CurseDoT : Photon.PunBehaviour
         {
             nextFire = Time.time + fireRate;
             Debug.Log("Entrée Dans l'update de CURSE DOT");
-            //pour chaque personnage touché appliquer la dot
-            //si on a atteint le nombre maximum de tic, supprimer
-            //l'élément de la liste
+            //pour chaque personnage touché appliquer la dot,
+            //si le nombre maximum de tic est atteint => supprimer l'élément de la liste
             for (int i = 0; i < directHitObjs.Count; i++)
             {
                 Debug.Log("Obj in CURSEDOT : " + directHitObjs[i].name);
                 if (dotNumber[i] < Constants.CURSEDOT_TIC)
                 {
                     ApplyDamage(directHitObjs[i], damage);
+
+                    //on reset le timer de la malédiction afin de faire durer la malédiction plus longtemps
+                    directHitObjs[i].GetComponent<PlayerController>().ResetCurseTimer();
+
                     dotNumber[i]++;
                 }
             }
 
             bool change = false;
+            //Propagation de la malédiction aux ennemis proches du dernier ennemi touché
             if (count < Constants.CURSEDOT_TARGETS || !stopPropag)
             {
                 Debug.Log("Tentative de propagation");
@@ -157,6 +163,8 @@ public class CurseDoT : Photon.PunBehaviour
                                 {
                                     Debug.Log("Propagation à " + objInAOE.name);
                                     ApplyDamage(objInAOE, damage);
+                                    //On maudit ici l'ennemi
+                                    playerControllerScript.Curse();
                                     directHitObjs.Add(objInAOE);
                                     dotNumber.Add(1);
                                     count++;

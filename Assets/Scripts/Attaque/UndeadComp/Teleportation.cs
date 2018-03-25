@@ -83,13 +83,16 @@ public class Teleportation : Photon.PunBehaviour, IPunObservable
         if(PhotonNetwork.connected == true)
         {
             owner.GetComponent<PlayerController>().photonView.RPC("SetPosition", PhotonTargets.All, target.transform.position - target.transform.forward);
-            //owner.GetComponent<PlayerController>().photonView.RPC("LookAt", PhotonTargets.All, target.transform.forward);
-            //owner.GetComponent<PlayerController>().cameraFollow.transform.forward = target.transform.forward;
         }
         else
         {
             owner.transform.position = target.transform.position - target.transform.forward;
             owner.transform.forward = target.transform.forward;
+        }
+        //On maudit la cible si c'est un ennemi
+        if (target.GetComponent<PlayerController>().team != team)
+        {
+            target.GetComponent<PlayerController>().Curse();
         }
     }
 

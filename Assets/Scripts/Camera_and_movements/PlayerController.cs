@@ -25,6 +25,10 @@ public class PlayerController : Photon.PunBehaviour
     private float timeStun = 0; // sert à savoir jusqu'à quand on est stun
     private bool isStun = false; // sert à savoir si on stun
 
+    private bool isCursed = false;
+    private float lastCurseHit; // sert à savoir quand la cible a été maudit pour la dernière fois
+    private float curseDuration = 2.5f; // représente la durée en seconde de la malédiction
+
     // Script pour controler l'orientation de la camera
     private CameraFollow cameraFollowScript;
 
@@ -113,6 +117,9 @@ public class PlayerController : Photon.PunBehaviour
 
     void Update()
     {
+        //Le personnage n'est plus maudit si la malédiction a durée assez longtemps
+        if(isCursed && Time.time > lastCurseHit + curseDuration) { isCursed = false; }
+
         if (!photonView.isMine && PhotonNetwork.connected == true)
         {
             return;
@@ -176,6 +183,18 @@ public class PlayerController : Photon.PunBehaviour
     public void OnCollisionExit(Collision collision)
     {
         onCollision = false;
+    }
+
+    // Applique la malédiction au personnage
+    public void Curse()
+    {
+        isCursed = true;
+        lastCurseHit = Time.time;
+    }
+
+    public void ResetCurseTimer()
+    {
+        lastCurseHit = Time.time;
     }
 
     [PunRPC]
