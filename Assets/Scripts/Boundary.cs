@@ -7,19 +7,9 @@ public class Boundary : MonoBehaviour {
 
     public static Boundary instance;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     void Awake()
     {
-        
         if (instance != null)
         {
             DestroyImmediate(gameObject);
@@ -33,6 +23,24 @@ public class Boundary : MonoBehaviour {
         GameObject otherGO = other.transform.root.gameObject;
         if(otherGO.tag.Equals("Player"))
         {
+            if(Crystal.instance.playerHolding == otherGO)
+            {
+                Debug.Log("Player colliding with boundary holds the crystal");
+
+                if (PhotonNetwork.connected)
+                {
+                    Crystal.instance.photonView.RPC("ResetCrystalPosition", PhotonTargets.All);
+                    Crystal.instance.playerHolding = null;
+                    Crystal.instance.isHeld = false;
+                }
+                else
+                {
+                    Crystal.instance.ResetCrystalPosition();
+                    Crystal.instance.playerHolding = null;
+                    Crystal.instance.isHeld = false;
+                }
+            }
+
             HealthScript healthScript = otherGO.GetComponent<HealthScript>();
             if(healthScript != null)
             {
@@ -50,6 +58,21 @@ public class Boundary : MonoBehaviour {
             {
                 Debug.Log("Player don't have a HealthScript");
             }
+        }
+        else if(otherGO.tag.Equals("Crystal"))
+        {
+            Debug.Log("Crystal collides with boundary");
+
+            Crystal crystalScript = otherGO.GetComponent<Crystal>();
+            if (crystalScript)
+            {
+                if (PhotonNetwork.connected)
+                    crystalScript.photonView.RPC("ResetCrystalPosition", PhotonTargets.All);
+                else
+                    crystalScript.ResetCrystalPosition();
+            }
+            else
+                Debug.Log("Crystal colliding with the boundary does not have a Crystal script");
         }
         else
         {

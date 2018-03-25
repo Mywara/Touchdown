@@ -78,7 +78,10 @@ namespace PUNTutorial
                 dying = false;
                 RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.All, PhotonNetwork.player.ID);
                 //lache le crystal s'il était tenu par le joueur
-                Crystal.instance.photonView.RPC("LeaveOnGround", PhotonTargets.All);
+                if (Crystal.instance.playerHolding == gameObject)
+                {
+                    Crystal.instance.photonView.RPC("LeaveOnGround", PhotonTargets.All);
+                }
             }
             else
             {

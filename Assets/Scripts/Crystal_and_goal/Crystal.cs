@@ -65,9 +65,7 @@ public class Crystal : Photon.PUNBehaviour
     [PunRPC]
     public void ResetCrystalPosition()
     {
-        Vector3 pos = this.transform.position;
-        pos = startingPosition;
-        this.transform.position = pos;
+        transform.position = startingPosition;
     }
 
 
