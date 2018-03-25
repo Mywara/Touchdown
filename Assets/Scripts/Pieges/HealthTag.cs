@@ -19,6 +19,8 @@ public class HealthTag : Photon.PUNBehaviour
     public bool startCoroutineGetACharge = false;
     public Text nbtrap;
     public Text cd;
+    [HideInInspector]
+    public bool inGame = true;
 
     // Use this for initialization
     void Start()
@@ -34,46 +36,90 @@ public class HealthTag : Photon.PUNBehaviour
         {
             return;
         }
-        if (startCoroutineGetACharge)
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            StartCoroutine(GetaCharges(cooldown));
-            startCoroutineGetACharge = false;
+            inGame = !inGame;
         }
-
-        //désactive l'utilisation de la compétence sans poser le piege
-        if (readyToPlace && Input.GetKeyDown(KeyCode.C))
+        if (inGame)
         {
-
-            Destroy(tagVisualisation);
-            readyToPlace = false;
-            autoAttaqueRanged.inModePlacing = false;
-        }
-        //active la previsualisation pour placer le piege
-        if (Input.GetKeyDown(KeyCode.C) && !readyToPlace)
-        {
-            RaycastHit hit;
-            Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out hit);
-            if (hit.transform.tag == "Floor")
+            if (startCoroutineGetACharge)
             {
-                tagVisualisation = Instantiate(tagVisualisationPrefab, hit.point, Quaternion.identity);
+                StartCoroutine(GetaCharges(cooldown));
+                startCoroutineGetACharge = false;
             }
-            readyToPlace = true;
-            autoAttaqueRanged.inModePlacing = true;
+
+            //désactive l'utilisation de la compétence sans poser le piege
+            if (readyToPlace && Input.GetKeyDown(KeyCode.C))
+            {
+                Destroy(tagVisualisation);
+                readyToPlace = false;
+            }
+            //active la previsualisation pour placer le piege
+            if (Input.GetKeyDown(KeyCode.C) && !readyToPlace && nbCharges > 0)
+            {
+                RaycastHit hit;
+                Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out hit);
+                if (hit.transform.tag == "Floor")
+                {
+                    tagVisualisation = Instantiate(tagVisualisationPrefab, hit.point, Quaternion.identity);
+                }
+                readyToPlace = true;
+                autoAttaqueRanged.inModePlacing = true;
+            }
+            //pose le piege (si des charges sont disponible)
+            if (readyToPlace && Input.GetMouseButtonDown(0) && nbCharges > 0)
+            {
+                healthTag = PhotonNetwork.Instantiate(tagPrefab.name, new Vector3(tagVisualisation.transform.position.x, tagVisualisation.transform.position.y + 0.1f, tagVisualisation.transform.position.z), Quaternion.identity, 0);
+
+                readyToPlace = false;
+                //Destroy(healthTag.gameObject.GetComponent<PGlaceMovement>());
+                photonView.RPC("DestroyMovementScript", PhotonTargets.All, "PGlaceMovement");
+                autoAttaqueRanged.inModePlacing = false;
+                photonView.RPC("SetMyOwner", PhotonTargets.All, this.photonView.viewID, healthTag.GetPhotonView().viewID);
+                nbCharges--;
+            }
         }
-        //pose le piege (si des charges sont disponible)
-        if (readyToPlace && Input.GetMouseButtonDown(0) && nbCharges > 0)
+        else // en mode intermanche
         {
+            //désactive l'utilisation de la compétence sans poser le piege
+            if (readyToPlace && Input.GetKeyDown(KeyCode.C))
+            {
+                Destroy(tagVisualisation);
+                readyToPlace = false;
+            }
+            //active la previsualisation pour placer le piege
+            if (Input.GetKeyDown(KeyCode.C) && !readyToPlace && nbCharges > 0)
+            {
+                RaycastHit hit;
+                //on instancie la ou est la souris
+                Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);
+                if (this.transform.GetComponent<PlayerController>().team == 1 && hit.point.z < 0)
+                {
+                    tagVisualisation = Instantiate(tagVisualisationPrefab, hit.point, Quaternion.identity);
+                    tagVisualisation.GetComponent<PGlaceMovement>().Owner = this.transform.gameObject;
+                    tagVisualisation.GetComponent<PGlaceMovement>().inGame = false;
+                    readyToPlace = true;
+                }
+                if (this.transform.GetComponent<PlayerController>().team == 2 && hit.point.z > 0)
+                {
+                    tagVisualisation = Instantiate(tagVisualisationPrefab, hit.point, Quaternion.identity);
+                    tagVisualisation.GetComponent<PGlaceMovement>().Owner = this.transform.gameObject;
+                    tagVisualisation.GetComponent<PGlaceMovement>().inGame = false;
+                    readyToPlace = true;
+                }
+            }
+            //pose le piege (si des charges sont disponible)
+            if (readyToPlace && Input.GetMouseButtonDown(0) && nbCharges > 0)
+            {
+                healthTag = PhotonNetwork.Instantiate(tagPrefab.name, new Vector3(tagVisualisation.transform.position.x, tagVisualisation.transform.position.y + 0.1f, tagVisualisation.transform.position.z), Quaternion.identity, 0);
+                readyToPlace = false;
+                //Destroy(healthTag.gameObject.GetComponent<PGlaceMovement>());
+                photonView.RPC("DestroyMovementScript", PhotonTargets.All, "PGlaceMovement");
+                autoAttaqueRanged.inModePlacing = false;
+                photonView.RPC("SetMyOwner", PhotonTargets.All, this.photonView.viewID, healthTag.GetPhotonView().viewID);
+                nbCharges--;
 
-
-            healthTag = PhotonNetwork.Instantiate(tagPrefab.name, new Vector3(tagVisualisation.transform.position.x, tagVisualisation.transform.position.y + 0.1f, tagVisualisation.transform.position.z), Quaternion.identity, 0);
-
-            readyToPlace = false;
-            //Destroy(healthTag.gameObject.GetComponent<PGlaceMovement>());
-            photonView.RPC("DestroyMovementScript", PhotonTargets.All, "PGlaceMovement");
-            autoAttaqueRanged.inModePlacing = false;
-            photonView.RPC("SetMyOwner", PhotonTargets.All, this.photonView.viewID, healthTag.GetPhotonView().viewID);
-            nbCharges--;
-
+            }
         }
     }
 
