@@ -102,7 +102,7 @@ namespace PUNTutorial
             localPlayer = PhotonNetwork.Instantiate(characterToLoad, new Vector3(0, 20f, 0), Quaternion.identity, 0);
             localPlayer.SetActive(false);
             RoomManager.instance.photonView.RPC("AutoJoinTeam", PhotonTargets.AllBufferedViaServer, PhotonNetwork.player.ID, localPlayer.GetPhotonView().viewID);
-            RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.AllViaServer, PhotonNetwork.player.ID, 5.0f);
+            RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.AllViaServer, PhotonNetwork.player.ID, 0.0F);
         }
 
         public void Quit()
@@ -137,6 +137,11 @@ namespace PUNTutorial
             {
                 this.levelToLoad = value;
             }
+        }
+
+        public override void OnLeftRoom()
+        {
+            PhotonNetwork.LoadLevel("Lobby");
         }
     }
 }

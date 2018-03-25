@@ -35,10 +35,12 @@ public class PGlace : Photon.PUNBehaviour
         {
             return;
         }
+        /*
         if (Input.GetKeyDown(KeyCode.L))
         {
             inGame = !inGame;
         }
+        */
         if (inGame) { 
             if (startCoroutineGetACharge)
             {
@@ -174,5 +176,10 @@ public class PGlace : Photon.PUNBehaviour
             Debug.Log("render to false");
             trap.GetComponent<Renderer>().enabled = false;
         }
+    }
+
+    public void SwitchPlayerMode()
+    {
+        inGame = !inGame;
     }
 }
