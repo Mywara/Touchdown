@@ -28,6 +28,8 @@ namespace PUNTutorial
                     if (this.gameObject.tag == "GoalG" && other.gameObject.GetComponent<PlayerController>().team == 0)
                     {
                         scoreUpdate.scoreG += 1;
+                        Debug.Log("GOAL GAUCHE !");
+                        RoomManager.instance.GoalMarked();
                         GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("ChangeScore", PhotonTargets.All);
                         if (scoreUpdate.scoreG >= endScore)
                         {
@@ -40,6 +42,8 @@ namespace PUNTutorial
                     else if (this.gameObject.tag == "GoalD" && other.gameObject.GetComponent<PlayerController>().team == 1)
                     {
                         scoreUpdate.scoreD += 1;
+                        Debug.Log("GOAL DROITE !");
+                        RoomManager.instance.GoalMarked();
                         GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("ChangeScore", PhotonTargets.All);
                         if (scoreUpdate.scoreD >= endScore)
                         {

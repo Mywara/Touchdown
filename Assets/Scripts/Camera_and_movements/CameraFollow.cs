@@ -59,6 +59,7 @@ public class CameraFollow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        /*
         if (Input.GetKeyDown(KeyCode.L))
         {
             inGame = !inGame;
@@ -72,7 +73,7 @@ public class CameraFollow : MonoBehaviour {
             Cursor.visible = true;
 
         }
-
+        */
         if (inGame) { 
         // Si on a quitté le jeu (Alt+Tab par exemple) et qu'on revient dessus on rebloque le curseur.
         if (Cursor.lockState != CursorLockMode.Locked)
@@ -177,4 +178,16 @@ public class CameraFollow : MonoBehaviour {
         cameraActive = true;
     }
 
+    public void SwitchPlayerMode()
+    {
+        inGame = !inGame;
+        //vue intergame
+        Quaternion localRotation = Quaternion.Euler(75, 0, 0.0f);
+        transform.rotation = localRotation;
+        transform.position = new Vector3(0, 10, 0);
+        // deFige le curseur 
+        Cursor.lockState = CursorLockMode.None;
+        // Rend le curseur visible
+        Cursor.visible = true;
+    }
 }

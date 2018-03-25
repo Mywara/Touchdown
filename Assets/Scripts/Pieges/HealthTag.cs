@@ -36,10 +36,12 @@ public class HealthTag : Photon.PUNBehaviour
         {
             return;
         }
+        /*
         if (Input.GetKeyDown(KeyCode.L))
         {
             inGame = !inGame;
         }
+        */
         if (inGame)
         {
             if (startCoroutineGetACharge)
@@ -162,5 +164,10 @@ public class HealthTag : Photon.PUNBehaviour
     {
         Destroy(healthTag.gameObject.GetComponent(scriptName));
         Destroy(tagVisualisation);
+    }
+
+    public void SwitchPlayerMode()
+    {
+        inGame = !inGame;
     }
 }

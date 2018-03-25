@@ -83,6 +83,9 @@ MonoBehaviour:
   respawnHeight: 2
   respawnTeam1: {fileID: 0}
   respawnTeam2: {fileID: 0}
+  waitForStartTime: 10
+  stratPhaseTime: 90
+  readyForNewPhase: {fileID: 0}
 --- !u!114 &114893022871882240
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -124,10 +124,12 @@ public class PlayerController : Photon.PunBehaviour
         {
             return;
         }
+        /*
         if (Input.GetKeyDown(KeyCode.L))
         {
             inGame = !inGame;
         }
+        */
         if (inGame)
         {
 
@@ -390,5 +392,10 @@ public class PlayerController : Photon.PunBehaviour
             isStun = false;
         }
 
+    }
+
+    public void SwitchPlayerMode()
+    {
+        inGame = !inGame;
     }
 }

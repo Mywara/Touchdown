@@ -87,4 +87,13 @@ MonoBehaviour:
   - SetMyOwner
   - DestroyMovementScript
   - AddBouncingForce
+  - GoalMarked
+  - StartGamePhase
+  - PlayPhase
+  - StratPhase
+  - PauseGameTimer
+  - ResumeGameTimer
+  - StartCustomCountdownTime
+  - SwitchToStratMode
+  - SwitchPlayerMode
   DisableAutoOpenWizard: 1
