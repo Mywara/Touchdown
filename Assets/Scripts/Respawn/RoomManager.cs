@@ -176,6 +176,11 @@ public class RoomManager : Photon.PunBehaviour {
         return playPhase;
     }
 
+    public bool IsInWaitForStartPhase()
+    {
+        return waitForStart;
+    }
+
     [PunRPC]
     public void RespawnPlayer(int playerID, float timeBeforeRespawn)
     {

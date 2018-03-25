@@ -86,7 +86,79 @@ namespace PUNTutorial
                 if (levelToLoad.Equals("RandomMap") && PhotonNetwork.isMasterClient)
                 {
                     Debug.Log("should load map");
-                    RoomManager.instance.photonView.RPC("SetMapSize", PhotonTargets.AllBuffered, 5, 3);
+                    int nbPlayerMaxInRoom = PhotonNetwork.room.MaxPlayers;
+                    int nbLigne = 5;
+                    int nbColonne = 3;
+                    switch (nbPlayerMaxInRoom)
+                    {
+                        case 1:
+                            {
+                                nbLigne = 3;
+                                nbColonne = 1;
+                                break;
+                            }
+                        case 2:
+                            {
+                                nbLigne = 3;
+                                nbColonne = 1;
+                                break;
+                            }
+                        case 3:
+                            {
+                                nbLigne = 3;
+                                nbColonne = 2;
+                                break;
+                            }
+                        case 4:
+                            {
+                                nbLigne = 3;
+                                nbColonne = 2;
+                                break;
+                            }
+                        case 5:
+                            {
+                                nbLigne = 4;
+                                nbColonne = 2;
+                                break;
+                            }
+                        case 6:
+                            {
+                                nbLigne = 4;
+                                nbColonne = 2;
+                                break;
+                            }
+                        case 7:
+                            {
+                                nbLigne = 4;
+                                nbColonne = 3;
+                                break;
+                            }
+                        case 8:
+                            {
+                                nbLigne = 4;
+                                nbColonne = 3;
+                                break;
+                            }
+                        case 9:
+                            {
+                                nbLigne = 5;
+                                nbColonne = 3;
+                                break;
+                            }
+                        case 10:
+                            {
+                                nbLigne = 5;
+                                nbColonne = 3;
+                                break;
+                            }
+                        default:
+                            {
+                                nbLigne = 5;
+                                nbColonne = 3;
+                                break;
+                            }
+                    }
+                    RoomManager.instance.photonView.RPC("SetMapSize", PhotonTargets.AllBuffered, nbLigne, nbColonne);
                     seeds = RoomManager.instance.GenerateSeed();
                     RoomManager.instance.photonView.RPC("GenerateMap", PhotonTargets.AllBufferedViaServer, seeds);
                 }
