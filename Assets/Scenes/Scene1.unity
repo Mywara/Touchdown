@@ -267,9 +267,25 @@ Prefab:
       propertyPath: instantiationId
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114063899310926170, guid: 693141411d0f83242bee7b24ab752180,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1595895042}
+    - target: {fileID: 114063899310926170, guid: 693141411d0f83242bee7b24ab752180,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Ready
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 693141411d0f83242bee7b24ab752180, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &620598878 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114063899310926170, guid: 693141411d0f83242bee7b24ab752180,
+    type: 2}
+  m_PrefabInternal: {fileID: 620598877}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &897708809
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,9 +536,30 @@ Prefab:
       propertyPath: respawnTeam2
       value: 
       objectReference: {fileID: 2102157161}
+    - target: {fileID: 114010434499537474, guid: 994216e58d0e63042bb20cd797ea6afc,
+        type: 2}
+      propertyPath: synchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114010434499537474, guid: 994216e58d0e63042bb20cd797ea6afc,
+        type: 2}
+      propertyPath: ObservedComponents.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114045597979380404, guid: 994216e58d0e63042bb20cd797ea6afc,
+        type: 2}
+      propertyPath: readyForNewPhase
+      value: 
+      objectReference: {fileID: 620598878}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 994216e58d0e63042bb20cd797ea6afc, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1595895042 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114045597979380404, guid: 994216e58d0e63042bb20cd797ea6afc,
+    type: 2}
+  m_PrefabInternal: {fileID: 1595895041}
+  m_Script: {fileID: 11500000, guid: 293feb7bacc7ca549aa0f4ae7e45115b, type: 3}
 --- !u!1001 &1627511554
 Prefab:
   m_ObjectHideFlags: 0
@@ -18032,6 +18069,68 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 045da8af03b59324face0f920a57af3d, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &2095884612
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2095884615}
+  - component: {fileID: 2095884614}
+  - component: {fileID: 2095884613}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2095884613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2095884612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &2095884614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2095884612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 5
+--- !u!4 &2095884615
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2095884612}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2102157160
 Prefab:
   m_ObjectHideFlags: 0

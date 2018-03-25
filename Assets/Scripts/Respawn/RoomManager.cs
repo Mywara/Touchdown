@@ -60,6 +60,7 @@ public class RoomManager : Photon.PunBehaviour {
         if (scene.name.Equals("Scene1"))
         {
             PUNTutorial.GameManager.instance.SpawnPlayerInTheGame();
+            photonView.RPC("StartGamePhase", PhotonTargets.AllViaServer);
             Debug.Log("Scene1 detected, spawn the player, no need to wait for other player to load map");
         }
     }
