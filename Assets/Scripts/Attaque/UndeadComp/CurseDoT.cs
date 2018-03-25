@@ -64,9 +64,9 @@ public class CurseDoT : Photon.PunBehaviour
 
     //Dans le OnTriggerStay on applique le dégat au premier ennemi touché la
     //propagation de la malédiction se fera dans l'update
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (directHitObjs != null) return;
+        if (directHitObjs.Count != 0) { return; }
 
         Debug.Log("Entrée dans le OnTriggerStay CURSE");
         if (!photonView.isMine && PhotonNetwork.connected == true)
@@ -111,15 +111,17 @@ public class CurseDoT : Photon.PunBehaviour
 
     private void Update()
     {
+        Debug.Log("Entrée dans le Update du CurseDot 1");
+        //on dit au gameObject de se détruire si le projectile sort de sa range
+        if(directHitObjs.Count != 0 || Vector3.Distance(this.transform.position, owner.transform.position) > radius) end = true;
 
         //la destruction de tous les objects se fait lorsque tous les dégats sont appliqués
-        end = true;
         foreach (int num in dotNumber)
         {
             if (num < Constants.CURSEDOT_TIC) { end = false; }
         }
 
-        if (Time.time > nextFire && !end)
+        if (directHitObjs.Count != 0 && Time.time > nextFire && !end)
         {
             nextFire = Time.time + fireRate;
             Debug.Log("Entrée Dans l'update de CURSE DOT");
@@ -178,22 +180,22 @@ public class CurseDoT : Photon.PunBehaviour
             }
             if (!change) { stopPropag = true; }
         }
-        /*
+        
         if (end)
         {
             Debug.Log("before destroy");
             PhotonNetwork.Destroy(this.gameObject);
             Debug.Log("Destroy");
         }
-        */
+        
     }
-
+    /*
     private void OnTriggerExit(Collider other)
     {
         directHitObjs.Remove(other.transform.root.gameObject);
         PhotonNetwork.Destroy(this.gameObject);
     }
-
+    */
     private void ApplyDamage(GameObject target, int damage)
     {
         if (PhotonNetwork.connected == true)

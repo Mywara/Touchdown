@@ -69,13 +69,13 @@ public class UndeadComp : Photon.PunBehaviour
             //Pour le local
             if (PhotonNetwork.connected == false)
             {
-                projo = Instantiate(projectilePrefab1, projectileSpawn1.position, Quaternion.identity).gameObject as GameObject;
+                projo = Instantiate(projectilePrefab1, projectileSpawn1.position, projectileSpawn1.rotation).gameObject as GameObject;
             }
             else
             {
 
                 //Pour le reseau
-                projo = PhotonNetwork.Instantiate(this.projectilePrefab1.name, projectileSpawn1.position, Quaternion.identity, 0);
+                projo = PhotonNetwork.Instantiate(this.projectilePrefab1.name, projectileSpawn1.position, projectileSpawn1.rotation, 0);
 
             }
 

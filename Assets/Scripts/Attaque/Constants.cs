@@ -36,9 +36,8 @@ public static class Constants : object {
      * Static values associated to the CurseDoT
      */
     public static int CURSEDOT_DAMAGE = 4;
-    //3 unités de profondeurs - enfin peut toucher trois ennemis 
-    //alignés et qui sont collés les uns aux autres
-    public static float CURSEDOT_RADIUS = 3;
+    //Indique la range du projectile
+    public static float CURSEDOT_RADIUS = 12;
     //nombre de tics appliqué à la cible
     public static float CURSEDOT_TIC = 4;
     //nombre de cible maximum pouvant être touchées

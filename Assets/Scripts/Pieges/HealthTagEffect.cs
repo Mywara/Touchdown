@@ -31,7 +31,7 @@ public class HealthTagEffect : Photon.PunBehaviour
             return;
         }
 
-        if(directHitObjs == null)
+        if(directHitObjs.Count == 0)
         {
             Debug.Log("Personne ne se trouve dans la zone de heal");
         }
@@ -78,7 +78,6 @@ public class HealthTagEffect : Photon.PunBehaviour
                     if (playerControllerScript.team == owner.GetComponent<PlayerController>().team)
                     {
                         Debug.Log("Friend hit, not FF, do nothing");
-                        return;
                     }
                 }
             }
