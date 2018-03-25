@@ -12,7 +12,7 @@ public class CurseDoT : Photon.PunBehaviour
     private int team;
     private GameObject owner;
 
-    public int duration = 5;
+    //public int duration = 5;
     
     public int splashDamage = 0;
     public float AOERadius = 3f;

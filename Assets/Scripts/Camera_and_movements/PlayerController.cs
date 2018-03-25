@@ -28,6 +28,7 @@ public class PlayerController : Photon.PunBehaviour
     private bool isCursed = false;
     private float lastCurseHit; // sert à savoir quand la cible a été maudit pour la dernière fois
     private float curseDuration = 2.5f; // représente la durée en seconde de la malédiction
+    public GameObject AnimCurse;
 
     // Script pour controler l'orientation de la camera
     private CameraFollow cameraFollowScript;
@@ -118,7 +119,10 @@ public class PlayerController : Photon.PunBehaviour
     void Update()
     {
         //Le personnage n'est plus maudit si la malédiction a durée assez longtemps
-        if(isCursed && Time.time > lastCurseHit + curseDuration) { isCursed = false; }
+        if(isCursed && Time.time > lastCurseHit + curseDuration) {
+            isCursed = false;
+            AnimCurse.SetActive(false);
+        }
 
         if (!photonView.isMine && PhotonNetwork.connected == true)
         {
@@ -135,7 +139,6 @@ public class PlayerController : Photon.PunBehaviour
             if (isStun && Time.time > timeStun)
             {
                 FinStun();
-                isStun = false;
             }
 
             //permet de bouger a nouveau lorsque le piege immobilisant est détruit
@@ -185,17 +188,6 @@ public class PlayerController : Photon.PunBehaviour
         onCollision = false;
     }
 
-    // Applique la malédiction au personnage
-    public void Curse()
-    {
-        isCursed = true;
-        lastCurseHit = Time.time;
-    }
-
-    public void ResetCurseTimer()
-    {
-        lastCurseHit = Time.time;
-    }
 
     [PunRPC]
     private void Animate(float h, float v)
@@ -281,7 +273,31 @@ public class PlayerController : Photon.PunBehaviour
         cameraFollowScript.ActiveCamera();
         SetActiveCompetence(true);
         SetActiveAutoAtt(true);
+
+        isStun = false;
     }
+
+
+    // Applique la malédiction au personnage
+    public void Curse()
+    {
+        isCursed = true;
+        lastCurseHit = Time.time;
+        AnimCurse.SetActive(true);
+    }
+
+    // Enlève la malédiction au personnage
+    public void FinCurse()
+    {
+        isCursed = false;
+        AnimCurse.SetActive(false);
+    }
+
+    public void ResetCurseTimer()
+    {
+        lastCurseHit = Time.time;
+    }
+
 
     // Stun le perso
     public void SetMobile(bool mob)
@@ -387,8 +403,11 @@ public class PlayerController : Photon.PunBehaviour
         if (isStun)
         {
             FinStun();
-            isStun = false;
         }
 
+        if (isCursed)
+        {
+            FinCurse();
+        }
     }
 }
