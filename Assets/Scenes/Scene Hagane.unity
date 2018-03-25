@@ -130,7 +130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &27240519
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -303,6 +303,48 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ce693b1ce23ee2b4cba656176d718e7f, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &1440303967
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4176746563957396, guid: 8d6987c21af913c4d90b6ac042b5c91f, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4176746563957396, guid: 8d6987c21af913c4d90b6ac042b5c91f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4176746563957396, guid: 8d6987c21af913c4d90b6ac042b5c91f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4176746563957396, guid: 8d6987c21af913c4d90b6ac042b5c91f, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4176746563957396, guid: 8d6987c21af913c4d90b6ac042b5c91f, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4176746563957396, guid: 8d6987c21af913c4d90b6ac042b5c91f, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4176746563957396, guid: 8d6987c21af913c4d90b6ac042b5c91f, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4176746563957396, guid: 8d6987c21af913c4d90b6ac042b5c91f, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 8d6987c21af913c4d90b6ac042b5c91f, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1531797643
 GameObject:

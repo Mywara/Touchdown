@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Crystal : Photon.PUNBehaviour
 {
-
     static public Crystal instance;
     public bool isHeld;
     //player currently holding the crystal
@@ -13,6 +12,7 @@ public class Crystal : Photon.PUNBehaviour
     public GameObject justDroppedCrystal;
     public Vector3 startingPosition = new Vector3(0f, 1.5f, 0f);
     public int pickupCooldown = 3;
+    public int bouncingForce = 100;
     // lumière
     private Light volumetricLight;
     private Color couleurRouge;
@@ -22,6 +22,8 @@ public class Crystal : Photon.PUNBehaviour
     public int bleuIntensite;
     public int orangeIntensite;
 
+    private Rigidbody rb;
+    private Quaternion rotationOrigin;
 
 
     [PunRPC]
@@ -36,7 +38,7 @@ public class Crystal : Photon.PUNBehaviour
     {
         //Debug.Log("crystal picked up");
         GameObject o = PhotonView.Find(playerViewID).gameObject;
-
+        rb.useGravity = false;
         isHeld = true;
         playerHolding = o;
         
@@ -72,9 +74,6 @@ public class Crystal : Photon.PUNBehaviour
     [PunRPC]
     public void LeaveOnGround()
     {
-        Vector3 pos = this.transform.position;
-        pos.y = 0.8f;
-
         //resets the crystal without reinitializing it at its starting point
         playerHolding = null;
         isHeld = false;
@@ -82,10 +81,8 @@ public class Crystal : Photon.PUNBehaviour
         //reset la couleur du halo
         SetCouleurLight(couleurOrange, orangeIntensite);
 
-        this.transform.position = pos;
+        rb.useGravity = true;
     }
-
-
 
     private void ResetPreviousPlayer()
     {
@@ -93,9 +90,31 @@ public class Crystal : Photon.PUNBehaviour
         justDroppedCrystal = null;
     }
 
+    [PunRPC]
+    private void AddBouncingForce(Vector3 force)
+    {
+        rb.AddForce(force * bouncingForce);
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag.Equals("Player"))
+        {
+            Vector3 bounceVector =  this.transform.position - collision.transform.position;
+            bounceVector.x += Random.Range(-1f, 1f);
+            bounceVector.z += Random.Range(-1f, 1f);
+            Debug.Log("Bounce vector : " + bounceVector);
+
+            if (PhotonNetwork.connected)
+                photonView.RPC("AddBouncingForce", PhotonTargets.All, bounceVector);
+            else
+                AddBouncingForce(bounceVector);
+        }
+    }
+
     void Awake()
     {
-
         if (instance != null && instance != this)
         {
             Debug.Log("There is already a Crystal");
@@ -110,6 +129,13 @@ public class Crystal : Photon.PUNBehaviour
     {
         //Debug.Log("crystal initialized");
 
+        rb = GetComponent<Rigidbody>();
+        if (rb)
+        {
+            rb.useGravity = false;
+        }
+        else
+            Debug.Log("The crystal has no rigidbody");
 
         isHeld = false;
 
@@ -117,7 +143,6 @@ public class Crystal : Photon.PUNBehaviour
         couleurRouge = new Vector4(1, 0, 0, 1);
         couleurBleue = new Vector4(0, 5f / 255f, 1, 1);
         couleurOrange = new Vector4(246f / 255f, 211f / 255f, 20f / 255f, 1);
-
 
         //On récupère le halo lumineux
         volumetricLight = GetComponentInChildren<Light>();
@@ -137,17 +162,15 @@ public class Crystal : Photon.PUNBehaviour
         {
             //Debug.Log("following playerHolding ok");
             Vector3 pos = playerHolding.gameObject.transform.position;
-            pos.y += 1f;
+            pos.y += 1.2f;
 
             this.transform.position = pos;
         }
 
         if (justDroppedCrystal != null)
         {
-
             // 3 seconds cooldown on picking up the crystal
             Invoke("ResetPreviousPlayer", pickupCooldown);
-
         }
 
     }

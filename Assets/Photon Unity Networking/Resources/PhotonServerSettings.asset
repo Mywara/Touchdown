@@ -86,4 +86,5 @@ MonoBehaviour:
   - NewPlayerHaveGenMap
   - SetMyOwner
   - DestroyMovementScript
+  - AddBouncingForce
   DisableAutoOpenWizard: 1
