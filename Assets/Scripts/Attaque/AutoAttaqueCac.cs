@@ -116,7 +116,7 @@ public class AutoAttaqueCac : Photon.PUNBehaviour, IPunObservable {
         {
             rx = rx - 360;
         }
-        vect.y = this.transform.position.y - rx / hclamp;
+        vect.y = this.transform.position.y - rx / (2*hclamp);
 
         return vect;
     }

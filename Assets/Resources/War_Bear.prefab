@@ -1363,6 +1363,7 @@ MonoBehaviour:
   damage: 10
   fireRate: 1
   team: 0
+  AnimSlash: {fileID: 1420685987908128, guid: e2a23962a168b7e49a2ea053f27626c5, type: 2}
 --- !u!114 &114008714926140460
 MonoBehaviour:
   m_ObjectHideFlags: 1

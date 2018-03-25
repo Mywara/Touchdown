@@ -13,6 +13,8 @@ public class CacHitZone : Photon.PunBehaviour {
     private List<GameObject> directHitObjs = new List<GameObject>();
     private bool syncTeam = true;
 
+    public GameObject AnimSlash;
+
     // Passives
     private BearPassive bearPassive;
     private UndeadPassive undeadPassive;
@@ -93,8 +95,46 @@ public class CacHitZone : Photon.PunBehaviour {
 
     private void Update()
     {
+        if (!photonView.isMine && PhotonNetwork.connected == true)
+        {
+            return;
+        }
+
         if (Time.time > nextFire)
         {
+            // Lance l'animation slash
+            GameObject effetSlash;
+
+            // On cherche l'orientation de l'effet
+            var rotationVector = Camera.main.transform.rotation.eulerAngles;
+            float rx = rotationVector.x -15f;
+
+            // si on regarde vers le haut les valeurs partent de 359 et diminu plus on regarde haut
+            // sinon elle partent de 0 et augmentent 
+            if (rx > 180)
+            {
+                rx = rx - 360;
+            }
+            rotationVector = transform.parent.rotation.eulerAngles;
+            rotationVector.x += rx - 90;
+
+            // On cherche la position de l'effet
+            var positionVector = this.transform.parent.position + this.transform.parent.up.normalized * 0.4f + this.transform.parent.forward.normalized * 0.4f;
+
+
+            //Pour le local
+            if (PhotonNetwork.connected == false)
+            {
+                effetSlash = Instantiate(AnimSlash, positionVector, Quaternion.Euler(rotationVector)).gameObject as GameObject;
+            }
+            else
+            {
+                //Pour le reseau
+                effetSlash = PhotonNetwork.Instantiate(this.AnimSlash.name, positionVector, Quaternion.Euler(rotationVector), 0);
+            }
+
+            effetSlash.transform.parent = this.transform.parent;
+
             nextFire = Time.time + fireRate;
 
             if(bearPassive && directHitObjs.Count > 0)
