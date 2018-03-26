@@ -11,6 +11,8 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
     public float projectileSpeed = 10;
     public GameObject projectilePrefab;
     public Transform projectileSpawn;
+
+    public GameObject AnimMuzzle;
     /*
     public float offset_tir_vertical = 12;
     public float offset_tir_horizontal = 23;
@@ -46,6 +48,9 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
                 photonView.RPC("ShotgunAnimation", PhotonTargets.All);
             else
                 ShotgunAnimation();
+            
+            // Lance le muzzle du fusil
+            LanceAnim();
 
             GameObject projo;
             //Pour le local
@@ -143,5 +148,21 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
     public void SetTirActif(bool b)
     {
         this.tirActif = b;
+    }
+
+    private void LanceAnim()
+    {
+        GameObject effetMuzzle;
+        //Pour le local
+        if (PhotonNetwork.connected == false)
+        {
+
+            effetMuzzle = Instantiate(AnimMuzzle, projectileSpawn.transform.position, AnimMuzzle.transform.rotation).gameObject as GameObject;
+        }
+        else
+        {
+            //Pour le reseau
+            effetMuzzle = PhotonNetwork.Instantiate(this.AnimMuzzle.name, projectileSpawn.transform.position, AnimMuzzle.transform.rotation, 0);
+        }
     }
 }
