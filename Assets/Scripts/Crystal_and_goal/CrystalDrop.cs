@@ -17,7 +17,7 @@ public class CrystalDrop : Photon.PUNBehaviour
             return;
         }
 
-        if (target.transform.root.gameObject.tag == "Crystal")
+        if (target.transform.root.gameObject.tag == "Crystal" && !RoomManager.instance.IsInWaitForStartPhase())
         {
             //Debug.Log("crystal_player collider OK!");
             crys = target.transform.root.gameObject;
