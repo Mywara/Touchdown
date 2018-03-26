@@ -10,6 +10,8 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
     public float speed = 10;
     public int team;
     public bool aoeActivated = false;
+    public GameObject AnimBulletExplode;
+    private bool animLance = false;
 
     private Rigidbody myRb;
     private GameObject sender;
@@ -106,8 +108,14 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
             return;
         }
 
+        if (!animLance)
+        {
+            LanceAnim();
+            animLance = true; // On ne lance l'animation qu'une fois
+        }
+
         //on test si il a a du friendlyFire ou non
-        if(!RoomManager.instance.FriendlyFire)
+        if (!RoomManager.instance.FriendlyFire)
         {
             if (directHitObj.tag.Equals("Player"))
             {
@@ -250,6 +258,22 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
         set
         {
             this.aoeActivated = value;
+        }
+    }
+
+    private void LanceAnim()
+    {
+        GameObject effetExplosion;
+        //Pour le local
+        if (PhotonNetwork.connected == false)
+        {
+
+            effetExplosion = Instantiate(AnimBulletExplode, this.transform.position, AnimBulletExplode.transform.rotation).gameObject as GameObject;
+        }
+        else
+        {
+            //Pour le reseau
+            effetExplosion = PhotonNetwork.Instantiate(this.AnimBulletExplode.name, this.transform.position, AnimBulletExplode.transform.rotation, 0);
         }
     }
 }

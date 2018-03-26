@@ -147,6 +147,8 @@ MonoBehaviour:
   speed: 1
   team: 0
   aoeActivated: 0
+  AnimBulletExplode: {fileID: 1900379928644912, guid: 23ba8ac9e1e50cb43b712b9594fa8205,
+    type: 2}
 --- !u!114 &114915711791220148
 MonoBehaviour:
   m_ObjectHideFlags: 1
