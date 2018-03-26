@@ -22,7 +22,7 @@ public class CrystalDrop : Photon.PUNBehaviour
             //Debug.Log("crystal_player collider OK!");
             crys = target.transform.root.gameObject;
 
-            if (this.transform.root.gameObject != crys.GetComponent<Crystal>().justDroppedCrystal)
+            if (!crys.GetComponent<Crystal>().isHeld && this.transform.root.gameObject != crys.GetComponent<Crystal>().justDroppedCrystal)
             {
                 crys.GetComponent<Crystal>().photonView.RPC("PickupCrystal", PhotonTargets.All, this.transform.root.gameObject.GetPhotonView().viewID);
             }
