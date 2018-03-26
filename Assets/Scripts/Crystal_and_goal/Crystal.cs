@@ -25,8 +25,6 @@ public class Crystal : Photon.PUNBehaviour
     private Rigidbody rb;
     private Quaternion rotationOrigin;
 
-    private Collider cristalCollider;
-
 
     [PunRPC]
     public void SetStartingPosition(Vector3 pos)
@@ -58,8 +56,6 @@ public class Crystal : Photon.PUNBehaviour
         //SetCouleurLight(couleurBleue, bleuIntensite);
         //fin test
 
-        cristalCollider.enabled = false;
-
     }
 
     [PunRPC]
@@ -77,8 +73,6 @@ public class Crystal : Photon.PUNBehaviour
 
         //reset la couleur du halo
         SetCouleurLight(couleurOrange, orangeIntensite);
-
-        cristalCollider.enabled = true;
     }
 
 
@@ -93,8 +87,6 @@ public class Crystal : Photon.PUNBehaviour
         SetCouleurLight(couleurOrange, orangeIntensite);
 
         rb.useGravity = true;
-
-        cristalCollider.enabled = true;
 
         Debug.Log("crystal Leave on groud");
     }
@@ -170,9 +162,6 @@ public class Crystal : Photon.PUNBehaviour
         //SetCouleurLight(couleurBleue, bleuIntensite);
         //SetCouleurLight(couleurRouge, rougeIntensite);
         // fin tests
-
-        cristalCollider = this.GetComponent<Collider>();
-        cristalCollider.enabled = true;
     }
 
     // FixedUpdate is called once per frame
