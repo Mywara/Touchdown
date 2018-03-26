@@ -96,4 +96,5 @@ MonoBehaviour:
   - StartCustomCountdownTime
   - SwitchToStratMode
   - SwitchPlayerMode
+  - FinCurse
   DisableAutoOpenWizard: 1

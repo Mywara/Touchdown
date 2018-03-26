@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 54452007323163386}
   - component: {fileID: 114212417171274254}
   - component: {fileID: 114690506073618724}
-  - component: {fileID: 64686606852303608}
+  - component: {fileID: 64774479082881322}
   m_Layer: 0
   m_Name: Crystal
   m_TagString: Crystal
@@ -133,7 +133,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!64 &64686606852303608
+--- !u!64 &64774479082881322
 MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

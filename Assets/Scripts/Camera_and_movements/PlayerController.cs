@@ -44,6 +44,7 @@ public class PlayerController : Photon.PunBehaviour
     {
         if (photonView.isMine)
         {
+
             GameObject cameraPrefab = Camera.main.transform.root.gameObject;
             if (cameraPrefab != null)
             {
@@ -120,8 +121,7 @@ public class PlayerController : Photon.PunBehaviour
     {
         //Le personnage n'est plus maudit si la malédiction a durée assez longtemps
         if(isCursed && Time.time > lastCurseHit + curseDuration) {
-            isCursed = false;
-            AnimCurse.SetActive(false);
+            photonView.RPC("FinCurse", PhotonTargets.All);
         }
 
         if (!photonView.isMine && PhotonNetwork.connected == true)
@@ -281,18 +281,34 @@ public class PlayerController : Photon.PunBehaviour
 
 
     // Applique la malédiction au personnage
+    [PunRPC]
     public void Curse()
     {
+
+        AnimCurse.SetActive(true);
+
+        if (!photonView.isMine && PhotonNetwork.connected == true)
+        {
+            return;
+        }
+
         isCursed = true;
         lastCurseHit = Time.time;
-        AnimCurse.SetActive(true);
     }
 
     // Enlève la malédiction au personnage
+    [PunRPC]
     public void FinCurse()
     {
-        isCursed = false;
         AnimCurse.SetActive(false);
+
+        if (!photonView.isMine && PhotonNetwork.connected == true)
+        {
+            return;
+        }
+
+        isCursed = false;
+        
     }
 
     public void ResetCurseTimer()

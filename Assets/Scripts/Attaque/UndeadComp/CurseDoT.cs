@@ -103,7 +103,7 @@ public class CurseDoT : Photon.PunBehaviour
             directHitObjs.Add(directHitObj);
             ApplyDamage(directHitObj, damage);
             //On maudit ici l'ennemi
-            directHitObj.GetComponent<PlayerController>().Curse();
+            directHitObj.GetComponent<PlayerController>().photonView.RPC("Curse", PhotonTargets.All);
             dotNumber.Add(1);
             count++;
         }
