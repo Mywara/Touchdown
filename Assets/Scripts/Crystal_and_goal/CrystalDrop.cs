@@ -8,6 +8,11 @@ public class CrystalDrop : Photon.PUNBehaviour
 
     public GameObject crys = null;
 
+    private void Start()
+    {
+        //on va chercher l'instance du crystal, comme ca on la connait tout le temps
+        crys = GameObject.FindGameObjectWithTag("Crystal");
+    }
 
     private void OnTriggerEnter(Collider target)
     {
@@ -20,7 +25,8 @@ public class CrystalDrop : Photon.PUNBehaviour
         if (target.transform.root.gameObject.tag == "Crystal" && !RoomManager.instance.IsInWaitForStartPhase())
         {
             //Debug.Log("crystal_player collider OK!");
-            crys = target.transform.root.gameObject;
+            //fait dans le start
+            //crys = target.transform.root.gameObject;
 
             if (!crys.GetComponent<Crystal>().isHeld && this.transform.root.gameObject != crys.GetComponent<Crystal>().justDroppedCrystal)
             {
@@ -30,12 +36,6 @@ public class CrystalDrop : Photon.PUNBehaviour
 
         }
     }
-
-
-    //// Use this for initialization
-    //void Start () {
-
-    //}
 
     // Update is called once per frame
     void Update()

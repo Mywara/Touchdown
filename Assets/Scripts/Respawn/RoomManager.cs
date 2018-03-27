@@ -259,6 +259,12 @@ public class RoomManager : Photon.PunBehaviour {
     private IEnumerator RespawnCoroutine(GameObject player, float timeBeforRespawn)
     {
         yield return new WaitForSeconds(timeBeforRespawn);
+
+        //reset la vie au dessus du perso en reseau
+        player.GetComponent<PUNTutorial.HealthScript>().photonView.RPC("ResetHealth", PhotonTargets.All);
+        //reset la vie du client local en haut a gauche
+        player.GetComponent<PUNTutorial.HealthScript2>().ResetHealth();
+        //on reactive le player
         player.SetActive(true);
         //Debug.Log("Player: "+ player.name + " respawned");
     }
