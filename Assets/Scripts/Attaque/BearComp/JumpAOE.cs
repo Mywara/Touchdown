@@ -62,10 +62,10 @@ public class JumpAOE : Photon.PunBehaviour
     //Modif a faire, limiter dmg au cible valide -> layer + test
     private void OnTriggerStay(Collider other)
     {
-        //if (!photonView.isMine && PhotonNetwork.connected == true)
-        //{
-        //    return;
-        //}
+        if (!photonView.isMine && PhotonNetwork.connected == true)
+        {
+            return;
+        }
         GameObject otherGO = other.transform.root.gameObject;
         if (otherGO.tag.Equals("Respawn") || otherGO.tag.Equals("Boundary"))
         {
@@ -136,6 +136,11 @@ public class JumpAOE : Photon.PunBehaviour
         // From the jump height and gravity we deduce the upwards speed 
         // for the character to reach at the apex.
         return Mathf.Sqrt(2f * targetJumpHeight * -Physics.gravity.y);
+    }
+
+    private void OnDisable()
+    {
+        directHitObjs.Clear();
     }
 
 }

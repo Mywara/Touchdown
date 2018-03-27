@@ -116,22 +116,6 @@ public class CalinBearComp : Photon.PunBehaviour
 
         this.photonView.RPC("LanceAnim", PhotonTargets.All);
 
-        //GameObject effetA;
-        ////Pour le local
-        //if (PhotonNetwork.connected == false)
-        //{
-        //    effetA = Instantiate(effetArmor, this.transform.position, effetArmor.transform.rotation).gameObject as GameObject;
-        //}
-        //else
-        //{
-        //    //Pour le reseau
-        //    effetA = PhotonNetwork.Instantiate(this.effetArmor.name, this.transform.position, effetArmor.transform.rotation, 0);
-        //}
-
-        //effetA.transform.parent = this.transform;
-
-        
-
         // On stun le lanceur et la cible
         playerControllerScript.photonView.RPC("Stun", PhotonTargets.All, calinDuree);
         ennemiPlayerControllerScript.photonView.RPC("Stun", PhotonTargets.All, calinDuree);

@@ -178,6 +178,10 @@ public class JumpBearComp : Photon.PunBehaviour
         Vector2 velocity = rb.velocity;
         velocity.y = CalculateJumpVerticalSpeed(jumpHeight);
         rb.velocity = velocity;
+
+        // On active la zone de l'AOE
+        jumpAOEZone.SetActive(true);
+        jumpAOEScript.SetTeam(playerControllerScript.team);
     }
 
     // Méthode pour calculer la velocité à donner pour atteindre la hauteur donnée
@@ -194,21 +198,19 @@ public class JumpBearComp : Photon.PunBehaviour
         // animations
 
 
-        GameObject effetAtterr;
-        //Pour le local
-        if (PhotonNetwork.connected == false)
-        {
-            effetAtterr = Instantiate(effetAtterrissage, this.transform.position + Vector3.up * 0.1f, effetAtterrissage.transform.rotation).gameObject as GameObject;
-        }
-        else
-        {
-            //Pour le reseau
-            effetAtterr = PhotonNetwork.Instantiate(this.effetAtterrissage.name, this.transform.position, effetAtterrissage.transform.rotation, 0);
-        }
+        //GameObject effetAtterr;
+        ////Pour le local
+        //if (PhotonNetwork.connected == false)
+        //{
+        //    effetAtterr = Instantiate(effetAtterrissage, this.transform.position, effetAtterrissage.transform.rotation).gameObject as GameObject;
+        //}
+        //else
+        //{
+        //    //Pour le reseau
+        //    effetAtterr = PhotonNetwork.Instantiate(this.effetAtterrissage.name, this.transform.position, effetAtterrissage.transform.rotation, 0);
+        //}
 
         // applique les dégats et effets
-        jumpAOEZone.SetActive(true);
-        jumpAOEScript.SetTeam(playerControllerScript.team);
         jumpAOEScript.SetApply(true);
     }
 
@@ -231,10 +233,6 @@ public class JumpBearComp : Photon.PunBehaviour
         while (dureeCD > 0)
         {
             dureeCD -= Time.deltaTime;
-            if (dureeCD <= 0)
-            {
-                // TODO ?
-            }
             yield return new WaitForFixedUpdate();
              t.text = (Mathf.Floor(dureeCD)+1).ToString();
         }
@@ -265,6 +263,11 @@ public class JumpBearComp : Photon.PunBehaviour
         // On remet l'affichage du cooldown à rien (pas de CD)
         Text t = jumpHUD.GetComponentInChildren<Text>();
         t.text = "";
+
+        jumping = false;
+
+        jumpAOEZone.SetActive(false);
+        jumpAOEScript.SetApply(false);
 
     }
 }
