@@ -28,6 +28,8 @@ public class UndeadComp : Photon.PunBehaviour
     public GameObject dotHUD;
     public GameObject tpHUD;
 
+    private bool isInInvunerabilityMode = false;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -53,6 +55,11 @@ public class UndeadComp : Photon.PunBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(IsInInvunerabilityMode && this.gameObject.GetComponent<CrystalDrop>().crys.GetComponent<Crystal>().playerHolding == this.gameObject)
+        {
+            //Debug.Log("skill not allowed currently");
+            return;
+        }
         //Debug.Log("Competences Update");
         if (!photonView.isMine && PhotonNetwork.connected == true)
         {
@@ -201,5 +208,17 @@ public class UndeadComp : Photon.PunBehaviour
         Text t = invulnerableHUD.GetComponentInChildren<Text>();
         t.text = "";
 
+    }
+
+    public bool IsInInvunerabilityMode
+    {
+        get
+        {
+            return this.isInInvunerabilityMode;
+        }
+        set
+        {
+            this.isInInvunerabilityMode = value;
+        }
     }
 }
