@@ -114,21 +114,23 @@ public class CalinBearComp : Photon.PunBehaviour
 
         // Animation
 
-        GameObject effetA;
-        //Pour le local
-        if (PhotonNetwork.connected == false)
-        {
-            effetA = Instantiate(effetArmor, this.transform.position, effetArmor.transform.rotation).gameObject as GameObject;
-        }
-        else
-        {
-            //Pour le reseau
-            effetA = PhotonNetwork.Instantiate(this.effetArmor.name, this.transform.position, effetArmor.transform.rotation, 0);
-        }
+        this.photonView.RPC("LanceAnim", PhotonTargets.All);
 
-        effetA.transform.parent = this.transform;
+        //GameObject effetA;
+        ////Pour le local
+        //if (PhotonNetwork.connected == false)
+        //{
+        //    effetA = Instantiate(effetArmor, this.transform.position, effetArmor.transform.rotation).gameObject as GameObject;
+        //}
+        //else
+        //{
+        //    //Pour le reseau
+        //    effetA = PhotonNetwork.Instantiate(this.effetArmor.name, this.transform.position, effetArmor.transform.rotation, 0);
+        //}
 
+        //effetA.transform.parent = this.transform;
 
+        
 
         // On stun le lanceur et la cible
         playerControllerScript.photonView.RPC("Stun", PhotonTargets.All, calinDuree);
@@ -143,6 +145,18 @@ public class CalinBearComp : Photon.PunBehaviour
 
         // Animation du dash
         StartCoroutine("DashTranslation");
+    }
+
+    [PunRPC]
+    private void LanceAnim()
+    {
+        GameObject effetA;
+        effetA = Instantiate(effetArmor, this.transform.position, effetArmor.transform.rotation).gameObject as GameObject;
+        if (effetA != null)
+        {
+            //On met en enfant du joueur l'effet, donc si le joueur bouge, l'effet le suit
+            effetA.transform.SetParent(this.transform);
+        }
     }
 
     // Animation du dash
@@ -215,5 +229,6 @@ public class CalinBearComp : Photon.PunBehaviour
         // On remet l'affichage du cooldown à rien (pas de CD)
         Text t = calinHUD.GetComponentInChildren<Text>();
         t.text = "";
+        
     }
 }

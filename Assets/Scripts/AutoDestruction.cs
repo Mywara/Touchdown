@@ -19,27 +19,14 @@ public class AutoDestruction : Photon.PunBehaviour
     {
         if (Time.time > tempsDeCreation + delaiAvantDestruction)
         {
-            if (PhotonNetwork.connected == false)
-            {
-                Destroy(this.gameObject);
-            }
-            else
-            {
-                PhotonNetwork.Destroy(this.gameObject);
-            }
+
+            Destroy(this.gameObject);
 
         }
     }
 
     private void OnDisable()
     {
-        if (PhotonNetwork.connected == false)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            PhotonNetwork.Destroy(this.gameObject);
-        }
+        Destroy(this.gameObject);
     }
 }

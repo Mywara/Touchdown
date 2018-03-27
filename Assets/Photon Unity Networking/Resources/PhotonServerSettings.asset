@@ -98,4 +98,6 @@ MonoBehaviour:
   - SwitchPlayerMode
   - FinCurse
   - SetCouleurLightRPC
+  - LanceAnim
+  - DestroyIt
   DisableAutoOpenWizard: 1

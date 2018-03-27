@@ -339,21 +339,25 @@ public class PlayerController : Photon.PunBehaviour
                 CalinBearComp cbc = GetComponent<CalinBearComp>();
                 cbc.SetCalinActif(b);
 
-                // TODO le coup d'épaule
+                BearComp bc = GetComponent<BearComp>();
+                bc.SetCompBearActives(b);
                 break;
 
             case "Undeath":
-                // TODO les 3 comps
+                UndeadComp udc = GetComponent<UndeadComp>();
+                udc.SetCompActives(b);
                 break;
 
             case "Pirate":
                 TirClochePirateComp tcpc = GetComponent<TirClochePirateComp>();
                 tcpc.SetTirClocheActif(b);
-                // TODO pirateComp
+
+                PirateComp pc = GetComponent<PirateComp>();
+                pc.SetCompActives(b);
                 break;
 
             default:
-                Debug.Log("name : \"" + name + "\" ne correspond pas à WarBear / Undeath / Pirate " +
+                Debug.Log("le name : \"" + name + "\" utilisé pour le stun ne correspond pas à WarBear / Undeath / Pirate " +
                     "\n voir Cname de CharacterCaractistique du prefab");
                 break;
         }

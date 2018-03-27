@@ -24,6 +24,7 @@ public class PirateComp : Photon.PunBehaviour
 
     public GameObject grapHUD;
     public GameObject bouteilleHUD;
+    private bool compPirateActif = true;
 
     void Awake()
     {
@@ -47,7 +48,7 @@ public class PirateComp : Photon.PunBehaviour
     void Update()
     {
         //Debug.Log("Competences Update");
-        if (!photonView.isMine && PhotonNetwork.connected == true)
+        if (!photonView.isMine && PhotonNetwork.connected == true || !compPirateActif)
         {
             return;
         }
@@ -129,6 +130,8 @@ public class PirateComp : Photon.PunBehaviour
         }
     }
 
+    // GESTION AFFICHAGE
+
     // parms : arg0 = hud , arg1 = duree
     private IEnumerator AffichageCooldown(object[] parms)
     {
@@ -156,6 +159,14 @@ public class PirateComp : Photon.PunBehaviour
         image.color = c;
 
         t.text = "";
+    }
+
+    // AUTRES METHODES
+
+    // Désactive/Active l'utilisation des comps (pour le stun)
+    public void SetCompActives(bool b)
+    {
+        this.compPirateActif = b;
     }
 
     // Reset le perso (si meurt)

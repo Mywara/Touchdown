@@ -28,6 +28,8 @@ public class UndeadComp : Photon.PunBehaviour
     public GameObject dotHUD;
     public GameObject tpHUD;
 
+    private bool compUndeathActif = true;
+
     private bool isInInvunerabilityMode = false;
 
     void Awake()
@@ -61,7 +63,7 @@ public class UndeadComp : Photon.PunBehaviour
             return;
         }
         //Debug.Log("Competences Update");
-        if (!photonView.isMine && PhotonNetwork.connected == true)
+        if (!photonView.isMine && PhotonNetwork.connected == true || !compUndeathActif)
         {
             return;
         }
@@ -165,6 +167,8 @@ public class UndeadComp : Photon.PunBehaviour
         }
     }
 
+    // GESTION AFFICHAGE
+
     // parms : arg0 = hud , arg1 = duree
     private IEnumerator AffichageCooldown(object[] parms)
     {
@@ -194,6 +198,28 @@ public class UndeadComp : Photon.PunBehaviour
         t.text = "";
     }
 
+
+    // AUTRES METHODES
+
+    // Désactive/Active l'utilisation des comps (pour le stun)
+    public void SetCompActives(bool b)
+    {
+        this.compUndeathActif = b;
+    }
+
+
+    public bool IsInInvunerabilityMode
+    {
+        get
+        {
+            return this.isInInvunerabilityMode;
+        }
+        set
+        {
+            this.isInInvunerabilityMode = value;
+        }
+    }
+
     // Reset le perso (si meurt)
     private void OnDisable()
     {
@@ -220,15 +246,4 @@ public class UndeadComp : Photon.PunBehaviour
 
     }
 
-    public bool IsInInvunerabilityMode
-    {
-        get
-        {
-            return this.isInInvunerabilityMode;
-        }
-        set
-        {
-            this.isInInvunerabilityMode = value;
-        }
-    }
 }

@@ -122,7 +122,7 @@ public class JumpBearComp : Photon.PunBehaviour
         }
 
         // Input du Jump
-        if (Input.GetKeyDown(KeyCode.LeftShift) && (Time.time > (jumpLastUse + jumpCooldown)))
+        if (Input.GetKeyDown(KeyCode.R) && (Time.time > (jumpLastUse + jumpCooldown)))
         {
             Debug.Log("Jump Competence");
             compJump(); // On lance le saut
@@ -258,5 +258,6 @@ public class JumpBearComp : Photon.PunBehaviour
         // On remet l'affichage du cooldown à rien (pas de CD)
         Text t = jumpHUD.GetComponentInChildren<Text>();
         t.text = "";
+
     }
 }

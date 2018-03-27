@@ -22,6 +22,8 @@ public class BearComp : Photon.PunBehaviour
     
     public GameObject shoulderHUD;
 
+    private bool compBearActif = true;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -45,7 +47,7 @@ public class BearComp : Photon.PunBehaviour
     void Update()
     {
         //Debug.Log("Competences Update");
-        if (!photonView.isMine && PhotonNetwork.connected == true)
+        if (!photonView.isMine && PhotonNetwork.connected == true || !compBearActif)
         {
             return;
         }
@@ -86,6 +88,8 @@ public class BearComp : Photon.PunBehaviour
         }
     }
 
+    // GESTION AFFICHAGE
+
     // parms : arg0 = hud , arg1 = duree
     private IEnumerator AffichageCooldown(object[] parms)
     {
@@ -113,6 +117,13 @@ public class BearComp : Photon.PunBehaviour
         image.color = c;
 
         t.text = "";
+    }
+
+    // AUTRES METHODES
+
+    public void SetCompBearActives(bool b)
+    {
+        this.compBearActif = b;
     }
 
     // Reset le perso (si meurt)

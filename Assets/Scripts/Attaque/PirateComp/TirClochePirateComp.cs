@@ -148,5 +148,6 @@ public class TirClochePirateComp : Photon.PunBehaviour
         // On remet l'affichage du cooldown à rien (pas de CD)
         Text t = tirClocheHUD.GetComponentInChildren<Text>();
         t.text = "";
+        
     }
 }
