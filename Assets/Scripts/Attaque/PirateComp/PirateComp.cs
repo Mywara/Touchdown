@@ -169,8 +169,6 @@ public class PirateComp : Photon.PunBehaviour
         image.color = c;
 
         image = bouteilleHUD.GetComponent<Image>();
-        c = image.color;
-        c.a = 255;
         image.color = c;
 
         // On remet l'affichage du cooldown à rien (pas de CD)

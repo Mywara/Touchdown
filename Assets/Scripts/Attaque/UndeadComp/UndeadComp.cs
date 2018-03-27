@@ -191,14 +191,24 @@ public class UndeadComp : Photon.PunBehaviour
     private void OnDisable()
     {
 
-        // On remet la transparence normale
+        // On remet la transparence normale de l'affichage
         Image image = invulnerableHUD.GetComponent<Image>();
         Color c = image.color;
         c.a = 255;
         image.color = c;
 
+        image = dotHUD.GetComponent<Image>();
+        image.color = c;
+        image = tpHUD.GetComponent<Image>();
+        image.color = c;
+
+
         // On remet l'affichage du cooldown à rien (pas de CD)
         Text t = invulnerableHUD.GetComponentInChildren<Text>();
+        t.text = "";
+        t = dotHUD.GetComponentInChildren<Text>();
+        t.text = "";
+        t = tpHUD.GetComponentInChildren<Text>();
         t.text = "";
 
     }

@@ -1947,11 +1947,11 @@ MonoBehaviour:
   transparenceCD: 0.5
   HUD: {fileID: 1219552981948140}
   calinHUD: {fileID: 1368141734123812}
-  calinCooldown: 6
-  calinDuree: 3
-  maxRange: 4
+  calinCooldown: 10
+  calinDuree: 4
+  maxRange: 5
   calinShield: 0.4
-  effetCalin: {fileID: 0}
+  effetArmor: {fileID: 1336753907227366, guid: eed5f4e9477d3af4aa2d5324c1b8f8c4, type: 2}
   audioDash: {fileID: 8300000, guid: 2a4f786b2d4704148a6a2544d50e081d, type: 3}
 --- !u!114 &114513372739151394
 MonoBehaviour:

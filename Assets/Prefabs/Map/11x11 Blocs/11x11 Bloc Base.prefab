@@ -28615,7 +28615,8 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -28633,8 +28634,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crys: {fileID: 1635052500047410, guid: c7f835e5a40f48e4a91ac3b6b0629a49, type: 2}
-  bleuIntensite: 8000
-  orangeIntensite: 100
+  bleuIntensite: 2000
+  orangeIntensite: 20
 --- !u!114 &114964263014300826
 MonoBehaviour:
   m_ObjectHideFlags: 1

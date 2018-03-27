@@ -1803,7 +1803,7 @@ MonoBehaviour:
   calinDuree: 3
   maxRange: 4
   calinShield: 0.4
-  effetCalin: {fileID: 0}
+  effetArmor: {fileID: 0}
   audioDash: {fileID: 8300000, guid: 2a4f786b2d4704148a6a2544d50e081d, type: 3}
 --- !u!114 &752901381
 MonoBehaviour:
@@ -6263,22 +6263,22 @@ Prefab:
     - target: {fileID: 224899023712100096, guid: 8c79816550a2d7d4ca9698b6eb26a57a,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224899023712100096, guid: 8c79816550a2d7d4ca9698b6eb26a57a,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224850266989489434, guid: 8c79816550a2d7d4ca9698b6eb26a57a,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224850266989489434, guid: 8c79816550a2d7d4ca9698b6eb26a57a,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114597776403633338, guid: 8c79816550a2d7d4ca9698b6eb26a57a,
         type: 2}

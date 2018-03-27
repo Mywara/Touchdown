@@ -38,13 +38,11 @@ public class Goal : Photon.PunBehaviour
             if (this.tag == "GoalG" && PUNTutorial.GameManager.localPlayer.GetComponent<PlayerController>().Team == 1
                 || this.tag == "GoalD" && PUNTutorial.GameManager.localPlayer.GetComponent<PlayerController>().Team == 2)
             {
-                Debug.Log(" couleur allie ");
                 // Cas le but correspond a l'equipe du joueur
                 SetCouleurLight(couleurBleue, bleuIntensite);
             }
             else
             {
-                Debug.Log(" couleur ennemi ");
                 // Cas le but est le but adverse
                 SetCouleurLight(couleurOrange, orangeIntensite);
             }

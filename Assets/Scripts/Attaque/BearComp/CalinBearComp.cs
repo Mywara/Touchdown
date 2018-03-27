@@ -27,7 +27,7 @@ public class CalinBearComp : Photon.PunBehaviour
     public float maxRange;
     public float calinShield = 0; // doit être entre 0 et 1 (0 aucun shield / 1 zero degat reçu)
 
-    public GameObject effetCalin; // L'effet visuel
+    public GameObject effetArmor; // L'effet visuel
 
     public AudioClip audioDash; // L'audio
 
@@ -113,8 +113,21 @@ public class CalinBearComp : Photon.PunBehaviour
 
 
         // Animation
-        
-        // TODO Lancer l'animation
+
+        GameObject effetA;
+        //Pour le local
+        if (PhotonNetwork.connected == false)
+        {
+            effetA = Instantiate(effetArmor, this.transform.position, effetArmor.transform.rotation).gameObject as GameObject;
+        }
+        else
+        {
+            //Pour le reseau
+            effetA = PhotonNetwork.Instantiate(this.effetArmor.name, this.transform.position, effetArmor.transform.rotation, 0);
+        }
+
+        effetA.transform.parent = this.transform;
+
 
 
         // On stun le lanceur et la cible
