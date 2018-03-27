@@ -198,17 +198,17 @@ public class JumpBearComp : Photon.PunBehaviour
         // animations
 
 
-        //GameObject effetAtterr;
-        ////Pour le local
-        //if (PhotonNetwork.connected == false)
-        //{
-        //    effetAtterr = Instantiate(effetAtterrissage, this.transform.position, effetAtterrissage.transform.rotation).gameObject as GameObject;
-        //}
-        //else
-        //{
-        //    //Pour le reseau
-        //    effetAtterr = PhotonNetwork.Instantiate(this.effetAtterrissage.name, this.transform.position, effetAtterrissage.transform.rotation, 0);
-        //}
+        GameObject effetAtterr;
+        //Pour le local
+        if (PhotonNetwork.connected == false)
+        {
+            effetAtterr = Instantiate(effetAtterrissage, this.transform.position, effetAtterrissage.transform.rotation).gameObject as GameObject;
+        }
+        else
+        {
+            //Pour le reseau
+            effetAtterr = PhotonNetwork.Instantiate(this.effetAtterrissage.name, this.transform.position, effetAtterrissage.transform.rotation, 0);
+        }
 
         // applique les dégats et effets
         jumpAOEScript.SetApply(true);
