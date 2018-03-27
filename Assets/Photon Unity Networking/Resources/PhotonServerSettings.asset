@@ -97,4 +97,5 @@ MonoBehaviour:
   - SwitchToStratMode
   - SwitchPlayerMode
   - FinCurse
+  - SetCouleurLightRPC
   DisableAutoOpenWizard: 1

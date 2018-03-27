@@ -1478,6 +1478,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1983727145572376, guid: a581bdce5aaa32f4f92756906724583f,
     type: 2}
   projectileSpawn: {fileID: 4193193885231094}
+  AnimMuzzle: {fileID: 1158300550457430, guid: 46babd88f0fce504b913b03f3629bc70, type: 2}
   inModePlacing: 0
   hasAnAOE: 1
   sourceObject: {fileID: 0}
