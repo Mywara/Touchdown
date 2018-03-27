@@ -1674,7 +1674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac7672bb277670459c27008173e4e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
+  originaleMovementSpeed: 3
   inputSensitivity: 120
   cameraFollow: {fileID: 1090396475383946}
   myJumpHeight: 1

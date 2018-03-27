@@ -13,6 +13,7 @@ public class JumpBearComp : Photon.PunBehaviour
     private PlayerController playerControllerScript;
     public float transparenceCD;
     public GameObject HUD;
+    
 
     /////////// JUMP STUFF
 
@@ -24,6 +25,7 @@ public class JumpBearComp : Photon.PunBehaviour
     private bool jumping; // Détermine si on est en saut après l'utilisation du Jump pour savoir si on applique les dégats à l'atterissage
     public GameObject jumpAOEZone;
     public int jumpDamage;
+    public float BoostVitesseEnSaut; // Pourcentage
     private JumpAOE jumpAOEScript; // Utile pour communiquer avec la hitbox de la competence
 
     public GameObject effetDecollage; // Il s'agit des effets visuels
@@ -33,6 +35,8 @@ public class JumpBearComp : Photon.PunBehaviour
     public AudioClip audioAtterrissage;
 
     private bool JumpActif = true;
+
+    
 
 
 
@@ -104,7 +108,9 @@ public class JumpBearComp : Photon.PunBehaviour
                 // Si on atterri
                 if (hit.distance <= 0.3)
                 {
-                  
+                    // On diminue la vitesse de déplacement en vol
+                    //playerControllerScript.photonView.RPC("FinModifVitesse", PhotonTargets.All, BoostVitesseEnSaut);
+                    playerControllerScript.FinModifVitesse(BoostVitesseEnSaut);
                     //Joue le son de l'atterrissage
                     audioSource.clip = audioAtterrissage;
                     audioSource.Play();
@@ -126,10 +132,11 @@ public class JumpBearComp : Photon.PunBehaviour
         {
             Debug.Log("Jump Competence");
             compJump(); // On lance le saut
-            float f1 = 250;
-            float f2 = 1.5f;
+
             // On accelere la vitesse de déplacement en vol
-            playerControllerScript.photonView.RPC("ModificationVitesse", PhotonTargets.All, f1, f2);
+            //playerControllerScript.photonView.RPC("DebutModifVitesse", PhotonTargets.All, BoostVitesseEnSaut);
+            playerControllerScript.DebutModifVitesse(BoostVitesseEnSaut);
+
             jumpLastUse = Time.time;
             jumping = true; // On considère qu'on est en train de sauter
         }

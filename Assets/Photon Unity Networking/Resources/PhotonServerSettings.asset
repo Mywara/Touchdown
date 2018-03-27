@@ -100,4 +100,6 @@ MonoBehaviour:
   - SetCouleurLightRPC
   - LanceAnim
   - DestroyIt
+  - DebutModifVitesse
+  - FinModifVitesse
   DisableAutoOpenWizard: 1

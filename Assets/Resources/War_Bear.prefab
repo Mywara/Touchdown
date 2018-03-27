@@ -2136,9 +2136,10 @@ MonoBehaviour:
   HUD: {fileID: 1219552981948140}
   jumpHUD: {fileID: 1879494157161454}
   jumpCooldown: 5
-  jumpHeight: 5
+  jumpHeight: 2.5
   jumpAOEZone: {fileID: 1089290827114280}
   jumpDamage: 30
+  BoostVitesseEnSaut: 250
   effetDecollage: {fileID: 1174490162078294, guid: d1f77592678657a4f9650da8ebaf73c6,
     type: 2}
   effetAtterrissage: {fileID: 1524946756984258, guid: fa1ccf61bdc2f8e499e852ffd53d9f8d,
@@ -2408,7 +2409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac7672bb277670459c27008173e4e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
+  originaleMovementSpeed: 3
   inputSensitivity: 120
   cameraFollow: {fileID: 1406215290990354}
   myJumpHeight: 1

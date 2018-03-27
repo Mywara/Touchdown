@@ -4,8 +4,8 @@ using System.Collections;
 public class PlayerController : Photon.PunBehaviour
 {
 
-    public float movementSpeed = 10;
-
+    public float originaleMovementSpeed = 10;
+    private float movementSpeed;
 
     public float inputSensitivity = 150.0f;
     public GameObject cameraFollow;
@@ -63,6 +63,8 @@ public class PlayerController : Photon.PunBehaviour
                 Debug.Log("No main Camera / no CameraPrefab");
             }
         }
+
+        movementSpeed = originaleMovementSpeed;
     }
 
 
@@ -235,8 +237,18 @@ public class PlayerController : Photon.PunBehaviour
     {
         movementSpeed = movementSpeed * (pourcentageVitesse / 100);
         yield return new WaitForSeconds(duree);
+        FinModifVitesse(pourcentageVitesse);
+    }
+
+    public void DebutModifVitesse(float pourcentageVitesse)
+    {
+        movementSpeed = movementSpeed * (pourcentageVitesse / 100);
+    }
+
+    public void FinModifVitesse(float pourcentageVitesse)
+    {
         movementSpeed = movementSpeed / (pourcentageVitesse / 100);
-    }// TODO refaire
+    }
 
 
     // Fait faire un saut de la hauteur voulue
@@ -431,6 +443,8 @@ public class PlayerController : Photon.PunBehaviour
         {
             FinCurse();
         }
+
+        movementSpeed = originaleMovementSpeed;
     }
 
     public void SwitchPlayerMode()
