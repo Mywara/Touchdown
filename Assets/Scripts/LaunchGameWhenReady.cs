@@ -14,6 +14,7 @@ public class LaunchGameWhenReady : Photon.PUNBehaviour {
     public GameObject playerNamePrefab;
     public Button joinTeam1;
     public Button joinTeam2;
+    public Button resetTeam;
 
     private Dictionary<int, GameObject> playerNameList = new Dictionary<int, GameObject>();
     private int nbMaxPlayer;
@@ -43,6 +44,7 @@ public class LaunchGameWhenReady : Photon.PUNBehaviour {
         warBearPreview.SetActive(false);
         joinTeam1.onClick.AddListener(delegate { ButtonToSwitchTeam(1, PhotonNetwork.player.ID, PlayerPrefs.GetString("PlayerName")); });
         joinTeam2.onClick.AddListener(delegate { ButtonToSwitchTeam(2, PhotonNetwork.player.ID, PlayerPrefs.GetString("PlayerName")); });
+        resetTeam.onClick.AddListener(delegate { ResetTeam(); });
     }
 
     // Update is called once per frame
@@ -237,5 +239,12 @@ public class LaunchGameWhenReady : Photon.PUNBehaviour {
         {
             PUNTutorial.GameManager.teamIwantToJoin = 2;
         }
+    }
+
+    private void ResetTeam()
+    {
+        playerNameList[PhotonNetwork.player.ID].transform.position = Vector3.zero;
+        playerNameList[PhotonNetwork.player.ID].transform.SetParent(null);
+        PUNTutorial.GameManager.teamIwantToJoin = 0;
     }
 }

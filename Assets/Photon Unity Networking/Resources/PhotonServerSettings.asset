@@ -102,4 +102,5 @@ MonoBehaviour:
   - DestroyIt
   - DebutModifVitesse
   - FinModifVitesse
+  - SwitchTeam
   DisableAutoOpenWizard: 1

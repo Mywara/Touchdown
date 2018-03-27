@@ -325,6 +325,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1675119597034936, guid: 6334ac544b7965944b20228d0bc68f54,
     type: 2}
   m_PrefabInternal: {fileID: 656882773}
+--- !u!114 &656882777 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114008355995578080, guid: 6334ac544b7965944b20228d0bc68f54,
+    type: 2}
+  m_PrefabInternal: {fileID: 656882773}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!114 &793778736 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114732999928907794, guid: 6334ac544b7965944b20228d0bc68f54,
@@ -333,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!114 &793778737 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114008355995578080, guid: 6334ac544b7965944b20228d0bc68f54,
+  m_PrefabParentObject: {fileID: 114255228749870666, guid: 6334ac544b7965944b20228d0bc68f54,
     type: 2}
   m_PrefabInternal: {fileID: 656882773}
   m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -433,6 +439,11 @@ Prefab:
       propertyPath: joinTeam2
       value: 
       objectReference: {fileID: 793778737}
+    - target: {fileID: 114932593708970150, guid: a3449b345e17a514283cc7b5898876c9,
+        type: 2}
+      propertyPath: resetTeam
+      value: 
+      objectReference: {fileID: 656882777}
     - target: {fileID: 114823028249250934, guid: a3449b345e17a514283cc7b5898876c9,
         type: 2}
       propertyPath: viewIdField

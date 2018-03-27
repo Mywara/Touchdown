@@ -88,3 +88,4 @@ MonoBehaviour:
     type: 2}
   joinTeam1: {fileID: 0}
   joinTeam2: {fileID: 0}
+  resetTeam: {fileID: 0}
