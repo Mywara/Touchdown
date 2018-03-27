@@ -313,6 +313,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114063899310926170, guid: 693141411d0f83242bee7b24ab752180,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1595895042}
     - target: {fileID: 114695358166718624, guid: 693141411d0f83242bee7b24ab752180,
         type: 2}
       propertyPath: viewIdField
@@ -322,16 +327,6 @@ Prefab:
         type: 2}
       propertyPath: instantiationId
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114063899310926170, guid: 693141411d0f83242bee7b24ab752180,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1595895042}
-    - target: {fileID: 114063899310926170, guid: 693141411d0f83242bee7b24ab752180,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Ready
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 693141411d0f83242bee7b24ab752180, type: 2}

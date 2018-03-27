@@ -10,7 +10,7 @@ public class PlayerNameManager : MonoBehaviour {
    
     void Start()
     {
-        string defaultName = "";
+        string defaultName = "Anonyme";
         InputField  _inputField = this.GetComponentInChildren<InputField>();
         if (_inputField != null)
         {

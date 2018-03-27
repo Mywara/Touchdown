@@ -6,6 +6,16 @@ using UnityEngine.UI;
 public class LaunchGameWhenReady : Photon.PUNBehaviour {
 
     public Button readyForNewPhase;
+    public GameObject piratePreview;
+    public GameObject undeadPreview;
+    public GameObject warBearPreview;
+    public Transform team1List;
+    public Transform team2List;
+    public GameObject playerNamePrefab;
+    public Button joinTeam1;
+    public Button joinTeam2;
+
+    private Dictionary<int, GameObject> playerNameList = new Dictionary<int, GameObject>();
     private int nbMaxPlayer;
     private int nbPlayerReady;
     private bool iAmReady = false;
@@ -28,7 +38,11 @@ public class LaunchGameWhenReady : Photon.PUNBehaviour {
     // Use this for initialization
     void Start()
     {
-
+        piratePreview.SetActive(false);
+        undeadPreview.SetActive(false);
+        warBearPreview.SetActive(false);
+        joinTeam1.onClick.AddListener(delegate { ButtonToSwitchTeam(1, PhotonNetwork.player.ID, PlayerPrefs.GetString("PlayerName")); });
+        joinTeam2.onClick.AddListener(delegate { ButtonToSwitchTeam(2, PhotonNetwork.player.ID, PlayerPrefs.GetString("PlayerName")); });
     }
 
     // Update is called once per frame
@@ -136,16 +150,25 @@ public class LaunchGameWhenReady : Photon.PUNBehaviour {
     public void SelectCharacterPirate()
     {
        gameManager.CharacterToLoad = "Pirate";
+        piratePreview.SetActive(true);
+        undeadPreview.SetActive(false);
+        warBearPreview.SetActive(false);
     }
 
     public void SelectCharacterUndeath()
     {
         gameManager.CharacterToLoad = "Undeath";
+        piratePreview.SetActive(false);
+        undeadPreview.SetActive(true);
+        warBearPreview.SetActive(false);
     }
 
     public void SelectCharacterWarBear()
     {
         gameManager.CharacterToLoad = "War_Bear";
+        piratePreview.SetActive(false);
+        undeadPreview.SetActive(false);
+        warBearPreview.SetActive(true);
     }
 
     public void SelectLevelScene1()
@@ -162,5 +185,57 @@ public class LaunchGameWhenReady : Photon.PUNBehaviour {
     public void LoadLevel(string theLevelToLoad)
     {
         PhotonNetwork.LoadLevel(theLevelToLoad);
+    }
+
+    private void ButtonToSwitchTeam(int newTeam, int playerID, string playerName)
+    {
+        photonView.RPC("SwitchTeam", PhotonTargets.AllBuffered, newTeam, playerID, playerName);
+        SwitchTeamIWantToJoin(newTeam);
+    }
+
+    [PunRPC]
+    private void SwitchTeam(int newTeam, int playerID, string playerName)
+    {
+        //Debug.Log("switch team, newteam : " + newTeam);
+        if (!playerNameList.ContainsKey(playerID))
+        {
+            GameObject textCreated = Instantiate(playerNamePrefab, Vector3.zero, Quaternion.identity);
+            textCreated.GetComponent<Text>().text = playerName;
+            playerNameList.Add(playerID, textCreated);
+        }
+        if(newTeam == 1)
+        {
+            JoinTeam1(playerNameList[playerID]);
+        }
+        else if (newTeam == 2)
+        {
+            JoinTeam2(playerNameList[playerID]);
+        }
+    }
+
+    private void JoinTeam1(GameObject playerNameinListInstance)
+    {
+        //Debug.Log("Joined Team 1");
+        playerNameinListInstance.transform.position = Vector3.zero;
+        playerNameinListInstance.transform.SetParent(team1List);      
+    }
+
+    private void JoinTeam2(GameObject playerNameinListInstance)
+    {
+        //Debug.Log("Joined Team 2");
+        playerNameinListInstance.transform.position = Vector3.zero;
+        playerNameinListInstance.transform.SetParent(team2List);
+    }
+
+    private void SwitchTeamIWantToJoin(int teamNumber)
+    {
+        if(teamNumber == 1)
+        {
+            PUNTutorial.GameManager.teamIwantToJoin = 1;
+        }
+        else if (teamNumber == 2)
+        {
+            PUNTutorial.GameManager.teamIwantToJoin = 2;
+        }
     }
 }

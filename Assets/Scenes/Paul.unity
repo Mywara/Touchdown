@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -376,7 +376,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 234562820}
-  m_LocalRotation: {x: 0.0036166906, y: -0.020375773, z: 0.87187225, w: 0.48929614}
+  m_LocalRotation: {x: 0.0036166902, y: -0.020375771, z: 0.8718721, w: 0.48929608}
   m_LocalPosition: {x: 0.0045532305, y: 0.013548912, z: 0}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999976}
   m_Children:
@@ -622,7 +622,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 493695830}
-  m_LocalRotation: {x: -0.16967624, y: 0.15046203, z: 0.7776727, w: 0.5863416}
+  m_LocalRotation: {x: -0.16967623, y: 0.15046202, z: 0.7776726, w: 0.58634156}
   m_LocalPosition: {x: -0.02296684, y: -0.0049730116, z: -0.087032944}
   m_LocalScale: {x: 0.99999976, y: 0.9999998, z: 0.9999998}
   m_Children: []
@@ -2200,6 +2200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthSliderUI: {fileID: 1501764540}
+  HealthMax: 0
 --- !u!114 &1821099725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2355,6 +2356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthSlider: {fileID: 1420095358}
+  HealthMax: 0
 --- !u!114 &1821099730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2373,6 +2375,9 @@ MonoBehaviour:
   team: 1
   immobilization: 0
   activeTrap: {fileID: 0}
+  inGame: 1
+  onCollision: 0
+  AnimCurse: {fileID: 0}
 --- !u!114 &1821099731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2392,6 +2397,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1983727145572376, guid: a581bdce5aaa32f4f92756906724583f,
     type: 2}
   projectileSpawn: {fileID: 1137045487}
+  AnimMuzzle: {fileID: 0}
   inModePlacing: 0
   hasAnAOE: 0
   sourceObject: {fileID: 0}
@@ -2510,6 +2516,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114690506073618724, guid: c7f835e5a40f48e4a91ac3b6b0629a49,
+        type: 2}
+      propertyPath: viewIdField
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114690506073618724, guid: c7f835e5a40f48e4a91ac3b6b0629a49,
+        type: 2}
+      propertyPath: instantiationId
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c7f835e5a40f48e4a91ac3b6b0629a49, type: 2}
   m_IsPrefabParent: 0
@@ -2596,7 +2612,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2087696053}
-  m_LocalRotation: {x: 0.13833098, y: 0.09944825, z: 0.24316195, w: 0.9549067}
+  m_LocalRotation: {x: 0.138331, y: 0.099448256, z: 0.24316196, w: 0.95490676}
   m_LocalPosition: {x: -0.008991393, y: -0.039836492, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0.9999998}
   m_Children: []

@@ -10,6 +10,7 @@ namespace PUNTutorial
 
         public static GameManager instance;
         public static GameObject localPlayer;
+        public static float teamIwantToJoin = 0;
 
         private string characterToLoad = "Pirate";
         private string levelToLoad = "Scene1";
@@ -173,7 +174,18 @@ namespace PUNTutorial
             //localPlayer = PhotonNetwork.Instantiate("TempPlayer", new Vector3(0, 0.5f, 0), Quaternion.identity, 0);
             localPlayer = PhotonNetwork.Instantiate(characterToLoad, new Vector3(0, 20f, 0), Quaternion.identity, 0);
             localPlayer.SetActive(false);
-            RoomManager.instance.photonView.RPC("AutoJoinTeam", PhotonTargets.AllBufferedViaServer, PhotonNetwork.player.ID, localPlayer.GetPhotonView().viewID);
+            if(teamIwantToJoin == 0)
+            {
+                RoomManager.instance.photonView.RPC("AutoJoinTeam", PhotonTargets.AllBufferedViaServer, PhotonNetwork.player.ID, localPlayer.GetPhotonView().viewID);
+            }
+            else if (teamIwantToJoin == 1)
+            {
+                RoomManager.instance.photonView.RPC("JoinTeam1", PhotonTargets.AllBufferedViaServer, PhotonNetwork.player.ID, localPlayer.GetPhotonView().viewID);
+            }
+            else if (teamIwantToJoin == 2)
+            {
+                RoomManager.instance.photonView.RPC("JoinTeam2", PhotonTargets.AllBufferedViaServer, PhotonNetwork.player.ID, localPlayer.GetPhotonView().viewID);
+            }
             RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.AllViaServer, PhotonNetwork.player.ID, 0.0F);
         }
 
