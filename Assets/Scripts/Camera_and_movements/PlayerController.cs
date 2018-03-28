@@ -3,7 +3,6 @@ using System.Collections;
 
 public class PlayerController : Photon.PunBehaviour
 {
-
     public float originaleMovementSpeed = 10;
     private float movementSpeed;
 
@@ -19,7 +18,6 @@ public class PlayerController : Photon.PunBehaviour
     public Transform activeTrap;
     public bool inGame = true;
 
-
     public bool onCollision = false;
     private bool mobile = true; // sert à savoir si on a le droit de bouger
     private float timeStun = 0; // sert à savoir jusqu'à quand on est stun
@@ -27,11 +25,11 @@ public class PlayerController : Photon.PunBehaviour
 
     private bool isCursed = false;
     private float lastCurseHit; // sert à savoir quand la cible a été maudit pour la dernière fois
-    private float curseDuration = 2.5f; // représente la durée en seconde de la malédiction
     public GameObject AnimCurse;
 
     // Script pour controler l'orientation de la camera
     private CameraFollow cameraFollowScript;
+
 
     void Awake()
     {
@@ -44,7 +42,6 @@ public class PlayerController : Photon.PunBehaviour
     {
         if (photonView.isMine)
         {
-
             GameObject cameraPrefab = Camera.main.transform.root.gameObject;
             if (cameraPrefab != null)
             {
@@ -122,7 +119,8 @@ public class PlayerController : Photon.PunBehaviour
     void Update()
     {
         //Le personnage n'est plus maudit si la malédiction a durée assez longtemps
-        if(isCursed && Time.time > lastCurseHit + curseDuration) {
+        if(isCursed && Time.time > lastCurseHit + Constants.CURSEDOT_DURATION) {
+            Debug.Log("PlayerController : curse end");
             photonView.RPC("FinCurse", PhotonTargets.All);
         }
 
@@ -296,14 +294,8 @@ public class PlayerController : Photon.PunBehaviour
     [PunRPC]
     public void Curse()
     {
-
+        Debug.Log("RPC : beginning of the curse");
         AnimCurse.SetActive(true);
-
-        if (!photonView.isMine && PhotonNetwork.connected == true)
-        {
-            return;
-        }
-
         isCursed = true;
         lastCurseHit = Time.time;
     }
@@ -312,20 +304,19 @@ public class PlayerController : Photon.PunBehaviour
     [PunRPC]
     public void FinCurse()
     {
+        Debug.Log("RPC : end of the curse");
         AnimCurse.SetActive(false);
-
-        if (!photonView.isMine && PhotonNetwork.connected == true)
-        {
-            return;
-        }
-
         isCursed = false;
-        
     }
 
     public void ResetCurseTimer()
     {
         lastCurseHit = Time.time;
+    }
+
+    public bool Cursed()
+    {
+        return isCursed;
     }
 
 

@@ -145,7 +145,19 @@ public class CacHitZone : Photon.PunBehaviour {
             foreach (GameObject directHitObj in directHitObjs.ToArray())
             {
                 Debug.Log("Obj in CacHitZone : " + directHitObj.name);
+                
                 ApplyDamage(directHitObj, damage);
+
+                if (undeadPassive)
+                {
+                    PlayerController hitObjController = directHitObj.GetComponent<PlayerController>();
+                    if (hitObjController && hitObjController.Cursed())
+                    {
+                        Debug.Log("Undead passive : retrieving " + Mathf.RoundToInt(damage * Constants.UNDEAD_LEECHLIFE_RATE) + "HP from " + directHitObj.name);
+                        LeechLife(Mathf.RoundToInt(damage * Constants.UNDEAD_LEECHLIFE_RATE));
+                    }
+                }
+
                 directHitObjs.Remove(directHitObj);
             }
     }
@@ -165,7 +177,7 @@ public class CacHitZone : Photon.PunBehaviour {
     private void ApplyDamage(GameObject target, int damage)
     {
         PUNTutorial.HealthScript healthScript = target.GetComponent<PUNTutorial.HealthScript>();
-        if (healthScript != null)
+        if (healthScript)
         {
             //healthScript.Damage(damage);
             healthScript.photonView.RPC("Damage", PhotonTargets.All, damage);
@@ -173,10 +185,28 @@ public class CacHitZone : Photon.PunBehaviour {
         }
 
         PUNTutorial.HealthScript2 healthScript2 = target.GetComponent<PUNTutorial.HealthScript2>();
-        if (healthScript2 != null)
+        if (healthScript2)
         {
             //healthScript2.Damage2(damage);
             healthScript2.photonView.RPC("Damage2", PhotonTargets.All, damage);
+        }
+    }
+
+    private void LeechLife(int life)
+    {
+        PUNTutorial.HealthScript healthScript = transform.root.gameObject.GetComponent<PUNTutorial.HealthScript>();
+        if (healthScript)
+        {
+            //healthScript.Damage(damage);
+            healthScript.photonView.RPC("Heal", PhotonTargets.All, life);
+            Debug.Log("Leech life : " + life + " deals to : " + gameObject.name);
+        }
+
+        PUNTutorial.HealthScript2 healthScript2 = transform.root.gameObject.GetComponent<PUNTutorial.HealthScript2>();
+        if (healthScript2)
+        {
+            //healthScript2.Damage2(damage);
+            healthScript2.photonView.RPC("Heal2", PhotonTargets.All, life);
         }
     }
 }

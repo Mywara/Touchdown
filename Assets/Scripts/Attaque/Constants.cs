@@ -29,12 +29,14 @@ public static class Constants : object {
     /*
      * Static values associated to the Undead's passive
      */
-    // quantité de PV drainés par le vol de vie
-    public static int UNDEAD_HP_DRAIN = 5;
+    // taux de PV drainés par le vol de vie
+    public static float UNDEAD_LEECHLIFE_RATE = .5f;
 
     /*
      * Static values associated to the CurseDoT
      */
+    //durée en secondes de la malédiction
+    public static float CURSEDOT_DURATION = 2.5f;
     public static int CURSEDOT_DAMAGE = 4;
     //Indique la range du projectile
     public static float CURSEDOT_RADIUS = 12;

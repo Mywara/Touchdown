@@ -823,6 +823,7 @@ GameObject:
   - component: {fileID: 114441045949053750}
   - component: {fileID: 114473522420273746}
   - component: {fileID: 114216439385356324}
+  - component: {fileID: 114364309897920050}
   m_Layer: 0
   m_Name: Undeath
   m_TagString: Player
@@ -1683,7 +1684,7 @@ MonoBehaviour:
   activeTrap: {fileID: 0}
   inGame: 1
   onCollision: 0
-  AnimCurse: {fileID: 0}
+  AnimCurse: {fileID: 1016334394040464}
 --- !u!114 &114170243507091364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1776,6 +1777,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthSlider: {fileID: 114125096484576428}
   HealthMax: 0
+--- !u!114 &114364309897920050
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1901769844858788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 414e3b4251bf14ce485a2f19f823cc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114388092468223464
 MonoBehaviour:
   m_ObjectHideFlags: 1
