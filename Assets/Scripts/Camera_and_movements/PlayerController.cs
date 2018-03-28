@@ -37,7 +37,6 @@ public class PlayerController : Photon.PunBehaviour
         anim = GetComponent<Animator>();
     }
 
-
     void Start()
     {
         if (photonView.isMine)
@@ -63,7 +62,6 @@ public class PlayerController : Photon.PunBehaviour
 
         movementSpeed = originaleMovementSpeed;
     }
-
 
     void FixedUpdate()
     {
@@ -120,7 +118,6 @@ public class PlayerController : Photon.PunBehaviour
     {
         //Le personnage n'est plus maudit si la malédiction a durée assez longtemps
         if(isCursed && Time.time > lastCurseHit + Constants.CURSEDOT_DURATION) {
-            Debug.Log("PlayerController : curse end");
             photonView.RPC("FinCurse", PhotonTargets.All);
         }
 
