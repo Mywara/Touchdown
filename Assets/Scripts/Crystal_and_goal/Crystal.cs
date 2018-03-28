@@ -13,6 +13,7 @@ public class Crystal : Photon.PUNBehaviour
     public Vector3 startingPosition = new Vector3(0f, 1.5f, 0f);
     public int pickupCooldown = 3;
     public int bouncingForce = 100;
+    public float DropTimer = 7f;
 
     // lumière
     private Light volumetricLight;
@@ -24,6 +25,7 @@ public class Crystal : Photon.PUNBehaviour
     public int orangeIntensite;
 
     private Rigidbody rb;
+    private float lastDropTime;
 
 
     void Awake()
@@ -78,6 +80,13 @@ public class Crystal : Photon.PUNBehaviour
             pos.y += 1.2f;
 
             this.transform.position = pos;
+        }
+        else if(Time.time > lastDropTime + DropTimer)
+        {
+            if (PhotonNetwork.connected)
+                photonView.RPC("ResetCrystalPosition", PhotonTargets.All);
+            else
+                ResetCrystalPosition();
         }
 
         if (justDroppedCrystal != null)
@@ -155,6 +164,8 @@ public class Crystal : Photon.PUNBehaviour
 
         rb.isKinematic = false;
 
+        lastDropTime = Time.time;
+
         Debug.Log("crystal Leave on groud");
     }
 
@@ -178,12 +189,8 @@ public class Crystal : Photon.PUNBehaviour
             Vector3 bounceVector =  this.transform.position - collision.transform.position;
             bounceVector.x += Random.Range(-1f, 1f);
             bounceVector.z += Random.Range(-1f, 1f);
+            AddBouncingForce(bounceVector);
             Debug.Log("Bounce vector : " + bounceVector);
-
-            //if (PhotonNetwork.connected)
-            //    photonView.RPC("AddBouncingForce", PhotonTargets.All, bounceVector);
-            //else
-                AddBouncingForce(bounceVector);
         }
     }
 
