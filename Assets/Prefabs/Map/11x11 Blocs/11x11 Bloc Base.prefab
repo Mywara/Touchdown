@@ -7658,7 +7658,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1650849110679984}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 59.8, z: -0.9}
+  m_LocalPosition: {x: 0, y: 60, z: -0.9}
   m_LocalScale: {x: 5.50006, y: 2.252442, z: 0.14581011}
   m_Children: []
   m_Father: {fileID: 4588070028893494}
@@ -28546,8 +28546,8 @@ Light:
   m_Type: 0
   m_Color: {r: 0.9647059, g: 0.07843135, b: 0.8302365, a: 1}
   m_Intensity: 100
-  m_Range: 60
-  m_SpotAngle: 10
+  m_Range: 59.7
+  m_SpotAngle: 8
   m_CookieSize: 10
   m_Shadows:
     m_Type: 1
@@ -28635,7 +28635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crys: {fileID: 1635052500047410, guid: c7f835e5a40f48e4a91ac3b6b0629a49, type: 2}
   bleuIntensite: 2000
-  orangeIntensite: 20
+  orangeIntensite: 60
 --- !u!114 &114964263014300826
 MonoBehaviour:
   m_ObjectHideFlags: 1
