@@ -66,7 +66,11 @@ public class HealthTag : Photon.PUNBehaviour
                     tagVisualisation = Instantiate(tagVisualisationPrefab, hit.point, Quaternion.identity);
                 }
                 readyToPlace = true;
-                autoAttaqueRanged.inModePlacing = true;
+                if(autoAttaqueRanged != null)
+                {
+                    autoAttaqueRanged.inModePlacing = true;
+                }
+
             }
             //pose le piege (si des charges sont disponible)
             if (readyToPlace && Input.GetMouseButtonDown(0) && nbCharges > 0)
@@ -76,7 +80,10 @@ public class HealthTag : Photon.PUNBehaviour
                 readyToPlace = false;
                 //Destroy(healthTag.gameObject.GetComponent<PGlaceMovement>());
                 photonView.RPC("DestroyMovementScript", PhotonTargets.All, "PGlaceMovement");
-                autoAttaqueRanged.inModePlacing = false;
+                if (autoAttaqueRanged != null)
+                {
+                    autoAttaqueRanged.inModePlacing = false;
+                }
                 photonView.RPC("SetMyOwner", PhotonTargets.All, this.photonView.viewID, healthTag.GetPhotonView().viewID);
                 nbCharges--;
             }
@@ -117,7 +124,10 @@ public class HealthTag : Photon.PUNBehaviour
                 readyToPlace = false;
                 //Destroy(healthTag.gameObject.GetComponent<PGlaceMovement>());
                 photonView.RPC("DestroyMovementScript", PhotonTargets.All, "PGlaceMovement");
-                autoAttaqueRanged.inModePlacing = false;
+                if (autoAttaqueRanged != null)
+                {
+                    autoAttaqueRanged.inModePlacing = false;
+                }
                 photonView.RPC("SetMyOwner", PhotonTargets.All, this.photonView.viewID, healthTag.GetPhotonView().viewID);
                 nbCharges--;
 

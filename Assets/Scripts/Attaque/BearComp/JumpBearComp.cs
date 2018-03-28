@@ -266,8 +266,13 @@ public class JumpBearComp : Photon.PunBehaviour
 
         jumping = false;
 
-        jumpAOEZone.SetActive(false);
-        jumpAOEScript.SetApply(false);
+        if(jumpAOEScript != null)
+        {
+            jumpAOEScript.SetApply(false);
+            jumpAOEZone.SetActive(false);
+        }
+
+  
 
     }
 }
