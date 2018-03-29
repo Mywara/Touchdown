@@ -141,14 +141,18 @@ public class Crystal : Photon.PUNBehaviour
     [PunRPC]
     public void ResetCrystalPosition()
     {
-        rb.isKinematic = true;
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        if (rb != null)
+        {
+            rb.isKinematic = true;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
 
-        transform.position = startingPosition;
+            transform.position = startingPosition;
 
-        //reset la couleur du halo
-        SetCouleurLight(couleurOrange, orangeIntensite);
+            //reset la couleur du halo
+            SetCouleurLight(couleurOrange, orangeIntensite);
+        }
+
     }
 
 

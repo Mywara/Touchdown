@@ -20,10 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4264022015751500}
   - component: {fileID: 33069397713161116}
-  - component: {fileID: 135505565548160244}
   - component: {fileID: 23100896244983226}
   - component: {fileID: 114200942352199716}
   - component: {fileID: 114131919815095192}
+  - component: {fileID: 64990089358891244}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -71,7 +71,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1970358345820278}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.247177, y: 1.9297859e-16, z: -8.690983}
+  m_LocalPosition: {x: 126.78433, y: 53.5679, z: -8.690983}
   m_LocalScale: {x: 0.8, y: 0.2, z: 0.5}
   m_Children:
   - {fileID: 4264022015751500}
@@ -160,6 +160,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1970358345820278}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &64990089358891244
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1483416510873936}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!65 &65093100633964362
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -191,7 +205,8 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -248,15 +263,3 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
---- !u!135 &135505565548160244
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1483416510873936}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

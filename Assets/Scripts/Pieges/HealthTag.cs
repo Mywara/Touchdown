@@ -159,21 +159,29 @@ public class HealthTag : Photon.PUNBehaviour
     [PunRPC]
     void SetMyOwner(int idt, int idTrap)
     {
-        GameObject owner = PhotonView.Find(idt).gameObject;
-        healthTag.GetComponent<HealthTagTrigger>().Owner = owner;
-        Debug.Log("Owner : " + owner.name + " , This : " + PUNTutorial.GameManager.localPlayer.name);
-        if (owner.GetComponent<PlayerController>().Team != PUNTutorial.GameManager.localPlayer.GetComponent<PlayerController>().Team)
+        if (healthTag != null)
         {
-            Debug.Log("render to false");
-            healthTag.GetComponent<Renderer>().enabled = false;
+            GameObject owner = PhotonView.Find(idt).gameObject;
+            healthTag.GetComponent<HealthTagTrigger>().Owner = owner;
+            Debug.Log("Owner : " + owner.name + " , This : " + PUNTutorial.GameManager.localPlayer.name);
+            if (owner.GetComponent<PlayerController>().Team != PUNTutorial.GameManager.localPlayer.GetComponent<PlayerController>().Team)
+            {
+                Debug.Log("render to false");
+                healthTag.GetComponent<Renderer>().enabled = false;
+            }
         }
+        
     }
 
     [PunRPC]
     void DestroyMovementScript(string scriptName)
     {
-        Destroy(healthTag.gameObject.GetComponent(scriptName));
-        Destroy(tagVisualisation);
+        if (healthTag != null && scriptName != null)
+        {
+            Destroy(healthTag.gameObject.GetComponent(scriptName));
+            Destroy(tagVisualisation);
+        }
+
     }
 
     public void SwitchPlayerMode()
