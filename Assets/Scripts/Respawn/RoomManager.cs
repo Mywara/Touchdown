@@ -120,7 +120,7 @@ public class RoomManager : Photon.PunBehaviour {
     {
         Debug.Log("Strategic phase");
         //on respawn tous les joueurs
-        RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.AllViaServer, PhotonNetwork.player.ID, 0.0F);
+        RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.All, PhotonNetwork.player.ID, 0.0F);
         //PUNTutorial.GameManager.localPlayer.SetActive(false);
         readyForNewPhase.gameObject.SetActive(true);
         waitForStart = false;
