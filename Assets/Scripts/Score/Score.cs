@@ -25,15 +25,15 @@ namespace PUNTutorial
                 {
                     //GoalG.z < 0 => but de la team 1
                     //Seuls les membres de la team 0 peuvent marquer dans ce but
-                    if (this.gameObject.tag == "GoalG" && other.gameObject.GetComponent<PlayerController>().team == 0)
+                    if (this.gameObject.tag == "GoalG" && other.gameObject.GetComponent<PlayerController>().team == 2)
                     {
-                        scoreUpdate.scoreG += 1;
+                        scoreUpdate.scoreD += 1;
                         Debug.Log("GOAL GAUCHE !");
                         RoomManager.instance.GoalMarked();
                         GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("ChangeScore", PhotonTargets.All);
                         if (scoreUpdate.scoreG >= endScore)
                         {
-                            GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "gauche";
+                            GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "Droite";
                             PhotonNetwork.LoadLevel("EndScene");
                         }
                     }
@@ -41,13 +41,13 @@ namespace PUNTutorial
                     //Seuls les membres de la team 1 peuvent marquer dans ce but
                     else if (this.gameObject.tag == "GoalD" && other.gameObject.GetComponent<PlayerController>().team == 1)
                     {
-                        scoreUpdate.scoreD += 1;
+                        scoreUpdate.scoreG += 1;
                         Debug.Log("GOAL DROITE !");
                         RoomManager.instance.GoalMarked();
                         GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("ChangeScore", PhotonTargets.All);
                         if (scoreUpdate.scoreD >= endScore)
                         {
-                            GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "droite";
+                            GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "Gauche";
                             PhotonNetwork.LoadLevel("EndScene");
                         }
 
