@@ -1684,7 +1684,7 @@ MonoBehaviour:
   activeTrap: {fileID: 0}
   inGame: 1
   onCollision: 0
-  AnimCurse: {fileID: 1016334394040464}
+  AnimCurse: {fileID: 0}
 --- !u!114 &114170243507091364
 MonoBehaviour:
   m_ObjectHideFlags: 1
