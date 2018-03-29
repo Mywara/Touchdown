@@ -69,11 +69,11 @@ public class UndeadComp : Photon.PunBehaviour
         }
 
         // Lance le dot 
-        if (Input.GetKeyDown(KeyCode.A) && Time.time > dotLastUse + dotCooldown)
+        if (Input.GetButtonDown("Skill1") && Time.time > dotLastUse + dotCooldown)
         {
             // animation trigger
             //anim.SetTrigger("AttackGun");
-
+            
             GameObject projo;
             //Pour le local
             if (PhotonNetwork.connected == false)
@@ -108,7 +108,7 @@ public class UndeadComp : Photon.PunBehaviour
         }
 
         // Lance la TP
-        else if (Input.GetKeyDown(KeyCode.E) && Time.time > tpLastUse + tpCooldown)
+        else if (Input.GetButtonDown("Skill2") && Time.time > tpLastUse + tpCooldown)
         {
             // animation trigger
             //anim.SetTrigger("AttackGun");
@@ -147,7 +147,7 @@ public class UndeadComp : Photon.PunBehaviour
         }
 
         //Compétence pour l'invulnerabilité
-        if (Input.GetKeyDown(KeyCode.R) && Time.time > invulnerableLastUse + invulnerableCooldown)
+        if (Input.GetButtonDown("Skill3") && Time.time > invulnerableLastUse + invulnerableCooldown)
         {
             Invulnerability invulScript = GetComponent<Invulnerability>();
             if (invulScript != null)

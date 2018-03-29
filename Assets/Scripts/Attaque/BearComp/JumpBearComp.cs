@@ -128,7 +128,7 @@ public class JumpBearComp : Photon.PunBehaviour
         }
 
         // Input du Jump
-        if (Input.GetKeyDown(KeyCode.E) && (Time.time > (jumpLastUse + jumpCooldown)))
+        if (Input.GetButtonDown("Skill2") && (Time.time > (jumpLastUse + jumpCooldown)))
         {
             Debug.Log("Jump Competence");
             compJump(); // On lance le saut

@@ -54,7 +54,7 @@ public class PirateComp : Photon.PunBehaviour
         }
 
         // GrapeShot
-        if (Input.GetKeyDown(KeyCode.A) && Time.time > grapLastUse + grapCooldown)
+        if (Input.GetButtonDown("Skill1") && Time.time > grapLastUse + grapCooldown)
         {
             // animation trigger
             //anim.SetTrigger("AttackGun");
@@ -94,7 +94,7 @@ public class PirateComp : Photon.PunBehaviour
         }
 
         //Compétence Lancer de bouteille de rhum
-        if (Input.GetKeyDown(KeyCode.E) && Time.time > bouteilleLastUse + bouteilleCooldown)
+        if (Input.GetButtonDown("Skill2") && Time.time > bouteilleLastUse + bouteilleCooldown)
         {
             GameObject projo;
             //Pour le local

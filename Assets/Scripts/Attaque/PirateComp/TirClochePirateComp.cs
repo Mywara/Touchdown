@@ -61,7 +61,7 @@ public class TirClochePirateComp : Photon.PunBehaviour
 
 
         // Input 
-        if (Input.GetKeyDown(KeyCode.R) && (Time.time > (tirClocheLastUse + tirClocheCooldown)))
+        if (Input.GetButtonDown("Skill3") && (Time.time > (tirClocheLastUse + tirClocheCooldown)))
         {
 
             GameObject projo;

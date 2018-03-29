@@ -52,7 +52,7 @@ public class BearComp : Photon.PunBehaviour
             return;
         }
         //Compétence Coup d'épaule
-        if (Input.GetKeyDown(KeyCode.A)  && Time.time > shoulderLastUse + shoulderCooldown)
+        if (Input.GetButtonDown("Skill1") && Time.time > shoulderLastUse + shoulderCooldown)
         {
             GameObject projo;
             //Pour le local
