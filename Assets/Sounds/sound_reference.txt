@@ -1,0 +1,78 @@
+Sounds for TouchDown
+
+===========================================
+----------------CHARACTERS-----------------
+===========================================
+Undead AA 
+	swing : ScytheSwing
+	hit : 
+Undead DoT 
+	launch : UndeadDotLaunch
+	impact : UndeadDotImpact
+Undead TP : UndeadTP
+Undead Invulnérabilité : UndeadInvulnerable
+
+Bear AA 
+	swing : BearSwing1 ou BearSwing2
+	hit : 
+Bear Comp1 : 
+Bear Jump 
+	launch : BearJumpLaunch
+	impact : BearJumpImpact
+Bear Hug 
+	launch : 
+	impact : 
+
+Pirate AA 
+	launch : 
+	impact: 
+Pirate Bottle 
+	launch : PirateBottleLaunch
+	impact : 
+	drunk state : DrunkStateEffect
+Pirate Mitraille : 
+Pirate Ulti 
+	launch : 
+	impact : 
+
+Trap placement : Trap
+Ice trap trigger : 
+
+
+Jump : Jump
+
+Footsteps : Footstep1 ou Footstep2
+
+===========================================
+------------------OBJECTS--------------ok--
+===========================================
+Crystal 
+	pickup : CrystalPickup
+	put down : CrystalPutDown
+	reset : CrystalReset
+
+Goal : Goal
+
+===========================================
+---------------------UI----------------ok--
+===========================================
+Normal button click : ButtonClick2 ou ButtonClick1
+
+Ready button : ReadyButton
+UnReady button : NotReadyButton
+
+Character selection : CharacterSelection
+
+
+===========================================
+-------------------MUSIC------coming soon--
+===========================================
+Menu : 
+
+Lobby : 
+
+In a game :
+
+Victory : 
+
+Defeat : 
