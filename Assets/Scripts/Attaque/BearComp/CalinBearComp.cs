@@ -65,7 +65,7 @@ public class CalinBearComp : Photon.PunBehaviour
         }
 
         // Input du Calin
-        if (Input.GetKeyDown(KeyCode.A) && (Time.time > (calinLastUse + calinCooldown)))
+        if (Input.GetKeyDown(KeyCode.R) && (Time.time > (calinLastUse + calinCooldown)))
         {
             // Si on cible sur quelqu'un d'assez près
             if (Physics.Raycast(cam.transform.position + cam.transform.forward * 2.5f, cam.transform.forward, out hit, 500))

@@ -69,7 +69,7 @@ public class UndeadComp : Photon.PunBehaviour
         }
 
         // Lance le dot 
-        if (Input.GetButton("A") && Time.time > dotLastUse + dotCooldown)
+        if (Input.GetKeyDown(KeyCode.A) && Time.time > dotLastUse + dotCooldown)
         {
             // animation trigger
             //anim.SetTrigger("AttackGun");
@@ -108,7 +108,7 @@ public class UndeadComp : Photon.PunBehaviour
         }
 
         // Lance la TP
-        else if (Input.GetButton("E") && Time.time > tpLastUse + tpCooldown)
+        else if (Input.GetKeyDown(KeyCode.E) && Time.time > tpLastUse + tpCooldown)
         {
             // animation trigger
             //anim.SetTrigger("AttackGun");
