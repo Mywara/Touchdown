@@ -1047,7 +1047,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1640654363724030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.5252607, y: 0.000000029802322, z: 0.22402}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4977634266821520}
@@ -1695,8 +1695,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7486e76f217e4294e9ec593d08568d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 80
-  fireRate: 1
+  damage: 200
+  fireRate: 0.8
   cacHitZone: {fileID: 1137029520731408}
   hclamp: 60
 --- !u!114 &114267205433509544
@@ -1947,10 +1947,10 @@ MonoBehaviour:
   transparenceCD: 0.5
   HUD: {fileID: 1219552981948140}
   calinHUD: {fileID: 1368141734123812}
-  calinCooldown: 6
-  calinDuree: 3
+  calinCooldown: 30
+  calinDuree: 5
   maxRange: 4
-  calinShield: 0.4
+  calinShield: 0.3
   effetArmor: {fileID: 0}
   audioDash: {fileID: 8300000, guid: 2a4f786b2d4704148a6a2544d50e081d, type: 3}
 --- !u!114 &114513372739151394
@@ -2135,11 +2135,11 @@ MonoBehaviour:
   transparenceCD: 0.5
   HUD: {fileID: 1219552981948140}
   jumpHUD: {fileID: 1879494157161454}
-  jumpCooldown: 5
-  jumpHeight: 5
+  jumpCooldown: 15
+  jumpHeight: 2.5
   jumpAOEZone: {fileID: 1089290827114280}
-  jumpDamage: 30
-  BoostVitesseEnSaut: 0
+  jumpDamage: 100
+  BoostVitesseEnSaut: 200
   effetDecollage: {fileID: 1174490162078294, guid: d1f77592678657a4f9650da8ebaf73c6,
     type: 2}
   effetAtterrissage: {fileID: 1524946756984258, guid: fa1ccf61bdc2f8e499e852ffd53d9f8d,
@@ -2234,7 +2234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cname: WarBear
-  health: 400
+  health: 2500
 --- !u!114 &114701497756573366
 MonoBehaviour:
   m_ObjectHideFlags: 1

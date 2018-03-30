@@ -51,11 +51,11 @@ public class GrapeShot : Photon.PunBehaviour
 
         if (PhotonNetwork.connected == true)
         {
-            target.GetComponent<PlayerController>().photonView.RPC("AddForceTo", PhotonTargets.All, targetDir.normalized * 1 / distance * 10000);
+            target.GetComponent<PlayerController>().photonView.RPC("AddForceTo", PhotonTargets.All, targetDir.normalized * 1 / distance * 5000);
         }
         else
         {
-            target.GetComponent<Rigidbody>().AddForce(targetDir.normalized * 1 / distance * 10000);
+            target.GetComponent<Rigidbody>().AddForce(targetDir.normalized * 1 / distance * 5000);
         }
     }
 

@@ -297,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73018de3086d92d4987eb35a2fc70d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  splashHeal: 30
+  splashHeal: 300
   AOERadius: 2
   projectileSpeed: 10
   dureeConfusion: 3

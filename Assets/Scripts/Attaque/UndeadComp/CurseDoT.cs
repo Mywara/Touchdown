@@ -8,7 +8,7 @@ public class CurseDoT : Photon.PunBehaviour
 {
 
     private int damage;
-    private float fireRate = 1f;
+    private float fireRate = .5f;
     private int team;
     private GameObject owner;
 

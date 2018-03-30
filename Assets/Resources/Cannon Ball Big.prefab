@@ -205,7 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AOERadius: 3
   projectileSpeed: 18
-  degat: 80
+  degat: 650
   team: 0
   maxAnglularVelocity: 1
   verticalVelocity: 2
