@@ -24,7 +24,7 @@ public class BearPassive : MonoBehaviour {
 
                 if (PhotonNetwork.connected == true)
                 {
-                    enemyController.photonView.RPC("Stun", PhotonTargets.All, Constants.WARBEAR_STUN_DURATION);
+                    enemyController.photonView.RPC("Stun", PhotonTargets.All, Constants.WARBEAR_STUN_DURATION,true);
                 }
                 else
                 {

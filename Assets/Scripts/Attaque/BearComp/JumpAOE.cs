@@ -36,9 +36,10 @@ public class JumpAOE : Photon.PunBehaviour
             apply = false;
             directHitObjs.Clear();
             this.transform.gameObject.SetActive(false);
+            Debug.Log("end Jump skill");
         }
 
-        Debug.Log("end Jump skill");
+        
 
     }
 

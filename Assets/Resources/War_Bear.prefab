@@ -1757,8 +1757,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 5
-  instantiationId: 5
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114030116977841610
@@ -1954,8 +1954,8 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents: []
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 21
-  instantiationId: 21
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114159536124972748
@@ -2275,8 +2275,8 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents: []
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 9
-  instantiationId: 9
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114484172287727220
@@ -2294,11 +2294,11 @@ MonoBehaviour:
   transparenceCD: 0.5
   HUD: {fileID: 1219552981948140}
   calinHUD: {fileID: 1368141734123812}
-  calinCooldown: 6
-  calinDuree: 3
+  calinCooldown: 10
+  calinDuree: 4
   maxRange: 4
   calinShield: 0.4
-  effetArmor: {fileID: 0}
+  effetArmor: {fileID: 1336753907227366, guid: eed5f4e9477d3af4aa2d5324c1b8f8c4, type: 2}
   audioDash: {fileID: 8300000, guid: 2a4f786b2d4704148a6a2544d50e081d, type: 3}
 --- !u!114 &114513372739151394
 MonoBehaviour:
@@ -2407,8 +2407,8 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents: []
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 23
-  instantiationId: 23
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114544172066079390
@@ -2507,11 +2507,11 @@ MonoBehaviour:
   transparenceCD: 0.5
   HUD: {fileID: 1219552981948140}
   jumpHUD: {fileID: 1879494157161454}
-  jumpCooldown: 5
-  jumpHeight: 5
+  jumpCooldown: 8
+  jumpHeight: 2.5
   jumpAOEZone: {fileID: 1089290827114280}
   jumpDamage: 30
-  BoostVitesseEnSaut: 0
+  BoostVitesseEnSaut: 200
   effetDecollage: {fileID: 1174490162078294, guid: d1f77592678657a4f9650da8ebaf73c6,
     type: 2}
   effetAtterrissage: {fileID: 1524946756984258, guid: fa1ccf61bdc2f8e499e852ffd53d9f8d,
@@ -2709,8 +2709,8 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents: []
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 22
-  instantiationId: 22
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114783088361775828
@@ -2767,8 +2767,8 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents: []
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 24
-  instantiationId: 24
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114906141534548568
@@ -2841,8 +2841,8 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents: []
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 25
-  instantiationId: 25
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114951075203771070
@@ -2868,7 +2868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac7672bb277670459c27008173e4e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originaleMovementSpeed: 10
+  originaleMovementSpeed: 3
   inputSensitivity: 120
   cameraFollow: {fileID: 1406215290990354}
   myJumpHeight: 1
@@ -2877,6 +2877,7 @@ MonoBehaviour:
   activeTrap: {fileID: 0}
   inGame: 1
   onCollision: 0
+  AnimStun: {fileID: 1867256479948646}
   AnimCurse: {fileID: 1777509597171470}
 --- !u!114 &114977305829112610
 MonoBehaviour:
@@ -2902,8 +2903,8 @@ MonoBehaviour:
   - {fileID: 114227236250211042}
   - {fileID: 114571601762160396}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 6
-  instantiationId: 6
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114994205142147240

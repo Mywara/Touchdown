@@ -22,10 +22,12 @@ public class PlayerController : Photon.PunBehaviour
     private bool mobile = true; // sert à savoir si on a le droit de bouger
     private float timeStun = 0; // sert à savoir jusqu'à quand on est stun
     private bool isStun = false; // sert à savoir si on stun
+    public GameObject AnimStun;
 
     private bool isCursed = false;
     private float lastCurseHit; // sert à savoir quand la cible a été maudit pour la dernière fois
     public GameObject AnimCurse;
+
 
     // Script pour controler l'orientation de la camera
     private CameraFollow cameraFollowScript;
@@ -137,7 +139,7 @@ public class PlayerController : Photon.PunBehaviour
             // gestion du stun (on utilise mobile comme condition 
             if (isStun && Time.time > timeStun)
             {
-                FinStun();
+                this.photonView.RPC("FinStun",PhotonTargets.All);
             }
 
             //permet de bouger a nouveau lorsque le piege immobilisant est détruit
@@ -257,8 +259,16 @@ public class PlayerController : Photon.PunBehaviour
 
     // Stun le perso
     [PunRPC]
-    public void Stun(float duree)
+    public void Stun(float duree, bool withAnim)
     {
+
+        // On met l'animation du stun s'il la faut
+        if (withAnim)
+        {
+            AnimStun.SetActive(true);
+        }
+
+        // Pour éviter un accès à la caméra des autres joueurs (inaccessibles)
         if (!photonView.isMine && PhotonNetwork.connected == true)
         {
             return;
@@ -275,8 +285,18 @@ public class PlayerController : Photon.PunBehaviour
 
     }
 
+    [PunRPC]
     private void FinStun()
     {
+        // On arrete l'animation
+        AnimStun.SetActive(false);
+
+        // Pour éviter un accès à la caméra des autres joueurs (inaccessibles)
+        if (!photonView.isMine && PhotonNetwork.connected == true)
+        {
+            return;
+        }
+
         // autorise translation, rotation du perso et compétences du perso
         SetMobile(true);
         cameraFollowScript.ActiveCamera();
@@ -291,7 +311,6 @@ public class PlayerController : Photon.PunBehaviour
     [PunRPC]
     public void Curse()
     {
-        Debug.Log("RPC : beginning of the curse");
         AnimCurse.SetActive(true);
         isCursed = true;
         lastCurseHit = Time.time;
@@ -301,7 +320,6 @@ public class PlayerController : Photon.PunBehaviour
     [PunRPC]
     public void FinCurse()
     {
-        Debug.Log("RPC : end of the curse");
         AnimCurse.SetActive(false);
         isCursed = false;
     }
@@ -424,7 +442,7 @@ public class PlayerController : Photon.PunBehaviour
 
         if (isStun)
         {
-            FinStun();
+            this.photonView.RPC("FinStun", PhotonTargets.All);
         }
 
         if (isCursed)

@@ -103,4 +103,5 @@ MonoBehaviour:
   - DebutModifVitesse
   - FinModifVitesse
   - SwitchTeam
+  - FinStun
   DisableAutoOpenWizard: 1

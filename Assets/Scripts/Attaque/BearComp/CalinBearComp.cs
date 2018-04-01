@@ -117,8 +117,8 @@ public class CalinBearComp : Photon.PunBehaviour
         this.photonView.RPC("LanceAnim", PhotonTargets.All);
 
         // On stun le lanceur et la cible
-        playerControllerScript.photonView.RPC("Stun", PhotonTargets.All, calinDuree);
-        ennemiPlayerControllerScript.photonView.RPC("Stun", PhotonTargets.All, calinDuree);
+        playerControllerScript.photonView.RPC("Stun", PhotonTargets.All, calinDuree,false);
+        ennemiPlayerControllerScript.photonView.RPC("Stun", PhotonTargets.All, calinDuree,true);
 
         // On donne le shield
         PUNTutorial.HealthScript healthScript = this.GetComponent<PUNTutorial.HealthScript>();

@@ -66,7 +66,7 @@ public class ShoulderHit : Photon.PunBehaviour
         Debug.Log("Collision detectée !");
         if (PhotonNetwork.connected == true)
         {
-            target.GetComponent<PlayerController>().photonView.RPC("Stun", PhotonTargets.All, stunTimer);
+            target.GetComponent<PlayerController>().photonView.RPC("Stun", PhotonTargets.All, stunTimer, true);
 
             if (crystal.GetComponent<Crystal>().playerHolding == target.transform.root.gameObject)
             {
