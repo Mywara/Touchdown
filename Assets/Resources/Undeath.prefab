@@ -1997,6 +1997,7 @@ MonoBehaviour:
   onCollision: 0
   AnimStun: {fileID: 1233926689523800}
   AnimCurse: {fileID: 1016334394040464}
+  AnimConfu: {fileID: 1645316695231764}
 --- !u!114 &114170243507091364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9684,7 +9685,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 1287759625
@@ -23080,7 +23081,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: -184381439
@@ -26513,7 +26514,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: -264256069
@@ -29946,7 +29947,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: -1707894945

@@ -28,6 +28,9 @@ public class PlayerController : Photon.PunBehaviour
     private float lastCurseHit; // sert à savoir quand la cible a été maudit pour la dernière fois
     public GameObject AnimCurse;
 
+    public GameObject AnimConfu;
+
+
 
     // Script pour controler l'orientation de la camera
     private CameraFollow cameraFollowScript;
@@ -232,18 +235,47 @@ public class PlayerController : Photon.PunBehaviour
     [PunRPC]
     public IEnumerator ModificationVitesse(float pourcentageVitesse, float duree)
     {
+        if (pourcentageVitesse < 0)
+        {
+            // Début animation confusion
+            AnimConfu.SetActive(true);
+        }
         movementSpeed = movementSpeed * (pourcentageVitesse / 100);
         yield return new WaitForSeconds(duree);
-        FinModifVitesse(pourcentageVitesse);
+        movementSpeed = movementSpeed / (pourcentageVitesse / 100);
+
+        // Fin animation confusion
+        AnimConfu.SetActive(false);
     }
 
+    [PunRPC]
     public void DebutModifVitesse(float pourcentageVitesse)
     {
+        if (pourcentageVitesse < 0)
+        {
+            //Début animation confusion
+            AnimConfu.SetActive(true);
+        }
+
+        if (!photonView.isMine && PhotonNetwork.connected == true)
+        {
+            return;
+        }
+
         movementSpeed = movementSpeed * (pourcentageVitesse / 100);
     }
 
+    [PunRPC]
     public void FinModifVitesse(float pourcentageVitesse)
     {
+        // Fin animation confusion
+        AnimConfu.SetActive(false);
+
+        if (!photonView.isMine && PhotonNetwork.connected == true)
+        {
+            return;
+        }
+
         movementSpeed = movementSpeed / (pourcentageVitesse / 100);
     }
 
@@ -451,6 +483,7 @@ public class PlayerController : Photon.PunBehaviour
         }
 
         movementSpeed = originaleMovementSpeed;
+        AnimConfu.SetActive(false);
     }
 
     public void SwitchPlayerMode()

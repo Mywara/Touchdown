@@ -1168,8 +1168,8 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents: []
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 5
-  instantiationId: 5
+  viewIdField: 6
+  instantiationId: 6
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!1 &461306806
@@ -1313,8 +1313,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 6
-  instantiationId: 6
+  viewIdField: 9
+  instantiationId: 9
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!33 &524397271
@@ -5376,8 +5376,8 @@ MonoBehaviour:
   - {fileID: 752901389}
   - {fileID: 752901379}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 9
-  instantiationId: 9
+  viewIdField: 21
+  instantiationId: 21
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &752901386
@@ -5431,6 +5431,7 @@ MonoBehaviour:
   onCollision: 0
   AnimStun: {fileID: 1524354767}
   AnimCurse: {fileID: 1642092290}
+  AnimConfu: {fileID: 456939722}
 --- !u!114 &752901389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5709,6 +5710,7 @@ GameObject:
   - component: {fileID: 819494438}
   - component: {fileID: 819494437}
   - component: {fileID: 819494436}
+  - component: {fileID: 819494439}
   m_Layer: 0
   m_Name: JumpAOEZone
   m_TagString: Untagged
@@ -5760,6 +5762,32 @@ Transform:
   m_Father: {fileID: 752901393}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &819494439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114166032093760220, guid: 0e19d31495ae5584fb9f321a52d02c2a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 819494435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents: []
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 5
+  instantiationId: 5
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &905696466
 GameObject:
   m_ObjectHideFlags: 0
@@ -9386,8 +9414,8 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents: []
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 21
-  instantiationId: 21
+  viewIdField: 22
+  instantiationId: 22
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &1011172938
@@ -9516,7 +9544,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: -1707894945
@@ -13310,8 +13338,8 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents: []
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 22
-  instantiationId: 22
+  viewIdField: 23
+  instantiationId: 23
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &1134411404
@@ -13440,7 +13468,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: -264256069
@@ -20746,8 +20774,8 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents: []
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 23
-  instantiationId: 23
+  viewIdField: 24
+  instantiationId: 24
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &1524354770
@@ -20876,7 +20904,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 1013267149
@@ -27986,8 +28014,8 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents: []
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 24
-  instantiationId: 24
+  viewIdField: 25
+  instantiationId: 25
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!1 &1666146859
@@ -32252,8 +32280,8 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents: []
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 25
-  instantiationId: 25
+  viewIdField: 28
+  instantiationId: 28
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &2138165245
@@ -32382,7 +32410,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: -184381439

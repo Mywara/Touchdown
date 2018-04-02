@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 4376178984760666}
   - component: {fileID: 135576920590036842}
   - component: {fileID: 114942428265458658}
+  - component: {fileID: 114166032093760220}
   m_Layer: 0
   m_Name: JumpAOEZone
   m_TagString: Untagged
@@ -1998,6 +1999,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthSlider: {fileID: 114341086683985522}
   HealthMax: 0
+--- !u!114 &114166032093760220
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1089290827114280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents: []
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114206932762142600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2879,6 +2905,7 @@ MonoBehaviour:
   onCollision: 0
   AnimStun: {fileID: 1867256479948646}
   AnimCurse: {fileID: 1777509597171470}
+  AnimConfu: {fileID: 1557338101086630}
 --- !u!114 &114977305829112610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6395,7 +6422,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: -1707894945
@@ -9828,7 +9855,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: -264256069
@@ -26525,7 +26552,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: -184381439
@@ -29958,7 +29985,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 1013267149

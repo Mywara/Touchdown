@@ -110,7 +110,7 @@ public class JumpBearComp : Photon.PunBehaviour
                 {
                     // On diminue la vitesse de déplacement en vol
                     //playerControllerScript.photonView.RPC("FinModifVitesse", PhotonTargets.All, BoostVitesseEnSaut);
-                    playerControllerScript.FinModifVitesse(BoostVitesseEnSaut);
+                    playerControllerScript.photonView.RPC("FinModifVitesse", PhotonTargets.All, BoostVitesseEnSaut);
                     //Joue le son de l'atterrissage
                     audioSource.clip = audioAtterrissage;
                     audioSource.Play();
@@ -135,7 +135,7 @@ public class JumpBearComp : Photon.PunBehaviour
 
             // On accelere la vitesse de déplacement en vol
             //playerControllerScript.photonView.RPC("DebutModifVitesse", PhotonTargets.All, BoostVitesseEnSaut);
-            playerControllerScript.DebutModifVitesse(BoostVitesseEnSaut);
+            playerControllerScript.photonView.RPC("DebutModifVitesse", PhotonTargets.All, BoostVitesseEnSaut);
 
             jumpLastUse = Time.time;
             jumping = true; // On considère qu'on est en train de sauter
