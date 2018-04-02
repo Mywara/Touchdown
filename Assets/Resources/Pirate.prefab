@@ -1928,6 +1928,7 @@ MonoBehaviour:
   bouteilleCooldown: 10
   grapHUD: {fileID: 1245266506599918}
   bouteilleHUD: {fileID: 1709937468993422}
+  animGrapeS: {fileID: 1046567844236466, guid: ae3d056d29e9c6a4a99b0a8f176161ff, type: 2}
 --- !u!114 &114078414521588166
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -26,6 +26,8 @@ public class PirateComp : Photon.PunBehaviour
     public GameObject bouteilleHUD;
     private bool compPirateActif = true;
 
+    public GameObject animGrapeS;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -58,6 +60,10 @@ public class PirateComp : Photon.PunBehaviour
         {
             // animation trigger
             //anim.SetTrigger("AttackGun");
+
+            // Lance l'animation du grape shot
+            this.photonView.RPC("LanceAnimGrapeShot", PhotonTargets.All, projectileSpawn1.rotation);
+
             GameObject projo;
             //Pour le local
             if (PhotonNetwork.connected == false)
@@ -167,6 +173,14 @@ public class PirateComp : Photon.PunBehaviour
     public void SetCompActives(bool b)
     {
         this.compPirateActif = b;
+    }
+
+    // Lance l'animation du grapeShot
+    [PunRPC]
+    private void LanceAnimGrapeShot(Quaternion directionShot)
+    {
+        GameObject effetA;
+        effetA = Instantiate(animGrapeS, projectileSpawn1.position, directionShot).gameObject as GameObject;
     }
 
     // Reset le perso (si meurt)

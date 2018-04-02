@@ -19,15 +19,15 @@ public class GrapeShot : Photon.PunBehaviour
 
     //the radius of the circular zone
     //= depth of the spell
-    private float radius;
+    //private float radius;
     //the angle of the circular zone
-    private float angle;
+    //private float angle;
 
     public void Start()
     {
         damage = Constants.GRAPE_DAMAGE;
-        radius = Constants.GRAPE_RADIUS;
-        angle  = Constants.GRAPE_ANGLE;
+        //radius = Constants.GRAPE_RADIUS;
+        //angle  = Constants.GRAPE_ANGLE;
 
     }
 
@@ -101,7 +101,7 @@ public class GrapeShot : Photon.PunBehaviour
 
     private void Update()
     {
-        if(directHitObjs.Count == 0) { PhotonNetwork.Destroy(this.gameObject); return; }
+        if(directHitObjs.Count == 0 && this.gameObject) { PhotonNetwork.Destroy(this.gameObject); return; }
 
         foreach (GameObject directHitObj in directHitObjs.ToArray())
         {
@@ -115,7 +115,7 @@ public class GrapeShot : Photon.PunBehaviour
     private void OnTriggerExit(Collider other)
     {
         directHitObjs.Remove(other.transform.root.gameObject);
-        PhotonNetwork.Destroy(this.gameObject);
+        //PhotonNetwork.Destroy(this.gameObject);
     }
 
     private void ApplyDamage(GameObject target, int damage)

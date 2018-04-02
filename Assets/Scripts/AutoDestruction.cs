@@ -19,9 +19,10 @@ public class AutoDestruction : Photon.PunBehaviour
     {
         if (Time.time > tempsDeCreation + delaiAvantDestruction)
         {
-
-            Destroy(this.gameObject);
-
+            if (this.gameObject)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 

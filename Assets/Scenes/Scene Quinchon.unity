@@ -644,7 +644,7 @@ GameObject:
   - component: {fileID: 97523005}
   - component: {fileID: 97523004}
   m_Layer: 0
-  m_Name: AnimTpApparition (1)
+  m_Name: AnimTpApparition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4281,8 +4281,8 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 111337944}
   m_GameObject: {fileID: 97523003}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.454674, y: 0.000000029802322, z: -0.4389093}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.454674, y: 0, z: -0.4389093}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4309,7 +4309,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4230284832267812, guid: 4d7661a2ca112334ea680651b58ee196, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4230284832267812, guid: 4d7661a2ca112334ea680651b58ee196, type: 2}
       propertyPath: m_LocalRotation.y
@@ -4329,7 +4329,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1255004138804978, guid: 4d7661a2ca112334ea680651b58ee196, type: 2}
       propertyPath: m_Name
-      value: AnimTpApparition (1)
+      value: AnimTpApparition
       objectReference: {fileID: 0}
     - target: {fileID: 114431193900764606, guid: 4d7661a2ca112334ea680651b58ee196,
         type: 2}
