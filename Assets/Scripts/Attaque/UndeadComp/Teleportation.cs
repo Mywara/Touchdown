@@ -72,6 +72,7 @@ public class Teleportation : Photon.PunBehaviour, IPunObservable
         Debug.Log("Direct hit on object : " + target.name);
         if (target.tag.Equals("Player") && target != owner)
         {
+            // lancer animation et CD
             Tp(target);
         }
         //Destroy(this.gameObject);

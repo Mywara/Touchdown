@@ -6,10 +6,10 @@ using UnityEngine;
 public class UndeadComp : Photon.PunBehaviour
 {
     public GameObject projectilePrefab1 = null;
-    public GameObject projectilePrefab2 = null;
+    //public GameObject projectilePrefab2 = null;
 
     public Transform projectileSpawn1 = null;
-    public Transform projectileSpawn2 = null;
+    //public Transform projectileSpawn2 = null;
 
     private Animator anim;
 
@@ -32,6 +32,12 @@ public class UndeadComp : Photon.PunBehaviour
 
     private bool isInInvunerabilityMode = false;
 
+    // Utile pour les competences de vise (TP stuff)
+    private Camera cam;
+    private RaycastHit hit;
+    public float tpMaxRange;
+    public GameObject animTP;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -51,6 +57,8 @@ public class UndeadComp : Photon.PunBehaviour
         {
             HUD.SetActive(true);
         }
+        cam = Camera.main;
+
 
     }
 
@@ -113,37 +121,74 @@ public class UndeadComp : Photon.PunBehaviour
             // animation trigger
             //anim.SetTrigger("AttackGun");
 
-            GameObject projo;
-            //Pour le local
-            if (PhotonNetwork.connected == false)
-            {
-                projo = Instantiate(projectilePrefab2, projectileSpawn2.position, Quaternion.identity).gameObject as GameObject;
-            }
-            else
-            {
-
-                //Pour le reseau
-                projo = PhotonNetwork.Instantiate(this.projectilePrefab2.name, projectileSpawn2.position, Quaternion.identity, 0);
-
-            }
-
             PlayerController playerControllerScript = this.gameObject.GetComponent<PlayerController>();
-            Teleportation tpScript = projo.GetComponent<Teleportation>();
-            if (playerControllerScript != null)
-            {
-                tpScript.SetTeam(playerControllerScript.Team);
-                tpScript.SetOwner(this.transform.gameObject);
 
-                tpLastUse = Time.time;
-
-                // Lance l'affichage du CD
-                object[] parms = { tpHUD, tpCooldown };
-                StartCoroutine("AffichageCooldown", parms);
-            }
-            else
+            // Si on cible sur quelqu'un d'assez près
+            if (Physics.Raycast(cam.transform.position + cam.transform.forward * 2.5f, cam.transform.forward, out hit, 500))
             {
-                Debug.Log("player have no PlayerController script");
+
+                if (!RoomManager.instance.FriendlyFire)
+                {
+                    if (hit.transform.tag.Equals("Player") && hit.transform != this.transform && hit.distance < tpMaxRange)
+                    {
+                        //hitPlayerControllerScript = script de la cible
+                        //playerControllerScript = script de nous-même
+                        PlayerController hitPlayerControllerScript = hit.transform.GetComponent<PlayerController>();
+
+                        if (hitPlayerControllerScript != null)
+                        {
+                            // Lance l'animation de disparition
+                            this.photonView.RPC("LanceAnimTP", PhotonTargets.All);
+
+                            tpLastUse = Time.time;
+                            // Lance l'affichage du CD
+                            object[] parms = { tpHUD, tpCooldown };
+                            StartCoroutine("AffichageCooldown", parms);
+
+                            Tp(hit.transform.gameObject, playerControllerScript.team);
+                            
+                        }
+                        else
+                        {
+                            Debug.Log("pas trouvé de script PlayerController sur la cible");
+                        }
+                    }
+                }
             }
+
+            /////////////////////////////////////////////
+
+            //GameObject projo;
+            ////Pour le local
+            //if (PhotonNetwork.connected == false)
+            //{
+            //    projo = Instantiate(projectilePrefab2, projectileSpawn2.position, Quaternion.identity).gameObject as GameObject;
+            //}
+            //else
+            //{
+
+            //    //Pour le reseau
+            //    projo = PhotonNetwork.Instantiate(this.projectilePrefab2.name, projectileSpawn2.position, Quaternion.identity, 0);
+
+            //}
+
+            
+            //Teleportation tpScript = projo.GetComponent<Teleportation>();
+            //if (playerControllerScript != null)
+            //{
+            //    tpScript.SetTeam(playerControllerScript.Team);
+            //    tpScript.SetOwner(this.transform.gameObject);
+
+                
+
+                
+            //}
+            //else
+            //{
+            //    Debug.Log("player have no PlayerController script");
+            //}
+            ///////////////////////////////////////////////////////////////
+
         }
 
         //Compétence pour l'invulnerabilité
@@ -172,7 +217,6 @@ public class UndeadComp : Photon.PunBehaviour
     // parms : arg0 = hud , arg1 = duree
     private IEnumerator AffichageCooldown(object[] parms)
     {
-        Debug.Log(((Object)parms[0]).name);
         float dureeCD = (float)parms[1];
         // Modifi la transparence
         Image image = ((GameObject)parms[0]).GetComponent<Image>();
@@ -200,6 +244,40 @@ public class UndeadComp : Photon.PunBehaviour
 
 
     // AUTRES METHODES
+
+    // TP méthode
+    private void Tp(GameObject target, int ourTeam)
+    {
+        if (PhotonNetwork.connected == true)
+        {
+            this.GetComponent<PlayerController>().photonView.RPC("SetPosition", PhotonTargets.All, target.transform.position - target.transform.forward);
+        }
+        else
+        {
+            this.transform.position = target.transform.position - target.transform.forward;
+            this.transform.forward = target.transform.forward;
+        }
+        //On maudit la cible si c'est un ennemi
+        if (target.GetComponent<PlayerController>().team != ourTeam)
+        {
+            target.GetComponent<PlayerController>().Curse();
+        }
+
+        // Lance l'animation d'apparition
+        this.photonView.RPC("LanceAnimTP", PhotonTargets.All);
+    }
+
+
+    //Obliger de faire plusieurs méthodes pour lancer les animations car on ne peut pas passer de GameObject en argument d'un RPC
+
+    // Lance l'animation de disparition
+    [PunRPC]
+    private void LanceAnimTP()
+    {
+        GameObject effetA;
+        effetA = Instantiate(animTP, this.transform.position + animTP.transform.position, animTP.transform.rotation).gameObject as GameObject;
+    }
+
 
     // Désactive/Active l'utilisation des comps (pour le stun)
     public void SetCompActives(bool b)

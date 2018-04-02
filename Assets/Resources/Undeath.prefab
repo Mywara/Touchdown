@@ -1755,10 +1755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab1: {fileID: 1953061402204318, guid: ed7dd81537b31574ca582a87b8997f51,
     type: 2}
-  projectilePrefab2: {fileID: 1492459339001764, guid: 84dbd390ecb94bc4788c1688a97c7733,
-    type: 2}
   projectileSpawn1: {fileID: 4078915490300138}
-  projectileSpawn2: {fileID: 4611389373897918}
   HUD: {fileID: 1688244073730594}
   transparenceCD: 0.5
   invulnerableCooldown: 30
@@ -1767,6 +1764,8 @@ MonoBehaviour:
   invulnerableHUD: {fileID: 1462317114053708}
   dotHUD: {fileID: 1420557482172966}
   tpHUD: {fileID: 1242997823788950}
+  tpMaxRange: 10
+  animTP: {fileID: 1853167231527580, guid: e7b52bd7bc593904889e1375068bec2f, type: 2}
 --- !u!114 &114093029617872726
 MonoBehaviour:
   m_ObjectHideFlags: 1
