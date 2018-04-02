@@ -1756,11 +1756,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a69b9f078af064ba19f8bb4c77b59c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impactDamage: 50
-  splashDamage: 25
+  impactDamage: 250
+  splashDamage: 80
   AOERadius: 1
-  fireRate: 1.5
-  projectileSpeed: 10
+  fireRate: 1
+  projectileSpeed: 20
   projectilePrefab: {fileID: 1983727145572376, guid: a581bdce5aaa32f4f92756906724583f,
     type: 2}
   projectileSpawn: {fileID: 4193193885231094}

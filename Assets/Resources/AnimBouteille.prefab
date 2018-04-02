@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 198111209309648828}
   - component: {fileID: 199628734887398888}
   - component: {fileID: 114835177396805014}
+  - component: {fileID: 114578187998246490}
   m_Layer: 0
   m_Name: AnimBouteille
   m_TagString: Untagged
@@ -42,6 +43,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &114578187998246490
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1222398889536868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbcb4e714c838c94bb453d24e26940a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delaiAvantDestruction: 2
 --- !u!114 &114835177396805014
 MonoBehaviour:
   m_ObjectHideFlags: 1

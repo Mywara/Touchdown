@@ -12,6 +12,7 @@ public class RhumSpray : Photon.PUNBehaviour {
     public int team;
     public float maxAnglularVelocity = 10;
     public float verticalVelocity = 10;
+    public GameObject animBouteille;
     private GameObject owner;
 
     private Rigidbody myRb;
@@ -60,6 +61,9 @@ public class RhumSpray : Photon.PUNBehaviour {
             //Debug.Log("hit Respawn");
             return;
         }
+
+        // On lance l'animation
+        this.photonView.RPC("LanceAnim", PhotonTargets.All);
 
         //on recupère les colliders dans la zone d'AOE
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, AOERadius);
@@ -117,5 +121,12 @@ public class RhumSpray : Photon.PUNBehaviour {
             playerControllerScript.photonView.RPC("ModificationVitesse", PhotonTargets.All, pourcentageRalenti, dureeRalenti);
         }
         
+    }
+
+    [PunRPC]
+    private void LanceAnim()
+    {
+        GameObject effetA;
+        effetA = Instantiate(animBouteille, this.transform.position, animBouteille.transform.rotation).gameObject as GameObject;
     }
 }

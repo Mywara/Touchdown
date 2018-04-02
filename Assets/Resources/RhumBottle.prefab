@@ -305,6 +305,8 @@ MonoBehaviour:
   team: 0
   maxAnglularVelocity: 10
   verticalVelocity: 3
+  animBouteille: {fileID: 1222398889536868, guid: 6b0ee2f10a0acc64585dd01c17347bfb,
+    type: 2}
 --- !u!136 &136767423988983432
 CapsuleCollider:
   m_ObjectHideFlags: 1
