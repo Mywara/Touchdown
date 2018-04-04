@@ -114,4 +114,5 @@ MonoBehaviour:
   - LanceAnimMuzzleBoulet
   - LanceAnimBUT
   - LanceAnimRhum
+  - GoToEndScene
   DisableAutoOpenWizard: 1
