@@ -2152,6 +2152,8 @@ MonoBehaviour:
   transparenceCD: 0.5
   HUD: {fileID: 1501390866478094}
   projectileSpawn: {fileID: 4193193885231094}
+  animMuzzleBoulet: {fileID: 1461945177097976, guid: 9106682ec222d4b4bad4337a77bfef3f,
+    type: 2}
   tirClocheHUD: {fileID: 1248980510514596}
   tirClocheCooldown: 25
   tirClocheProjectile: {fileID: 1644292850688918, guid: 66171035c28e7f543b364cb6df213a2a,

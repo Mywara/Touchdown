@@ -153,5 +153,8 @@ public class BearComp : Photon.PunBehaviour
         Text t = shoulderHUD.GetComponentInChildren<Text>();
         t.text = "";
 
+        // On reset le CD
+        shoulderLastUse = 0;
+
     }
 }

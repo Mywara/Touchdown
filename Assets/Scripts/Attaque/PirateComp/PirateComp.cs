@@ -201,5 +201,9 @@ public class PirateComp : Photon.PunBehaviour
         t.text = "";
         t = bouteilleHUD.GetComponentInChildren<Text>();
         t.text = "";
+
+        // On reset les CD
+        bouteilleLastUse = 0;
+        grapLastUse = 0;
     }
 }

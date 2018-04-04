@@ -14,6 +14,7 @@ public class TirClochePirateComp : Photon.PunBehaviour
     public float transparenceCD;
     public GameObject HUD;
     public Transform projectileSpawn;
+    public GameObject animMuzzleBoulet;
 
 
     /////////// TirCloche STUFF
@@ -63,6 +64,8 @@ public class TirClochePirateComp : Photon.PunBehaviour
         // Input 
         if (Input.GetButtonDown("Skill3") && (Time.time > (tirClocheLastUse + tirClocheCooldown)))
         {
+            // Lance le muzzle du fusil
+            this.photonView.RPC("LanceAnimMuzzleBoulet", PhotonTargets.All);
 
             GameObject projo;
             //Pour le local
@@ -136,6 +139,18 @@ public class TirClochePirateComp : Photon.PunBehaviour
         this.tirClocheActif = b;
     }
 
+    [PunRPC]
+    private void LanceAnimMuzzleBoulet()
+    {
+        GameObject effetA;
+        effetA = Instantiate(animMuzzleBoulet, projectileSpawn.position, animMuzzleBoulet.transform.rotation).gameObject as GameObject;
+        if (effetA != null)
+        {
+            //On met en enfant du joueur l'effet, donc si le joueur bouge, l'effet le suit
+            effetA.transform.SetParent(this.transform);
+        }
+    }
+
     private void OnDisable()
     {
 
@@ -148,6 +163,9 @@ public class TirClochePirateComp : Photon.PunBehaviour
         // On remet l'affichage du cooldown à rien (pas de CD)
         Text t = tirClocheHUD.GetComponentInChildren<Text>();
         t.text = "";
-        
+
+        // On reset le CD
+        tirClocheLastUse = 0;
+
     }
 }

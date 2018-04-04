@@ -2281,7 +2281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invunerabilityDuration: 4
-  InvulnerableEffect: {fileID: 1087044457579470, guid: cf7f47893aff2fb49a98673c1bd24f76,
+  InvulnerableEffect: {fileID: 1969485774588594, guid: ad5ca96b0515afb4f85b26b26e536994,
     type: 2}
 --- !u!114 &114445423741363890
 MonoBehaviour:

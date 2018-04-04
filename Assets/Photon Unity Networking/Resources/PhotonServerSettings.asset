@@ -110,4 +110,6 @@ MonoBehaviour:
   - LanceAnimGrapeShot
   - LanceAnimArmor
   - LanceAnimShoulder
+  - LanceAnimMuzzle
+  - LanceAnimMuzzleBoulet
   DisableAutoOpenWizard: 1

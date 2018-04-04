@@ -272,7 +272,8 @@ public class JumpBearComp : Photon.PunBehaviour
             jumpAOEZone.SetActive(false);
         }
 
-  
+        // On reset le CD
+        jumpLastUse = 0;
 
     }
 }

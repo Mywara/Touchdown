@@ -322,6 +322,11 @@ public class UndeadComp : Photon.PunBehaviour
         t = tpHUD.GetComponentInChildren<Text>();
         t.text = "";
 
+        // On reset les CD
+        dotLastUse = 0;
+        invulnerableLastUse = 0;
+        tpLastUse = 0;
+
     }
 
 }

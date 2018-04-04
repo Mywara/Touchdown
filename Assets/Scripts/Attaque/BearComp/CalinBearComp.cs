@@ -213,6 +213,9 @@ public class CalinBearComp : Photon.PunBehaviour
         // On remet l'affichage du cooldown à rien (pas de CD)
         Text t = calinHUD.GetComponentInChildren<Text>();
         t.text = "";
-        
+
+        // on reset le CD
+        calinLastUse = 0;
+
     }
 }
