@@ -108,4 +108,6 @@ MonoBehaviour:
   - LanceAnimDisparition
   - LanceAnimTP
   - LanceAnimGrapeShot
+  - LanceAnimArmor
+  - LanceAnimShoulder
   DisableAutoOpenWizard: 1

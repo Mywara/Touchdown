@@ -24,6 +24,8 @@ public class BearComp : Photon.PunBehaviour
 
     private bool compBearActif = true;
 
+    public GameObject animShoulder;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -54,6 +56,9 @@ public class BearComp : Photon.PunBehaviour
         //Compétence Coup d'épaule
         if (Input.GetButtonDown("Skill1") && Time.time > shoulderLastUse + shoulderCooldown)
         {
+            // Lance l'animation
+            this.photonView.RPC("LanceAnimShoulder", PhotonTargets.All);
+
             GameObject projo;
             //Pour le local
             if (PhotonNetwork.connected == false)
@@ -124,6 +129,14 @@ public class BearComp : Photon.PunBehaviour
     public void SetCompBearActives(bool b)
     {
         this.compBearActif = b;
+    }
+
+
+    [PunRPC]
+    private void LanceAnimShoulder()
+    {
+        GameObject effetA;
+        effetA = Instantiate(animShoulder, projectileSpawn1.position, animShoulder.transform.rotation).gameObject as GameObject;
     }
 
     // Reset le perso (si meurt)

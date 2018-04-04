@@ -2255,6 +2255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthSlider: {fileID: 114076923135450714}
   HealthMax: 0
+  animHeal: {fileID: 1823711749201070, guid: cab71be805fb8e04fbed1daab1ccb5fe, type: 2}
 --- !u!114 &114466024719544408
 MonoBehaviour:
   m_ObjectHideFlags: 1

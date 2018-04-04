@@ -114,7 +114,7 @@ public class CalinBearComp : Photon.PunBehaviour
 
         // Animation
 
-        this.photonView.RPC("LanceAnim", PhotonTargets.All);
+        this.photonView.RPC("LanceAnimArmor", PhotonTargets.All);
 
         // On stun le lanceur et la cible
         playerControllerScript.photonView.RPC("Stun", PhotonTargets.All, calinDuree,false);
@@ -132,7 +132,7 @@ public class CalinBearComp : Photon.PunBehaviour
     }
 
     [PunRPC]
-    private void LanceAnim()
+    private void LanceAnimArmor()
     {
         GameObject effetA;
         effetA = Instantiate(effetArmor, this.transform.position, effetArmor.transform.rotation).gameObject as GameObject;

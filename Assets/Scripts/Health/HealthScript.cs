@@ -16,6 +16,8 @@ namespace PUNTutorial
         private bool invulnerable = false;
         private float shield = 0; // doit être entre 0 et 1 (0 aucun shield / 1 zero degat reçu)
 
+        public GameObject animHeal;
+
         // affecté ou non par le Curse DoT du Undead
         private bool cursed = false;
 
@@ -50,6 +52,15 @@ namespace PUNTutorial
         public void Heal(int heal)
         {
             HealthSlider.value = HealthSlider.value + heal;
+
+            //Lance l'animation de soin
+            GameObject effetA;
+            effetA = Instantiate(animHeal, this.transform.position + animHeal.transform.position, animHeal.transform.rotation).gameObject as GameObject;
+            if (effetA != null)
+            {
+                //On met en enfant du joueur l'effet, donc si le joueur bouge, l'effet le suit
+                effetA.transform.SetParent(this.transform);
+            }
         }
 
         public void Update()

@@ -1167,7 +1167,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1398637548647998}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.15, y: 0.39, z: 0.43}
   m_LocalScale: {x: 3, y: 1, z: 3}
   m_Children: []
   m_Father: {fileID: 4500260329731660}
@@ -1999,6 +1999,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthSlider: {fileID: 114341086683985522}
   HealthMax: 0
+  animHeal: {fileID: 1823711749201070, guid: cab71be805fb8e04fbed1daab1ccb5fe, type: 2}
 --- !u!114 &114166032093760220
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2207,6 +2208,8 @@ MonoBehaviour:
   transparenceCD: 0.5
   shoulderCooldown: 7
   shoulderHUD: {fileID: 1803891380660944}
+  animShoulder: {fileID: 1383244797212190, guid: c0d5f84691a185d4ea5d3c0042f29470,
+    type: 2}
 --- !u!114 &114392494464716740
 MonoBehaviour:
   m_ObjectHideFlags: 1
