@@ -86,6 +86,8 @@ MonoBehaviour:
   waitForStartTime: 10
   stratPhaseTime: 90
   readyForNewPhase: {fileID: 0}
+  NonePlacingZoneTeam1: {fileID: 0}
+  NonePlacingZoneTeam2: {fileID: 0}
 --- !u!114 &114893022871882240
 MonoBehaviour:
   m_ObjectHideFlags: 1

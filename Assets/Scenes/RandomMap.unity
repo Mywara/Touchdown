@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.39012066, g: 0.5483471, b: 0.767392, a: 1}
+  m_IndirectSpecularColor: {r: 0.59350723, g: 0.78721184, b: 0.9872667, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -113,6 +113,108 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &650608018
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4117830350601848, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4117830350601848, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4117830350601848, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4117830350601848, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4117830350601848, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4117830350601848, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4117830350601848, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4117830350601848, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370383431660570, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_Name
+      value: None Placing Zone Team 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &650608019 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1370383431660570, guid: 34b64ce08b85b334daa0d76e4a6b3e72,
+    type: 2}
+  m_PrefabInternal: {fileID: 650608018}
+--- !u!1001 &742972962
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4117830350601848, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4117830350601848, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4117830350601848, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4117830350601848, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4117830350601848, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4117830350601848, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4117830350601848, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4117830350601848, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370383431660570, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+      propertyPath: m_Name
+      value: None Placing Zone Team 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 34b64ce08b85b334daa0d76e4a6b3e72, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &742972963 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1370383431660570, guid: 34b64ce08b85b334daa0d76e4a6b3e72,
+    type: 2}
+  m_PrefabInternal: {fileID: 742972962}
 --- !u!114 &1141046320 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114063899310926170, guid: 693141411d0f83242bee7b24ab752180,
@@ -270,6 +372,16 @@ Prefab:
       propertyPath: readyForNewPhase
       value: 
       objectReference: {fileID: 1141046320}
+    - target: {fileID: 114045597979380404, guid: 994216e58d0e63042bb20cd797ea6afc,
+        type: 2}
+      propertyPath: NonePlacingZoneTeam1
+      value: 
+      objectReference: {fileID: 650608019}
+    - target: {fileID: 114045597979380404, guid: 994216e58d0e63042bb20cd797ea6afc,
+        type: 2}
+      propertyPath: NonePlacingZoneTeam2
+      value: 
+      objectReference: {fileID: 742972963}
     - target: {fileID: 114010434499537474, guid: 994216e58d0e63042bb20cd797ea6afc,
         type: 2}
       propertyPath: viewIdField
