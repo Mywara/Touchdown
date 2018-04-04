@@ -63,7 +63,7 @@ public class RhumSpray : Photon.PUNBehaviour {
         }
 
         // On lance l'animation
-        this.photonView.RPC("LanceAnim", PhotonTargets.All);
+        this.photonView.RPC("LanceAnimRhum", PhotonTargets.All);
 
         //on recupère les colliders dans la zone d'AOE
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, AOERadius);
@@ -124,7 +124,7 @@ public class RhumSpray : Photon.PUNBehaviour {
     }
 
     [PunRPC]
-    private void LanceAnim()
+    private void LanceAnimRhum()
     {
         GameObject effetA;
         effetA = Instantiate(animBouteille, this.transform.position, animBouteille.transform.rotation).gameObject as GameObject;

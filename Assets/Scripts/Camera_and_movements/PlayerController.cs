@@ -479,11 +479,13 @@ public class PlayerController : Photon.PunBehaviour
 
         if (isCursed)
         {
-            FinCurse();
+            this.photonView.RPC("FinCurse", PhotonTargets.All);
         }
 
         movementSpeed = originaleMovementSpeed;
         AnimConfu.SetActive(false);
+        AnimStun.SetActive(false);
+        AnimCurse.SetActive(false);
     }
 
     public void SwitchPlayerMode()
