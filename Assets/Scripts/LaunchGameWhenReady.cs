@@ -71,7 +71,7 @@ public class LaunchGameWhenReady : Photon.PUNBehaviour {
             iAmReady = false;
             if (PhotonNetwork.connected)
             {
-                photonView.RPC("NewPlayerUnRdy", PhotonTargets.AllViaServer);
+                photonView.RPC("NewPlayerUnRdy", PhotonTargets.AllBufferedViaServer);
             }
             else
             {
@@ -93,7 +93,7 @@ public class LaunchGameWhenReady : Photon.PUNBehaviour {
             //augmente le nombre de joueur pret pour la prochaine phase (en reseau et en local)
             if (PhotonNetwork.connected)
             {
-                photonView.RPC("NewPlayerRdy", PhotonTargets.AllViaServer);
+                photonView.RPC("NewPlayerRdy", PhotonTargets.AllBufferedViaServer);
             }
             else
             {

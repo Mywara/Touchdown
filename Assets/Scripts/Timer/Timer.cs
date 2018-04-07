@@ -35,9 +35,10 @@ public class Timer : Photon.PUNBehaviour
         while (gameTimerValueSaved > 0)
         {
             gameTimerValueSaved -= Time.deltaTime;
-            if (gameTimerValueSaved <= 0 && RoomManager.instance.IsInPlayPhase())
+            if (gameTimerValueSaved <= 0 && RoomManager.instance.IsInPlayPhase() && PhotonNetwork.isMasterClient)
             {
-                PhotonNetwork.LoadLevel("EndScene");
+                Debug.Log("Parti terminée par le temps");
+                photonView.RPC("GoToEndScene", PhotonTargets.AllViaServer);
             }
             
             if(gameTimerValueSaved <0)
@@ -82,5 +83,11 @@ public class Timer : Photon.PUNBehaviour
         {
             return this.gameTimerValueSaved;
         }
+    }
+
+    [PunRPC]
+    private void GoToEndScene()
+    {
+        PhotonNetwork.LoadLevel("EndScene");
     }
 }

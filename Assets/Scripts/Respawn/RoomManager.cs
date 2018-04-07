@@ -22,6 +22,10 @@ public class RoomManager : Photon.PunBehaviour {
     private bool friendlyFire = false;
 
     public Button readyForNewPhase;
+
+    public GameObject NonePlacingZoneTeam1;
+    public GameObject NonePlacingZoneTeam2;
+
     private int nbMaxPlayer;
     private int nbPlayerReady = 0;
     private bool iAmReady = false;
@@ -73,7 +77,10 @@ public class RoomManager : Photon.PunBehaviour {
             Debug.Log("All player have generated the map");
             PUNTutorial.GameManager.instance.SpawnPlayerInTheGame();
             allPlayerHaveGeneratedMap = true;
-            photonView.RPC("StartGamePhase", PhotonTargets.AllViaServer);
+            if (PhotonNetwork.isMasterClient)
+            {
+                photonView.RPC("StartGamePhase", PhotonTargets.AllViaServer);
+            }
         }
         if(PhotonNetwork.isMasterClient)
         {
@@ -134,6 +141,18 @@ public class RoomManager : Photon.PunBehaviour {
         Timer.instance.photonView.RPC("StartCustomCountdownTime", PhotonTargets.AllViaServer, stratPhaseTime);
         //On active le mode stratégie
         SwitchPlayerMode();
+        if(NonePlacingZoneTeam1 != null && NonePlacingZoneTeam2 != null)
+        {
+            int playerTeam = PUNTutorial.GameManager.localPlayer.GetComponent<PlayerController>().Team;
+            if(playerTeam == 1)
+            {
+                NonePlacingZoneTeam1.SetActive(true);
+            }
+            if (playerTeam == 2)
+            {
+                NonePlacingZoneTeam2.SetActive(true);
+            }
+        }
     }
 
     //on lance la phase de jeu (manche)
@@ -148,6 +167,11 @@ public class RoomManager : Photon.PunBehaviour {
         //on note quand la phase a commencé
         startTimePhase = Time.time;
         //On enlève le mode stratégie
+        if (NonePlacingZoneTeam1 != null && NonePlacingZoneTeam2 != null)
+        {
+            NonePlacingZoneTeam1.SetActive(false);
+            NonePlacingZoneTeam2.SetActive(false);
+        }
         SwitchPlayerMode();
         //si la partie n'est pas commencé on lance le timer de la partie avec le temps max
         if (gameStarted == false)
@@ -386,6 +410,18 @@ public class RoomManager : Photon.PunBehaviour {
         int sizeMultiplicatorZ = (2 * mapGen.NbLigne -1) + 2;
         int sizeMultiplicatorX = (2 * mapGen.NbColonne + 1) + 2;
         Boundary.instance.SetSize(sizeMultiplicatorX * 11, 20, sizeMultiplicatorZ * 11);
+        if(NonePlacingZoneTeam1 != null && NonePlacingZoneTeam2 != null)
+        {
+            //On set la taille des zones ou on ne peut poser de piège par rapport à la taille de la map
+            NonePlacingZoneTeam1.transform.localScale = new Vector3(sizeMultiplicatorX * 11, 5, mapGen.NbLigne * 11);
+            NonePlacingZoneTeam2.transform.localScale = new Vector3(sizeMultiplicatorX * 11, 5, mapGen.NbLigne * 11);
+            //On set leurs positions : partie haute / basse de la map
+            NonePlacingZoneTeam1.transform.position = new Vector3(0, 2, (mapGen.NbLigne * 11 / 2));
+            NonePlacingZoneTeam2.transform.position = new Vector3(0, 2, -(mapGen.NbLigne * 11 / 2));
+            //on les desactives, et on activera quand il le faut
+            NonePlacingZoneTeam1.SetActive(false);
+            NonePlacingZoneTeam2.SetActive(false);
+        }
         //On notifie a tout le monde que l'on a chargé la carte
         photonView.RPC("NewPlayerHaveGenMap", PhotonTargets.All);
     }
