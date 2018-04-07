@@ -28636,6 +28636,7 @@ MonoBehaviour:
   crys: {fileID: 1635052500047410, guid: c7f835e5a40f48e4a91ac3b6b0629a49, type: 2}
   bleuIntensite: 2000
   orangeIntensite: 60
+  animBut: {fileID: 1633688089515546, guid: 1d5575ef7d81a534d916163bf716a894, type: 2}
 --- !u!114 &114964263014300826
 MonoBehaviour:
   m_ObjectHideFlags: 1

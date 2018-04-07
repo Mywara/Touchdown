@@ -50,7 +50,8 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
                 ShotgunAnimation();
 
             // Lance le muzzle du fusil
-            this.photonView.RPC("LanceAnimMuzzle", PhotonTargets.All);
+            //this.photonView.RPC("LanceAnimMuzzle", PhotonTargets.All);
+            LanceAnimMuzzle();
 
             GameObject projo;
             //Pour le local
@@ -150,7 +151,7 @@ public class AutoAttaqueRanged : Photon.PunBehaviour {
         this.tirActif = b;
     }
 
-    [PunRPC]
+    //[PunRPC]
     private void LanceAnimMuzzle()
     {
         GameObject effetMuzzle;

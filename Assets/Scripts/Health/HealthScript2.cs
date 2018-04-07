@@ -15,6 +15,12 @@ namespace PUNTutorial
         private int CurrentValue;
         private bool invulnerable = false;
         private float shield = 0; // doit être entre 0 et 1 (0 aucun shield / 1 zero degat reçu)
+        public RawImage hurtScreen; // L'image qui apparait à l'ecran pour indiquer qu'on est touché
+        public RawImage healScreen;
+        public float transparenceMaxImage;
+        public float dureeAppEffet = 0.2f;
+        public float dureeDispEffet = 0.4f;
+
 
         void Awake()
         {
@@ -48,6 +54,9 @@ namespace PUNTutorial
                 Debug.Log("invulnerable, can't take damage");
                 return;
             }
+            // Lance l'effet hurt sur l'ecran (bords rouge)
+            StartCoroutine("AnimeBordScreen",hurtScreen);
+
             CurrentValue = CurrentValue - (int)((float)damage * ( 1-this.shield)); //gere le shield
             HealthSliderUI.value = CurrentValue;
         }
@@ -56,8 +65,22 @@ namespace PUNTutorial
         [PunRPC]
         public void Heal2(int heal)
         {
+            Debug.Log("passe Heal 2");
+            // Lance l'effet hurt sur l'ecran (bords blanc)
+            StartCoroutine("AnimeBordScreen", healScreen);
+
+
+
             CurrentValue = CurrentValue + heal;
+            // Pour éviter d'avoir plus de vie que le max
+            if (CurrentValue > HealthMax)
+            {
+                CurrentValue = HealthMax;
+            }
             HealthSliderUI.value = CurrentValue;
+
+            
+            Debug.Log("Life = "+CurrentValue);
         }
 
         /*  [PunRPC]
@@ -109,6 +132,53 @@ namespace PUNTutorial
             this.shield += s;
             yield return new WaitForSeconds(duree);
             this.shield -= s;
+        }
+
+        private IEnumerator AnimeBordScreen(RawImage img)
+        {
+            float tempsApp = dureeAppEffet;
+            float tempsDisp = dureeDispEffet;
+
+            Color c = img.color;
+            
+
+            while (tempsApp > 0)
+            {
+                // On change la transparence de l'image
+                c.a = transparenceMaxImage * (1- (tempsApp/dureeAppEffet));
+                img.color = c;
+                yield return null;
+                tempsApp -= Time.deltaTime;
+            }
+
+            while (tempsDisp > 0)
+            {
+                // On change la transparence de l'image
+                c.a = transparenceMaxImage * (tempsDisp / dureeDispEffet);
+                img.color = c;
+                yield return null;
+                tempsDisp -= Time.deltaTime;
+            }
+            c.a = 0;
+            img.color = c;
+        }
+
+
+
+        private void OnDisable()
+        {
+            // reset du shield
+            this.shield = 0;
+
+            // reset de la transparence des effets sur les bords
+            // pour le heal
+            Color c = this.healScreen.color;
+            c.a = 0;
+            this.healScreen.color = c;
+            // pour le hurt
+            c = this.hurtScreen.color;
+            c.a = 0;
+            this.hurtScreen.color = c;
         }
     }
 }

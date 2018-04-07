@@ -112,4 +112,6 @@ MonoBehaviour:
   - LanceAnimShoulder
   - LanceAnimMuzzle
   - LanceAnimMuzzleBoulet
+  - LanceAnimBUT
+  - LanceAnimRhum
   DisableAutoOpenWizard: 1

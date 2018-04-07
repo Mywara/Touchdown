@@ -53,6 +53,12 @@ namespace PUNTutorial
         {
             HealthSlider.value = HealthSlider.value + heal;
 
+            // Pour éviter d'avoir plus de vie que le max
+            if (HealthSlider.value > HealthMax)
+            {
+                HealthSlider.value = HealthMax;
+            }
+
             //Lance l'animation de soin
             GameObject effetA;
             effetA = Instantiate(animHeal, this.transform.position + animHeal.transform.position, animHeal.transform.rotation).gameObject as GameObject;

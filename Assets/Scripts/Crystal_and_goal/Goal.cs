@@ -75,7 +75,8 @@ public class Goal : Photon.PunBehaviour
             && crys.GetComponent<Crystal>().playerHolding == target.transform.root.gameObject)
         {
             // On lance l'animation
-            this.photonView.RPC("LanceAnimBUT", PhotonTargets.All);
+            //this.photonView.RPC("LanceAnimBUT", PhotonTargets.All);
+            LanceAnimBUT();
 
             //Le cristal doit être reset si le but est marqué il faut donc que le butteur soit de l'equipe adverse au but atteint
             if (this.tag == "GoalG" && target.gameObject.GetComponent<PlayerController>().team == 2 ||
@@ -99,7 +100,7 @@ public class Goal : Photon.PunBehaviour
         volumetricLight.intensity = intensite;
     }
 
-    [PunRPC]
+    //[PunRPC]
     private void LanceAnimBUT()
     {
         GameObject effetA;
