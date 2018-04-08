@@ -22,12 +22,14 @@ public class PGlaceTrigger : Photon.PUNBehaviour {
         if (notAlreadyActivate) {
             PhotonNetwork.Instantiate(zoneEffect.name,this.transform.position,Quaternion.identity,0);
             notAlreadyActivate = false;
-            photonView.RPC("DestroyTrap", PhotonTargets.All);
+                Owner.GetComponent<PGlace>().startCoroutineGetACharge = true;
+                //démarre la coroutine pour recuperer une charge dés que le piège est activé
+                photonView.RPC("DestroyTrap", PhotonTargets.All);
            //supprime une charge (on ne peut pas remplacer un piège en cd ou activer)
            // Owner.GetComponent<PGlace>().nbCharges--;
             //Owner.GetComponent<PGlace>().nbtrap.text = "" + Owner.GetComponent<PGlace>().nbCharges;
-            //démarre la coroutine pour recuperer une charge dés que le piège est activé
-            Owner.GetComponent<PGlace>().startCoroutineGetACharge = true;
+           
+
             }
         }
     }
