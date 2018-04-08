@@ -24,6 +24,11 @@ namespace PUNTutorial
         void Awake()
         {
             anim = GetComponent<Animator>();
+
+            if(photonView.isMine)
+            {
+                HealthSlider.transform.parent.gameObject.SetActive(false);
+            }
             
             //Set health depending on the character
             HealthMax = GetComponentInParent<CharacterCaracteristic>().health;

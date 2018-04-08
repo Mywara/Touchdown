@@ -9,8 +9,10 @@ public class Timer : Photon.PUNBehaviour
     public float CountdownTime = 600F;
     private Coroutine CountdownTCourou = null;
     private float gameTimerValueSaved;
-    // Use this for initialization
+    private Text timerText;
 
+
+    // Use this for initialization
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -25,7 +27,7 @@ public class Timer : Photon.PUNBehaviour
     void Start () {
         //lance la coroutine une fois depuis le masterClient (possible depuis le serveur ?)
         //photonView.RPC("StartCountdownTime", PhotonTargets.All);
-        
+        timerText = this.transform.Find("TopPanel/TimerPanel/Timer").GetComponent<Text>();
     }	
 
     IEnumerator CountdownT(float CountdownTimeL)
@@ -37,7 +39,7 @@ public class Timer : Photon.PUNBehaviour
             gameTimerValueSaved -= Time.deltaTime;
             if (gameTimerValueSaved <= 0 && RoomManager.instance.IsInPlayPhase() && PhotonNetwork.isMasterClient)
             {
-                Debug.Log("Parti terminée par le temps");
+                Debug.Log("Partie terminée par le temps");
                 photonView.RPC("GoToEndScene", PhotonTargets.AllViaServer);
             }
             
@@ -45,7 +47,7 @@ public class Timer : Photon.PUNBehaviour
             {
                 gameTimerValueSaved = 0;
             }
-            this.transform.GetChild(1).GetComponent<Text>().text = "Remaining Time : \n" + string.Format("{0:0}:{1:00}", Mathf.Floor(gameTimerValueSaved / 60), gameTimerValueSaved % 60);
+            timerText.text = string.Format("{0:0}:{1:00}", Mathf.Floor(gameTimerValueSaved / 60), gameTimerValueSaved % 60);
             yield return new WaitForFixedUpdate();
         }
     }
