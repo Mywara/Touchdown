@@ -26,7 +26,7 @@ public class HealthTagEffect : Photon.PunBehaviour
     void Update()
     {
         if (HealthContenance <= 0) {
-            PhotonNetwork.Destroy(this.gameObject);
+            PhotonNetwork.Destroy(this.transform.root.gameObject);
             owner.GetComponent<HealthTag>().startCoroutineGetACharge = true;
             return;
         }

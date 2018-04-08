@@ -189,6 +189,7 @@ public class HealthTag : Photon.PUNBehaviour
         }
         photonView.RPC("SetMyOwner", PhotonTargets.All, this.photonView.viewID, healthTag.GetPhotonView().viewID);
         nbCharges--;
+        this.nbtrap.text = "" + this.nbCharges;
         HealtrapVisualisation = false;
 }
 

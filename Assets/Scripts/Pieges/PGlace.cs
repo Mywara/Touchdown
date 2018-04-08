@@ -194,5 +194,7 @@ public class PGlace : Photon.PUNBehaviour
             autoAttaqueRanged.inModePlacing = false;
         }
         photonView.RPC("SetOwner", PhotonTargets.All, this.photonView.viewID, trap.GetPhotonView().viewID);
+        this.nbCharges--;
+        this.nbtrap.text = "" +this.nbCharges;
     }
 }
