@@ -78,7 +78,7 @@ public class HealthTag : Photon.PUNBehaviour
                 }
             }
             //pose le piege (si des charges sont disponible)
-            if (readyToPlace && Input.GetMouseButtonDown(0) && nbCharges > 0)
+            if (readyToPlace && Input.GetMouseButtonDown(1) && nbCharges > 0)
             {
                 PutTrap();
             }
@@ -120,7 +120,7 @@ public class HealthTag : Photon.PUNBehaviour
             }
                       
             //pose le piege (si des charges sont disponible)
-            if (readyToPlace && Input.GetMouseButtonDown(0) && nbCharges > 0)
+            if (readyToPlace && Input.GetMouseButtonDown(1) && nbCharges > 0)
             {
                 PutTrap();
             }
