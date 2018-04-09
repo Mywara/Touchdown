@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PGlace : Photon.PUNBehaviour
 {
-
     public GameObject trapVisualisationPrefab;
     public GameObject trapPrefab;
     public GameObject trapVisualisation;
@@ -20,13 +19,20 @@ public class PGlace : Photon.PUNBehaviour
     GameObject[] traps = new GameObject[3];
     public Text nbtrap;
     public Text cd;
+    private GameObject cdGreyMask;
+    private GameObject cdTimer;
     [HideInInspector]
     public bool inGame = true;
     public bool IcetrapVisualisation = false;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         autoAttaqueRanged = this.transform.GetComponent<AutoAttaqueRanged>();
+        cdGreyMask = transform.Find("PlayerHealth/IceTrapIcon/CooldownGreyMask").gameObject;
+        cdTimer = transform.Find("PlayerHealth/IceTrapIcon/cdIce").gameObject;
+        cdGreyMask.SetActive(false);
+        cdTimer.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -130,6 +136,10 @@ public class PGlace : Photon.PUNBehaviour
             coolDown -= Time.deltaTime;
             if (nbCharges == 0)
             {
+                // Show cooldown time and mask
+                cdGreyMask.SetActive(true);
+                cdTimer.SetActive(true);
+
                 cd.text = "" + coolDown;
             }
             
@@ -137,10 +147,16 @@ public class PGlace : Photon.PUNBehaviour
             {
                 nbCharges++;
                 nbtrap.text = "" + nbCharges;
+
+                coolDown = 0f;
+                cd.text = coolDown.ToString();
+
+                // Hide cooldown time and mask
+                cdGreyMask.SetActive(false);
+                cdTimer.SetActive(false);
             }
             yield return null;
         }
-
     }
 
     [PunRPC]

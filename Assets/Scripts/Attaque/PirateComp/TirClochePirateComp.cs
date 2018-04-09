@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class TirClochePirateComp : Photon.PunBehaviour
 {
-
-
     private Rigidbody rb;
     private Animator anim;
     public AudioSource audioSource;
@@ -20,9 +18,10 @@ public class TirClochePirateComp : Photon.PunBehaviour
     /////////// TirCloche STUFF
 
 
-    public GameObject tirClocheHUD; // UI pour la comp 
+    public GameObject tirClocheHUD; // UI pour la comp
     public float tirClocheCooldown; // temps du cooldown du calin en seconde
     private float tirClocheLastUse; // temps (en seconde) de derniere utilisation
+    private GameObject tirClocheCdMask;
 
     public GameObject tirClocheProjectile; // L'effet visuel
 
@@ -37,6 +36,8 @@ public class TirClochePirateComp : Photon.PunBehaviour
         if (photonView.isMine)
         {
             HUD.SetActive(true);
+            tirClocheCdMask = tirClocheHUD.transform.Find("CooldownGreyMask").gameObject;
+            tirClocheCdMask.SetActive(false);
         }
 
         playerControllerScript = this.gameObject.GetComponent<PlayerController>();
@@ -60,7 +61,6 @@ public class TirClochePirateComp : Photon.PunBehaviour
             return;
         }
 
-
         // Input 
         if (Input.GetButtonDown("Skill3") && (Time.time > (tirClocheLastUse + tirClocheCooldown)))
         {
@@ -75,7 +75,6 @@ public class TirClochePirateComp : Photon.PunBehaviour
             }
             else
             {
-
                 //Pour le reseau
                 projo = PhotonNetwork.Instantiate(tirClocheProjectile.name, projectileSpawn.position + Vector3.up * 0.2f, projectileSpawn.rotation, 0);
             }
@@ -99,23 +98,23 @@ public class TirClochePirateComp : Photon.PunBehaviour
     }
 
 
-
-
     /////////////////////// Affichage Competences
-
 
     private IEnumerator TirClocheAffichageCooldown()
     {
         float dureeCD = tirClocheCooldown;
-        // Modifi la transparence
+
+        /*
+        // Modifie la transparence
         Image image = tirClocheHUD.GetComponent<Image>();
         Color c = image.color;
         c.a = transparenceCD;
         image.color = c;
+        */
+        tirClocheCdMask.SetActive(true);
 
         // Pour modifier le text
         Text t = tirClocheHUD.GetComponentInChildren<Text>();
-
 
         while (dureeCD > 0)
         {
@@ -125,10 +124,12 @@ public class TirClochePirateComp : Photon.PunBehaviour
             t.text = (Mathf.Floor(dureeCD) + 1).ToString();
         }
 
+        /*
         // On remet la transparence normale
         c.a = 255;
         image.color = c;
-
+        */
+        tirClocheCdMask.SetActive(false);
         t.text = "";
     }
 
@@ -153,16 +154,21 @@ public class TirClochePirateComp : Photon.PunBehaviour
 
     private void OnDisable()
     {
-
+        /*
         // On remet la transparence normale
         Image image = tirClocheHUD.GetComponent<Image>();
         Color c = image.color;
         c.a = 255;
         image.color = c;
+        */
+        if (photonView.isMine)
+        {
+            tirClocheCdMask.SetActive(false);
 
-        // On remet l'affichage du cooldown à rien (pas de CD)
-        Text t = tirClocheHUD.GetComponentInChildren<Text>();
-        t.text = "";
+            // On remet l'affichage du cooldown à rien (pas de CD)
+            Text t = tirClocheHUD.GetComponentInChildren<Text>();
+            t.text = "";
+        }
 
         // On reset le CD
         tirClocheLastUse = 0;

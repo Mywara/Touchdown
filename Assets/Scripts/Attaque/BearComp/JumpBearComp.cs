@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class JumpBearComp : Photon.PunBehaviour
 {
-
-
     private Rigidbody rb;
     private Animator anim;
     public AudioSource audioSource;
@@ -20,6 +18,7 @@ public class JumpBearComp : Photon.PunBehaviour
 
     public GameObject jumpHUD; // UI pour la comp Jump
     public float jumpCooldown; // temps du cooldown du jump en seconde
+    private GameObject jumpCdMask;
     private float jumpLastUse; // temps (en seconde) de derniere utilisation
     public float jumpHeight; // La hauteur de saut de la competence
     private bool jumping; // Détermine si on est en saut après l'utilisation du Jump pour savoir si on applique les dégats à l'atterissage
@@ -37,15 +36,14 @@ public class JumpBearComp : Photon.PunBehaviour
     private bool JumpActif = true;
 
     
-
-
-
     // Use this for initialization
     void Start()
     {
         if (photonView.isMine)
         {
             HUD.SetActive(true);
+            jumpCdMask = jumpHUD.transform.Find("CooldownGreyMask").gameObject;
+            jumpCdMask.SetActive(false);
         }
 
         playerControllerScript = this.gameObject.GetComponent<PlayerController>();
@@ -80,8 +78,6 @@ public class JumpBearComp : Photon.PunBehaviour
 
         jumpLastUse = -jumpCooldown; // Ainsi on peut utiliser la compétence dès le début
         jumping = false;
-        
-
     }
 
     // Update is called once per frame
@@ -140,14 +136,12 @@ public class JumpBearComp : Photon.PunBehaviour
             jumpLastUse = Time.time;
             jumping = true; // On considère qu'on est en train de sauter
         }
-        
     }
     
 
     // Lance le saut
     void compJump()
     {
-
         // Set jump animation trigger
         anim.SetTrigger("Jump");
 
@@ -157,9 +151,7 @@ public class JumpBearComp : Photon.PunBehaviour
 
         // Lance le CD sur l'affichage
         StartCoroutine("JumpAffichageCooldown");
-
-
-
+        
         GameObject effetDecol;
         //Pour le local
         if (PhotonNetwork.connected == false)
@@ -171,9 +163,7 @@ public class JumpBearComp : Photon.PunBehaviour
             //Pour le reseau
             effetDecol = PhotonNetwork.Instantiate(this.effetDecollage.name, this.transform.position, effetDecollage.transform.rotation, 0);
         }
-
         
-
         // Modifie la velocité verticale
         Vector2 velocity = rb.velocity;
         velocity.y = CalculateJumpVerticalSpeed(jumpHeight);
@@ -220,15 +210,17 @@ public class JumpBearComp : Photon.PunBehaviour
     private IEnumerator JumpAffichageCooldown()
     {
         float dureeCD = jumpCooldown;
-        // Modifi la transparence
+        /*
+        // Modifie la transparence
         Image image = jumpHUD.GetComponent<Image>();
         Color c = image.color;
         c.a = transparenceCD;
         image.color = c;
+        */
+        jumpCdMask.SetActive(true);
 
         // Pour modifier le text
         Text t = jumpHUD.GetComponentInChildren<Text>();
-
 
         while (dureeCD > 0)
         {
@@ -236,11 +228,12 @@ public class JumpBearComp : Photon.PunBehaviour
             yield return new WaitForFixedUpdate();
              t.text = (Mathf.Floor(dureeCD)+1).ToString();
         }
-
+        /*
         // On remet la transparence normale
         c.a = 255;
         image.color = c;
-
+        */
+        jumpCdMask.SetActive(false);
         t.text = "";
     }
 
@@ -253,16 +246,21 @@ public class JumpBearComp : Photon.PunBehaviour
 
     private void OnDisable()
     {
-
+        /*
         // On remet la transparence normale
         Image image = jumpHUD.GetComponent<Image>();
         Color c = image.color;
         c.a = 255;
         image.color = c;
+        */
+        if (photonView.isMine)
+        {
+            jumpCdMask.SetActive(false);
 
-        // On remet l'affichage du cooldown à rien (pas de CD)
-        Text t = jumpHUD.GetComponentInChildren<Text>();
-        t.text = "";
+            // On remet l'affichage du cooldown à rien (pas de CD)
+            Text t = jumpHUD.GetComponentInChildren<Text>();
+            t.text = "";
+        }
 
         jumping = false;
 
@@ -274,6 +272,5 @@ public class JumpBearComp : Photon.PunBehaviour
 
         // On reset le CD
         jumpLastUse = 0;
-
     }
 }

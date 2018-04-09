@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class HealthTag : Photon.PUNBehaviour
 {
-
     public GameObject tagVisualisationPrefab;
     public GameObject tagPrefab;
     public GameObject tagVisualisation;
@@ -19,6 +18,8 @@ public class HealthTag : Photon.PUNBehaviour
     public bool startCoroutineGetACharge = false;
     public Text nbtrap;
     public Text cd;
+    private GameObject cdGreyMask;
+    private GameObject cdTimer;
     [HideInInspector]
     public bool inGame = true;
     public bool HealtrapVisualisation = false;
@@ -27,7 +28,10 @@ public class HealthTag : Photon.PUNBehaviour
     void Start()
     {
         autoAttaqueRanged = this.transform.GetComponent<AutoAttaqueRanged>();
-
+        cdGreyMask = transform.Find("PlayerHealth/HealKitIcon/CooldownGreyMask").gameObject;
+        cdTimer = transform.Find("PlayerHealth/HealKitIcon/cdHeal").gameObject;
+        cdGreyMask.SetActive(false);
+        cdTimer.SetActive(false);
     }
 
     // Update is called once per frame
@@ -131,6 +135,10 @@ public class HealthTag : Photon.PUNBehaviour
             coolDown -= Time.deltaTime;
             if (nbCharges == 0)
             {
+                // Show cooldown time and mask
+                cdGreyMask.SetActive(true);
+                cdTimer.SetActive(true);
+
                 cd.text = "" + coolDown;
             }
 
@@ -138,10 +146,16 @@ public class HealthTag : Photon.PUNBehaviour
             {
                 nbCharges++;
                 nbtrap.text = "" + nbCharges;
+
+                coolDown = 0f;
+                cd.text = coolDown.ToString();
+
+                // Hide cooldown time and mask
+                cdGreyMask.SetActive(false);
+                cdTimer.SetActive(false);
             }
             yield return null;
         }
-
     }
 
     [PunRPC]

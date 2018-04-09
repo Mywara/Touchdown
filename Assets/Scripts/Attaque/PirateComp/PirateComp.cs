@@ -40,6 +40,8 @@ public class PirateComp : Photon.PunBehaviour
         if (photonView.isMine)
         {
             HUD.SetActive(true);
+            grapHUD.transform.Find("CooldownGreyMask").gameObject.SetActive(false);
+            bouteilleHUD.transform.Find("CooldownGreyMask").gameObject.SetActive(false);
         }
 
         grapLastUse = -grapCooldown;
@@ -143,11 +145,16 @@ public class PirateComp : Photon.PunBehaviour
     {
         Debug.Log(((Object)parms[0]).name);
         float dureeCD = (float)parms[1];
-        // Modifi la transparence
+        GameObject cdMask = ((GameObject)parms[0]).transform.Find("CooldownGreyMask").gameObject;
+
+        /*
+        // Modifie la transparence
         Image image = ((GameObject)parms[0]).GetComponent<Image>();
         Color c = image.color;
         c.a = transparenceCD;
         image.color = c;
+        */
+        cdMask.SetActive(true);
 
         // Pour modifier le text
         Text t = ((GameObject)parms[0]).GetComponentInChildren<Text>();
@@ -160,10 +167,12 @@ public class PirateComp : Photon.PunBehaviour
             t.text = (Mathf.Floor(dureeCD) + 1).ToString();
         }
 
+        /*
         // On remet la transparence normale
         c.a = 255;
         image.color = c;
-
+        */
+        cdMask.SetActive(false);
         t.text = "";
     }
 
@@ -186,7 +195,7 @@ public class PirateComp : Photon.PunBehaviour
     // Reset le perso (si meurt)
     private void OnDisable()
     {
-
+        /*
         // On remet la transparence normale
         Image image = grapHUD.GetComponent<Image>();
         Color c = image.color;
@@ -195,12 +204,18 @@ public class PirateComp : Photon.PunBehaviour
 
         image = bouteilleHUD.GetComponent<Image>();
         image.color = c;
+        */
+        if (photonView.isMine)
+        {
+            grapHUD.transform.Find("CooldownGreyMask").gameObject.SetActive(false);
+            bouteilleHUD.transform.Find("CooldownGreyMask").gameObject.SetActive(false);
 
-        // On remet l'affichage du cooldown à rien (pas de CD)
-        Text t = grapHUD.GetComponentInChildren<Text>();
-        t.text = "";
-        t = bouteilleHUD.GetComponentInChildren<Text>();
-        t.text = "";
+            // On remet l'affichage du cooldown à rien (pas de CD)
+            Text t = grapHUD.GetComponentInChildren<Text>();
+            t.text = "";
+            t = bouteilleHUD.GetComponentInChildren<Text>();
+            t.text = "";
+        }
 
         // On reset les CD
         bouteilleLastUse = 0;
