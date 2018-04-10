@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Sounds/sons a implementer.txt.meta
 guid: ffa8ca66598000640a5a413fd39ceb14
 timeCreated: 1523392616
+=======
+guid: 18f133cc9fb9e674ba95e32c5af91aba
+folderAsset: yes
+timeCreated: 1523391493
+>>>>>>> e9edd6668b53cadaca2b1c24b227d6f7bced0a3a:Assets/2Ginge.meta
 licenseType: Free
 TextScriptImporter:
   externalObjects: {}

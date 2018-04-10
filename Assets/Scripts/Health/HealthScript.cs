@@ -18,6 +18,7 @@ namespace PUNTutorial
         private float shield = 0;       // doit être entre 0 et 1 (0 aucun shield / 1 zero degat reçu)
         private bool cursed = false;    // affecté ou non par le Curse DoT du Undead
 
+
         void Awake()
         {
             anim = GetComponent<Animator>();
@@ -175,24 +176,6 @@ namespace PUNTutorial
             this.shield += s;
             yield return new WaitForSeconds(duree);
             this.shield -= s;
-        }
-
-        // Curse DoT de l'Undead
-        [PunRPC]
-        public void Curse()
-        {
-            cursed = true;
-        }
-
-        [PunRPC]
-        public void EndCurse()
-        {
-            cursed = false;
-        }
-
-        public bool isCursed()
-        {
-            return cursed;
         }
     }  
 }
