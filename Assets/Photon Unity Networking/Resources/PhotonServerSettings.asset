@@ -103,4 +103,6 @@ MonoBehaviour:
   - SwitchTeam
   - SynchroHealth
   - UpdateJustDroppedCrystal
+  - PlaySFX
+  - Tp
   DisableAutoOpenWizard: 1
