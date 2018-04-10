@@ -96,8 +96,6 @@ public class PlayerController : Photon.PunBehaviour
                     if (PhotonNetwork.connected)
                     {
                         photonView.RPC("JumpAnimation", PhotonTargets.All);
-                        audioSource.clip = jumpSnd;
-                        audioSource.Play();
                     }
 
 
@@ -105,9 +103,10 @@ public class PlayerController : Photon.PunBehaviour
                     else
                     {
                         JumpAnimation();
-                        audioSource.clip = jumpSnd;
-                        audioSource.Play();
                     }
+                    audioSource.clip = jumpSnd;
+                    audioSource.Play();
+
                     Vector2 velocity = rb.velocity;
                     velocity.y = CalculateJumpVerticalSpeed(myJumpHeight);
                     rb.velocity = velocity;

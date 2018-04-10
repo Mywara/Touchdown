@@ -25,7 +25,8 @@ public class TirClochePirateComp : Photon.PunBehaviour
 
     public GameObject tirClocheProjectile; // L'effet visuel
 
-    public AudioClip audioTirCloche; // L'audio
+    public AudioClip launch; // L'audio
+    public AudioClip impact;
 
     private bool tirClocheActif = true;
 
