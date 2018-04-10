@@ -74,3 +74,21 @@ In a game :
 Victory : Win
 
 Defeat : Lose
+
+
+
+
+========================================================================
+this.photonView.RPC("JumpSFX", PhotonTargets.All);
+
+public void JumpSFX()
+    {
+        AudioSource audioRPC = gameObject.AddComponent<AudioSource>();
+        audioRPC.clip = jumpSnd;
+        audioRPC.playOnAwake = false;
+        audioRPC.spatialBlend = 1;
+        audioRPC.minDistance = 1;
+        audioRPC.maxDistance = 100;
+        audioRPC.Play();
+    }
+========================================================================

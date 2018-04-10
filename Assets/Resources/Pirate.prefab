@@ -1945,7 +1945,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -1954,25 +1954,25 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 1
+      value: 0.8026581
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 1
+      time: 0.17865753
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -1.002004
+      outSlope: -1.002004
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2445,6 +2445,8 @@ MonoBehaviour:
   grapHUD: {fileID: 1249481570770130}
   bouteilleHUD: {fileID: 1824945162278608}
   animGrapeS: {fileID: 1046567844236466, guid: ae3d056d29e9c6a4a99b0a8f176161ff, type: 2}
+  audioSource: {fileID: 82677131335961344}
+  grapeShotSnd: {fileID: 8300000, guid: a8d81228ca4364e48a3d5ad15d282d3f, type: 3}
 --- !u!114 &114256128404696614
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2875,7 +2877,8 @@ MonoBehaviour:
   tirClocheCooldown: 25
   tirClocheProjectile: {fileID: 1644292850688918, guid: 66171035c28e7f543b364cb6df213a2a,
     type: 2}
-  audioTirCloche: {fileID: 0}
+  launch: {fileID: 0}
+  impact: {fileID: 0}
 --- !u!114 &114521593569373418
 MonoBehaviour:
   m_ObjectHideFlags: 1

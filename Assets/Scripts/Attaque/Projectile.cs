@@ -19,6 +19,8 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
     private bool autoAttack = false;
     private bool hasHitEnemies = false;
     private bool netWorkingDone = false;
+
+    public AudioClip pirateAAHitSnd;
     
 
     // Use this for initialization
@@ -112,6 +114,9 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
         {
             LanceAnim();
             animLance = true; // On ne lance l'animation qu'une fois
+
+            //on lance le son une seule fois
+            this.photonView.RPC("PirateAAHitSFX", PhotonTargets.All);
         }
 
         //on test si il a a du friendlyFire ou non
@@ -275,5 +280,15 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
             //Pour le reseau
             effetExplosion = PhotonNetwork.Instantiate(this.AnimBulletExplode.name, this.transform.position, AnimBulletExplode.transform.rotation, 0);
         }
+    }
+    public void PirateAAHitSFX()
+    {
+        AudioSource audioRPC = gameObject.AddComponent<AudioSource>();
+        audioRPC.clip = pirateAAHitSnd;
+        audioRPC.playOnAwake = false;
+        audioRPC.spatialBlend = 1;
+        audioRPC.minDistance = 1;
+        audioRPC.maxDistance = 100;
+        audioRPC.Play();
     }
 }

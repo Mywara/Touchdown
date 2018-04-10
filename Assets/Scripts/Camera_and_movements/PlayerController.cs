@@ -104,8 +104,7 @@ public class PlayerController : Photon.PunBehaviour
                     {
                         JumpAnimation();
                     }
-                    audioSource.clip = jumpSnd;
-                    this.photonView.RPC("PlaySFX", PhotonTargets.All);
+                    this.photonView.RPC("JumpSFX", PhotonTargets.All);
 
                     Vector2 velocity = rb.velocity;
                     velocity.y = CalculateJumpVerticalSpeed(myJumpHeight);
@@ -506,8 +505,14 @@ public class PlayerController : Photon.PunBehaviour
     }
 
     [PunRPC]
-    public void PlaySFX()
+    public void JumpSFX()
     {
-        audioSource.Play();
+        AudioSource audioRPC = gameObject.AddComponent<AudioSource>();
+        audioRPC.clip = jumpSnd;
+        audioRPC.playOnAwake = false;
+        audioRPC.spatialBlend = 1;
+        audioRPC.minDistance = 1;
+        audioRPC.maxDistance = 100;
+        audioRPC.Play();
     }
 }
