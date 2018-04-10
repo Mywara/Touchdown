@@ -2304,8 +2304,8 @@ MonoBehaviour:
   nbCharges: 3
   cooldown: 20
   startCoroutineGetACharge: 0
-  nbtrap: {fileID: 0}
-  cd: {fileID: 0}
+  nbtrap: {fileID: 114307794830440140}
+  cd: {fileID: 114516511987076362}
   inGame: 1
   IcetrapVisualisation: 0
 --- !u!114 &114269158197117176
@@ -3381,8 +3381,8 @@ MonoBehaviour:
   nbCharges: 1
   cooldown: 20
   startCoroutineGetACharge: 0
-  nbtrap: {fileID: 0}
-  cd: {fileID: 0}
+  nbtrap: {fileID: 114634889244798060}
+  cd: {fileID: 114351076884150310}
   inGame: 1
   HealtrapVisualisation: 0
 --- !u!114 &114854452152708178

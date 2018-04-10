@@ -1943,15 +1943,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-<<<<<<< Updated upstream
   MaxDistance: 10
   Pan2D: 0
   rolloffMode: 0
-=======
-  MaxDistance: 5
-  Pan2D: 0
-  rolloffMode: 1
->>>>>>> Stashed changes
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
