@@ -4,20 +4,34 @@ using UnityEngine;
 
 public class HowToPlay : MonoBehaviour {
 
-    public Canvas howToPlayCanva;
+    public Canvas howToPlayCanvas;
 	// Use this for initialization
 	void Start () {
-        howToPlayCanva.enabled = false;
+        howToPlayCanvas.enabled = false;
 	}
 	
-    public void PrintCanva()
+    public void PrintCanvas()
     {
-        howToPlayCanva.enabled = true;
+        howToPlayCanvas.enabled = true;
     }
 
-    public void EraseCanva()
+    public void EraseCanvas()
     {
-        howToPlayCanva.enabled = false;
+        howToPlayCanvas.enabled = false;
     }
 
+    public void ShowPirateDetails()
+    {
+
+    }
+
+    public void ShowUndeadDetails()
+    {
+
+    }
+
+    public void ShowWarbearDetails()
+    {
+
+    }
 }

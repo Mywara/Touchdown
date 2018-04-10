@@ -255,7 +255,10 @@ public class JumpBearComp : Photon.PunBehaviour
         */
         if (photonView.isMine)
         {
-            jumpCdMask.SetActive(false);
+            if (jumpCdMask)
+            {
+                jumpCdMask.SetActive(false);
+            }
 
             // On remet l'affichage du cooldown à rien (pas de CD)
             Text t = jumpHUD.GetComponentInChildren<Text>();

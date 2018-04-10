@@ -164,7 +164,10 @@ public class TirClochePirateComp : Photon.PunBehaviour
         */
         if (photonView.isMine)
         {
-            tirClocheCdMask.SetActive(false);
+            if (tirClocheCdMask)
+            {
+                tirClocheCdMask.SetActive(false);
+            }
 
             // On remet l'affichage du cooldown à rien (pas de CD)
             Text t = tirClocheHUD.GetComponentInChildren<Text>();
@@ -173,6 +176,5 @@ public class TirClochePirateComp : Photon.PunBehaviour
 
         // On reset le CD
         tirClocheLastUse = 0;
-
     }
 }

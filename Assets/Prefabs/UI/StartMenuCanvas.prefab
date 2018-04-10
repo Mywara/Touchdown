@@ -1793,7 +1793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd536d3395c0d0347a4a32fe7b48e2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  howToPlayCanva: {fileID: 223012088093512784}
+  howToPlayCanvas: {fileID: 223012088093512784}
 --- !u!114 &114418965747577284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1943,7 +1943,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114396648285432894}
-        m_MethodName: EraseCanva
+        m_MethodName: EraseCanvas
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2623,7 +2623,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114396648285432894}
-        m_MethodName: PrintCanva
+        m_MethodName: PrintCanvas
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

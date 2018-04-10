@@ -215,7 +215,10 @@ public class CalinBearComp : Photon.PunBehaviour
         */
         if (photonView.isMine)
         {
-            calinCdMask.SetActive(false);
+            if (calinCdMask)
+            {
+                calinCdMask.SetActive(false);
+            }
 
             // On remet l'affichage du cooldown à rien (pas de CD)
             Text t = calinHUD.GetComponentInChildren<Text>();
