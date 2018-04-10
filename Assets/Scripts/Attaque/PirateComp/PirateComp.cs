@@ -28,6 +28,7 @@ public class PirateComp : Photon.PunBehaviour
 
     public GameObject animGrapeS;
 
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -221,4 +222,5 @@ public class PirateComp : Photon.PunBehaviour
         bouteilleLastUse = 0;
         grapLastUse = 0;
     }
+
 }

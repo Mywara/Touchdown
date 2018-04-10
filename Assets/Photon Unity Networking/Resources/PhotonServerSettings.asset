@@ -21,7 +21,7 @@ MonoBehaviour:
   ServerAddress: 
   ServerPort: 5055
   VoiceServerPort: 5055
-  JoinLobby: 1
+  JoinLobby: 0
   EnableLobbyStatistics: 0
   PunLogging: 0
   NetworkLogging: 1
@@ -43,7 +43,6 @@ MonoBehaviour:
   - DestroyRpc
   - DestroyTrap
   - ElevenByElevenGeneration
-  - EndCurse
   - FinCurse
   - FinModifVitesse
   - FinStun
@@ -58,6 +57,7 @@ MonoBehaviour:
   - JoinTeam1
   - JoinTeam2
   - JumpAnimation
+  - JumpSFX
   - KillPlayer
   - LanceAnimArmor
   - LanceAnimGrapeShot
@@ -76,6 +76,9 @@ MonoBehaviour:
   - PickupCrystal
   - PickupItemInit
   - PlayPhase
+  - PlaySFXCalinDash
+  - PlaySFXJumpA
+  - PlaySFXJumpD
   - PunPickup
   - PunPickupSimple
   - PunRespawn
@@ -103,6 +106,4 @@ MonoBehaviour:
   - SwitchTeam
   - SynchroHealth
   - UpdateJustDroppedCrystal
-  - PlaySFX
-  - Tp
   DisableAutoOpenWizard: 1

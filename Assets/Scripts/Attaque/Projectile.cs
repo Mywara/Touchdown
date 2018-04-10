@@ -102,11 +102,12 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
         //on recupère l'object le plus haut de hierachie sur l'objet touché
         GameObject directHitObj = other.transform.root.gameObject;
         //On enlève les collisions pour appliquer des dégâts avec le respawn et la bordure
-        if(directHitObj.tag.Equals("Respawn") || directHitObj.tag.Equals("Boundary"))
+        if (directHitObj.tag.Equals("Respawn") || directHitObj.tag.Equals("Boundary"))
         {
             //Debug.Log("hit Respawn");
             return;
         }
+
 
         if (!animLance)
         {
@@ -276,4 +277,7 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
             effetExplosion = PhotonNetwork.Instantiate(this.AnimBulletExplode.name, this.transform.position, AnimBulletExplode.transform.rotation, 0);
         }
     }
+
+    
+
 }

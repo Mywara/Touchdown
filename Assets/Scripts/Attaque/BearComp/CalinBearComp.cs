@@ -30,7 +30,7 @@ public class CalinBearComp : Photon.PunBehaviour
 
     public GameObject effetArmor; // L'effet visuel
 
-    public AudioClip audioDash; // L'audio
+    public AudioClip SFXCalinDash; // L'audio
 
     private bool CalinActif = true;
 
@@ -108,8 +108,7 @@ public class CalinBearComp : Photon.PunBehaviour
     {
 
         //Joue le son de dash
-        audioSource.clip = audioDash;
-        audioSource.Play();
+        this.photonView.RPC("PlaySFXCalinDash", PhotonTargets.All);
 
         // Lance le CD sur l'affichage
         StartCoroutine("CalinAffichageCooldown");
@@ -156,6 +155,17 @@ public class CalinBearComp : Photon.PunBehaviour
             yield return null;
             distance = Vector3.Distance(this.transform.position, hit.transform.position);
         }
+    }
+
+    // Sons
+
+    [PunRPC]
+    public void PlaySFXCalinDash()
+    {
+        //audioRPC.minDistance = 1;
+        audioSource.maxDistance = 10;
+        audioSource.clip = SFXCalinDash;
+        audioSource.Play();
     }
 
     /////////////////////// Affichage Competences

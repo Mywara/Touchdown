@@ -30,8 +30,8 @@ public class JumpBearComp : Photon.PunBehaviour
     public GameObject effetDecollage; // Il s'agit des effets visuels
     public GameObject effetAtterrissage;
 
-    public AudioClip audioDecollage;
-    public AudioClip audioAtterrissage;
+    public AudioClip SFXJumpDecolage;
+    public AudioClip SFXJumpAterrissage;
 
     private bool JumpActif = true;
 
@@ -108,8 +108,7 @@ public class JumpBearComp : Photon.PunBehaviour
                     //playerControllerScript.photonView.RPC("FinModifVitesse", PhotonTargets.All, BoostVitesseEnSaut);
                     playerControllerScript.photonView.RPC("FinModifVitesse", PhotonTargets.All, BoostVitesseEnSaut);
                     //Joue le son de l'atterrissage
-                    audioSource.clip = audioAtterrissage;
-                    audioSource.Play();
+                    this.photonView.RPC("PlaySFXJumpA", PhotonTargets.All);
 
                     jumping = false;
                     LaunchJumpAOE();
@@ -146,8 +145,7 @@ public class JumpBearComp : Photon.PunBehaviour
         anim.SetTrigger("Jump");
 
         //Joue le son de décollages
-        audioSource.clip = audioDecollage;
-        audioSource.Play();
+        this.photonView.RPC("PlaySFXJumpD", PhotonTargets.All);
 
         // Lance le CD sur l'affichage
         StartCoroutine("JumpAffichageCooldown");
@@ -202,6 +200,24 @@ public class JumpBearComp : Photon.PunBehaviour
 
         // applique les dégats et effets
         jumpAOEScript.SetApply(true);
+    }
+
+    [PunRPC]
+    public void PlaySFXJumpD()
+    {
+        //audioRPC.minDistance = 1;
+        audioSource.maxDistance = 5;
+        audioSource.clip = SFXJumpDecolage;
+        audioSource.Play();
+    }
+
+    [PunRPC]
+    public void PlaySFXJumpA()
+    {
+        //audioRPC.minDistance = 1;
+        audioSource.maxDistance = 5;
+        audioSource.clip = SFXJumpAterrissage;
+        audioSource.Play();
     }
 
     /////////////////////// Affichage Competences

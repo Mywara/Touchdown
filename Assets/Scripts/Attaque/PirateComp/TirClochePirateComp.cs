@@ -160,7 +160,7 @@ public class TirClochePirateComp : Photon.PunBehaviour
         Image image = tirClocheHUD.GetComponent<Image>();
         Color c = image.color;
         c.a = 255;
-        image.color = c;
+        image.color = c;x
         */
         if (photonView.isMine)
         {

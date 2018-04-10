@@ -38,9 +38,6 @@ Pirate Ulti
 Ice Trap placement : Trap
 Ice trap trigger : 
 
-
-Jump : Jump
-
 Footsteps : Footstep1 ou Footstep2
 
 ===========================================
