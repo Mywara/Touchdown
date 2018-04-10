@@ -21,7 +21,7 @@ MonoBehaviour:
   ServerAddress: 
   ServerPort: 5055
   VoiceServerPort: 5055
-  JoinLobby: 1
+  JoinLobby: 0
   EnableLobbyStatistics: 0
   PunLogging: 0
   NetworkLogging: 1
@@ -76,6 +76,9 @@ MonoBehaviour:
   - PickupCrystal
   - PickupItemInit
   - PlayPhase
+  - PlaySFXCalinDash
+  - PlaySFXJumpA
+  - PlaySFXJumpD
   - PunPickup
   - PunPickupSimple
   - PunRespawn
@@ -103,7 +106,4 @@ MonoBehaviour:
   - SwitchTeam
   - SynchroHealth
   - UpdateJustDroppedCrystal
-  - PlaySFXJumpA
-  - PlaySFXJumpD
-  - PlaySFXCalinDash
   DisableAutoOpenWizard: 1

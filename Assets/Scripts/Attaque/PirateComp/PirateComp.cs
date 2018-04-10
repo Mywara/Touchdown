@@ -28,8 +28,6 @@ public class PirateComp : Photon.PunBehaviour
 
     public GameObject animGrapeS;
 
-    public AudioSource audioSource;
-    public AudioClip grapeShotSnd;
 
     void Awake()
     {
@@ -68,8 +66,6 @@ public class PirateComp : Photon.PunBehaviour
 
             // Lance l'animation du grape shot
             this.photonView.RPC("LanceAnimGrapeShot", PhotonTargets.All, projectileSpawn1.rotation);
-
-            this.photonView.RPC("PirateGrapeShotSFX", PhotonTargets.All);
 
             GameObject projo;
             //Pour le local
@@ -227,14 +223,4 @@ public class PirateComp : Photon.PunBehaviour
         grapLastUse = 0;
     }
 
-    public void PirateGrapeShotSFX()
-    {
-        AudioSource audioRPC = gameObject.AddComponent<AudioSource>();
-        audioRPC.clip = grapeShotSnd;
-        audioRPC.playOnAwake = false;
-        audioRPC.spatialBlend = 1;
-        audioRPC.minDistance = 1;
-        audioRPC.maxDistance = 100;
-        audioRPC.Play();
-    }
 }
