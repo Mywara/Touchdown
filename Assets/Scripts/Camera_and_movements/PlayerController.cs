@@ -507,12 +507,9 @@ public class PlayerController : Photon.PunBehaviour
     [PunRPC]
     public void JumpSFX()
     {
-        AudioSource audioRPC = gameObject.AddComponent<AudioSource>();
-        audioRPC.clip = jumpSnd;
-        audioRPC.playOnAwake = false;
-        audioRPC.spatialBlend = 1;
-        audioRPC.minDistance = 1;
-        audioRPC.maxDistance = 100;
-        audioRPC.Play();
+        //audioRPC.minDistance = 1;
+        audioSource.maxDistance = 7;
+        audioSource.clip = jumpSnd;
+        audioSource.Play();
     }
 }
