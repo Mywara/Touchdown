@@ -1,11 +1,11 @@
 Sounds for TouchDown
 
 ===========================================
-----------------CHARACTERS-----------------
+----------------CHARACTERS-------------ok--
 ===========================================
 Undead AA 
 	swing : ScytheSwing
-	hit : 
+	hit : UndeadAAHit
 Undead DoT 
 	launch : UndeadDotLaunch
 	impact : UndeadDotImpact
@@ -14,28 +14,28 @@ Undead Invulnérabilité : UndeadInvulnerable
 
 Bear AA 
 	swing : BearSwing1 ou BearSwing2
-	hit : 
-Bear Comp1 : 
+	hit : BearAAHit
+Bear ShoulderBash : BearShoulderBash
 Bear Jump 
 	launch : BearJumpLaunch
 	impact : BearJumpImpact
 Bear Hug 
-	launch : 
-	impact : 
+	launch : BearHugLaunch
+	impact : BearHugImpact
 
 Pirate AA 
-	launch : 
-	impact: 
+	launch : PirateAA
+	impact: PirateAAImpact
 Pirate Bottle 
 	launch : PirateBottleLaunch
-	impact : 
+	impact : PirateBottleImpact
 	drunk state : DrunkStateEffect
-Pirate Mitraille : 
+Pirate Mitraille : PirateMitraille
 Pirate Ulti 
-	launch : 
-	impact : 
+	launch : PirateUltiLaunch
+	impact : PirateUltiImpact
 
-Trap placement : Trap
+Ice Trap placement : Trap
 Ice trap trigger : 
 
 
@@ -67,12 +67,10 @@ Character selection : CharacterSelection
 ===========================================
 -------------------MUSIC------coming soon--
 ===========================================
-Menu : 
-
-Lobby : 
+Menu : menu (faut que je la push)
 
 In a game :
 
-Victory : 
+Victory : Win
 
-Defeat : 
+Defeat : Lose

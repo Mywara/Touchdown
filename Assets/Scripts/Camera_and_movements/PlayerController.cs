@@ -30,6 +30,9 @@ public class PlayerController : Photon.PunBehaviour
 
     public GameObject AnimConfu;
 
+    public AudioSource audioSource;
+    public AudioClip jumpSnd;
+
 
 
     // Script pour controler l'orientation de la camera
@@ -91,10 +94,20 @@ public class PlayerController : Photon.PunBehaviour
                 {
                     // Set jump animation trigger
                     if (PhotonNetwork.connected)
+                    {
                         photonView.RPC("JumpAnimation", PhotonTargets.All);
-                    else
-                        JumpAnimation();
+                        audioSource.clip = jumpSnd;
+                        audioSource.Play();
+                    }
 
+
+
+                    else
+                    {
+                        JumpAnimation();
+                        audioSource.clip = jumpSnd;
+                        audioSource.Play();
+                    }
                     Vector2 velocity = rb.velocity;
                     velocity.y = CalculateJumpVerticalSpeed(myJumpHeight);
                     rb.velocity = velocity;
