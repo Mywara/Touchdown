@@ -13,12 +13,11 @@ namespace PUNTutorial
         public static float teamIwantToJoin = 0;
 
         private string characterToLoad = "Pirate";
-        private string levelToLoad = "Scene1";
+        private string levelToLoad = "RandomMap";
         private int[][] seeds = null;
 
         void Awake()
         {
-            
             if (instance != null)
             {
                 DestroyImmediate(gameObject);

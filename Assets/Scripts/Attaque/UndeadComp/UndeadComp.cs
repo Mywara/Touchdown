@@ -51,21 +51,21 @@ public class UndeadComp : Photon.PunBehaviour
         dotLastUse = -dotCooldown;
         tpLastUse = -tpCooldown;
 
-
-        // On affiche les competence et CD qu'à la personne concernée.
+        // On affiche les compétences et CD qu'à la personne concernée.
         if (photonView.isMine)
         {
             HUD.SetActive(true);
+            invulnerableHUD.transform.Find("CooldownGreyMask").gameObject.SetActive(false);
+            tpHUD.transform.Find("CooldownGreyMask").gameObject.SetActive(false);
+            dotHUD.transform.Find("CooldownGreyMask").gameObject.SetActive(false);
         }
         cam = Camera.main;
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(IsInInvunerabilityMode && this.gameObject.GetComponent<CrystalDrop>().crys.GetComponent<Crystal>().playerHolding == this.gameObject)
+        if (IsInInvunerabilityMode && this.gameObject.GetComponent<CrystalDrop>().crys.GetComponent<Crystal>().playerHolding == this.gameObject)
         {
             //Debug.Log("skill not allowed currently");
             return;
@@ -81,7 +81,7 @@ public class UndeadComp : Photon.PunBehaviour
         {
             // animation trigger
             //anim.SetTrigger("AttackGun");
-            
+
             GameObject projo;
             //Pour le local
             if (PhotonNetwork.connected == false)
@@ -90,10 +90,8 @@ public class UndeadComp : Photon.PunBehaviour
             }
             else
             {
-
                 //Pour le reseau
                 projo = PhotonNetwork.Instantiate(this.projectilePrefab1.name, projectileSpawn1.position, projectileSpawn1.rotation, 0);
-
             }
 
             PlayerController playerControllerScript = this.gameObject.GetComponent<PlayerController>();
@@ -131,27 +129,20 @@ public class UndeadComp : Photon.PunBehaviour
                 {
                     if (hit.transform.tag.Equals("Player") && hit.transform != this.transform && hit.distance < tpMaxRange)
                     {
-                        //hitPlayerControllerScript = script de la cible
+                        
                         //playerControllerScript = script de nous-même
-                        PlayerController hitPlayerControllerScript = hit.transform.GetComponent<PlayerController>();
 
-                        if (hitPlayerControllerScript != null)
-                        {
-                            // Lance l'animation de disparition
-                            this.photonView.RPC("LanceAnimTP", PhotonTargets.All);
+                        //Lance l'animation de disparition
+                        this.photonView.RPC("LanceAnimTP", PhotonTargets.All);
 
-                            tpLastUse = Time.time;
-                            // Lance l'affichage du CD
-                            object[] parms = { tpHUD, tpCooldown };
-                            StartCoroutine("AffichageCooldown", parms);
+                        tpLastUse = Time.time;
+                        //Lance l'affichage du CD
+                        object[] parms = { tpHUD, tpCooldown };
+                        StartCoroutine("AffichageCooldown", parms);
 
-                            Tp(hit.transform.gameObject, playerControllerScript.team);
-                            
-                        }
-                        else
-                        {
-                            Debug.Log("pas trouvé de script PlayerController sur la cible");
-                        }
+                        Tp(hit.transform.gameObject, playerControllerScript.team);
+
+
                     }
                 }
             }
@@ -172,16 +163,16 @@ public class UndeadComp : Photon.PunBehaviour
 
             //}
 
-            
+
             //Teleportation tpScript = projo.GetComponent<Teleportation>();
             //if (playerControllerScript != null)
             //{
             //    tpScript.SetTeam(playerControllerScript.Team);
             //    tpScript.SetOwner(this.transform.gameObject);
 
-                
 
-                
+
+
             //}
             //else
             //{
@@ -218,11 +209,16 @@ public class UndeadComp : Photon.PunBehaviour
     private IEnumerator AffichageCooldown(object[] parms)
     {
         float dureeCD = (float)parms[1];
-        // Modifi la transparence
+        GameObject cdMask = ((GameObject)parms[0]).transform.Find("CooldownGreyMask").gameObject;
+
+        /*
+        // Modifie la transparence
         Image image = ((GameObject)parms[0]).GetComponent<Image>();
         Color c = image.color;
         c.a = transparenceCD;
         image.color = c;
+        */
+        cdMask.SetActive(true);
 
         // Pour modifier le text
         Text t = ((GameObject)parms[0]).GetComponentInChildren<Text>();
@@ -234,11 +230,12 @@ public class UndeadComp : Photon.PunBehaviour
             yield return new WaitForFixedUpdate();
             t.text = (Mathf.Floor(dureeCD) + 1).ToString();
         }
-
+        /*
         // On remet la transparence normale
         c.a = 255;
         image.color = c;
-
+        */
+        cdMask.SetActive(false);
         t.text = "";
     }
 
@@ -258,9 +255,11 @@ public class UndeadComp : Photon.PunBehaviour
             this.transform.forward = target.transform.forward;
         }
         //On maudit la cible si c'est un ennemi
-        if (target.GetComponent<PlayerController>().team != ourTeam)
+        //hitPlayerControllerScript = script de la cible
+        PlayerController hitPlayerControllerScript =target.GetComponent<PlayerController>();
+        if (hitPlayerControllerScript.team != ourTeam)
         {
-            target.GetComponent<PlayerController>().Curse();
+            hitPlayerControllerScript.photonView.RPC("Curse",PhotonTargets.All);
         }
 
         // Lance l'animation d'apparition
@@ -285,7 +284,6 @@ public class UndeadComp : Photon.PunBehaviour
         this.compUndeathActif = b;
     }
 
-
     public bool IsInInvunerabilityMode
     {
         get
@@ -301,7 +299,7 @@ public class UndeadComp : Photon.PunBehaviour
     // Reset le perso (si meurt)
     private void OnDisable()
     {
-
+        /*
         // On remet la transparence normale de l'affichage
         Image image = invulnerableHUD.GetComponent<Image>();
         Color c = image.color;
@@ -312,15 +310,21 @@ public class UndeadComp : Photon.PunBehaviour
         image.color = c;
         image = tpHUD.GetComponent<Image>();
         image.color = c;
+        */
+        if (photonView.isMine)
+        {
+            invulnerableHUD.transform.Find("CooldownGreyMask").gameObject.SetActive(false);
+            tpHUD.transform.Find("CooldownGreyMask").gameObject.SetActive(false);
+            dotHUD.transform.Find("CooldownGreyMask").gameObject.SetActive(false);
 
-
-        // On remet l'affichage du cooldown à rien (pas de CD)
-        Text t = invulnerableHUD.GetComponentInChildren<Text>();
-        t.text = "";
-        t = dotHUD.GetComponentInChildren<Text>();
-        t.text = "";
-        t = tpHUD.GetComponentInChildren<Text>();
-        t.text = "";
+            // On remet l'affichage du cooldown à rien (pas de CD)
+            Text t = invulnerableHUD.GetComponentInChildren<Text>();
+            t.text = "";
+            t = dotHUD.GetComponentInChildren<Text>();
+            t.text = "";
+            t = tpHUD.GetComponentInChildren<Text>();
+            t.text = "";
+        }
 
         // On reset les CD
         dotLastUse = 0;

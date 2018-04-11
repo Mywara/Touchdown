@@ -1,56 +1,16 @@
 Sounds for TouchDown
 
 ===========================================
-----------------CHARACTERS-----------------
+----------------CHARACTERS-------------ok--
 ===========================================
-Undead AA 
-	swing : ScytheSwing
-	hit : 
-Undead DoT 
-	launch : UndeadDotLaunch
-	impact : UndeadDotImpact
-Undead TP : UndeadTP
-Undead Invulnérabilité : UndeadInvulnerable
-
-Bear AA 
-	swing : BearSwing1 ou BearSwing2
-	hit : 
-Bear Comp1 : 
-Bear Jump 
-	launch : BearJumpLaunch
-	impact : BearJumpImpact
-Bear Hug 
-	launch : 
-	impact : 
-
-Pirate AA 
-	launch : 
-	impact: 
-Pirate Bottle 
-	launch : PirateBottleLaunch
-	impact : 
-	drunk state : DrunkStateEffect
-Pirate Mitraille : 
-Pirate Ulti 
-	launch : 
-	impact : 
-
-Trap placement : Trap
-Ice trap trigger : 
-
-
-Jump : Jump
+Heal placement
+Heal trigger
 
 Footsteps : Footstep1 ou Footstep2
 
 ===========================================
 ------------------OBJECTS--------------ok--
 ===========================================
-Crystal 
-	pickup : CrystalPickup
-	put down : CrystalPutDown
-	reset : CrystalReset
-
 Goal : Goal
 
 ===========================================
@@ -67,12 +27,65 @@ Character selection : CharacterSelection
 ===========================================
 -------------------MUSIC------coming soon--
 ===========================================
-Menu : 
-
-Lobby : 
+Menu : menu (faut que je la push)
 
 In a game :
 
-Victory : 
+Victory : Win
 
-Defeat : 
+Defeat : Lose
+
+
+
+
+========================================================================
+this.photonView.RPC("JumpSFX", PhotonTargets.All);
+
+public void JumpSFX()
+    {
+        AudioSource audioRPC = gameObject.AddComponent<AudioSource>();
+        audioRPC.clip = jumpSnd;
+        audioRPC.playOnAwake = false;
+        audioRPC.spatialBlend = 1;
+        audioRPC.minDistance = 1;
+        audioRPC.maxDistance = 100;
+        audioRPC.Play();
+    }
+========================================================================
+
+===========================================
+----------------CHARACTERS-------------ok--
+===========================================
+Undead AA 
+	swing : ScytheSwing
+	hit : UndeadAAHit
+Undead DoT 
+	launch : UndeadDotLaunch
+	impact : UndeadDotImpact
+Undead TP : UndeadTP
+Undead Invulnérabilité : UndeadInvulnerable
+
+Bear AA 
+	swing : BearSwing1 ou BearSwing2
+	hit : BearAAHit
+Bear ShoulderBash : BearShoulderBash
+Bear Jump 
+	launch : BearJumpLaunch
+	impact : BearJumpImpact
+Bear Hug 
+	launch : BearHugLaunch
+	impact : BearHugImpact
+
+Pirate AA 
+	launch : PirateAA
+	impact: PirateAAImpact
+Pirate Bottle 
+	launch : PirateBottleLaunch
+	impact : PirateBottleImpact
+	drunk state : DrunkStateEffect
+Pirate Mitraille : PirateMitraille
+Pirate Ulti 
+	launch : PirateUltiLaunch
+	impact : PirateUltiImpact
+
+Ice Trap placement : Trap

@@ -1,11 +1,18 @@
 fileFormatVersion: 2
 guid: 6ac7672bb277670459c27008173e4e85
-timeCreated: 1517865945
+timeCreated: 1523383267
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cameraFollow: {instanceID: 0}
+  - activeTrap: {instanceID: 0}
+  - AnimStun: {instanceID: 0}
+  - AnimCurse: {instanceID: 0}
+  - AnimConfu: {instanceID: 0}
+  - audioSource: {instanceID: 0}
+  - jumpSnd: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -8,22 +8,24 @@ namespace PUNTutorial
     public class HealthScript : Photon.PunBehaviour
     {
         public Slider HealthSlider;
-
         public int HealthMax;
+        public GameObject animHeal;
+
         private bool dying = false;
         private Animator anim;
         private bool netWorkingDone = false;
         private bool invulnerable = false;
-        private float shield = 0; // doit être entre 0 et 1 (0 aucun shield / 1 zero degat reçu)
+        private float shield = 0;       // doit être entre 0 et 1 (0 aucun shield / 1 zero degat reçu)
 
-        public GameObject animHeal;
-
-        // affecté ou non par le Curse DoT du Undead
-        private bool cursed = false;
 
         void Awake()
         {
             anim = GetComponent<Animator>();
+
+            if(photonView.isMine)
+            {
+                HealthSlider.transform.parent.gameObject.SetActive(false);
+            }
             
             //Set health depending on the character
             HealthMax = GetComponentInParent<CharacterCaracteristic>().health;
@@ -31,6 +33,23 @@ namespace PUNTutorial
             HealthSlider.maxValue = HealthMax;
             HealthSlider.value = HealthMax;
             //Debug.Log(this.gameObject.name + " AwakeEnded");
+        }
+
+        void Start()
+        {
+            PlayerController localPlayerController = PUNTutorial.GameManager.localPlayer.GetComponent<PlayerController>();
+            PlayerController thisPlayerController = gameObject.GetComponent<PlayerController>();
+            Image healthUIFillImage = HealthSlider.transform.Find("Fill Area").gameObject.GetComponentInChildren<Image>();
+
+            // if this player is in the same team as our local player
+            if(localPlayerController.Team == thisPlayerController.Team)
+            {
+                healthUIFillImage.color = new Color(.2f, .6f, 1, .7f); // the slider will be light blue
+            }
+            else
+            {
+                healthUIFillImage.color = new Color(1, .2f, .2f, .7f); // the slider will be light red
+            }
         }
 
         [PunRPC]
@@ -69,7 +88,7 @@ namespace PUNTutorial
             }
         }
 
-        public void Update()
+        void Update()
         {
             if (HealthSlider.value <= 0 && !dying)
             {
@@ -156,24 +175,6 @@ namespace PUNTutorial
             this.shield += s;
             yield return new WaitForSeconds(duree);
             this.shield -= s;
-        }
-
-        // Curse DoT de l'Undead
-        [PunRPC]
-        public void Curse()
-        {
-            cursed = true;
-        }
-
-        [PunRPC]
-        public void EndCurse()
-        {
-            cursed = false;
-        }
-
-        public bool isCursed()
-        {
-            return cursed;
         }
     }  
 }

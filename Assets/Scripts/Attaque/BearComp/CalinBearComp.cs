@@ -23,13 +23,14 @@ public class CalinBearComp : Photon.PunBehaviour
     public GameObject calinHUD; // UI pour la comp Calin
     public float calinCooldown; // temps du cooldown du calin en seconde
     public float calinDuree; // duree de la competence
+    private GameObject calinCdMask;
     private float calinLastUse; // temps (en seconde) de derniere utilisation
     public float maxRange;
     public float calinShield = 0; // doit être entre 0 et 1 (0 aucun shield / 1 zero degat reçu)
 
     public GameObject effetArmor; // L'effet visuel
 
-    public AudioClip audioDash; // L'audio
+    public AudioClip SFXCalinDash; // L'audio
 
     private bool CalinActif = true;
 
@@ -40,6 +41,8 @@ public class CalinBearComp : Photon.PunBehaviour
         if (photonView.isMine)
         {
             HUD.SetActive(true);
+            calinCdMask = calinHUD.transform.Find("CooldownGreyMask").gameObject;
+            calinCdMask.SetActive(false);
         }
 
         playerControllerScript = this.gameObject.GetComponent<PlayerController>();
@@ -105,12 +108,10 @@ public class CalinBearComp : Photon.PunBehaviour
     {
 
         //Joue le son de dash
-        audioSource.clip = audioDash;
-        audioSource.Play();
+        this.photonView.RPC("PlaySFXCalinDash", PhotonTargets.All);
 
         // Lance le CD sur l'affichage
         StartCoroutine("CalinAffichageCooldown");
-
 
         // Animation
 
@@ -154,8 +155,17 @@ public class CalinBearComp : Photon.PunBehaviour
             yield return null;
             distance = Vector3.Distance(this.transform.position, hit.transform.position);
         }
-        
+    }
 
+    // Sons
+
+    [PunRPC]
+    public void PlaySFXCalinDash()
+    {
+        //audioRPC.minDistance = 1;
+        audioSource.maxDistance = 10;
+        audioSource.clip = SFXCalinDash;
+        audioSource.Play();
     }
 
     /////////////////////// Affichage Competences
@@ -164,16 +174,18 @@ public class CalinBearComp : Photon.PunBehaviour
     private IEnumerator CalinAffichageCooldown()
     {
         float dureeCD = calinCooldown;
-        // Modifi la transparence
+        /*
+        // Modifie la transparence
         Image image = calinHUD.GetComponent<Image>();
         Color c = image.color;
         c.a = transparenceCD;
         image.color = c;
+        */
+        calinCdMask.SetActive(true);
 
         // Pour modifier le text
         Text t = calinHUD.GetComponentInChildren<Text>();
-
-
+        
         while (dureeCD > 0)
         {
             dureeCD -= Time.deltaTime;
@@ -184,11 +196,12 @@ public class CalinBearComp : Photon.PunBehaviour
             yield return new WaitForFixedUpdate();
             t.text = (Mathf.Floor(dureeCD) + 1).ToString();
         }
-
+        /*
         // On remet la transparence normale
         c.a = 255;
         image.color = c;
-
+        */
+        calinCdMask.SetActive(false);
         t.text = "";
     }
 
@@ -203,19 +216,26 @@ public class CalinBearComp : Photon.PunBehaviour
 
     private void OnDisable()
     {
-
+        /*
         // On remet la transparence normale
         Image image = calinHUD.GetComponent<Image>();
         Color c = image.color;
         c.a = 255;
         image.color = c;
+        */
+        if (photonView.isMine)
+        {
+            if (calinCdMask)
+            {
+                calinCdMask.SetActive(false);
+            }
 
-        // On remet l'affichage du cooldown à rien (pas de CD)
-        Text t = calinHUD.GetComponentInChildren<Text>();
-        t.text = "";
+            // On remet l'affichage du cooldown à rien (pas de CD)
+            Text t = calinHUD.GetComponentInChildren<Text>();
+            t.text = "";
+        }
 
         // on reset le CD
         calinLastUse = 0;
-
     }
 }

@@ -43,7 +43,10 @@ MonoBehaviour:
   - DestroyRpc
   - DestroyTrap
   - ElevenByElevenGeneration
+<<<<<<< HEAD
   - EndCurse
+=======
+>>>>>>> cb8f0ef79a0606dd173ff5e57393a10b4d22b58b
   - FinCurse
   - FinModifVitesse
   - FinStun
@@ -58,6 +61,10 @@ MonoBehaviour:
   - JoinTeam1
   - JoinTeam2
   - JumpAnimation
+<<<<<<< HEAD
+=======
+  - JumpSFX
+>>>>>>> cb8f0ef79a0606dd173ff5e57393a10b4d22b58b
   - KillPlayer
   - LanceAnimArmor
   - LanceAnimGrapeShot
@@ -76,6 +83,12 @@ MonoBehaviour:
   - PickupCrystal
   - PickupItemInit
   - PlayPhase
+<<<<<<< HEAD
+=======
+  - PlaySFXCalinDash
+  - PlaySFXJumpA
+  - PlaySFXJumpD
+>>>>>>> cb8f0ef79a0606dd173ff5e57393a10b4d22b58b
   - PunPickup
   - PunPickupSimple
   - PunRespawn

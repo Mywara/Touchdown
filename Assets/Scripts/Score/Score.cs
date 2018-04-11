@@ -9,19 +9,21 @@ namespace PUNTutorial
     {
 
         //attacher le script au drapeau et ajouter les tags goalG et goalD au zone de marquage
-        //poser le gobal UI sur la scène
+        //poser le global UI sur la scène
 
         private ScoreUpdate scoreUpdate;
-         public int endScore = 10;
+        public int endScore = 10;
+
         private void Start()
         {
             scoreUpdate = GameObject.Find("GlobalUI").GetComponent<ScoreUpdate>();
         }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.tag == "Player")
             {
-                if (other.gameObject.GetComponent<CrystalDrop>().crys != null)
+                if (other.gameObject.GetComponent<CrystalDrop>().crys.GetComponent<Crystal>().playerHolding == other.gameObject)
                 {
                     //GoalG.z < 0 => but de la team 1
                     //Seuls les membres de la team 0 peuvent marquer dans ce but
@@ -30,10 +32,24 @@ namespace PUNTutorial
                         scoreUpdate.scoreD += 1;
                         Debug.Log("GOAL GAUCHE !");
                         RoomManager.instance.GoalMarked();
+
+                        int localTeam = GameManager.localPlayer.GetComponent<PlayerController>().Team;
                         GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("ChangeScore", PhotonTargets.All);
+
                         if (scoreUpdate.scoreG >= endScore)
                         {
-                            GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "Droite";
+                            Winner winnerManager = GameObject.Find("WinnerManager").GetComponent<Winner>();
+
+                            winnerManager.winner = "Team 2";
+                            if(localTeam == 2)
+                            {
+                                winnerManager.hasWon = true;
+                            }
+                            else
+                            {
+                                winnerManager.hasWon = false;
+                            }
+
                             PhotonNetwork.LoadLevel("EndScene");
                         }
                     }
@@ -44,13 +60,26 @@ namespace PUNTutorial
                         scoreUpdate.scoreG += 1;
                         Debug.Log("GOAL DROITE !");
                         RoomManager.instance.GoalMarked();
+
+                        int localTeam = GameManager.localPlayer.GetComponent<PlayerController>().Team;
                         GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("ChangeScore", PhotonTargets.All);
+
                         if (scoreUpdate.scoreD >= endScore)
                         {
-                            GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "Gauche";
+                            Winner winnerManager = GameObject.Find("WinnerManager").GetComponent<Winner>();
+
+                            winnerManager.winner = "Team 1";
+                            if (localTeam == 1)
+                            {
+                                winnerManager.hasWon = true;
+                            }
+                            else
+                            {
+                                winnerManager.hasWon = false;
+                            }
+                            
                             PhotonNetwork.LoadLevel("EndScene");
                         }
-
                     }
                 }
             }
