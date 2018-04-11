@@ -15,6 +15,8 @@ public class Goal : Photon.PunBehaviour
     public int orangeIntensite;
     private bool couleurSet = false;
     public GameObject animBut;
+    public GameObject goalBleu;
+    public GameObject goalRouge;
 
 
     private void Update()
@@ -28,7 +30,7 @@ public class Goal : Photon.PunBehaviour
         {
             // On set les couleurs
             couleurBleue = new Vector4(0, 5f / 255f, 1, 1);
-            couleurOrange = new Vector4(246f / 255f, 211f / 255f, 20f / 255f, 1);
+            couleurOrange = new Vector4(1, 0, 0, 1);
 
             // On recupere la lumiere
             volumetricLight = GetComponentInChildren<Light>();
@@ -41,11 +43,13 @@ public class Goal : Photon.PunBehaviour
             {
                 // Cas le but correspond a l'equipe du joueur
                 SetCouleurLight(couleurBleue, bleuIntensite);
+                goalBleu.SetActive(true);
             }
             else
             {
                 // Cas le but est le but adverse
                 SetCouleurLight(couleurOrange, orangeIntensite);
+                goalRouge.SetActive(true);
             }
 
             couleurSet = true;

@@ -348,9 +348,9 @@ MonoBehaviour:
   pickupCooldown: 3
   bouncingForce: 100
   DropTimer: 7
-  rougeIntensite: 300
+  rougeIntensite: 600
   bleuIntensite: 8000
-  orangeIntensite: 100
+  orangeIntensite: 200
   audioSource: {fileID: 82449193555105548}
   sfxCrystalPickup: {fileID: 8300000, guid: cf6c0e7fbef9449c98a0cdb5ea0c4d9f, type: 3}
   sfxCrystalReset: {fileID: 8300000, guid: 130a177e727814a2ea78a886ab72213d, type: 3}
@@ -376,8 +376,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114106283931395098}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 4
+  instantiationId: 4
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114725342232404978
