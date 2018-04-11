@@ -2296,6 +2296,7 @@ MonoBehaviour:
   trapVisualisation: {fileID: 0}
   readyToPlace: 0
   nbCharges: 3
+  nbChargesV: 3
   cooldown: 20
   startCoroutineGetACharge: 0
   nbtrap: {fileID: 114093377307374924}
@@ -3393,6 +3394,9 @@ MonoBehaviour:
   AnimConfu: {fileID: 1800785541290474}
   audioSource: {fileID: 82548736493786918}
   jumpSnd: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
+  fSteps:
+  - {fileID: 8300000, guid: 05a08dd4ee0c046a6b56466d5c9aa9b8, type: 3}
+  - {fileID: 8300000, guid: bc1c11a60c94e439d84d64c56fdd354f, type: 3}
 --- !u!114 &114725114082409548
 MonoBehaviour:
   m_ObjectHideFlags: 1

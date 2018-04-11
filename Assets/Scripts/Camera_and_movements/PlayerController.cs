@@ -32,7 +32,7 @@ public class PlayerController : Photon.PunBehaviour
 
     public AudioSource audioSource;
     public AudioClip jumpSnd;
-
+    public AudioClip[] fSteps;
 
 
     // Script pour controler l'orientation de la camera
@@ -537,5 +537,21 @@ public class PlayerController : Photon.PunBehaviour
         audioSource.maxDistance = 7;
         audioSource.clip = jumpSnd;
         audioSource.Play();
+    }
+
+    void LeftFootStep()
+    {
+        audioSource.maxDistance = 7;
+        AudioClip clip = fSteps[0];
+        float randomVol = Random.Range(0.3f,0.7f);
+        audioSource.PlayOneShot(clip,randomVol);
+    }
+
+    void RightFootStep()
+    {
+        audioSource.maxDistance = 7;
+        AudioClip clip = fSteps[1];
+        float randomVol = Random.Range(0.3f, 0.7f);
+        audioSource.PlayOneShot(clip, randomVol);
     }
 }
