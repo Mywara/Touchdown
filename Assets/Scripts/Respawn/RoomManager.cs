@@ -64,7 +64,10 @@ public class RoomManager : Photon.PunBehaviour {
         if (scene.name.Equals("Scene1"))
         {
             PUNTutorial.GameManager.instance.SpawnPlayerInTheGame();
-            photonView.RPC("StartGamePhase", PhotonTargets.AllViaServer);
+            if (PhotonNetwork.isMasterClient)
+            {
+                photonView.RPC("StartGamePhase", PhotonTargets.AllViaServer);
+            }
             Debug.Log("Scene1 detected, spawn the player, no need to wait for other player to load map");
         }
     }
@@ -118,7 +121,10 @@ public class RoomManager : Photon.PunBehaviour {
         //on note quand la phase a commencé
         startTimePhase = Time.time;
         //On lance le timer avec la valeur de la phase d'attente
-        Timer.instance.photonView.RPC("StartCustomCountdownTime", PhotonTargets.AllViaServer, waitForStartTime);
+        if (PhotonNetwork.isMasterClient)
+        {
+            Timer.instance.photonView.RPC("StartCustomCountdownTime", PhotonTargets.AllViaServer, waitForStartTime);
+        }
     }
 
     //on lance la phase de stratégie
@@ -138,7 +144,10 @@ public class RoomManager : Photon.PunBehaviour {
         //On note la valeur du timer actuel (le timer de la parti) pour le relancer plus tard, on lui fait 'pause'
         //On lance le timer avec la valeur de la phase d'attente
         gameTimerValueSaved = Timer.instance.GameTimerSaved;
-        Timer.instance.photonView.RPC("StartCustomCountdownTime", PhotonTargets.AllViaServer, stratPhaseTime);
+        if (PhotonNetwork.isMasterClient)
+        {
+            Timer.instance.photonView.RPC("StartCustomCountdownTime", PhotonTargets.AllViaServer, stratPhaseTime);
+        }
         //On active le mode stratégie
         SwitchPlayerMode();
         if(NonePlacingZoneTeam1 != null && NonePlacingZoneTeam2 != null)
@@ -177,21 +186,27 @@ public class RoomManager : Photon.PunBehaviour {
         if (gameStarted == false)
         {
             gameStarted = true;
-            Timer.instance.photonView.RPC("StartCountdownTime", PhotonTargets.AllViaServer);
+            if(PhotonNetwork.isMasterClient)
+            {
+                Timer.instance.photonView.RPC("StartCountdownTime", PhotonTargets.AllViaServer);
+            }
         }
         else
         {
             //sinon on reprend le timer de la parti où il s'etait arreté
-            Timer.instance.photonView.RPC("StartCustomCountdownTime", PhotonTargets.AllViaServer, gameTimerValueSaved);
+            if (PhotonNetwork.isMasterClient)
+            {
+                Timer.instance.photonView.RPC("StartCustomCountdownTime", PhotonTargets.AllViaServer, gameTimerValueSaved);
+            }
         } 
     }
 
     //but marqué, on respawn les joueurs, et on lance la phase de stratégie
     public void GoalMarked()
     {
-        if(PhotonNetwork.isMasterClient)
+        playPhase = false;
+        if (PhotonNetwork.isMasterClient)
         {
-            playPhase = false;
             photonView.RPC("StratPhase", PhotonTargets.AllViaServer);
         }
     }
