@@ -18,6 +18,7 @@ namespace PUNTutorial
         {
             scoreUpdate = GameObject.Find("GlobalUI").GetComponent<ScoreUpdate>();
         }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.tag == "Player")
@@ -31,10 +32,24 @@ namespace PUNTutorial
                         scoreUpdate.scoreD += 1;
                         Debug.Log("GOAL GAUCHE !");
                         RoomManager.instance.GoalMarked();
+
+                        int localTeam = GameManager.localPlayer.GetComponent<PlayerController>().Team;
                         GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("ChangeScore", PhotonTargets.All);
+
                         if (scoreUpdate.scoreG >= endScore)
                         {
-                            GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "Team 2";
+                            Winner winnerManager = GameObject.Find("WinnerManager").GetComponent<Winner>();
+
+                            winnerManager.winner = "Team 2";
+                            if(localTeam == 2)
+                            {
+                                winnerManager.hasWon = true;
+                            }
+                            else
+                            {
+                                winnerManager.hasWon = false;
+                            }
+
                             PhotonNetwork.LoadLevel("EndScene");
                         }
                     }
@@ -45,11 +60,24 @@ namespace PUNTutorial
                         scoreUpdate.scoreG += 1;
                         Debug.Log("GOAL DROITE !");
                         RoomManager.instance.GoalMarked();
+
+                        int localTeam = GameManager.localPlayer.GetComponent<PlayerController>().Team;
                         GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("ChangeScore", PhotonTargets.All);
 
                         if (scoreUpdate.scoreD >= endScore)
                         {
-                            GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "Team 1";
+                            Winner winnerManager = GameObject.Find("WinnerManager").GetComponent<Winner>();
+
+                            winnerManager.winner = "Team 1";
+                            if (localTeam == 1)
+                            {
+                                winnerManager.hasWon = true;
+                            }
+                            else
+                            {
+                                winnerManager.hasWon = false;
+                            }
+                            
                             PhotonNetwork.LoadLevel("EndScene");
                         }
                     }
