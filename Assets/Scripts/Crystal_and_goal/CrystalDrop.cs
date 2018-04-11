@@ -7,6 +7,8 @@ public class CrystalDrop : Photon.PUNBehaviour
 
 
     public GameObject crys = null;
+    public AudioSource audioSource;
+    public AudioClip sfxCrystalDrop;
 
     private void Start()
     {
@@ -56,7 +58,17 @@ public class CrystalDrop : Photon.PUNBehaviour
             crys.GetComponent<Crystal>().photonView.RPC("UpdateJustDroppedCrystal", PhotonTargets.All);
 
             crys.GetComponent<Crystal>().photonView.RPC("LeaveOnGround", PhotonTargets.All);
+
+            PlaySFXCrystalDrop();
         }
 
+    }
+
+    public void PlaySFXCrystalDrop()
+    {
+        //audioRPC.minDistance = 1;
+        audioSource.maxDistance = 100;
+        audioSource.clip = sfxCrystalDrop;
+        audioSource.Play();
     }
 }

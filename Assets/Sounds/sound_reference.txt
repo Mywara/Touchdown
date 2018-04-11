@@ -3,54 +3,14 @@ Sounds for TouchDown
 ===========================================
 ----------------CHARACTERS-------------ok--
 ===========================================
-Undead AA 
-	swing : ScytheSwing
-	hit : UndeadAAHit
-Undead DoT 
-	launch : UndeadDotLaunch
-	impact : UndeadDotImpact
-Undead TP : UndeadTP
-Undead Invulnérabilité : UndeadInvulnerable
-
-Bear AA 
-	swing : BearSwing1 ou BearSwing2
-	hit : BearAAHit
-Bear ShoulderBash : BearShoulderBash
-Bear Jump 
-	launch : BearJumpLaunch
-	impact : BearJumpImpact
-Bear Hug 
-	launch : BearHugLaunch
-	impact : BearHugImpact
-
-Pirate AA 
-	launch : PirateAA
-	impact: PirateAAImpact
-Pirate Bottle 
-	launch : PirateBottleLaunch
-	impact : PirateBottleImpact
-	drunk state : DrunkStateEffect
-Pirate Mitraille : PirateMitraille
-Pirate Ulti 
-	launch : PirateUltiLaunch
-	impact : PirateUltiImpact
-
-Ice Trap placement : Trap
-Ice trap trigger : 
-
-
-Jump : Jump
+Heal placement
+Heal trigger
 
 Footsteps : Footstep1 ou Footstep2
 
 ===========================================
 ------------------OBJECTS--------------ok--
 ===========================================
-Crystal 
-	pickup : CrystalPickup
-	put down : CrystalPutDown
-	reset : CrystalReset
-
 Goal : Goal
 
 ===========================================
@@ -92,3 +52,40 @@ public void JumpSFX()
         audioRPC.Play();
     }
 ========================================================================
+
+===========================================
+----------------CHARACTERS-------------ok--
+===========================================
+Undead AA 
+	swing : ScytheSwing
+	hit : UndeadAAHit
+Undead DoT 
+	launch : UndeadDotLaunch
+	impact : UndeadDotImpact
+Undead TP : UndeadTP
+Undead Invulnérabilité : UndeadInvulnerable
+
+Bear AA 
+	swing : BearSwing1 ou BearSwing2
+	hit : BearAAHit
+Bear ShoulderBash : BearShoulderBash
+Bear Jump 
+	launch : BearJumpLaunch
+	impact : BearJumpImpact
+Bear Hug 
+	launch : BearHugLaunch
+	impact : BearHugImpact
+
+Pirate AA 
+	launch : PirateAA
+	impact: PirateAAImpact
+Pirate Bottle 
+	launch : PirateBottleLaunch
+	impact : PirateBottleImpact
+	drunk state : DrunkStateEffect
+Pirate Mitraille : PirateMitraille
+Pirate Ulti 
+	launch : PirateUltiLaunch
+	impact : PirateUltiImpact
+
+Ice Trap placement : Trap

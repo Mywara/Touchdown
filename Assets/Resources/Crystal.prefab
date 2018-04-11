@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 114690506073618724}
   - component: {fileID: 64774479082881322}
   - component: {fileID: 114106283931395098}
+  - component: {fileID: 82449193555105548}
   m_Layer: 0
   m_Name: Crystal
   m_TagString: Crystal
@@ -148,6 +149,86 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 9c74d5d2141d11a4ba66a009c2280fc8, type: 3}
+--- !u!82 &82449193555105548
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1635052500047410}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 7
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!108 &108518898226561416
 Light:
   m_ObjectHideFlags: 1
@@ -266,9 +347,13 @@ MonoBehaviour:
   startingPosition: {x: -5, y: 0.5653587, z: 5}
   pickupCooldown: 3
   bouncingForce: 100
+  DropTimer: 7
   rougeIntensite: 300
   bleuIntensite: 8000
   orangeIntensite: 100
+  audioSource: {fileID: 82449193555105548}
+  sfxCrystalPickup: {fileID: 8300000, guid: cf6c0e7fbef9449c98a0cdb5ea0c4d9f, type: 3}
+  sfxCrystalReset: {fileID: 8300000, guid: 130a177e727814a2ea78a886ab72213d, type: 3}
 --- !u!114 &114690506073618724
 MonoBehaviour:
   m_ObjectHideFlags: 1

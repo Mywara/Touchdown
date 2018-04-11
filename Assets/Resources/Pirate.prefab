@@ -1300,6 +1300,7 @@ GameObject:
   - component: {fileID: 114844766434426406}
   - component: {fileID: 114651596292310170}
   - component: {fileID: 114789587421748022}
+  - component: {fileID: 82735936912287894}
   m_Layer: 0
   m_Name: Pirate
   m_TagString: Player
@@ -1934,7 +1935,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.337
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1979,6 +1980,86 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!82 &82735936912287894
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1983636833273012}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.395
+  m_Pitch: 0.92
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 5
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3392,6 +3473,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crys: {fileID: 1635052500047410, guid: c7f835e5a40f48e4a91ac3b6b0629a49, type: 2}
+  audioSource: {fileID: 82677131335961344}
+  sfxCrystalDrop: {fileID: 8300000, guid: 38a17a92b9d9748c6a1e67972041b833, type: 3}
 --- !u!114 &114855112422312012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3415,7 +3498,7 @@ MonoBehaviour:
   AnimStun: {fileID: 1413735243391386}
   AnimCurse: {fileID: 1891681313806048}
   AnimConfu: {fileID: 1782501629253488}
-  audioSource: {fileID: 82677131335961344}
+  audioSource: {fileID: 82735936912287894}
   jumpSnd: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
 --- !u!114 &114868684057174288
 MonoBehaviour:

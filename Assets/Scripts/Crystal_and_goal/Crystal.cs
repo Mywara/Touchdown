@@ -14,6 +14,7 @@ public class Crystal : Photon.PUNBehaviour
     public int pickupCooldown = 3;
     public int bouncingForce = 100;
     public float DropTimer = 7f;
+    private bool isReset = true;
 
     // lumière
     private Light volumetricLight;
@@ -26,6 +27,10 @@ public class Crystal : Photon.PUNBehaviour
 
     private Rigidbody rb;
     private float lastDropTime;
+
+    public AudioSource audioSource;
+    public AudioClip sfxCrystalPickup;
+    public AudioClip sfxCrystalReset;
 
 
     void Awake()
@@ -81,14 +86,16 @@ public class Crystal : Photon.PUNBehaviour
 
             this.transform.position = pos;
         }
-        else if(Time.time > lastDropTime + DropTimer)
+        else if(Time.time > lastDropTime + DropTimer && isReset == false)
         {
             if (PhotonNetwork.connected)
                 photonView.RPC("ResetCrystalPosition", PhotonTargets.All);
             else
                 ResetCrystalPosition();
+            PlaySFXCrystalReset();
+            isReset = true;
         }
-
+        
         if (justDroppedCrystal != null)
         {
             // 3 seconds cooldown on picking up the crystal
@@ -125,7 +132,8 @@ public class Crystal : Photon.PUNBehaviour
         {
             SetCouleurLight(couleurRouge, rougeIntensite);
         }
-
+        PlaySFXCrystalPickup();
+        isReset = false;
         //tests
         //SetCouleurLight(couleurBleue, bleuIntensite);
         //fin test
@@ -151,6 +159,7 @@ public class Crystal : Photon.PUNBehaviour
 
             //reset la couleur du halo
             SetCouleurLight(couleurOrange, orangeIntensite);
+
         }
 
     }
@@ -170,7 +179,7 @@ public class Crystal : Photon.PUNBehaviour
 
         lastDropTime = Time.time;
 
-        Debug.Log("crystal Leave on groud");
+        //Debug.Log("crystal Leave on groud");
     }
 
     private void ResetPreviousPlayer()
@@ -202,5 +211,21 @@ public class Crystal : Photon.PUNBehaviour
     {
         volumetricLight.color = c;
         volumetricLight.intensity = intensite;
+    }
+
+    public void PlaySFXCrystalPickup()
+    {
+        //audioRPC.minDistance = 1;
+        audioSource.maxDistance = 14;
+        audioSource.clip = sfxCrystalPickup;
+        audioSource.Play();
+    }
+
+    public void PlaySFXCrystalReset()
+    {
+        //audioRPC.minDistance = 1;
+        audioSource.maxDistance = 100;
+        audioSource.clip = sfxCrystalReset;
+        audioSource.Play();
     }
 }
