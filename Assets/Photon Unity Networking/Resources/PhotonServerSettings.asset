@@ -106,4 +106,5 @@ MonoBehaviour:
   - SwitchTeam
   - SynchroHealth
   - UpdateJustDroppedCrystal
+  - AddScore
   DisableAutoOpenWizard: 1
