@@ -28,4 +28,5 @@ public class ScoreUpdate : Photon.PUNBehaviour {
         uiScoreG.text = scoreG.ToString();
         uiScoreD.text = scoreD.ToString();
     }
+
 }

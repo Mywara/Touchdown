@@ -21,6 +21,10 @@ namespace PUNTutorial
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!photonView.isMine && PhotonNetwork.connected == true)
+            {
+                return;
+            }
             if (other.gameObject.tag == "Player")
             {
                 if (other.gameObject.GetComponent<CrystalDrop>().crys.GetComponent<Crystal>().playerHolding == other.gameObject)
@@ -29,7 +33,8 @@ namespace PUNTutorial
                     //Seuls les membres de la team 0 peuvent marquer dans ce but
                     if (this.gameObject.tag == "GoalG" && other.gameObject.GetComponent<PlayerController>().team == 2)
                     {
-                        scoreUpdate.scoreD += 1;
+                        //scoreUpdate.scoreD += 1;
+                        this.GetComponent<PhotonView>().photonView.RPC("AddScore", PhotonTargets.All, false);
                         Debug.Log("GOAL GAUCHE !");
                         RoomManager.instance.GoalMarked();
 
@@ -57,7 +62,8 @@ namespace PUNTutorial
                     //Seuls les membres de la team 1 peuvent marquer dans ce but
                     else if (this.gameObject.tag == "GoalD" && other.gameObject.GetComponent<PlayerController>().team == 1)
                     {
-                        scoreUpdate.scoreG += 1;
+                        //scoreUpdate.scoreG += 1;
+                        this.GetComponent<PhotonView>().photonView.RPC("AddScore", PhotonTargets.All, true);
                         Debug.Log("GOAL DROITE !");
                         RoomManager.instance.GoalMarked();
 
@@ -86,10 +92,17 @@ namespace PUNTutorial
         }
 
 
-       /* [PunRPC]
-        void ChangeScore()
+        [PunRPC]
+        void AddScore(bool goalG)
         {
-            GameObject.Find("GlobalUI").GetComponentInChildren<Text>().text = "Score :\n" + scoreG + ":" + scoreD;
-        }*/
+            if (goalG)
+            {
+                scoreUpdate.scoreG += 1;
+            }
+            else
+            {
+                scoreUpdate.scoreD += 1;
+            }
+        }
     }
 }
