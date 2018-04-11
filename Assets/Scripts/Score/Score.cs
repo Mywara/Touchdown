@@ -34,7 +34,7 @@ namespace PUNTutorial
                     if (this.gameObject.tag == "GoalG" && other.gameObject.GetComponent<PlayerController>().team == 2)
                     {
                         //scoreUpdate.scoreD += 1;
-                        this.GetComponent<PhotonView>().photonView.RPC("AddScore", PhotonTargets.All, false);
+                        GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("AddScore", PhotonTargets.All, false);
                         Debug.Log("GOAL GAUCHE !");
                         RoomManager.instance.GoalMarked();
                         GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("ChangeScore", PhotonTargets.All);
@@ -50,7 +50,7 @@ namespace PUNTutorial
                     else if (this.gameObject.tag == "GoalD" && other.gameObject.GetComponent<PlayerController>().team == 1)
                     {
                         //scoreUpdate.scoreG += 1;
-                        this.GetComponent<PhotonView>().photonView.RPC("AddScore", PhotonTargets.All, true);
+                        GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("AddScore", PhotonTargets.All, true);
                         Debug.Log("GOAL DROITE !");
                         RoomManager.instance.GoalMarked();
 
@@ -64,20 +64,6 @@ namespace PUNTutorial
                         }
                     }
                 }
-            }
-        }
-
-
-        [PunRPC]
-        void AddScore(bool goalG)
-        {
-            if (goalG)
-            {
-                scoreUpdate.scoreG += 1;
-            }
-            else
-            {
-                scoreUpdate.scoreD += 1;
             }
         }
     }

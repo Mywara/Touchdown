@@ -65,4 +65,17 @@ public class ScoreUpdate : Photon.PUNBehaviour {
             winnerManager.tie = true;
         }
     }
+
+    [PunRPC]
+    void AddScore(bool goalG)
+    {
+        if (goalG)
+        {
+            scoreG += 1;
+        }
+        else
+        {
+            scoreD += 1;
+        }
+    }
 }
