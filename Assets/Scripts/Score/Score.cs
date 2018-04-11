@@ -23,7 +23,7 @@ namespace PUNTutorial
         {
             if (other.gameObject.tag == "Player")
             {
-                if (other.gameObject.GetComponent<CrystalDrop>().crys != null)
+                if (other.gameObject.GetComponent<CrystalDrop>().crys.GetComponent<Crystal>().playerHolding == other.gameObject)
                 {
                     //GoalG.z < 0 => but de la team 1
                     //Seuls les membres de la team 0 peuvent marquer dans ce but
