@@ -131,11 +131,37 @@ public class PlayerController : Photon.PunBehaviour
 
 
     void Update()
-    {
-        //Le personnage n'est plus maudit si la malédiction a durée assez longtemps
-        if(isCursed && Time.time > lastCurseHit + Constants.CURSEDOT_DURATION) {
-            photonView.RPC("FinCurse", PhotonTargets.All);
-        }
+	{
+		//Si le personnage est maudit
+		if(isCursed){
+			//Si on a atteint la fin du temps de malédiction
+			//Alors supprimer la malédiction sur le personnage
+			if (Time.time > lastCurseHit + Constants.CURSEDOT_DURATION)
+			{
+				photonView.RPC("FinCurse", PhotonTargets.All);
+			}
+			//dans le cas contraire propager la malédiction aux alliés sains proche
+			else
+			{
+				//on crée ici la zone de propagation correspondant à une sphere autour du personnage
+				Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, 2f);
+				for(int i=0; i<hitColliders.Length; i++)
+				{
+					GameObject objInAOE = hitColliders[i].transform.root.gameObject;
+					//Touche uniquement les alliés présents dans la zone
+					if (objInAOE.tag.Equals("Player") && objInAOE.GetComponent<PlayerController>().team == team)
+					{
+						//Si l'allié n'est pas maudit lui appliquer la malédiction
+						if (!objInAOE.GetComponent<PlayerController>().Cursed())
+						{
+							objInAOE.GetComponent<PlayerController>().Curse();
+							Debug.Log("L'allié "+objInAOE.name+" a été maudit par propagation.");
+						}
+					}
+				}
+			}
+		}
+
 
         if (!photonView.isMine && PhotonNetwork.connected == true)
         {
