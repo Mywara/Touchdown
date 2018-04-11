@@ -16,7 +16,6 @@ namespace PUNTutorial
         private bool netWorkingDone = false;
         private bool invulnerable = false;
         private float shield = 0;       // doit être entre 0 et 1 (0 aucun shield / 1 zero degat reçu)
-        private bool cursed = false;    // affecté ou non par le Curse DoT du Undead
 
 
         void Awake()

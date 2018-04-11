@@ -9,10 +9,11 @@ namespace PUNTutorial
     {
 
         //attacher le script au drapeau et ajouter les tags goalG et goalD au zone de marquage
-        //poser le gobal UI sur la scène
+        //poser le global UI sur la scène
 
         private ScoreUpdate scoreUpdate;
-         public int endScore = 10;
+        public int endScore = 10;
+
         private void Start()
         {
             scoreUpdate = GameObject.Find("GlobalUI").GetComponent<ScoreUpdate>();
@@ -33,7 +34,7 @@ namespace PUNTutorial
                         GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("ChangeScore", PhotonTargets.All);
                         if (scoreUpdate.scoreG >= endScore)
                         {
-                            GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "Droite";
+                            GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "Team 2";
                             PhotonNetwork.LoadLevel("EndScene");
                         }
                     }
@@ -45,12 +46,12 @@ namespace PUNTutorial
                         Debug.Log("GOAL DROITE !");
                         RoomManager.instance.GoalMarked();
                         GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("ChangeScore", PhotonTargets.All);
+
                         if (scoreUpdate.scoreD >= endScore)
                         {
-                            GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "Gauche";
+                            GameObject.Find("WinnerManager").GetComponent<Winner>().winner = "Team 1";
                             PhotonNetwork.LoadLevel("EndScene");
                         }
-
                     }
                 }
             }
