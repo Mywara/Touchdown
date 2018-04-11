@@ -5,6 +5,8 @@ using UnityEngine;
 public class HowToPlay : MonoBehaviour {
 
     public Canvas howToPlayCanvas;
+
+
 	// Use this for initialization
 	void Start () {
         howToPlayCanvas.enabled = false;
@@ -18,20 +20,5 @@ public class HowToPlay : MonoBehaviour {
     public void EraseCanvas()
     {
         howToPlayCanvas.enabled = false;
-    }
-
-    public void ShowPirateDetails()
-    {
-
-    }
-
-    public void ShowUndeadDetails()
-    {
-
-    }
-
-    public void ShowWarbearDetails()
-    {
-
     }
 }
