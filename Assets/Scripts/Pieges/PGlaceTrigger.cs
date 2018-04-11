@@ -26,7 +26,7 @@ public class PGlaceTrigger : Photon.PUNBehaviour {
                 //démarre la coroutine pour recuperer une charge dés que le piège est activé
                 photonView.RPC("DestroyTrap", PhotonTargets.All);
            //supprime une charge (on ne peut pas remplacer un piège en cd ou activer)
-           // Owner.GetComponent<PGlace>().nbCharges--;
+            Owner.GetComponent<PGlace>().nbCharges--;
             //Owner.GetComponent<PGlace>().nbtrap.text = "" + Owner.GetComponent<PGlace>().nbCharges;
            
 

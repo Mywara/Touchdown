@@ -11,6 +11,7 @@ public class PGlace : Photon.PUNBehaviour
     private GameObject trap;
     public bool readyToPlace = false;
     public int nbCharges = 3;
+    public int nbChargesV = 3;
     private AutoAttaqueRanged autoAttaqueRanged;
     //cooldown voulu + temps d'activation du pièges
     public float cooldown = 20;
@@ -134,7 +135,7 @@ public class PGlace : Photon.PUNBehaviour
         while (coolDown > 0)
         {
             coolDown -= Time.deltaTime;
-            if (nbCharges == 0)
+            if (nbChargesV == 0)
             {
                 // Show cooldown time and mask
                 cdGreyMask.SetActive(true);
@@ -145,8 +146,9 @@ public class PGlace : Photon.PUNBehaviour
             
             if (coolDown <= 0)
             {
+                nbChargesV++;
                 nbCharges++;
-                nbtrap.text = "" + nbCharges;
+                nbtrap.text = "" + nbChargesV;
 
                 coolDown = 0f;
                 cd.text = coolDown.ToString();
@@ -210,11 +212,11 @@ public class PGlace : Photon.PUNBehaviour
             autoAttaqueRanged.inModePlacing = false;
         }
         photonView.RPC("SetOwner", PhotonTargets.All, this.photonView.viewID, trap.GetPhotonView().viewID);
-        if (nbCharges > 0)
+        if (nbChargesV > 0)
         {
-            this.nbCharges--;
+            this.nbChargesV--;
         }
 
-        this.nbtrap.text = "" +this.nbCharges;
+        this.nbtrap.text = "" +this.nbChargesV;
     }
 }
