@@ -78,7 +78,10 @@ public class Boundary : MonoBehaviour {
         {
             //Debug.Log("Object out of boundary -> destroy");
             //Destroy(otherGO);
-            PhotonNetwork.Destroy(otherGO);
+            if(PhotonNetwork.isMasterClient)
+            {
+                PhotonNetwork.Destroy(otherGO);
+            } 
         } 
     }
 

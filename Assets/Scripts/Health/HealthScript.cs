@@ -17,7 +17,6 @@ namespace PUNTutorial
         private bool invulnerable = false;
         private float shield = 0;       // doit être entre 0 et 1 (0 aucun shield / 1 zero degat reçu)
 
-
         void Awake()
         {
             anim = GetComponent<Animator>();

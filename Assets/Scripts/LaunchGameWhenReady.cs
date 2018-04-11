@@ -191,8 +191,11 @@ public class LaunchGameWhenReady : Photon.PUNBehaviour {
 
     private void ButtonToSwitchTeam(int newTeam, int playerID, string playerName)
     {
-        photonView.RPC("SwitchTeam", PhotonTargets.AllBuffered, newTeam, playerID, playerName);
-        SwitchTeamIWantToJoin(newTeam);
+        if(newTeam != PUNTutorial.GameManager.teamIwantToJoin)
+        {
+            photonView.RPC("SwitchTeam", PhotonTargets.AllBuffered, newTeam, playerID, playerName);
+            SwitchTeamIWantToJoin(newTeam);
+        }
     }
 
     [PunRPC]
