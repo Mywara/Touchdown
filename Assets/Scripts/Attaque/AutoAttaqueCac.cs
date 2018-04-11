@@ -124,5 +124,16 @@ public class AutoAttaqueCac : Photon.PUNBehaviour, IPunObservable {
     public void SetCACActif(bool b)
     {
         this.cacActif = b;
+
+        if (!b)
+        {
+            // animation trigger
+            if (PhotonNetwork.connected)
+                photonView.RPC("isNotAttackingCacAnimation", PhotonTargets.All);
+            else
+                isNotAttackingCacAnimation();
+
+            cacHitZone.SetActive(false);
+        }
     }
 }
