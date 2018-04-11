@@ -56,6 +56,8 @@ public class RoomManager : Photon.PunBehaviour {
         //on initialise le bouton a rouge
         readyForNewPhase.GetComponent<Image>().color = Color.red;
         readyForNewPhase.gameObject.SetActive(false);
+        NonePlacingZoneTeam1.GetComponent<Renderer>().enabled = false;
+        NonePlacingZoneTeam2.GetComponent<Renderer>().enabled = false;
     }
 
     // Use this for initialization
@@ -438,6 +440,9 @@ public class RoomManager : Photon.PunBehaviour {
             //on les desactives, et on activera quand il le faut
             NonePlacingZoneTeam1.SetActive(false);
             NonePlacingZoneTeam2.SetActive(false);
+
+            NonePlacingZoneTeam1.GetComponent<Renderer>().enabled = true;
+            NonePlacingZoneTeam2.GetComponent<Renderer>().enabled = true;
         }
         //On notifie a tout le monde que l'on a chargé la carte
         photonView.RPC("NewPlayerHaveGenMap", PhotonTargets.All);
