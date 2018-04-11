@@ -37,24 +37,11 @@ namespace PUNTutorial
                         this.GetComponent<PhotonView>().photonView.RPC("AddScore", PhotonTargets.All, false);
                         Debug.Log("GOAL GAUCHE !");
                         RoomManager.instance.GoalMarked();
-
-                        int localTeam = GameManager.localPlayer.GetComponent<PlayerController>().Team;
                         GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("ChangeScore", PhotonTargets.All);
 
                         if (scoreUpdate.scoreG >= endScore)
                         {
-                            Winner winnerManager = GameObject.Find("WinnerManager").GetComponent<Winner>();
-
-                            winnerManager.winner = "Team 2";
-                            if(localTeam == 2)
-                            {
-                                winnerManager.hasWon = true;
-                            }
-                            else
-                            {
-                                winnerManager.hasWon = false;
-                            }
-
+                            scoreUpdate.SetWinner();
                             PhotonNetwork.LoadLevel("EndScene");
                         }
                     }
@@ -72,18 +59,7 @@ namespace PUNTutorial
 
                         if (scoreUpdate.scoreD >= endScore)
                         {
-                            Winner winnerManager = GameObject.Find("WinnerManager").GetComponent<Winner>();
-
-                            winnerManager.winner = "Team 1";
-                            if (localTeam == 1)
-                            {
-                                winnerManager.hasWon = true;
-                            }
-                            else
-                            {
-                                winnerManager.hasWon = false;
-                            }
-                            
+                            scoreUpdate.SetWinner();
                             PhotonNetwork.LoadLevel("EndScene");
                         }
                     }

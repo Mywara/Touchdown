@@ -7,6 +7,8 @@ public class Timer : Photon.PUNBehaviour
 {
     static public Timer instance;
     public float CountdownTime = 600F;
+
+    private ScoreUpdate scoreUpdate;
     private Coroutine CountdownTCourou = null;
     private float gameTimerValueSaved;
     private Text timerText;
@@ -27,6 +29,7 @@ public class Timer : Photon.PUNBehaviour
     void Start () {
         //lance la coroutine une fois depuis le masterClient (possible depuis le serveur ?)
         //photonView.RPC("StartCountdownTime", PhotonTargets.All);
+        scoreUpdate = gameObject.GetComponent<ScoreUpdate>();
         timerText = this.transform.Find("TopPanel/TimerPanel/Timer").GetComponent<Text>();
     }	
 
@@ -90,6 +93,7 @@ public class Timer : Photon.PUNBehaviour
     [PunRPC]
     private void GoToEndScene()
     {
+        scoreUpdate.SetWinner();
         PhotonNetwork.LoadLevel("EndScene");
     }
 }
