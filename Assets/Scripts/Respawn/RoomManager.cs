@@ -323,6 +323,11 @@ public class RoomManager : Photon.PunBehaviour {
             this.team1.Add(player);
             this.allPlayer.Add(playerID, player);
             //Debug.Log("Player : " + player.name + " Joined team 1");
+
+            if(playerControllerScript.photonView.isMine)
+            {
+                GameObject.Find("GlobalUI").GetComponent<ScoreUpdate>().SetScoreColor(1);
+            }
         }
         else
         {
@@ -341,6 +346,12 @@ public class RoomManager : Photon.PunBehaviour {
             this.team2.Add(player);
             this.allPlayer.Add(playerID, player);
             //Debug.Log("Player : "+ player.name + " Joined team 2");
+
+            if (playerControllerScript.photonView.isMine)
+            {
+                GameObject.Find("GlobalUI").GetComponent<ScoreUpdate>().SetScoreColor(2);
+                Debug.Log("RoomManager - SCORE COLOR CHANGED : 2");
+            }
         }
         else
         {

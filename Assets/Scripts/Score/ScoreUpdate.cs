@@ -22,6 +22,20 @@ public class ScoreUpdate : Photon.PUNBehaviour {
         }
     }
 
+    public void SetScoreColor(int team)
+    {
+        if (team == 1)
+        {
+            uiScoreG.color = new Color(.2f, .2f, .9f); // blue
+            uiScoreD.color = new Color(.9f, .2f, .2f); // red
+        }
+        else
+        {
+            uiScoreG.color = new Color(.9f, .2f, .2f); // red
+            uiScoreD.color = new Color(.2f, .2f, .9f); // blue
+        }
+    }
+
     [PunRPC]
     void ChangeScore()
     {
