@@ -11,109 +11,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3758f8f58fdef43803eb9be1df0608, type: 3}
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
-  AppID: 058bba78-d122-45d4-ae31-543afd37b07a
+  AppID: 
   VoiceAppID: 
   ChatAppID: 
-  HostType: 1
-  PreferredRegion: 8
+  HostType: 0
+  PreferredRegion: 0
   EnabledRegions: -1
   Protocol: 0
   ServerAddress: 
   ServerPort: 5055
   VoiceServerPort: 5055
-  JoinLobby: 1
+  JoinLobby: 0
   EnableLobbyStatistics: 0
   PunLogging: 0
   NetworkLogging: 1
   RunInBackground: 1
-  RpcList:
-  - AddBouncingForce
-  - AddForceTo
-  - Animate
-  - AutoJoinTeam
-  - BecameInvulnerable
-  - ChangeScore
-  - Chat
-  - Curse
-  - Damage
-  - Damage2
-  - DebutModifVitesse
-  - DestroyEffect
-  - DestroyMovementScript
-  - DestroyRpc
-  - DestroyTrap
-  - ElevenByElevenGeneration
-<<<<<<< HEAD
-  - EndCurse
-=======
->>>>>>> cb8f0ef79a0606dd173ff5e57393a10b4d22b58b
-  - FinCurse
-  - FinModifVitesse
-  - FinStun
-  - GenerateMap
-  - GenerateSeed
-  - GoToEndScene
-  - Heal
-  - Heal2
-  - InstantiateRpc
-  - isAttackingCacAnimation
-  - isNotAttackingCacAnimation
-  - JoinTeam1
-  - JoinTeam2
-  - JumpAnimation
-<<<<<<< HEAD
-=======
-  - JumpSFX
->>>>>>> cb8f0ef79a0606dd173ff5e57393a10b4d22b58b
-  - KillPlayer
-  - LanceAnimArmor
-  - LanceAnimGrapeShot
-  - LanceAnimMuzzleBoulet
-  - LanceAnimRhum
-  - LanceAnimShoulder
-  - LanceAnimTP
-  - LeaveOnGround
-  - LoadLevel
-  - LookAt
-  - ModificationVitesse
-  - NewPlayerHaveGenMap
-  - NewPlayerRdy
-  - NewPlayerUnRdy
-  - PetitSaut
-  - PickupCrystal
-  - PickupItemInit
-  - PlayPhase
-<<<<<<< HEAD
-=======
-  - PlaySFXCalinDash
-  - PlaySFXJumpA
-  - PlaySFXJumpD
->>>>>>> cb8f0ef79a0606dd173ff5e57393a10b4d22b58b
-  - PunPickup
-  - PunPickupSimple
-  - PunRespawn
-  - RemoveFromTeam
-  - RequestForPickupItems
-  - RequestForPickupTimes
-  - ResetCrystalPosition
-  - ResetHealth
-  - ResetPhase
-  - RespawnPlayer
-  - SetMapSize
-  - SetMyOwner
-  - SetOwner
-  - SetPosition
-  - SetShieldTemporaire1
-  - SetShieldTemporaire2
-  - SetStartingPosition
-  - ShotgunAnimation
-  - StartCountdownTime
-  - StartCustomCountdownTime
-  - StartGamePhase
-  - StratPhase
-  - Stun
-  - SwitchPlayerMode
-  - SwitchTeam
-  - SynchroHealth
-  - UpdateJustDroppedCrystal
-  DisableAutoOpenWizard: 1
+  RpcList: []
+  DisableAutoOpenWizard: 0
