@@ -107,4 +107,5 @@ MonoBehaviour:
   - SynchroHealth
   - UpdateJustDroppedCrystal
   - AddScore
+  - AnimPassif
   DisableAutoOpenWizard: 1
