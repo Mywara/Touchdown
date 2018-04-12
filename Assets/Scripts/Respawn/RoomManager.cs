@@ -38,9 +38,13 @@ public class RoomManager : Photon.PunBehaviour {
     private float startTimePhase = 0.0f;
     private float gameTimerValueSaved;
 
+    private Text startingPhaseText;
+    private Text strategicPhaseText;
+    private Text playPhaseText;
+    private Text goalText;
+
     void Awake()
     {
-
         if (instance != null && instance != this)
         {
             Debug.Log("there is already a RoomManager");
@@ -58,6 +62,12 @@ public class RoomManager : Photon.PunBehaviour {
         readyForNewPhase.gameObject.SetActive(false);
         NonePlacingZoneTeam1.GetComponent<Renderer>().enabled = false;
         NonePlacingZoneTeam2.GetComponent<Renderer>().enabled = false;
+
+        GameObject canvas = GameObject.Find("GlobalUI").gameObject;
+        startingPhaseText = canvas.transform.Find("StartingPhase").GetComponent<Text>();
+        strategicPhaseText = canvas.transform.Find("StrategicPhase").GetComponent<Text>();
+        playPhaseText = canvas.transform.Find("PlayingPhase").GetComponent<Text>();
+        goalText = canvas.transform.Find("Goal").GetComponent<Text>();
     }
 
     // Use this for initialization
@@ -122,10 +132,28 @@ public class RoomManager : Photon.PunBehaviour {
         waitForStart = true;
         //on note quand la phase a commencé
         startTimePhase = Time.time;
+
+        StartCoroutine("StartPhaseFeedbackCoroutine");
+
         //On lance le timer avec la valeur de la phase d'attente
         if (PhotonNetwork.isMasterClient)
         {
             Timer.instance.photonView.RPC("StartCustomCountdownTime", PhotonTargets.AllViaServer, waitForStartTime);
+        }
+    }
+
+    private IEnumerator StartPhaseFeedbackCoroutine()
+    {
+        while (startingPhaseText.color.a < 1)
+        {
+            startingPhaseText.color = new Color(1f, 1f, 1f, startingPhaseText.color.a + .01f);
+            yield return new WaitForSeconds(.01f);
+        }
+        yield return new WaitForSeconds(1.5f);
+        while (startingPhaseText.color.a > 0)
+        {
+            startingPhaseText.color = new Color(1f, 1f, 1f, startingPhaseText.color.a - .01f);
+            yield return new WaitForSeconds(.01f);
         }
     }
 
@@ -146,6 +174,9 @@ public class RoomManager : Photon.PunBehaviour {
         //On note la valeur du timer actuel (le timer de la parti) pour le relancer plus tard, on lui fait 'pause'
         //On lance le timer avec la valeur de la phase d'attente
         gameTimerValueSaved = Timer.instance.GameTimerSaved;
+
+        StartCoroutine("StrategicPhaseFeedbackCoroutine");
+
         if (PhotonNetwork.isMasterClient)
         {
             Timer.instance.photonView.RPC("StartCustomCountdownTime", PhotonTargets.AllViaServer, stratPhaseTime);
@@ -163,6 +194,21 @@ public class RoomManager : Photon.PunBehaviour {
             {
                 NonePlacingZoneTeam2.SetActive(true);
             }
+        }
+    }
+
+    private IEnumerator StrategicPhaseFeedbackCoroutine()
+    {
+        while (strategicPhaseText.color.a < 1)
+        {
+            strategicPhaseText.color = new Color(1f, 1f, 1f, strategicPhaseText.color.a + .01f);
+            yield return new WaitForSeconds(.01f);
+        }
+        yield return new WaitForSeconds(1.5f);
+        while (strategicPhaseText.color.a > 0)
+        {
+            strategicPhaseText.color = new Color(1f, 1f, 1f, strategicPhaseText.color.a - .01f);
+            yield return new WaitForSeconds(.01f);
         }
     }
 
@@ -184,6 +230,9 @@ public class RoomManager : Photon.PunBehaviour {
             NonePlacingZoneTeam2.SetActive(false);
         }
         SwitchPlayerMode();
+
+        StartCoroutine("PlayPhaseFeedbackCoroutine");
+
         //si la partie n'est pas commencé on lance le timer de la partie avec le temps max
         if (gameStarted == false)
         {
@@ -200,7 +249,22 @@ public class RoomManager : Photon.PunBehaviour {
             {
                 Timer.instance.photonView.RPC("StartCustomCountdownTime", PhotonTargets.AllViaServer, gameTimerValueSaved);
             }
-        } 
+        }
+    }
+
+    private IEnumerator PlayPhaseFeedbackCoroutine()
+    {
+        while (playPhaseText.color.a < 1)
+        {
+            playPhaseText.color = new Color(1f, 1f, 1f, playPhaseText.color.a + .01f);
+            yield return new WaitForSeconds(.01f);
+        }
+        yield return new WaitForSeconds(1.5f);
+        while (playPhaseText.color.a > 0)
+        {
+            playPhaseText.color = new Color(1f, 1f, 1f, playPhaseText.color.a - .01f);
+            yield return new WaitForSeconds(.01f);
+        }
     }
 
     //but marqué, on respawn les joueurs, et on lance la phase de stratégie

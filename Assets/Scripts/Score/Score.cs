@@ -39,7 +39,7 @@ namespace PUNTutorial
                         RoomManager.instance.GoalMarked();
                         GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("ChangeScore", PhotonTargets.All);
 
-                        if (scoreUpdate.scoreG >= endScore)
+                        if (scoreUpdate.scoreD >= endScore)
                         {
                             scoreUpdate.SetWinner();
                             PhotonNetwork.LoadLevel("EndScene");
@@ -57,7 +57,7 @@ namespace PUNTutorial
                         int localTeam = GameManager.localPlayer.GetComponent<PlayerController>().Team;
                         GameObject.Find("GlobalUI").GetComponent<PhotonView>().photonView.RPC("ChangeScore", PhotonTargets.All);
 
-                        if (scoreUpdate.scoreD >= endScore)
+                        if (scoreUpdate.scoreG >= endScore)
                         {
                             scoreUpdate.SetWinner();
                             PhotonNetwork.LoadLevel("EndScene");
