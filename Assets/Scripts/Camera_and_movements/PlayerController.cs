@@ -38,6 +38,10 @@ public class PlayerController : Photon.PunBehaviour
     // Script pour controler l'orientation de la camera
     private CameraFollow cameraFollowScript;
 
+    private float currentFrameFootStepLeft;
+    private float lastFrameFootStepLeft;
+    private float currentFrameFootStepRight;
+    private float lastFrameFootStepRight;
 
     void Awake()
     {
@@ -213,7 +217,28 @@ public class PlayerController : Photon.PunBehaviour
             }
         }
 
+        //Synchronisation des bruits de pas avec les "curves"
+        //foot step left
+        currentFrameFootStepLeft = anim.GetFloat("FootStepLeft");
+        if(currentFrameFootStepLeft >0 && lastFrameFootStepLeft <0)
+        {
+            audioSource.maxDistance = 7;
+            AudioClip clip = fSteps[0];
+            float randomVol = Random.Range(0.3f, 0.7f);
+            audioSource.PlayOneShot(clip, randomVol);
+        }
+        lastFrameFootStepLeft = anim.GetFloat("FootStepLeft");
 
+        //foot step right
+        currentFrameFootStepRight = anim.GetFloat("FootStepRight");
+        if (currentFrameFootStepRight < 0 && lastFrameFootStepRight > 0)
+        {
+            audioSource.maxDistance = 7;
+            AudioClip clip = fSteps[1];
+            float randomVol = Random.Range(0.3f, 0.7f);
+            audioSource.PlayOneShot(clip, randomVol);
+        }
+        lastFrameFootStepRight = anim.GetFloat("FootStepRight");
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -538,7 +563,8 @@ public class PlayerController : Photon.PunBehaviour
         audioSource.clip = jumpSnd;
         audioSource.Play();
     }
-
+    /*
+    //Event system (old system not used)
     void LeftFootStep()
     {
         audioSource.maxDistance = 7;
@@ -554,4 +580,5 @@ public class PlayerController : Photon.PunBehaviour
         float randomVol = Random.Range(0.3f, 0.7f);
         audioSource.PlayOneShot(clip, randomVol);
     }
+    */
 }
