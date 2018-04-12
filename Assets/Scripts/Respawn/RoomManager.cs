@@ -130,7 +130,7 @@ public class RoomManager : Photon.PunBehaviour {
     [PunRPC]
     private void StartGamePhase()
     {
-        Debug.Log("Starting phase");
+        //Debug.Log("Starting phase");
         waitForStart = true;
         //on note quand la phase a commencé
         startTimePhase = Time.time;
@@ -174,7 +174,7 @@ public class RoomManager : Photon.PunBehaviour {
     [PunRPC]
     private void StratPhase()
     {
-        Debug.Log("Strategic phase");
+        //Debug.Log("Strategic phase");
         //on respawn tous les joueurs
         RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.All, PhotonNetwork.player.ID, 0.0F);
         //PUNTutorial.GameManager.localPlayer.SetActive(false);
@@ -240,7 +240,7 @@ public class RoomManager : Photon.PunBehaviour {
     [PunRPC]
     private void PlayPhase()
     {
-        Debug.Log("Playing phase");
+        //Debug.Log("Playing phase");
         RoomManager.instance.photonView.RPC("RespawnPlayer", PhotonTargets.All, PhotonNetwork.player.ID, 0.0F);
         readyForNewPhase.gameObject.SetActive(false);
         stratPhase = false;
@@ -646,7 +646,7 @@ public class RoomManager : Photon.PunBehaviour {
     [PunRPC]
     private void ResetPhase()
     {
-        Debug.Log("ResetPhase");
+        //Debug.Log("ResetPhase");
         iAmReady = false;
         nbPlayerReady = 0;
         readyForNewPhase.GetComponent<Image>().color = Color.red;

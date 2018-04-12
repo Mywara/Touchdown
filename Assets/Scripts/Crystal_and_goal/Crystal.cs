@@ -160,6 +160,11 @@ public class Crystal : Photon.PUNBehaviour
 
     }
 
+    [PunRPC]
+    public void Goal()
+    {
+        isReset = true;
+    }
 
     [PunRPC]
     public void LeaveOnGround()
@@ -218,6 +223,7 @@ public class Crystal : Photon.PUNBehaviour
 
     public void PlaySFXCrystalReset()
     {
+        Debug.Log("Crystal reset sound");
         //audioRPC.minDistance = 1;
         audioSource.maxDistance = 100;
         audioSource.clip = sfxCrystalReset;

@@ -87,6 +87,8 @@ public class Goal : Photon.PunBehaviour
                 crys.GetComponent<Crystal>().photonView.RPC("LeaveOnGround", PhotonTargets.All);
 
                 crys.GetComponent<Crystal>().photonView.RPC("ResetCrystalPosition", PhotonTargets.All);
+
+                crys.GetComponent<Crystal>().photonView.RPC("Goal", PhotonTargets.All);
             }
         }
     }
