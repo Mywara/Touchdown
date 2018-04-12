@@ -5,7 +5,7 @@ using UnityEngine;
 public class PGlaceEffect : Photon.PunBehaviour {
 
     // Use this for initialization
-    public float duration = 10;
+    public float duration = 7;
     private Animator anim;
 
     void Start () {
@@ -49,7 +49,7 @@ public class PGlaceEffect : Photon.PunBehaviour {
         if(other.transform.tag == "Player") {
             other.transform.GetComponent<PlayerController>().immobilization = true;
             other.transform.GetComponent<PlayerController>().activeTrap = this.transform;
-            ApplyDamage(other.transform.gameObject, 10);
+            ApplyDamage(other.transform.gameObject, 100);
            
             }
     }
