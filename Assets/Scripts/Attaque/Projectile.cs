@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : Photon.PunBehaviour, IPunObservable {
+public class Projectile : Photon.PunBehaviour{
 
     public int impactDamage = 10;
     public int splashDamage = 0;
@@ -18,7 +18,6 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
     private PiratePassive piratePassive;
     private bool autoAttack = false;
     private bool hasHitEnemies = false;
-    private bool netWorkingDone = false;
     
 
     // Use this for initialization
@@ -208,42 +207,6 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
             //healthScript2.Damage2(damage);
             healthScript2.photonView.RPC("Damage2", PhotonTargets.All, damage);
         }
-    }
-    
-    //On set une fois en reseaux les valeurs de l'instance
-    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if(!netWorkingDone)
-        {
-            if (stream.isWriting)
-            {
-                stream.SendNext(this.impactDamage);
-                stream.SendNext(this.splashDamage);
-                stream.SendNext(this.AOERadius);
-                stream.SendNext(this.speed);
-                stream.SendNext(this.team);
-            }
-            else
-            {
-                this.impactDamage = (int)stream.ReceiveNext();
-                this.splashDamage = (int)stream.ReceiveNext();
-                this.AOERadius = (float)stream.ReceiveNext();
-                this.speed = (float)stream.ReceiveNext();
-                this.team = (int)stream.ReceiveNext();
-                netWorkingDone = true;
-                //Reset the velocity of the projectile
-                if (myRb != null)
-                {
-                    myRb.velocity = transform.forward * speed;
-                }
-            }
-        }
-    }
-
-    //si quelqu'un join la room en cours, on resynchronise les valeurs en réseaux
-    public override void OnJoinedRoom()
-    {
-        netWorkingDone = false;
     }
 
     //activation ou non de l'AOE

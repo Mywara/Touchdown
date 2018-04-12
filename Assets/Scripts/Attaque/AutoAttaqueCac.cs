@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoAttaqueCac : Photon.PUNBehaviour, IPunObservable {
+public class AutoAttaqueCac : Photon.PUNBehaviour{
 
     public int damage = 10;
     public float fireRate = 1;
@@ -13,19 +13,6 @@ public class AutoAttaqueCac : Photon.PUNBehaviour, IPunObservable {
     private Animator anim;
     private Camera cam;
     private bool cacActif = true;
-
-
-    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.isWriting)
-        {
-            stream.SendNext(this.cacHitZone.GetActive());
-        }
-        else
-        {
-            this.cacHitZone.SetActive((bool)stream.ReceiveNext());
-        }
-    }
 
     void Awake()
     {

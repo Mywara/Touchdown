@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Teleportation : Photon.PunBehaviour, IPunObservable
+public class Teleportation : Photon.PunBehaviour
 {
     public float speed = 10;
     private int team;
     private GameObject owner;
 
     private Rigidbody myRb;
-    private bool netWorkingDone = false;
     private GameObject target;
 
     // Use this for initialization
@@ -98,33 +97,5 @@ public class Teleportation : Photon.PunBehaviour, IPunObservable
     private void Update()
     {
         if (target == null) { PhotonNetwork.Destroy(this.gameObject); return; }
-    }
-
-    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (!netWorkingDone)
-        {
-            if (stream.isWriting)
-            {
-                stream.SendNext(this.speed);
-                stream.SendNext(this.team);
-            }
-            else
-            {
-                this.speed = (float)stream.ReceiveNext();
-                this.team = (int)stream.ReceiveNext();
-                netWorkingDone = true;
-                //Reset the velocity of the projectile
-                if (myRb != null)
-                {
-                    myRb.velocity = transform.forward * speed;
-                }
-            }
-        }
-    }
-
-    public override void OnJoinedRoom()
-    {
-        netWorkingDone = false;
     }
 }
