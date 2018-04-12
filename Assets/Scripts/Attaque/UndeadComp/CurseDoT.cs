@@ -73,7 +73,7 @@ public class CurseDoT : Photon.PunBehaviour
             return;
         }
         GameObject directHitObj = other.transform.root.gameObject;
-        if (directHitObj.tag.Equals("Respawn") || directHitObj.tag.Equals("Boundary"))
+        if (directHitObj.tag.Equals("Respawn") || directHitObj.tag.Equals("Boundary") || other.tag.Equals("GoalD") || other.tag.Equals("GoalG"))
         {
             return;
         }

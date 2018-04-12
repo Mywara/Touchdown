@@ -43,7 +43,7 @@ public class Teleportation : Photon.PunBehaviour
             return;
         }
         target = other.transform.root.gameObject;
-        if (target.tag.Equals("Respawn") || target.tag.Equals("Boundary"))
+        if (target.tag.Equals("Respawn") || target.tag.Equals("Boundary") || other.tag.Equals("GoalD") || other.tag.Equals("GoalG"))
         {
             return;
         }

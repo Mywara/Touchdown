@@ -56,7 +56,7 @@ public class RhumSpray : Photon.PUNBehaviour {
         //on recupère l'object le plus haut de hierachie sur l'objet touché
         GameObject directHitObj = other.transform.root.gameObject;
         //On enlève les collisions pour appliquer des dégâts avec le respawn et la bordure
-        if (directHitObj.tag.Equals("Respawn") || directHitObj.tag.Equals("Boundary") || directHitObj == owner)
+        if (directHitObj.tag.Equals("Respawn") || directHitObj.tag.Equals("Boundary") || directHitObj == owner || other.tag.Equals("GoalD") || other.tag.Equals("GoalG"))
         {
             return;
         }

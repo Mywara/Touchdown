@@ -68,7 +68,7 @@ public class GrapeShot : Photon.PunBehaviour
             return;
         }
         GameObject otherGO = other.transform.root.gameObject;
-        if (otherGO.tag.Equals("Respawn") || otherGO.tag.Equals("Boundary"))
+        if (otherGO.tag.Equals("Respawn") || otherGO.tag.Equals("Boundary") || other.tag.Equals("GoalD") || other.tag.Equals("GoalG"))
         {
             return;
         }

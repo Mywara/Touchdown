@@ -28,18 +28,19 @@ public class HealthTagEffect : Photon.PunBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (HealthContenance <= 0) {
+        if (HealthContenance <= 0)
+        {
             PhotonNetwork.Destroy(this.transform.root.gameObject);
             owner.GetComponent<HealthTag>().startCoroutineGetACharge = true;
             return;
         }
 
-        if(directHitObjs.Count == 0)
+        if (directHitObjs.Count == 0)
         {
             //Debug.Log("Personne ne se trouve dans la zone de heal");
         }
 
-        if(Time.time > tempsProchainHeal)
+        if (Time.time > tempsProchainHeal)
         {
             foreach (GameObject directHitObj in directHitObjs)
             {
@@ -59,7 +60,7 @@ public class HealthTagEffect : Photon.PunBehaviour
             tempsProchainHeal = Time.time + delaiHOT;
         }
 
-        
+
     }
 
     public void OnTriggerEnter(Collider other)
@@ -93,13 +94,13 @@ public class HealthTagEffect : Photon.PunBehaviour
             !directHitObjs.Contains(otherGO) &&
             otherGO.GetComponent<PlayerController>().team == owner.GetComponent<PlayerController>().team)
         {
-            Debug.Log(otherGO.name + " a été ajouté à la liste des alliés à soigner");
+            //Debug.Log(otherGO.name + " a été ajouté à la liste des alliés à soigner");
             directHitObjs.Add(otherGO);
-            Debug.Log(otherGO.name + " appartient à la liste : " + directHitObjs.Contains(otherGO) + " " + directHitObjs.Count);
+            //Debug.Log(otherGO.name + " appartient à la liste : " + directHitObjs.Contains(otherGO) + " " + directHitObjs.Count);
         }
 
     }
-    
+
     public void OnTriggerExit(Collider other)
     {
         Debug.Log("OnTriggerExit : " + other.transform.root.gameObject);
@@ -119,7 +120,7 @@ public class HealthTagEffect : Photon.PunBehaviour
             if (healthScript != null && healthScript2 != null)
             {
                 //healthScript.Damage(damage);
-                if(HealthContenance >= heal)
+                if (HealthContenance >= heal)
                 {
                     healthScript.photonView.RPC("Heal", PhotonTargets.All, heal);
                     healthScript2.photonView.RPC("Heal2", PhotonTargets.All, heal);
