@@ -45,7 +45,6 @@ public class AutoAttaqueCac : Photon.PUNBehaviour, IPunObservable {
             if (playerControllerScript != null)
             {
                 cacHitZoneScript.SetTeam(playerControllerScript.Team);
-                //Debug.Log("cachitzone team set to : " + playerControllerScript.Team);
             }
             else
             {

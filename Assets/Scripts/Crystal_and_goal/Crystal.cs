@@ -47,7 +47,6 @@ public class Crystal : Photon.PUNBehaviour
     // Use this for initialization
     void Start()
     {
-        //Debug.Log("crystal initialized");
 
         rb = GetComponent<Rigidbody>();
         if (rb)
@@ -80,7 +79,6 @@ public class Crystal : Photon.PUNBehaviour
     {
         if (isHeld == true)
         {
-            //Debug.Log("following playerHolding ok");
             Vector3 pos = playerHolding.gameObject.transform.position;
             pos.y += 1.2f;
 
@@ -113,7 +111,6 @@ public class Crystal : Photon.PUNBehaviour
     [PunRPC]
     public void PickupCrystal(int playerViewID)
     {
-        //Debug.Log("crystal picked up");
         rb.isKinematic = true;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
@@ -178,7 +175,6 @@ public class Crystal : Photon.PUNBehaviour
 
         lastDropTime = Time.time;
 
-        //Debug.Log("crystal Leave on groud");
     }
 
     private void ResetPreviousPlayer()
@@ -202,7 +198,7 @@ public class Crystal : Photon.PUNBehaviour
             bounceVector.x += Random.Range(-1f, 1f);
             bounceVector.z += Random.Range(-1f, 1f);
             AddBouncingForce(bounceVector);
-            Debug.Log("Bounce vector : " + bounceVector);
+            //Debug.Log("Bounce vector : " + bounceVector);
         }
     }
 

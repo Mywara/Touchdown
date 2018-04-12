@@ -56,14 +56,11 @@ public class ShoulderHit : Photon.PunBehaviour
     //AJOUTER LE DROP DU FLAG SI PORTEUR !!!
     public IEnumerator StunIfCollide(GameObject target)
     {
-        Debug.Log("Entrée dans le StunIfCollide");
         if (target.GetComponent<PlayerController>().onCollision == false)
         {
-            Debug.Log("RETOUR ?");
             yield return null;
         }
 
-        Debug.Log("Collision detectée !");
         if (PhotonNetwork.connected == true)
         {
             target.GetComponent<PlayerController>().photonView.RPC("Stun", PhotonTargets.All, stunTimer, true);
@@ -94,22 +91,18 @@ public class ShoulderHit : Photon.PunBehaviour
     //Modif a faire, limiter dmg au cible valide -> layer + test
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Entrée dans le OnTriggerStay GS");
         if (!photonView.isMine && PhotonNetwork.connected == true)
         {
-            Debug.Log("PhotonView");
             return;
         }
         GameObject otherGO = other.transform.root.gameObject;
         if (otherGO.tag.Equals("Respawn") || otherGO.tag.Equals("Boundary"))
         {
-            Debug.Log("In Respawn");
             return;
         }
 
         if (!RoomManager.instance.FriendlyFire)
         {
-            Debug.Log("Room Manager");
             if (otherGO.tag.Equals("Player") && otherGO != owner)
             {
                 PlayerController playerControllerScript = otherGO.GetComponent<PlayerController>();
@@ -117,7 +110,7 @@ public class ShoulderHit : Photon.PunBehaviour
                 {
                     if (playerControllerScript.Team == this.team)
                     {
-                        Debug.Log("Friend hit, not FF, do nothing");
+                        //Debug.Log("Friend hit, not FF, do nothing");
                         return;
                     }
                 }
@@ -139,9 +132,7 @@ public class ShoulderHit : Photon.PunBehaviour
             ApplyDamage(directHitObj, damage);
             repulse(directHitObj);
             //Méthode pour le stun et drop de flag en cas de collisions
-            Debug.Log("Avant le stun");
             StartCoroutine(StunIfCollide(directHitObj));
-            Debug.Log("Après le stun");
             directHitObjs.Remove(directHitObj);
         }
 

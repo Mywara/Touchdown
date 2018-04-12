@@ -159,7 +159,7 @@ public class PlayerController : Photon.PunBehaviour
 						if (!objInAOE.GetComponent<PlayerController>().Cursed())
 						{
 							objInAOE.GetComponent<PlayerController>().Curse();
-							Debug.Log("L'allié "+objInAOE.name+" a été maudit par propagation.");
+							//Debug.Log("L'allié "+objInAOE.name+" a été maudit par propagation.");
 						}
 					}
 				}

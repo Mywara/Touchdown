@@ -17,7 +17,6 @@ public class BearPassive : Photon.PunBehaviour {
     public void IncrementHitStack(List<GameObject> hitEnemies)
     {
         hitStack++;
-        Debug.Log("Current hit stack : " + hitStack);
 
         if (hitStack >= Constants.WARBEAR_HITSTACK-1)
         {
@@ -26,12 +25,11 @@ public class BearPassive : Photon.PunBehaviour {
 
         if(hitStack >= Constants.WARBEAR_HITSTACK)
         {
-            Debug.Log("Hit stack reset!");
             hitStack = 0;
 
             foreach(GameObject enemy in hitEnemies)
             {
-                Debug.Log("Enemy stun by Warbear passive : " + enemy.name);
+                //Debug.Log("Enemy stun by Warbear passive : " + enemy.name);
                 PlayerController enemyController = enemy.GetComponent<PlayerController>();
 
                 if (PhotonNetwork.connected == true)

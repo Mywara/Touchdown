@@ -85,7 +85,6 @@ namespace PUNTutorial
                 if (!PhotonNetwork.inRoom) return;
                 if (levelToLoad.Equals("RandomMap") && PhotonNetwork.isMasterClient)
                 {
-                    Debug.Log("should load map");
                     int nbPlayerMaxInRoom = PhotonNetwork.room.MaxPlayers;
                     int nbLigne = 5;
                     int nbColonne = 3;

@@ -39,11 +39,11 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
             piratePassive = sender.GetComponent<PiratePassive>();
             if(piratePassive)
             {
-                Debug.Log("The sender of this projectile is a Pirate!");
+                //Debug.Log("The sender of this projectile is a Pirate!");
             }
             else
             {
-                Debug.Log("The sender of this projectile is not a Pirate.");
+                //Debug.Log("The sender of this projectile is not a Pirate.");
             }
         }
 	}
@@ -104,7 +104,6 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
         //On enlève les collisions pour appliquer des dégâts avec le respawn et la bordure
         if (directHitObj.tag.Equals("Respawn") || directHitObj.tag.Equals("Boundary"))
         {
-            //Debug.Log("hit Respawn");
             return;
         }
 
@@ -125,7 +124,7 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
                 {
                     if(playerControllerScript.Team == this.team)
                     {
-                        Debug.Log("Friend hit, not FF, do nothing");
+                        //Debug.Log("Friend hit, not FF, do nothing");
                         return;
                     }
                 }
@@ -158,7 +157,6 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
                 if (objInAOE.tag.Equals("Player"))
                 {
                     hasHitEnemies = true;
-                    Debug.Log("Projectile : AOE hits object : " + objInAOE.name);
                     //on test sur l'objet dans l'AOE est celui du direct Hit pour ne pas aapliquer
                     //les degats deux fois
                     if (objInAOE != directHitObj)
@@ -201,7 +199,7 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
             
             healthScript.photonView.RPC("Damage", PhotonTargets.All, damage);
             //healthScript.Damage(damage)
-            Debug.Log("Damage : " + damage +" deals to : " + target.name);
+            //Debug.Log("Damage : " + damage +" deals to : " + target.name);
         }
 
         PUNTutorial.HealthScript2 healthScript2 = target.GetComponent<PUNTutorial.HealthScript2>();
@@ -233,7 +231,6 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
                 this.speed = (float)stream.ReceiveNext();
                 this.team = (int)stream.ReceiveNext();
                 netWorkingDone = true;
-                //Debug.Log("Networking Done for projectiles");
                 //Reset the velocity of the projectile
                 if (myRb != null)
                 {

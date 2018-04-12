@@ -21,8 +21,6 @@ public class AimSpawnPoint : MonoBehaviour {
 
         if (Physics.Raycast(cam.transform.position + cam.transform.forward * 2.5f, cam.transform.forward, out hit, 500))
         {
-            //Debug.Log(hit.collider.name);
-            //Debug.Log(hit.distance);
             //Instantiate(sourceObject, hit.point, Quaternion.identity);
 
             distance = hit.distance;

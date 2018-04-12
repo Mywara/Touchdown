@@ -28,7 +28,6 @@ namespace PUNTutorial
             if (!photonView.isMine)
             {
                 HealthSliderUI.transform.parent.gameObject.SetActive(false);
-                //Debug.Log(this.gameObject.name +" : Not local player disable health bar");
                 return;
             }
             HealthMax = GetComponentInParent<CharacterCaracteristic>().health;
@@ -51,7 +50,7 @@ namespace PUNTutorial
             //si l'on est invulnerable, on ne prend pas de degat
             if (invulnerable)
             {
-                Debug.Log("invulnerable, can't take damage");
+                //Debug.Log("invulnerable, can't take damage");
                 return;
             }
             // Lance l'effet hurt sur l'ecran (bords rouge)
@@ -65,7 +64,6 @@ namespace PUNTutorial
         [PunRPC]
         public void Heal2(int heal)
         {
-            Debug.Log("passe Heal 2");
             // Lance l'effet hurt sur l'ecran (bords blanc)
             StartCoroutine("AnimeBordScreen", healScreen);
 
@@ -80,7 +78,6 @@ namespace PUNTutorial
             HealthSliderUI.value = CurrentValue;
 
             
-            Debug.Log("Life = "+CurrentValue);
         }
 
         /*  [PunRPC]
@@ -88,7 +85,6 @@ namespace PUNTutorial
           {
 
               HealthSliderUI.value = CurrentValue;
-              Debug.Log("current value " + CurrentValue);
           }
           // Update is called once per frame*/
         void Update()

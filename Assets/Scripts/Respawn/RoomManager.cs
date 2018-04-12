@@ -70,7 +70,7 @@ public class RoomManager : Photon.PunBehaviour {
             {
                 photonView.RPC("StartGamePhase", PhotonTargets.AllViaServer);
             }
-            Debug.Log("Scene1 detected, spawn the player, no need to wait for other player to load map");
+            //Debug.Log("Scene1 detected, spawn the player, no need to wait for other player to load map");
         }
     }
 
@@ -79,7 +79,7 @@ public class RoomManager : Photon.PunBehaviour {
         //Si tous les joueurs on chargé la carte, et que notre joueur n'a pas déjà été spawn, on le spawn
         if(!allPlayerHaveGeneratedMap && nbPlayerHaveGeneratedMap == nbMaxPlayer)
         {
-            Debug.Log("All player have generated the map");
+            //Debug.Log("All player have generated the map");
             PUNTutorial.GameManager.instance.SpawnPlayerInTheGame();
             allPlayerHaveGeneratedMap = true;
             if (PhotonNetwork.isMasterClient)
@@ -302,9 +302,9 @@ public class RoomManager : Photon.PunBehaviour {
         yield return new WaitForSeconds(timeBeforRespawn);
 
         //reset la vie au dessus du perso en reseau
-        Debug.Log(player.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value);
+        //Debug.Log(player.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value);
         player.GetComponent<PUNTutorial.HealthScript>().photonView.RPC("ResetHealth", PhotonTargets.All);
-        Debug.Log(player.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value);
+        //Debug.Log(player.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value);
         //reset la vie du client local en haut a gauche
         player.GetComponent<PUNTutorial.HealthScript2>().ResetHealth();
         //on reactive le player
@@ -350,7 +350,7 @@ public class RoomManager : Photon.PunBehaviour {
             if (playerControllerScript.photonView.isMine)
             {
                 GameObject.Find("GlobalUI").GetComponent<ScoreUpdate>().SetScoreColor(2);
-                Debug.Log("RoomManager - SCORE COLOR CHANGED : 2");
+                //Debug.Log("RoomManager - SCORE COLOR CHANGED : 2");
             }
         }
         else
@@ -432,7 +432,6 @@ public class RoomManager : Photon.PunBehaviour {
     [PunRPC]
     public void GenerateMap(int[][] seeds)
     {
-        //Debug.Log("GenerateMap, seed length : " +seeds.Length);
         //MapGeneration.instance.ThreeByThreeGeneration(seeds);
         //MapGeneration.instance.FiveByFiveGeneration(seeds);
         MapGeneration.instance.ElevenByElevenGeneration(seeds);
@@ -475,7 +474,7 @@ public class RoomManager : Photon.PunBehaviour {
     [PunRPC]
     private void NewPlayerHaveGenMap()
     {
-        Debug.Log("new player have generated the map");
+        //Debug.Log("new player have generated the map");
         nbPlayerHaveGeneratedMap++;
     }
 
@@ -548,6 +547,7 @@ public class RoomManager : Photon.PunBehaviour {
     [PunRPC]
     private void ResetPhase()
     {
+        Debug.Log("ResetPhase");
         iAmReady = false;
         nbPlayerReady = 0;
         readyForNewPhase.GetComponent<Image>().color = Color.red;

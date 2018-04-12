@@ -58,7 +58,6 @@ public class RhumSpray : Photon.PUNBehaviour {
         //On enlève les collisions pour appliquer des dégâts avec le respawn et la bordure
         if (directHitObj.tag.Equals("Respawn") || directHitObj.tag.Equals("Boundary") || directHitObj == owner)
         {
-            //Debug.Log("hit Respawn");
             return;
         }
 
@@ -74,14 +73,13 @@ public class RhumSpray : Photon.PUNBehaviour {
             //Si c'est un joueur, on peut continuer
             if (objInAOE.tag.Equals("Player"))
             {
-                Debug.Log("RhumSpay : AOE hits object : " + objInAOE.name);
                 PlayerController playerControllerScript = objInAOE.GetComponent<PlayerController>();
                 if (playerControllerScript != null)
                 {
                     //On test si la cible est de notre cible ou non
                     if (playerControllerScript.Team == this.team)
                     {
-                        Debug.Log("Friend hit, apply heal");
+                        //Debug.Log("Friend hit, apply heal");
                         ApplyHeal(objInAOE, splashHeal);
                     }
                     //On applique l'inversion des touches de directions
@@ -101,7 +99,7 @@ public class RhumSpray : Photon.PUNBehaviour {
         {
 
             healthScript.photonView.RPC("Heal", PhotonTargets.All, heal);
-            Debug.Log("Heal : " + heal + " done to : " + target.name);
+            //Debug.Log("Heal : " + heal + " done to : " + target.name);
         }
 
         PUNTutorial.HealthScript2 healthScript2 = target.GetComponent<PUNTutorial.HealthScript2>();

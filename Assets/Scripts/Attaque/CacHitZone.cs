@@ -27,20 +27,20 @@ public class CacHitZone : Photon.PunBehaviour {
 
         if(bearPassive)
         {
-            Debug.Log("The owner of this CaC hit zone is a Warbear!");
+            //Debug.Log("The owner of this CaC hit zone is a Warbear!");
         }
         else
         {
-            Debug.Log("The owner of this CaC hit zone is not a Warbear.");
+            //Debug.Log("The owner of this CaC hit zone is not a Warbear.");
         }
 
         if (undeadPassive)
         {
-            Debug.Log("The owner of this CaC hit zone is an Undead!");
+            //Debug.Log("The owner of this CaC hit zone is an Undead!");
         }
         else
         {
-            Debug.Log("The owner of this CaC hit zone is not an Undead.");
+            //Debug.Log("The owner of this CaC hit zone is not an Undead.");
         }
     }
 
@@ -81,7 +81,7 @@ public class CacHitZone : Photon.PunBehaviour {
                 {
                     if (playerControllerScript.Team == this.team)
                     {
-                        Debug.Log("Friend hit, not FF, do nothing");
+                        //Debug.Log("Friend hit, not FF, do nothing");
                         return;
                     }
                 }
@@ -144,7 +144,6 @@ public class CacHitZone : Photon.PunBehaviour {
 
             foreach (GameObject directHitObj in directHitObjs.ToArray())
             {
-                Debug.Log("Obj in CacHitZone : " + directHitObj.name);
                 
                 ApplyDamage(directHitObj, damage);
 
@@ -153,7 +152,7 @@ public class CacHitZone : Photon.PunBehaviour {
                     PlayerController hitObjController = directHitObj.GetComponent<PlayerController>();
                     if (hitObjController && hitObjController.Cursed())
                     {
-                        Debug.Log("Undead passive : retrieving " + Mathf.RoundToInt(damage * Constants.UNDEAD_LEECHLIFE_RATE) + "HP from " + directHitObj.name);
+                        //Debug.Log("Undead passive : retrieving " + Mathf.RoundToInt(damage * Constants.UNDEAD_LEECHLIFE_RATE) + "HP from " + directHitObj.name);
                         LeechLife(Mathf.RoundToInt(damage * Constants.UNDEAD_LEECHLIFE_RATE));
                     }
                 }
@@ -170,7 +169,6 @@ public class CacHitZone : Photon.PunBehaviour {
 
     private void OnDisable()
     {
-        Debug.Log("CacHitZone disable");
         directHitObjs.Clear();
     }
 
@@ -181,7 +179,7 @@ public class CacHitZone : Photon.PunBehaviour {
         {
             //healthScript.Damage(damage);
             healthScript.photonView.RPC("Damage", PhotonTargets.All, damage);
-            Debug.Log("Damage : " + damage + " deals to : " + target.name);
+            //Debug.Log("Damage : " + damage + " deals to : " + target.name);
         }
 
         PUNTutorial.HealthScript2 healthScript2 = target.GetComponent<PUNTutorial.HealthScript2>();
@@ -199,7 +197,7 @@ public class CacHitZone : Photon.PunBehaviour {
         {
             //healthScript.Damage(damage);
             healthScript.photonView.RPC("Heal", PhotonTargets.All, life);
-            Debug.Log("Leech life : " + life + " deals to : " + gameObject.name);
+            //Debug.Log("Leech life : " + life + " deals to : " + gameObject.name);
         }
 
         PUNTutorial.HealthScript2 healthScript2 = transform.root.gameObject.GetComponent<PUNTutorial.HealthScript2>();

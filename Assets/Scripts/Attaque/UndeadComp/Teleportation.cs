@@ -46,7 +46,6 @@ public class Teleportation : Photon.PunBehaviour, IPunObservable
         target = other.transform.root.gameObject;
         if (target.tag.Equals("Respawn") || target.tag.Equals("Boundary"))
         {
-            //Debug.Log("hit Respawn");
             return;
         }
         
@@ -59,17 +58,16 @@ public class Teleportation : Photon.PunBehaviour, IPunObservable
                 {
                     if (playerControllerScript.Team == this.team)
                     {
-                        Debug.Log("TP on friend !");
+                        //Debug.Log("TP on friend !");
                     }
                     else
                     {
-                        Debug.Log("TP on ennemy !");
+                        //Debug.Log("TP on ennemy !");
                     }
                 }
             }
         }
         
-        Debug.Log("Direct hit on object : " + target.name);
         if (target.tag.Equals("Player") && target != owner)
         {
             // lancer animation et CD
@@ -116,7 +114,6 @@ public class Teleportation : Photon.PunBehaviour, IPunObservable
                 this.speed = (float)stream.ReceiveNext();
                 this.team = (int)stream.ReceiveNext();
                 netWorkingDone = true;
-                //Debug.Log("Networking Done for projectiles");
                 //Reset the velocity of the projectile
                 if (myRb != null)
                 {

@@ -29,7 +29,7 @@ public class Boundary : MonoBehaviour {
         {
             if(Crystal.instance.playerHolding == otherGO)
             {
-                Debug.Log("Player colliding with boundary holds the crystal");
+                //Debug.Log("Player colliding with boundary holds the crystal");
 
                 if (PhotonNetwork.connected)
                 {
@@ -56,7 +56,7 @@ public class Boundary : MonoBehaviour {
                     healthScript2.EmptyBar();
                 }
 
-                Debug.Log("Player kill by boundary");
+                //Debug.Log("Player kill by boundary");
             }
             else
             {
@@ -65,7 +65,7 @@ public class Boundary : MonoBehaviour {
         }
         else if(otherGO.tag.Equals("Crystal"))
         {
-            Debug.Log("Crystal collides with boundary");
+            //Debug.Log("Crystal collides with boundary");
 
             Crystal crystalScript = otherGO.GetComponent<Crystal>();
             if (crystalScript)
@@ -80,8 +80,6 @@ public class Boundary : MonoBehaviour {
         }
         else
         {
-            //Debug.Log("Object out of boundary -> destroy");
-            //Destroy(otherGO);
             PhotonNetwork.Destroy(otherGO);
         } 
     }
