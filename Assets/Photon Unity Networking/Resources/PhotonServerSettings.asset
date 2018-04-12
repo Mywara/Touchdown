@@ -109,4 +109,7 @@ MonoBehaviour:
   - AddScore
   - AnimPassif
   - AnimPassifBear
+  - BSA
+  - BSE
+  - SetCouleurBalise
   DisableAutoOpenWizard: 1

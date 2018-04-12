@@ -10,11 +10,31 @@ public class HealthTagTrigger : Photon.PUNBehaviour
     bool notAlreadyActivate = true;
     public GameObject Owner;
 
+    public GameObject baliseSoinAlliee;
+    public GameObject baliseSoinEnnemi;
 
     private void Start()
     {
         zoneEffect.GetComponent<HealthTagEffect>().setOwner(Owner);
+        PlayerController playerControllerScript = Owner.GetComponent<PlayerController>();
+
+        this.photonView.RPC("SetCouleurBalise", PhotonTargets.All, playerControllerScript.team);
     }
+
+    [PunRPC]
+    private void SetCouleurBalise(int team)
+    {
+        if (team == PUNTutorial.GameManager.localPlayer.GetComponent<PlayerController>().Team)
+        {
+            baliseSoinAlliee.SetActive(true);
+        }
+        else
+        {
+            baliseSoinEnnemi.SetActive(true);
+        }
+    }
+
+    
 
     public void OnTriggerEnter(Collider other)
     {/*

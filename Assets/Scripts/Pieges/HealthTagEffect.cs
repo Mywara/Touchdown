@@ -9,12 +9,15 @@ public class HealthTagEffect : Photon.PunBehaviour
     public int HealthContenance = 500;
     private Animator anim;
     private GameObject owner;
+    private float tempsProchainHeal;
+    public float delaiHOT;
+    public int AmountOfHeal;
 
     private List<GameObject> directHitObjs = new List<GameObject>();
 
     void Start()
     {
-
+        tempsProchainHeal = Time.time;
     }
 
     public void setOwner(GameObject o)
@@ -33,22 +36,30 @@ public class HealthTagEffect : Photon.PunBehaviour
 
         if(directHitObjs.Count == 0)
         {
+            //Debug.Log("Personne ne se trouve dans la zone de heal");
         }
 
-        foreach (GameObject directHitObj in directHitObjs)
+        if(Time.time > tempsProchainHeal)
         {
-            if(HealthContenance > 0 && directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value < directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthMax)
+            foreach (GameObject directHitObj in directHitObjs)
             {
-                if(directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthMax - directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value < 20)
+                if (HealthContenance > 0 && directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value < directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthMax)
                 {
-                    ApplyHealing(directHitObj, (int)(directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthMax - directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value));
-                }
-                else
-                {
-                    ApplyHealing(directHitObj, 20);
+                    if (directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthMax - directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value < AmountOfHeal)
+                    {
+                        ApplyHealing(directHitObj, (int)(directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthMax - directHitObj.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value));
+                    }
+                    else
+                    {
+                        ApplyHealing(directHitObj, AmountOfHeal);
+                    }
                 }
             }
+
+            tempsProchainHeal = Time.time + delaiHOT;
         }
+
+        
     }
 
     public void OnTriggerEnter(Collider other)
@@ -82,6 +93,9 @@ public class HealthTagEffect : Photon.PunBehaviour
             !directHitObjs.Contains(otherGO) &&
             otherGO.GetComponent<PlayerController>().team == owner.GetComponent<PlayerController>().team)
         {
+            //Debug.Log(otherGO.name + " a été ajouté à la liste des alliés à soigner");
+            directHitObjs.Add(otherGO);
+            //Debug.Log(otherGO.name + " appartient à la liste : " + directHitObjs.Contains(otherGO) + " " + directHitObjs.Count);
             directHitObjs.Add(otherGO);
         }
 
@@ -100,32 +114,19 @@ public class HealthTagEffect : Photon.PunBehaviour
         if (PhotonNetwork.connected == true)
         {
             PUNTutorial.HealthScript healthScript = target.GetComponent<PUNTutorial.HealthScript>();
-            if (healthScript != null)
+            PUNTutorial.HealthScript2 healthScript2 = target.GetComponent<PUNTutorial.HealthScript2>();
+            if (healthScript != null && healthScript2 != null)
             {
                 //healthScript.Damage(damage);
                 if(HealthContenance >= heal)
                 {
                     healthScript.photonView.RPC("Heal", PhotonTargets.All, heal);
-                    HealthContenance -= heal;
-                }
-                else
-                {
-                    healthScript.photonView.RPC("Heal", PhotonTargets.All, HealthContenance);
-                    HealthContenance = 0;
-                }
-            }
-
-            PUNTutorial.HealthScript2 healthScript2 = target.GetComponent<PUNTutorial.HealthScript2>();
-            if (healthScript2 != null)
-            {
-                //healthScript2.Damage2(damage);
-                if (HealthContenance >= heal)
-                {
                     healthScript2.photonView.RPC("Heal2", PhotonTargets.All, heal);
                     HealthContenance -= heal;
                 }
                 else
                 {
+                    healthScript.photonView.RPC("Heal", PhotonTargets.All, HealthContenance);
                     healthScript2.photonView.RPC("Heal2", PhotonTargets.All, HealthContenance);
                     HealthContenance = 0;
                 }

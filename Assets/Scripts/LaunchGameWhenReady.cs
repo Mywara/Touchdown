@@ -34,6 +34,11 @@ public class LaunchGameWhenReady : Photon.PUNBehaviour {
         readyForNewPhase.GetComponent<Image>().color = Color.red;
         UpdateReadyButtonText();
         gameManager = PUNTutorial.GameManager.instance;
+
+        // Défige le curseur 
+        Cursor.lockState = CursorLockMode.None;
+        // Rend le curseur visible
+        Cursor.visible = true;
     }
 
     // Use this for initialization
