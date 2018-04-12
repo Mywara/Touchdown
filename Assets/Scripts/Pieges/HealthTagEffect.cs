@@ -93,20 +93,21 @@ public class HealthTagEffect : Photon.PunBehaviour
             !directHitObjs.Contains(otherGO) &&
             otherGO.GetComponent<PlayerController>().team == owner.GetComponent<PlayerController>().team)
         {
-            //Debug.Log(otherGO.name + " a été ajouté à la liste des alliés à soigner");
+            Debug.Log(otherGO.name + " a été ajouté à la liste des alliés à soigner");
             directHitObjs.Add(otherGO);
-            //Debug.Log(otherGO.name + " appartient à la liste : " + directHitObjs.Contains(otherGO) + " " + directHitObjs.Count);
-            directHitObjs.Add(otherGO);
+            Debug.Log(otherGO.name + " appartient à la liste : " + directHitObjs.Contains(otherGO) + " " + directHitObjs.Count);
         }
 
     }
     
     public void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Player")
-        {
-            directHitObjs.Remove(other.gameObject);
-        }
+        Debug.Log("OnTriggerExit : " + other.transform.root.gameObject);
+        directHitObjs.Remove(other.transform.root.gameObject);
+        //if (other.tag == "Player")
+        //{
+        //    directHitObjs.Remove(other.gameObject);
+        //}
     }
 
     private void ApplyHealing(GameObject target, int heal)
