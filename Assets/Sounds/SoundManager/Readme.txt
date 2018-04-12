@@ -19,7 +19,8 @@ Duplicate audio clip plays are quieted smartly to ensure nice, crisp sound.
 Music sounds have a persist parameter. This allows the music to persist between scene changes.
 
 * MUSIC *
-It is recommended that you create a script and prefab with all your music audio sources underneath it. You can then call the Simple Sound API to play these music audio sources. Every scene will need to have this prefab.
+It is recommended that you create a script and prefab with all your music audio sources underneath it. You can then call the Simple Sound API to play these music audio sources.
+Every scene will need to have this prefab.
 
 * IMPORTANT *
 Do NOT drag the script into your scene. Simply call the extension methods as done in the demo script and the script will take care of itself.
