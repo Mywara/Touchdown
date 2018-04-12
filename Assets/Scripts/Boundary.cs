@@ -20,6 +20,10 @@ public class Boundary : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
+        if(!PhotonNetwork.isMasterClient)
+        {
+            return;
+        }
         GameObject otherGO = other.transform.root.gameObject;
         if(otherGO.tag.Equals("Player"))
         {
@@ -78,10 +82,7 @@ public class Boundary : MonoBehaviour {
         {
             //Debug.Log("Object out of boundary -> destroy");
             //Destroy(otherGO);
-            if(PhotonNetwork.isMasterClient)
-            {
-                PhotonNetwork.Destroy(otherGO);
-            } 
+            PhotonNetwork.Destroy(otherGO);
         } 
     }
 
