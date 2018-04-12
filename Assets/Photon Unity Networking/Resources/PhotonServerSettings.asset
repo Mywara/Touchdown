@@ -112,4 +112,5 @@ MonoBehaviour:
   - BSA
   - BSE
   - SetCouleurBalise
+  - Goal
   DisableAutoOpenWizard: 1
