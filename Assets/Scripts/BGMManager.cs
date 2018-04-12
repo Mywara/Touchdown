@@ -15,13 +15,16 @@ public class BGMManager : MonoBehaviour
     private void PlayMusic(int index)
     {
         MusicAudioSources[index]
-            .PlayLoopingMusicManaged(0.3f, 0f, true);
+            .PlayLoopingMusicManaged(0.2f, 0f, true);
     }
 
     // Use this for initialization
     void Awake()
     {
-        PlayMusic(0);
+        if (SceneManagerHelper.ActiveSceneName == "RandomMap")
+            PlayMusic(1);
+        else if(SceneManagerHelper.ActiveSceneName == "MainMenu")
+            PlayMusic(0);
     }
 
 }

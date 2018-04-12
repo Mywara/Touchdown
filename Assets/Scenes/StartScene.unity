@@ -306,12 +306,12 @@ Prefab:
     - target: {fileID: 114823028249250934, guid: a3449b345e17a514283cc7b5898876c9,
         type: 2}
       propertyPath: viewIdField
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114823028249250934, guid: a3449b345e17a514283cc7b5898876c9,
         type: 2}
       propertyPath: instantiationId
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a3449b345e17a514283cc7b5898876c9, type: 2}
@@ -592,4 +592,50 @@ Prefab:
       objectReference: {fileID: 1107573106}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d2fbf9ec89c89044b028b74e5d9e3d5, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &2095029818
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4254848143526722, guid: a9e1e29ac6f438b4abe7062459382606, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 612.2957
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254848143526722, guid: a9e1e29ac6f438b4abe7062459382606, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 138.27676
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254848143526722, guid: a9e1e29ac6f438b4abe7062459382606, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 485.10065
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254848143526722, guid: a9e1e29ac6f438b4abe7062459382606, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254848143526722, guid: a9e1e29ac6f438b4abe7062459382606, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254848143526722, guid: a9e1e29ac6f438b4abe7062459382606, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254848143526722, guid: a9e1e29ac6f438b4abe7062459382606, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254848143526722, guid: a9e1e29ac6f438b4abe7062459382606, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1042607217603740, guid: a9e1e29ac6f438b4abe7062459382606, type: 2}
+      propertyPath: m_Name
+      value: MusicLauncher (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: a9e1e29ac6f438b4abe7062459382606, type: 2}
   m_IsPrefabParent: 0
