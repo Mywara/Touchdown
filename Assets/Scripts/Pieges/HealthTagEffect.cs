@@ -103,7 +103,7 @@ public class HealthTagEffect : Photon.PunBehaviour
 
     public void OnTriggerExit(Collider other)
     {
-        Debug.Log("OnTriggerExit : " + other.transform.root.gameObject);
+        //Debug.Log("OnTriggerExit : " + other.transform.root.gameObject);
         directHitObjs.Remove(other.transform.root.gameObject);
         //if (other.tag == "Player")
         //{

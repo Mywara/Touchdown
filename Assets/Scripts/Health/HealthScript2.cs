@@ -58,7 +58,6 @@ namespace PUNTutorial
 
             CurrentValue = CurrentValue - (int)((float)damage * ( 1-this.shield)); //gere le shield
             HealthSliderUI.value = CurrentValue;
-            Debug.Log("Damage Deal");
         }
 
         //fonction pour heal la barre de vie du joueur local, celle en haut a gauche
