@@ -2302,7 +2302,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 224604569624745116}
   m_HandleRect: {fileID: 0}
@@ -3091,7 +3091,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 224789049149493866}
   m_HandleRect: {fileID: 0}
@@ -3848,6 +3848,12 @@ MonoBehaviour:
   - Type: 1
     SynchronizeType: 2
     Name: VelY
+  - Type: 1
+    SynchronizeType: 0
+    Name: FootStepLeft
+  - Type: 1
+    SynchronizeType: 0
+    Name: FootStepRight
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
