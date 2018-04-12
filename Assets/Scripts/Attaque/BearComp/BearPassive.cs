@@ -2,15 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BearPassive : MonoBehaviour {
+public class BearPassive : Photon.PunBehaviour {
 
     private int hitStack = 0;
+    public GameObject animBearPassif1;
+    public GameObject animBearPassif2;
+
+    private void Start()
+    {
+        this.photonView.RPC("AnimPassifBear", PhotonTargets.All, false);
+    }
 
 
     public void IncrementHitStack(List<GameObject> hitEnemies)
     {
         hitStack++;
         Debug.Log("Current hit stack : " + hitStack);
+
+        if (hitStack >= Constants.WARBEAR_HITSTACK-1)
+        {
+            this.photonView.RPC("AnimPassifBear", PhotonTargets.All, true);
+        }
 
         if(hitStack >= Constants.WARBEAR_HITSTACK)
         {
@@ -31,6 +43,8 @@ public class BearPassive : MonoBehaviour {
                     StartCoroutine("OfflineStun", enemyController);
                 }
             }
+
+            this.photonView.RPC("AnimPassifBear", PhotonTargets.All, false);
         }
     }
 
@@ -46,5 +60,17 @@ public class BearPassive : MonoBehaviour {
         // autorise translation, rotation du perso et compétences du perso
         enemyController.SetMobile(true);
         enemyController.SetActiveCompetence(true);
+    }
+
+    [PunRPC]
+    private void AnimPassifBear(bool b)
+    {
+        animBearPassif1.SetActive(b);
+        animBearPassif2.SetActive(b);
+    }
+
+    private void OnDisable()
+    {
+        this.photonView.RPC("AnimPassifBear", PhotonTargets.All, false);
     }
 }

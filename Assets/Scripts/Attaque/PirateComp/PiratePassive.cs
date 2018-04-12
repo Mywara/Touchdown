@@ -11,7 +11,7 @@ public class PiratePassive : Photon.PUNBehaviour
 
     private void Start()
     {
-        animPiratePassif.SetActive(false);
+        this.photonView.RPC("AnimPassif", PhotonTargets.All, false);
     }
 
     public void IncrementHitStack()

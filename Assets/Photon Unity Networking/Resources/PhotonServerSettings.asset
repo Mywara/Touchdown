@@ -108,4 +108,5 @@ MonoBehaviour:
   - UpdateJustDroppedCrystal
   - AddScore
   - AnimPassif
+  - AnimPassifBear
   DisableAutoOpenWizard: 1
