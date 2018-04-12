@@ -93,38 +93,7 @@ public class PlayerController : Photon.PunBehaviour
     void Update()
 	{
 
-        // saut perso
-
-        if (Input./*GetKeyDown*/GetButtonDown(/*KeyCode.Space*/"Jump") && !immobilization && mobile)
-        {
-            // on utilise un raycast pour connaitre la distance vis a vis du sol
-            RaycastHit hit;
-            Debug.Log("space");
-            // On appelle le SphereCast dans un if car s'il ne touche rien il renvoit false (c'est qu'on est dans le vide et on peut pas sauter)
-            if (Physics.SphereCast(rb.transform.position + Vector3.up * 0.35f, 0.25f, -rb.transform.up, out hit, 10))
-            {
-                Debug.Log("hit.distance : " + hit.distance);
-                // On vérifie si on est assez prêt du sol poour pouvoir sauter
-                if (hit.distance <= 0.3)
-                {
-                    // Set jump animation trigger
-                    if (PhotonNetwork.connected)
-                    {
-                        photonView.RPC("JumpAnimation", PhotonTargets.All);
-                    }
-                    else
-                    {
-                        JumpAnimation();
-                    }
-                    this.photonView.RPC("JumpSFX", PhotonTargets.All);
-
-                    Vector2 velocity = rb.velocity;
-                    velocity.y = CalculateJumpVerticalSpeed(myJumpHeight);
-                    rb.velocity = velocity;
-                }
-
-            }
-        }
+        
 
         //Si le personnage est maudit
         if (isCursed){
@@ -204,6 +173,37 @@ public class PlayerController : Photon.PunBehaviour
                     photonView.RPC("Animate", PhotonTargets.All, horizontal, vertical);
                 else
                     Animate(horizontal, vertical);
+            }
+        }
+
+        // saut perso
+
+        if (Input.GetKeyDown(KeyCode.Space) && !immobilization && mobile)
+        {
+            // on utilise un raycast pour connaitre la distance vis a vis du sol
+            RaycastHit hit;
+            // On appelle le SphereCast dans un if car s'il ne touche rien il renvoit false (c'est qu'on est dans le vide et on peut pas sauter)
+            if (Physics.SphereCast(rb.transform.position + Vector3.up * 0.35f, 0.25f, -rb.transform.up, out hit, 10))
+            {
+                // On vérifie si on est assez prêt du sol poour pouvoir sauter
+                if (hit.distance <= 0.3)
+                {
+                    // Set jump animation trigger
+                    if (PhotonNetwork.connected)
+                    {
+                        photonView.RPC("JumpAnimation", PhotonTargets.All);
+                    }
+                    else
+                    {
+                        JumpAnimation();
+                    }
+                    this.photonView.RPC("JumpSFX", PhotonTargets.All);
+
+                    Vector2 velocity = rb.velocity;
+                    velocity.y = CalculateJumpVerticalSpeed(myJumpHeight);
+                    rb.velocity = velocity;
+                }
+
             }
         }
 
