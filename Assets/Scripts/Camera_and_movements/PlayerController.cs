@@ -75,50 +75,6 @@ public class PlayerController : Photon.PunBehaviour
         movementSpeed = originaleMovementSpeed;
     }
 
-    void FixedUpdate()
-    {
-        if (!photonView.isMine && PhotonNetwork.connected == true)
-        {
-            return;
-        }
-
-        // saut perso
-
-        if (Input.GetKeyDown(KeyCode.Space) && !immobilization && mobile)
-        {
-            // on utilise un raycast pour connaitre la distance vis a vis du sol
-            RaycastHit hit;
-
-            // On appelle le SphereCast dans un if car s'il ne touche rien il renvoit false (c'est qu'on est dans le vide et on peut pas sauter)
-            if (Physics.SphereCast(rb.transform.position + Vector3.up * 0.35f, 0.25f, -rb.transform.up, out hit, 10))
-            {
-
-                // On vérifie si on est assez prêt du sol poour pouvoir sauter
-                if (hit.distance <= 0.2)
-                {
-                    // Set jump animation trigger
-                    if (PhotonNetwork.connected)
-                    {
-                        photonView.RPC("JumpAnimation", PhotonTargets.All);
-                    }
-
-
-
-                    else
-                    {
-                        JumpAnimation();
-                    }
-                    this.photonView.RPC("JumpSFX", PhotonTargets.All);
-
-                    Vector2 velocity = rb.velocity;
-                    velocity.y = CalculateJumpVerticalSpeed(myJumpHeight);
-                    rb.velocity = velocity;
-                }
-
-            }
-        }
-    }
-
     [PunRPC]
     private void JumpAnimation()
     {
@@ -136,8 +92,11 @@ public class PlayerController : Photon.PunBehaviour
 
     void Update()
 	{
-		//Si le personnage est maudit
-		if(isCursed){
+
+        
+
+        //Si le personnage est maudit
+        if (isCursed){
 			//Si on a atteint la fin du temps de malédiction
 			//Alors supprimer la malédiction sur le personnage
 			if (Time.time > lastCurseHit + Constants.CURSEDOT_DURATION)
@@ -214,6 +173,37 @@ public class PlayerController : Photon.PunBehaviour
                     photonView.RPC("Animate", PhotonTargets.All, horizontal, vertical);
                 else
                     Animate(horizontal, vertical);
+            }
+        }
+
+        // saut perso
+
+        if (Input.GetKeyDown(KeyCode.Space) && !immobilization && mobile)
+        {
+            // on utilise un raycast pour connaitre la distance vis a vis du sol
+            RaycastHit hit;
+            // On appelle le SphereCast dans un if car s'il ne touche rien il renvoit false (c'est qu'on est dans le vide et on peut pas sauter)
+            if (Physics.SphereCast(rb.transform.position + Vector3.up * 0.35f, 0.25f, -rb.transform.up, out hit, 10))
+            {
+                // On vérifie si on est assez prêt du sol poour pouvoir sauter
+                if (hit.distance <= 0.3)
+                {
+                    // Set jump animation trigger
+                    if (PhotonNetwork.connected)
+                    {
+                        photonView.RPC("JumpAnimation", PhotonTargets.All);
+                    }
+                    else
+                    {
+                        JumpAnimation();
+                    }
+                    this.photonView.RPC("JumpSFX", PhotonTargets.All);
+
+                    Vector2 velocity = rb.velocity;
+                    velocity.y = CalculateJumpVerticalSpeed(myJumpHeight);
+                    rb.velocity = velocity;
+                }
+
             }
         }
 
