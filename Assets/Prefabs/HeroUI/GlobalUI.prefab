@@ -597,7 +597,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Playing phase !
+  m_Text: New round !
 --- !u!114 &114569124248811602
 MonoBehaviour:
   m_ObjectHideFlags: 1

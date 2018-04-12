@@ -38,10 +38,13 @@ public class RoomManager : Photon.PunBehaviour {
     private float startTimePhase = 0.0f;
     private float gameTimerValueSaved;
 
+    // Feedback de changement de phase
+    private Coroutine StartPhaseFeedbackCoroutine = null;
+    private Coroutine StrategicPhaseFeedbackCoroutine = null;
+    private Coroutine PlayPhaseFeedbackCoroutine = null;
     private Text startingPhaseText;
     private Text strategicPhaseText;
     private Text playPhaseText;
-    private Text goalText;
 
     void Awake()
     {
@@ -67,7 +70,6 @@ public class RoomManager : Photon.PunBehaviour {
         startingPhaseText = canvas.transform.Find("StartingPhase").GetComponent<Text>();
         strategicPhaseText = canvas.transform.Find("StrategicPhase").GetComponent<Text>();
         playPhaseText = canvas.transform.Find("PlayingPhase").GetComponent<Text>();
-        goalText = canvas.transform.Find("Goal").GetComponent<Text>();
     }
 
     // Use this for initialization
@@ -133,7 +135,7 @@ public class RoomManager : Photon.PunBehaviour {
         //on note quand la phase a commencé
         startTimePhase = Time.time;
 
-        StartCoroutine("StartPhaseFeedbackCoroutine");
+        StartPhaseFeedbackCoroutine = StartCoroutine(StartPhaseFeedback());
 
         //On lance le timer avec la valeur de la phase d'attente
         if (PhotonNetwork.isMasterClient)
@@ -142,8 +144,19 @@ public class RoomManager : Photon.PunBehaviour {
         }
     }
 
-    private IEnumerator StartPhaseFeedbackCoroutine()
+    private IEnumerator StartPhaseFeedback()
     {
+        if (StrategicPhaseFeedbackCoroutine != null)
+        {
+            StopCoroutine(StrategicPhaseFeedbackCoroutine);
+        }
+        if (PlayPhaseFeedbackCoroutine != null)
+        {
+            StopCoroutine(PlayPhaseFeedbackCoroutine);
+        }
+        strategicPhaseText.color = new Color(1f, 1f, 1f, 0f);
+        playPhaseText.color = new Color(1f, 1f, 1f, 0f);
+
         while (startingPhaseText.color.a < 1)
         {
             startingPhaseText.color = new Color(1f, 1f, 1f, startingPhaseText.color.a + .01f);
@@ -175,7 +188,7 @@ public class RoomManager : Photon.PunBehaviour {
         //On lance le timer avec la valeur de la phase d'attente
         gameTimerValueSaved = Timer.instance.GameTimerSaved;
 
-        StartCoroutine("StrategicPhaseFeedbackCoroutine");
+        StrategicPhaseFeedbackCoroutine = StartCoroutine(StrategicPhaseFeedback());
 
         if (PhotonNetwork.isMasterClient)
         {
@@ -197,8 +210,19 @@ public class RoomManager : Photon.PunBehaviour {
         }
     }
 
-    private IEnumerator StrategicPhaseFeedbackCoroutine()
+    private IEnumerator StrategicPhaseFeedback()
     {
+        if (StartPhaseFeedbackCoroutine != null)
+        {
+            StopCoroutine(StartPhaseFeedbackCoroutine);
+        }
+        if (PlayPhaseFeedbackCoroutine != null)
+        {
+            StopCoroutine(PlayPhaseFeedbackCoroutine);
+        }
+        startingPhaseText.color = new Color(1f, 1f, 1f, 0f);
+        playPhaseText.color = new Color(1f, 1f, 1f, 0f);
+
         while (strategicPhaseText.color.a < 1)
         {
             strategicPhaseText.color = new Color(1f, 1f, 1f, strategicPhaseText.color.a + .01f);
@@ -231,7 +255,7 @@ public class RoomManager : Photon.PunBehaviour {
         }
         SwitchPlayerMode();
 
-        StartCoroutine("PlayPhaseFeedbackCoroutine");
+        PlayPhaseFeedbackCoroutine = StartCoroutine(PlayPhaseFeedback());
 
         //si la partie n'est pas commencé on lance le timer de la partie avec le temps max
         if (gameStarted == false)
@@ -252,8 +276,19 @@ public class RoomManager : Photon.PunBehaviour {
         }
     }
 
-    private IEnumerator PlayPhaseFeedbackCoroutine()
+    private IEnumerator PlayPhaseFeedback()
     {
+        if (StartPhaseFeedbackCoroutine != null)
+        {
+            StopCoroutine(StartPhaseFeedbackCoroutine);
+        }
+        if (StrategicPhaseFeedbackCoroutine != null)
+        {
+            StopCoroutine(StrategicPhaseFeedbackCoroutine);
+        }
+        startingPhaseText.color = new Color(1f, 1f, 1f, 0f);
+        strategicPhaseText.color = new Color(1f, 1f, 1f, 0f);
+
         while (playPhaseText.color.a < 1)
         {
             playPhaseText.color = new Color(1f, 1f, 1f, playPhaseText.color.a + .01f);
