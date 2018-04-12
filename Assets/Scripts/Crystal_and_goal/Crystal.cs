@@ -75,8 +75,8 @@ public class Crystal : Photon.PUNBehaviour
         // fin tests
     }
 
-    // FixedUpdate is called once per frame
-    void FixedUpdate()
+    // Update is called once per frame
+    void Update()
     {
         if (isHeld == true)
         {
@@ -101,7 +101,6 @@ public class Crystal : Photon.PUNBehaviour
             // 3 seconds cooldown on picking up the crystal
             Invoke("ResetPreviousPlayer", pickupCooldown);
         }
-
     }
 
     [PunRPC]
