@@ -27,6 +27,11 @@ namespace PUNTutorial
             instance = this;
             //PhotonNetwork.automaticallySyncScene = true;
             PhotonNetwork.automaticallySyncScene = false;
+
+            // Défige le curseur 
+            Cursor.lockState = CursorLockMode.None;
+            // Rend le curseur visible
+            Cursor.visible = true;
         }
 
         void Start()

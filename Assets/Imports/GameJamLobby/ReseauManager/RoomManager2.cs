@@ -28,6 +28,11 @@ public class RoomManager2 : Photon.PunBehaviour {
         instance = this;
         //PhotonNetwork.automaticallySyncScene = true;
         RefreshRoom();
+
+        // Défige le curseur 
+        Cursor.lockState = CursorLockMode.None;
+        // Rend le curseur visible
+        Cursor.visible = true;
     }
 
 
