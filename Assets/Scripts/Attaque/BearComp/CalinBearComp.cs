@@ -87,7 +87,6 @@ public class CalinBearComp : Photon.PunBehaviour
                             if (hitPlayerControllerScript.Team != playerControllerScript.team )
                             {
                                 
-                                Debug.Log("Calin Competence");
                                 DashCalin(hitPlayerControllerScript); // On lance le dash du calin
                                 calinLastUse = Time.time;
                             }

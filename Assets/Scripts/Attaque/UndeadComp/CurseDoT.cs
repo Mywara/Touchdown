@@ -68,7 +68,6 @@ public class CurseDoT : Photon.PunBehaviour
     {
         if (directHitObjs.Count != 0) { return; }
 
-        Debug.Log("Entrée dans le OnTriggerStay CURSE");
         if (!photonView.isMine && PhotonNetwork.connected == true)
         {
             return;
@@ -76,7 +75,6 @@ public class CurseDoT : Photon.PunBehaviour
         GameObject directHitObj = other.transform.root.gameObject;
         if (directHitObj.tag.Equals("Respawn") || directHitObj.tag.Equals("Boundary"))
         {
-            //Debug.Log("hit Respawn");
             return;
         }
         
@@ -89,17 +87,15 @@ public class CurseDoT : Photon.PunBehaviour
                 {
                     if (playerControllerScript.Team == this.team)
                     {
-                        Debug.Log("Friend hit, not FF, do nothing");
+                        //Debug.Log("Friend hit, not FF, do nothing");
                         return;
                     }
                 }
             }
         }
         
-        Debug.Log("Direct hit on object : " + directHitObj.name);
         if (directHitObj.tag.Equals("Player") && directHitObj.GetComponent<PlayerController>().team != team)
         {
-            Debug.Log("Ajout dans la liste");
             directHitObjs.Add(directHitObj);
             ApplyDamage(directHitObj, damage);
             //On maudit ici l'ennemi
@@ -111,7 +107,6 @@ public class CurseDoT : Photon.PunBehaviour
 
     private void Update()
     {
-        Debug.Log("Entrée dans le Update du CurseDot 1");
         //on dit au gameObject de se détruire si le projectile sort de sa range
         if(directHitObjs.Count != 0 || Vector3.Distance(this.transform.position, owner.transform.position) > radius) end = true;
 
@@ -124,12 +119,10 @@ public class CurseDoT : Photon.PunBehaviour
         if (directHitObjs.Count != 0 && Time.time > nextFire && !end)
         {
             nextFire = Time.time + fireRate;
-            Debug.Log("Entrée Dans l'update de CURSE DOT");
             //pour chaque personnage touché appliquer la dot,
             //si le nombre maximum de tic est atteint => supprimer l'élément de la liste
             for (int i = 0; i < directHitObjs.Count; i++)
             {
-                Debug.Log("Obj in CURSEDOT : " + directHitObjs[i].name);
                 if (dotNumber[i] < Constants.CURSEDOT_TIC)
                 {
                     ApplyDamage(directHitObjs[i], damage);
@@ -145,7 +138,6 @@ public class CurseDoT : Photon.PunBehaviour
             //Propagation de la malédiction aux ennemis proches du dernier ennemi touché
             if (count < Constants.CURSEDOT_TARGETS || !stopPropag)
             {
-                Debug.Log("Tentative de propagation");
                 //on se positionne au niveau du dernier élément de la liste pour pouvoir appliquer la propagation aux autres ennemis
                 Collider[] hitColliders = Physics.OverlapSphere(directHitObjs[directHitObjs.Count - 1].transform.position, AOERadius);
                 for (int i = 0; i < hitColliders.Length; i++)
@@ -153,17 +145,13 @@ public class CurseDoT : Photon.PunBehaviour
                     GameObject objInAOE = hitColliders[i].transform.root.gameObject;
                     if (objInAOE.tag.Equals("Player") && objInAOE.GetComponent<PlayerController>().team != team)
                     {
-                        Debug.Log("AOE hits object : " + objInAOE.name);
                         if (!directHitObjs.Contains(objInAOE))
                         {
-                            Debug.Log(objInAOE + " N'appartient pas à la liste, team : " + this.team);
                             PlayerController playerControllerScript = objInAOE.GetComponent<PlayerController>();
                             if (playerControllerScript != null)
                             {
-                                Debug.Log("Not Script");
                                 if (playerControllerScript.Team != this.team)
                                 {
-                                    Debug.Log("Propagation à " + objInAOE.name);
                                     ApplyDamage(objInAOE, damage);
                                     //On maudit ici l'ennemi
                                     playerControllerScript.Curse();
@@ -183,9 +171,7 @@ public class CurseDoT : Photon.PunBehaviour
         
         if (end)
         {
-            Debug.Log("before destroy");
             PhotonNetwork.Destroy(this.gameObject);
-            Debug.Log("Destroy");
         }
         
     }
@@ -205,7 +191,7 @@ public class CurseDoT : Photon.PunBehaviour
             {
                 //healthScript.Damage(damage);
                 healthScript.photonView.RPC("Damage", PhotonTargets.All, damage);
-                Debug.Log("Damage : " + damage + " deals to : " + target.name);
+                //Debug.Log("Damage : " + damage + " deals to : " + target.name);
             }
 
             PUNTutorial.HealthScript2 healthScript2 = target.GetComponent<PUNTutorial.HealthScript2>();

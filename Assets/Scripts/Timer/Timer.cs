@@ -50,7 +50,14 @@ public class Timer : Photon.PUNBehaviour
             {
                 gameTimerValueSaved = 0;
             }
-            timerText.text = string.Format("{0:0}:{1:00}", Mathf.Floor(gameTimerValueSaved / 60), gameTimerValueSaved % 60);
+            float nbSec = gameTimerValueSaved % 60;
+            float nbMin = Mathf.Floor(gameTimerValueSaved / 60);
+            if(nbSec >= 59.5)
+            {
+                nbSec = 0;
+                nbMin += 1;
+            }
+            timerText.text = string.Format("{0:0}:{1:00}", nbMin, nbSec);
             yield return new WaitForFixedUpdate();
         }
     }

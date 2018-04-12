@@ -118,7 +118,7 @@ public class PlayerController : Photon.PunBehaviour
 						if (!objInAOE.GetComponent<PlayerController>().Cursed())
 						{
 							objInAOE.GetComponent<PlayerController>().Curse();
-							Debug.Log("L'allié "+objInAOE.name+" a été maudit par propagation.");
+							//Debug.Log("L'allié "+objInAOE.name+" a été maudit par propagation.");
 						}
 					}
 				}
@@ -214,7 +214,8 @@ public class PlayerController : Photon.PunBehaviour
         {
             audioSource.maxDistance = 7;
             AudioClip clip = fSteps[0];
-            float randomVol = Random.Range(0.3f, 0.7f);
+            //Random volume des bruit de pas (entre j'aurais dis 0.7 max)
+            float randomVol = Random.Range(0.4f, 0.7f);
             audioSource.PlayOneShot(clip, randomVol);
         }
         lastFrameFootStepLeft = anim.GetFloat("FootStepLeft");
@@ -225,7 +226,8 @@ public class PlayerController : Photon.PunBehaviour
         {
             audioSource.maxDistance = 7;
             AudioClip clip = fSteps[1];
-            float randomVol = Random.Range(0.3f, 0.7f);
+            //Random volume des bruit de pas (entre j'aurais dis 0.7 max)
+            float randomVol = Random.Range(0.4f, 0.7f);
             audioSource.PlayOneShot(clip, randomVol);
         }
         lastFrameFootStepRight = anim.GetFloat("FootStepRight");

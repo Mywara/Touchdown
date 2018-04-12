@@ -26,7 +26,6 @@ public class CrystalDrop : Photon.PUNBehaviour
 
         if (target.transform.root.gameObject.tag == "Crystal" && !RoomManager.instance.IsInWaitForStartPhase())
         {
-            //Debug.Log("crystal_player collider OK!");
             //fait dans le start
             //crys = target.transform.root.gameObject;
 
@@ -54,7 +53,6 @@ public class CrystalDrop : Photon.PUNBehaviour
             && crys.GetComponent<Crystal>().isHeld == true)
         {
 
-            //Debug.Log("Le boutton Drop est pressé");
             crys.GetComponent<Crystal>().photonView.RPC("UpdateJustDroppedCrystal", PhotonTargets.All);
 
             crys.GetComponent<Crystal>().photonView.RPC("LeaveOnGround", PhotonTargets.All);

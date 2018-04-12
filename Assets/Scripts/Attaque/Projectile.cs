@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : Photon.PunBehaviour, IPunObservable {
+public class Projectile : Photon.PunBehaviour{
 
     public int impactDamage = 10;
     public int splashDamage = 0;
@@ -18,7 +18,6 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
     private PiratePassive piratePassive;
     private bool autoAttack = false;
     private bool hasHitEnemies = false;
-    private bool netWorkingDone = false;
     
 
     // Use this for initialization
@@ -39,11 +38,11 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
             piratePassive = sender.GetComponent<PiratePassive>();
             if(piratePassive)
             {
-                Debug.Log("The sender of this projectile is a Pirate!");
+                //Debug.Log("The sender of this projectile is a Pirate!");
             }
             else
             {
-                Debug.Log("The sender of this projectile is not a Pirate.");
+                //Debug.Log("The sender of this projectile is not a Pirate.");
             }
         }
 	}
@@ -104,7 +103,6 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
         //On enlève les collisions pour appliquer des dégâts avec le respawn et la bordure
         if (directHitObj.tag.Equals("Respawn") || directHitObj.tag.Equals("Boundary"))
         {
-            //Debug.Log("hit Respawn");
             return;
         }
 
@@ -125,7 +123,7 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
                 {
                     if(playerControllerScript.Team == this.team)
                     {
-                        Debug.Log("Friend hit, not FF, do nothing");
+                        //Debug.Log("Friend hit, not FF, do nothing");
                         return;
                     }
                 }
@@ -158,7 +156,6 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
                 if (objInAOE.tag.Equals("Player"))
                 {
                     hasHitEnemies = true;
-                    Debug.Log("Projectile : AOE hits object : " + objInAOE.name);
                     //on test sur l'objet dans l'AOE est celui du direct Hit pour ne pas aapliquer
                     //les degats deux fois
                     if (objInAOE != directHitObj)
@@ -201,7 +198,7 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
             
             healthScript.photonView.RPC("Damage", PhotonTargets.All, damage);
             //healthScript.Damage(damage)
-            Debug.Log("Damage : " + damage +" deals to : " + target.name);
+            //Debug.Log("Damage : " + damage +" deals to : " + target.name);
         }
 
         PUNTutorial.HealthScript2 healthScript2 = target.GetComponent<PUNTutorial.HealthScript2>();
@@ -210,43 +207,6 @@ public class Projectile : Photon.PunBehaviour, IPunObservable {
             //healthScript2.Damage2(damage);
             healthScript2.photonView.RPC("Damage2", PhotonTargets.All, damage);
         }
-    }
-    
-    //On set une fois en reseaux les valeurs de l'instance
-    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if(!netWorkingDone)
-        {
-            if (stream.isWriting)
-            {
-                stream.SendNext(this.impactDamage);
-                stream.SendNext(this.splashDamage);
-                stream.SendNext(this.AOERadius);
-                stream.SendNext(this.speed);
-                stream.SendNext(this.team);
-            }
-            else
-            {
-                this.impactDamage = (int)stream.ReceiveNext();
-                this.splashDamage = (int)stream.ReceiveNext();
-                this.AOERadius = (float)stream.ReceiveNext();
-                this.speed = (float)stream.ReceiveNext();
-                this.team = (int)stream.ReceiveNext();
-                netWorkingDone = true;
-                //Debug.Log("Networking Done for projectiles");
-                //Reset the velocity of the projectile
-                if (myRb != null)
-                {
-                    myRb.velocity = transform.forward * speed;
-                }
-            }
-        }
-    }
-
-    //si quelqu'un join la room en cours, on resynchronise les valeurs en réseaux
-    public override void OnJoinedRoom()
-    {
-        netWorkingDone = false;
     }
 
     //activation ou non de l'AOE

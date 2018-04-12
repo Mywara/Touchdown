@@ -38,9 +38,16 @@ public class RoomManager : Photon.PunBehaviour {
     private float startTimePhase = 0.0f;
     private float gameTimerValueSaved;
 
+    // Feedback de changement de phase
+    private Coroutine StartPhaseFeedbackCoroutine = null;
+    private Coroutine StrategicPhaseFeedbackCoroutine = null;
+    private Coroutine PlayPhaseFeedbackCoroutine = null;
+    private Text startingPhaseText;
+    private Text strategicPhaseText;
+    private Text playPhaseText;
+
     void Awake()
     {
-
         if (instance != null && instance != this)
         {
             Debug.Log("there is already a RoomManager");
@@ -58,6 +65,11 @@ public class RoomManager : Photon.PunBehaviour {
         readyForNewPhase.gameObject.SetActive(false);
         NonePlacingZoneTeam1.GetComponent<Renderer>().enabled = false;
         NonePlacingZoneTeam2.GetComponent<Renderer>().enabled = false;
+
+        GameObject canvas = GameObject.Find("GlobalUI").gameObject;
+        startingPhaseText = canvas.transform.Find("StartingPhase").GetComponent<Text>();
+        strategicPhaseText = canvas.transform.Find("StrategicPhase").GetComponent<Text>();
+        playPhaseText = canvas.transform.Find("PlayingPhase").GetComponent<Text>();
     }
 
     // Use this for initialization
@@ -70,7 +82,7 @@ public class RoomManager : Photon.PunBehaviour {
             {
                 photonView.RPC("StartGamePhase", PhotonTargets.AllViaServer);
             }
-            Debug.Log("Scene1 detected, spawn the player, no need to wait for other player to load map");
+            //Debug.Log("Scene1 detected, spawn the player, no need to wait for other player to load map");
         }
     }
 
@@ -79,7 +91,7 @@ public class RoomManager : Photon.PunBehaviour {
         //Si tous les joueurs on chargé la carte, et que notre joueur n'a pas déjà été spawn, on le spawn
         if(!allPlayerHaveGeneratedMap && nbPlayerHaveGeneratedMap == nbMaxPlayer)
         {
-            Debug.Log("All player have generated the map");
+            //Debug.Log("All player have generated the map");
             PUNTutorial.GameManager.instance.SpawnPlayerInTheGame();
             allPlayerHaveGeneratedMap = true;
             if (PhotonNetwork.isMasterClient)
@@ -122,10 +134,39 @@ public class RoomManager : Photon.PunBehaviour {
         waitForStart = true;
         //on note quand la phase a commencé
         startTimePhase = Time.time;
+
+        StartPhaseFeedbackCoroutine = StartCoroutine(StartPhaseFeedback());
+
         //On lance le timer avec la valeur de la phase d'attente
         if (PhotonNetwork.isMasterClient)
         {
             Timer.instance.photonView.RPC("StartCustomCountdownTime", PhotonTargets.AllViaServer, waitForStartTime);
+        }
+    }
+
+    private IEnumerator StartPhaseFeedback()
+    {
+        if (StrategicPhaseFeedbackCoroutine != null)
+        {
+            StopCoroutine(StrategicPhaseFeedbackCoroutine);
+        }
+        if (PlayPhaseFeedbackCoroutine != null)
+        {
+            StopCoroutine(PlayPhaseFeedbackCoroutine);
+        }
+        strategicPhaseText.color = new Color(1f, 1f, 1f, 0f);
+        playPhaseText.color = new Color(1f, 1f, 1f, 0f);
+
+        while (startingPhaseText.color.a < 1)
+        {
+            startingPhaseText.color = new Color(1f, 1f, 1f, startingPhaseText.color.a + .01f);
+            yield return new WaitForSeconds(.01f);
+        }
+        yield return new WaitForSeconds(1.5f);
+        while (startingPhaseText.color.a > 0)
+        {
+            startingPhaseText.color = new Color(1f, 1f, 1f, startingPhaseText.color.a - .01f);
+            yield return new WaitForSeconds(.01f);
         }
     }
 
@@ -146,6 +187,9 @@ public class RoomManager : Photon.PunBehaviour {
         //On note la valeur du timer actuel (le timer de la parti) pour le relancer plus tard, on lui fait 'pause'
         //On lance le timer avec la valeur de la phase d'attente
         gameTimerValueSaved = Timer.instance.GameTimerSaved;
+
+        StrategicPhaseFeedbackCoroutine = StartCoroutine(StrategicPhaseFeedback());
+
         if (PhotonNetwork.isMasterClient)
         {
             Timer.instance.photonView.RPC("StartCustomCountdownTime", PhotonTargets.AllViaServer, stratPhaseTime);
@@ -163,6 +207,32 @@ public class RoomManager : Photon.PunBehaviour {
             {
                 NonePlacingZoneTeam2.SetActive(true);
             }
+        }
+    }
+
+    private IEnumerator StrategicPhaseFeedback()
+    {
+        if (StartPhaseFeedbackCoroutine != null)
+        {
+            StopCoroutine(StartPhaseFeedbackCoroutine);
+        }
+        if (PlayPhaseFeedbackCoroutine != null)
+        {
+            StopCoroutine(PlayPhaseFeedbackCoroutine);
+        }
+        startingPhaseText.color = new Color(1f, 1f, 1f, 0f);
+        playPhaseText.color = new Color(1f, 1f, 1f, 0f);
+
+        while (strategicPhaseText.color.a < 1)
+        {
+            strategicPhaseText.color = new Color(1f, 1f, 1f, strategicPhaseText.color.a + .01f);
+            yield return new WaitForSeconds(.01f);
+        }
+        yield return new WaitForSeconds(1.5f);
+        while (strategicPhaseText.color.a > 0)
+        {
+            strategicPhaseText.color = new Color(1f, 1f, 1f, strategicPhaseText.color.a - .01f);
+            yield return new WaitForSeconds(.01f);
         }
     }
 
@@ -184,6 +254,9 @@ public class RoomManager : Photon.PunBehaviour {
             NonePlacingZoneTeam2.SetActive(false);
         }
         SwitchPlayerMode();
+
+        PlayPhaseFeedbackCoroutine = StartCoroutine(PlayPhaseFeedback());
+
         //si la partie n'est pas commencé on lance le timer de la partie avec le temps max
         if (gameStarted == false)
         {
@@ -200,7 +273,33 @@ public class RoomManager : Photon.PunBehaviour {
             {
                 Timer.instance.photonView.RPC("StartCustomCountdownTime", PhotonTargets.AllViaServer, gameTimerValueSaved);
             }
-        } 
+        }
+    }
+
+    private IEnumerator PlayPhaseFeedback()
+    {
+        if (StartPhaseFeedbackCoroutine != null)
+        {
+            StopCoroutine(StartPhaseFeedbackCoroutine);
+        }
+        if (StrategicPhaseFeedbackCoroutine != null)
+        {
+            StopCoroutine(StrategicPhaseFeedbackCoroutine);
+        }
+        startingPhaseText.color = new Color(1f, 1f, 1f, 0f);
+        strategicPhaseText.color = new Color(1f, 1f, 1f, 0f);
+
+        while (playPhaseText.color.a < 1)
+        {
+            playPhaseText.color = new Color(1f, 1f, 1f, playPhaseText.color.a + .01f);
+            yield return new WaitForSeconds(.01f);
+        }
+        yield return new WaitForSeconds(1.5f);
+        while (playPhaseText.color.a > 0)
+        {
+            playPhaseText.color = new Color(1f, 1f, 1f, playPhaseText.color.a - .01f);
+            yield return new WaitForSeconds(.01f);
+        }
     }
 
     //but marqué, on respawn les joueurs, et on lance la phase de stratégie
@@ -302,9 +401,9 @@ public class RoomManager : Photon.PunBehaviour {
         yield return new WaitForSeconds(timeBeforRespawn);
 
         //reset la vie au dessus du perso en reseau
-        Debug.Log(player.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value);
+        //Debug.Log(player.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value);
         player.GetComponent<PUNTutorial.HealthScript>().photonView.RPC("ResetHealth", PhotonTargets.All);
-        Debug.Log(player.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value);
+        //Debug.Log(player.GetComponent<PUNTutorial.HealthScript>().HealthSlider.value);
         //reset la vie du client local en haut a gauche
         player.GetComponent<PUNTutorial.HealthScript2>().ResetHealth();
         //on reactive le player
@@ -350,7 +449,7 @@ public class RoomManager : Photon.PunBehaviour {
             if (playerControllerScript.photonView.isMine)
             {
                 GameObject.Find("GlobalUI").GetComponent<ScoreUpdate>().SetScoreColor(2);
-                Debug.Log("RoomManager - SCORE COLOR CHANGED : 2");
+                //Debug.Log("RoomManager - SCORE COLOR CHANGED : 2");
             }
         }
         else
@@ -432,7 +531,6 @@ public class RoomManager : Photon.PunBehaviour {
     [PunRPC]
     public void GenerateMap(int[][] seeds)
     {
-        //Debug.Log("GenerateMap, seed length : " +seeds.Length);
         //MapGeneration.instance.ThreeByThreeGeneration(seeds);
         //MapGeneration.instance.FiveByFiveGeneration(seeds);
         MapGeneration.instance.ElevenByElevenGeneration(seeds);
@@ -475,7 +573,7 @@ public class RoomManager : Photon.PunBehaviour {
     [PunRPC]
     private void NewPlayerHaveGenMap()
     {
-        Debug.Log("new player have generated the map");
+        //Debug.Log("new player have generated the map");
         nbPlayerHaveGeneratedMap++;
     }
 
@@ -548,6 +646,7 @@ public class RoomManager : Photon.PunBehaviour {
     [PunRPC]
     private void ResetPhase()
     {
+        Debug.Log("ResetPhase");
         iAmReady = false;
         nbPlayerReady = 0;
         readyForNewPhase.GetComponent<Image>().color = Color.red;

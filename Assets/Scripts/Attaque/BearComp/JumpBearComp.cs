@@ -63,7 +63,6 @@ public class JumpBearComp : Photon.PunBehaviour
             if (playerControllerScript != null)
             {
                 jumpAOEScript.SetTeam(playerControllerScript.Team);
-                //Debug.Log("cachitzone team set to : " + playerControllerScript.Team);
             }
             else
             {
@@ -125,7 +124,6 @@ public class JumpBearComp : Photon.PunBehaviour
         // Input du Jump
         if (Input.GetButtonDown("Skill2") && (Time.time > (jumpLastUse + jumpCooldown)))
         {
-            Debug.Log("Jump Competence");
             compJump(); // On lance le saut
 
             // On accelere la vitesse de déplacement en vol

@@ -17,11 +17,10 @@ public class PiratePassive : Photon.PUNBehaviour
     public void IncrementHitStack()
     {
         hitStack++;
-        Debug.Log("Current hit stack : " + hitStack);
 
         if (hitStack >= Constants.PIRATE_HITSTACK)
         {
-            Debug.Log("Pending pirate critical hit!");
+            //Debug.Log("Pending pirate critical hit!");
             pendingCriticalHit = true;
             this.photonView.RPC("AnimPassif", PhotonTargets.All, true);
         }
@@ -34,7 +33,6 @@ public class PiratePassive : Photon.PUNBehaviour
 
     public void CriticalHitApplied()
     {
-        Debug.Log("Pirate hit stack reset!");
         hitStack = 0;
         pendingCriticalHit = false;
         this.photonView.RPC("AnimPassif", PhotonTargets.All, false);

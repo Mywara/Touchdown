@@ -67,10 +67,8 @@ public class UndeadComp : Photon.PunBehaviour
     {
         if (IsInInvunerabilityMode && this.gameObject.GetComponent<CrystalDrop>().crys.GetComponent<Crystal>().playerHolding == this.gameObject)
         {
-            //Debug.Log("skill not allowed currently");
             return;
         }
-        //Debug.Log("Competences Update");
         if (!photonView.isMine && PhotonNetwork.connected == true || !compUndeathActif)
         {
             return;

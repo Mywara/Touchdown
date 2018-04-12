@@ -36,7 +36,6 @@ public class JumpAOE : Photon.PunBehaviour
             apply = false;
             directHitObjs.Clear();
             this.transform.gameObject.SetActive(false);
-            Debug.Log("end Jump skill");
         }
 
         
@@ -81,7 +80,7 @@ public class JumpAOE : Photon.PunBehaviour
                 {
                     if (playerControllerScript.Team == this.team)
                     {
-                        Debug.Log("Friend hit, not FF, do nothing");
+                        //Debug.Log("Friend hit, not FF, do nothing");
                         return;
                     }
                 }
@@ -105,15 +104,13 @@ public class JumpAOE : Photon.PunBehaviour
         PUNTutorial.HealthScript healthScript = target.GetComponent<PUNTutorial.HealthScript>();
         if (healthScript != null)
         {
-            //healthScript.Damage(damage);
             healthScript.photonView.RPC("Damage", PhotonTargets.All, damage);
-            Debug.Log("Damage : " + damage + " deals to : " + target.name);
+            //Debug.Log("Damage : " + damage + " deals to : " + target.name);
         }
 
         PUNTutorial.HealthScript2 healthScript2 = target.GetComponent<PUNTutorial.HealthScript2>();
         if (healthScript2 != null)
         {
-            //healthScript2.Damage2(damage);
             healthScript2.photonView.RPC("Damage2", PhotonTargets.All, damage);
         }
 

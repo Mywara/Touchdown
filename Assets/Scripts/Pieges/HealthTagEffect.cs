@@ -64,22 +64,18 @@ public class HealthTagEffect : Photon.PunBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Entrée dans le OnTriggerEnter du Heal");
         if (!photonView.isMine && PhotonNetwork.connected == true)
         {
-            Debug.Log("PhotonView");
             return;
         }
         GameObject otherGO = other.transform.root.gameObject;
         if (otherGO.tag.Equals("Respawn") || otherGO.tag.Equals("Boundary"))
         {
-            Debug.Log("In Respawn");
             return;
         }
 
         if (!RoomManager.instance.FriendlyFire)
         {
-            Debug.Log("Room Manager");
             if (otherGO.tag.Equals("Player") && otherGO != owner)
             {
                 PlayerController playerControllerScript = otherGO.GetComponent<PlayerController>();
@@ -87,13 +83,12 @@ public class HealthTagEffect : Photon.PunBehaviour
                 {
                     if (playerControllerScript.team == owner.GetComponent<PlayerController>().team)
                     {
-                        Debug.Log("Friend hit, not FF, do nothing");
+                        //Debug.Log("Friend hit, not FF, do nothing");
                     }
                 }
             }
         }
 
-        Debug.Log("Ajout ?");
         if (otherGO.tag.Equals("Player") &&
             !directHitObjs.Contains(otherGO) &&
             otherGO.GetComponent<PlayerController>().team == owner.GetComponent<PlayerController>().team)
@@ -101,6 +96,7 @@ public class HealthTagEffect : Photon.PunBehaviour
             //Debug.Log(otherGO.name + " a été ajouté à la liste des alliés à soigner");
             directHitObjs.Add(otherGO);
             //Debug.Log(otherGO.name + " appartient à la liste : " + directHitObjs.Contains(otherGO) + " " + directHitObjs.Count);
+            directHitObjs.Add(otherGO);
         }
 
     }
@@ -109,15 +105,12 @@ public class HealthTagEffect : Photon.PunBehaviour
     {
         if(other.tag == "Player")
         {
-            Debug.Log(other.name + " suppression de la liste");
             directHitObjs.Remove(other.gameObject);
-            Debug.Log(other.name + " appartient à la liste : " + directHitObjs.Contains(other.gameObject) + " " + directHitObjs.Count);
         }
     }
 
     private void ApplyHealing(GameObject target, int heal)
     {
-        Debug.Log("Heal de " + heal);
         if (PhotonNetwork.connected == true)
         {
             PUNTutorial.HealthScript healthScript = target.GetComponent<PUNTutorial.HealthScript>();

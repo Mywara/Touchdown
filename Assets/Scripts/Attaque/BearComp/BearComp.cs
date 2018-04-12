@@ -49,7 +49,6 @@ public class BearComp : Photon.PunBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Competences Update");
         if (!photonView.isMine && PhotonNetwork.connected == true || !compBearActif)
         {
             return;
@@ -99,7 +98,7 @@ public class BearComp : Photon.PunBehaviour
     // parms : arg0 = hud , arg1 = duree
     private IEnumerator AffichageCooldown(object[] parms)
     {
-        Debug.Log(((Object)parms[0]).name);
+        //Debug.Log(((Object)parms[0]).name);
         float dureeCD = (float)parms[1];
         GameObject shoulderCdMask = ((GameObject)parms[0]).transform.Find("CooldownGreyMask").gameObject;
         /*

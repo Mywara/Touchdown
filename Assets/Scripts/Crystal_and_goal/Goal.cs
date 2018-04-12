@@ -36,7 +36,6 @@ public class Goal : Photon.PunBehaviour
             volumetricLight = GetComponentInChildren<Light>();
 
 
-            // Debug.Log(" this.tag : " + this.tag);
             // On affiche le halo d'une couleur differente selon le joueur et le but auquel le script est attaché 
             if (this.tag == "GoalG" && PUNTutorial.GameManager.localPlayer.GetComponent<PlayerController>().Team == 1
                 || this.tag == "GoalD" && PUNTutorial.GameManager.localPlayer.GetComponent<PlayerController>().Team == 2)
@@ -72,7 +71,6 @@ public class Goal : Photon.PunBehaviour
 
         crys = GameObject.FindGameObjectWithTag("Crystal");
 
-        //Debug.Log(target.transform.root.gameObject.name);
 
         if (target.transform.root.gameObject.tag == "Player"
             && crys.GetComponent<Crystal>().isHeld == true
@@ -85,13 +83,10 @@ public class Goal : Photon.PunBehaviour
             if (this.tag == "GoalG" && target.gameObject.GetComponent<PlayerController>().team == 2 ||
                this.tag == "GoalD" && target.gameObject.GetComponent<PlayerController>().team == 1)
             {
-                //Debug.Log("Crystal is in goal collider OK!");
 
                 crys.GetComponent<Crystal>().photonView.RPC("LeaveOnGround", PhotonTargets.All);
-                //Debug.Log("Crystal left on ground");
 
                 crys.GetComponent<Crystal>().photonView.RPC("ResetCrystalPosition", PhotonTargets.All);
-                //Debug.Log("Crystal reset");
             }
         }
     }
