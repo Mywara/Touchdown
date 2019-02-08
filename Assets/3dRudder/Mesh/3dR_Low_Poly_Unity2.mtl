@@ -1,0 +1,19 @@
+newmtl grilleSG
+illum 4
+Kd 0.77 0.77 0.77
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl lambert2SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Map_Ruddy_R5_Low3_Unity.jpg
+Ni 1.00
+newmtl lambert4SG
+illum 4
+Kd 1.00 0.18 0.18
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00

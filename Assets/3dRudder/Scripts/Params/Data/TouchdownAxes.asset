@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d59e69e8016354db112197b9cd4ad9, type: 3}
+  m_Name: TouchdownAxes
+  m_EditorClassIdentifier: 
+  m_Curve:
+  - DeadZone: 0.11666667
+    XSat: 0.46666667
+    Exp: 1
+  - DeadZone: 0.13611111
+    XSat: 0.54444444
+    Exp: 1
+  - DeadZone: 0.36
+    XSat: 0.6
+    Exp: 1
+  - DeadZone: 0.2
+    XSat: 0.8
+    Exp: 1
+  Roll2YawCompensation: 0.15
+  NonSymmetrical: 0
+  CustomCurves:
+  - DeadZone: 0.25
+    XSat: 0.7
+    Exp: 1
+  - DeadZone: 0.25
+    XSat: 0.7
+    Exp: 1
+  - DeadZone: 0.6
+    XSat: 0.6
+    Exp: 1
+  - DeadZone: 0.25
+    XSat: 1
+    Exp: 1

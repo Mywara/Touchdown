@@ -43,6 +43,10 @@ public class PlayerController : Photon.PunBehaviour
     private float currentFrameFootStepRight;
     private float lastFrameFootStepRight;
 
+    [HideInInspector]
+    public Controller3dRudder controller3dRudder;
+    private float coef3dRudder = 1.0f;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -73,6 +77,8 @@ public class PlayerController : Photon.PunBehaviour
         }
 
         movementSpeed = originaleMovementSpeed;
+
+        controller3dRudder = cameraFollowScript.controller3dRudder;
     }
 
     [PunRPC]
@@ -164,13 +170,24 @@ public class PlayerController : Photon.PunBehaviour
 
                 // deplacement normalisé (pour diagonale)
                 Vector3 movement = (new Vector3(horizontal, 0, vertical).normalized) * Mathf.Max(Mathf.Abs(horizontal), Mathf.Abs(vertical));
-                transform.Translate(movement * movementSpeed * Time.deltaTime);
+                Vector3 movement3dRudderSpeed = new Vector3(0, 0, 0);
+                if (controller3dRudder != null)
+                {
+                    movement3dRudderSpeed = new Vector3(controller3dRudder.GetAxesWithSpeed().x, 0.0f, controller3dRudder.GetAxesWithSpeed().z);
+                }
+                transform.Translate(movement * movementSpeed * Time.deltaTime + movement3dRudderSpeed * coef3dRudder * Time.deltaTime);
 
 
 
                 // animation de déplacement en fonction des inputs horizontaux et verticaux (flèches directionnelles)
                 if (PhotonNetwork.connected)
+                {
                     photonView.RPC("Animate", PhotonTargets.All, horizontal, vertical);
+                    if (controller3dRudder != null)
+                    {
+                        photonView.RPC("Animate", PhotonTargets.All, horizontal + controller3dRudder.GetAxesWithSpeed().x, vertical + controller3dRudder.GetAxesWithSpeed().z);
+                    }
+                }
                 else
                     Animate(horizontal, vertical);
             }
@@ -178,7 +195,7 @@ public class PlayerController : Photon.PunBehaviour
 
         // saut perso
 
-        if (Input.GetKeyDown(KeyCode.Space) && !immobilization && mobile)
+        if ((Input.GetKeyDown(KeyCode.Space) || controller3dRudder.GetAxesWithSpeed().y > 0) && !immobilization && mobile)
         {
             // on utilise un raycast pour connaitre la distance vis a vis du sol
             RaycastHit hit;
@@ -295,8 +312,10 @@ public class PlayerController : Photon.PunBehaviour
             AnimConfu.SetActive(true);
         }
         movementSpeed = movementSpeed * (pourcentageVitesse / 100);
+        coef3dRudder = -1.0f;
         yield return new WaitForSeconds(duree);
         movementSpeed = movementSpeed / (pourcentageVitesse / 100);
+        coef3dRudder = 1.0f;
 
         // Fin animation confusion
         AnimConfu.SetActive(false);

@@ -10,10 +10,13 @@ public class CrystalDrop : Photon.PUNBehaviour
     public AudioSource audioSource;
     public AudioClip sfxCrystalDrop;
 
+    private Crystal crystal;
+
     private void Start()
     {
         //on va chercher l'instance du crystal, comme ca on la connait tout le temps
         crys = GameObject.FindGameObjectWithTag("Crystal");
+        crystal = crys.GetComponent<Crystal>();
     }
 
     private void OnTriggerEnter(Collider target)
@@ -47,7 +50,7 @@ public class CrystalDrop : Photon.PUNBehaviour
             return;
         }
 
-        if (Input.GetButtonDown("Drop")
+        if ((Input.GetButtonDown("Drop") || Down3dRudderInput())
             && crys != null
             && crys.GetComponent<Crystal>().playerHolding == this.transform.root.gameObject
             && crys.GetComponent<Crystal>().isHeld == true)
@@ -68,5 +71,10 @@ public class CrystalDrop : Photon.PUNBehaviour
         audioSource.maxDistance = 100;
         audioSource.clip = sfxCrystalDrop;
         audioSource.Play();
+    }
+
+    private bool Down3dRudderInput()
+    {
+        return crystal.isHeld && crystal.playerHolding.GetComponent<PlayerController>().controller3dRudder.GetAxesValue().Get(ns3dRudder.Axes.UpDown) < -0.5f;
     }
 }
